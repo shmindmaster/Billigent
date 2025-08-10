@@ -2,12 +2,12 @@ import { PrismaClient } from '@billigent/database';
 import { Request, Response, Router } from 'express';
 import {
   createTextResponse,
-  getConversationalResponse,
-  startBackgroundAnalysisFromBase64,
-  retrieveResponse,
   getAnalyticsWithCodeInterpreter,
-  uploadPdfForAnalysis,
+  getConversationalResponse,
+  retrieveResponse,
+  startBackgroundAnalysisFromBase64,
   startPdfAnalysisWithFileId,
+  uploadPdfForAnalysis,
 } from '../services/responses-api.service';
 
 const router: Router = Router();
@@ -288,17 +288,21 @@ router.post('/query', async (req: Request, res: Response) => {
     // Example datasets commonly used for analytics
     const [denialsByReason, reviewsWithUsers] = await Promise.all([
       prisma.denial.groupBy({
-        by: ['denialReasonCode'],
-        _count: { denialId: true },
-        _sum: { deniedAmount: true },
+        by: ['denialReason'],
+        _count: { id: true },
+        _sum: { amount: true },
       }),
       prisma.preBillAnalysis.findMany({
         select: {
           potentialFinancialImpact: true,
-          case: {
+          encounter: {
             select: {
-              assignedUser: {
-                select: { userRole: true },
+              case: {
+                select: {
+                  assignedUser: {
+                    select: { userRole: true },
+                  },
+                },
               },
             },
           },
@@ -309,15 +313,15 @@ router.post('/query', async (req: Request, res: Response) => {
     // Map denials by reason
     const dataset = {
       denialsByReason: denialsByReason.map(d => ({
-        reason: d.denialReasonCode || 'Unknown',
-        count: d._count.denialId,
-        deniedAmount: d._sum.deniedAmount ?? 0,
+        reason: d.denialReason || 'Unknown',
+        count: d._count.id,
+        deniedAmount: d._sum.amount ?? 0,
       })),
       // Aggregate potential financial impact by the assigned user's role (proxy for department)
       revenueByDepartment: (() => {
         const acc = new Map<string, number>();
         for (const r of reviewsWithUsers) {
-          const role = r.case?.assignedUser?.userRole || 'Unassigned';
+          const role = r.encounter?.case?.assignedUser?.userRole || 'Unassigned';
           const valueRaw: any = (r as any).potentialFinancialImpact ?? 0;
           const value = typeof valueRaw === 'object' && valueRaw !== null && 'toNumber' in valueRaw
             ? (valueRaw as any).toNumber()
@@ -388,7 +392,8 @@ router.get('/activity-trends', async (req: Request, res: Response) => {
       }
       
       const dayActivities = activityMap.get(date)!;
-      dayActivities[activity.activityType] = (dayActivities[activity.activityType] || 0) + 1;
+      const activityType = activity.activityType || 'unknown';
+      dayActivities[activityType] = (dayActivities[activityType] || 0) + 1;
     });
 
     const result = Array.from(activityMap.entries()).map(([date, activities]) => ({

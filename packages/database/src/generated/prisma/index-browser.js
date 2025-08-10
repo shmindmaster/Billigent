@@ -127,7 +127,9 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   role: 'role',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  fullName: 'fullName',
+  userRole: 'userRole'
 };
 
 exports.Prisma.QueryScalarFieldEnum = {
@@ -151,7 +153,20 @@ exports.Prisma.CaseScalarFieldEnum = {
   priority: 'priority',
   assignedUserId: 'assignedUserId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  patientFhirId: 'patientFhirId',
+  encounterFhirId: 'encounterFhirId',
+  medicalRecordNumber: 'medicalRecordNumber',
+  patientName: 'patientName',
+  age: 'age',
+  gender: 'gender',
+  admissionDate: 'admissionDate',
+  dischargeDate: 'dischargeDate',
+  primaryDiagnosis: 'primaryDiagnosis',
+  currentDRG: 'currentDRG',
+  openDate: 'openDate',
+  closeDate: 'closeDate',
+  facilityId: 'facilityId'
 };
 
 exports.Prisma.PatientScalarFieldEnum = {
@@ -202,7 +217,11 @@ exports.Prisma.PreBillAnalysisScalarFieldEnum = {
   status: 'status',
   userId: 'userId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  potentialFinancialImpact: 'potentialFinancialImpact',
+  description: 'description',
+  evidenceId: 'evidenceId',
+  embedding: 'embedding'
 };
 
 exports.Prisma.DenialScalarFieldEnum = {
@@ -214,7 +233,11 @@ exports.Prisma.DenialScalarFieldEnum = {
   appealDate: 'appealDate',
   resolution: 'resolution',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  denialReasonCode: 'denialReasonCode',
+  deniedAmount: 'deniedAmount',
+  appealLetterDraft: 'appealLetterDraft',
+  claimFhirId: 'claimFhirId'
 };
 
 exports.Prisma.AnalyticsScalarFieldEnum = {
@@ -222,7 +245,11 @@ exports.Prisma.AnalyticsScalarFieldEnum = {
   metric: 'metric',
   value: 'value',
   dimension: 'dimension',
-  timestamp: 'timestamp'
+  timestamp: 'timestamp',
+  caseId: 'caseId',
+  userId: 'userId',
+  activityType: 'activityType',
+  description: 'description'
 };
 
 exports.Prisma.SortOrder = {

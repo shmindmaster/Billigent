@@ -1,8 +1,8 @@
 import { PrismaClient } from '@billigent/database';
 import { Request, Response, Router } from 'express';
-import { persistPreBillResults, runPreBillAnalysisForEncounter } from '../workflows/pre-bill.workflow';
-import { getConversationalResponse } from '../services/responses-api.service';
 import { getGroundedIcdResponse } from '../services/rag.service';
+import { getConversationalResponse } from '../services/responses-api.service';
+import { persistPreBillResults, runPreBillAnalysisForEncounter } from '../workflows/pre-bill.workflow';
 
 const router: Router = Router();
 const prisma = new PrismaClient();
@@ -41,18 +41,18 @@ router.get('/', async (req: Request, res: Response) => {
       }
 
     const [cases, total] = await Promise.all([
-      prisma.cases.findMany({
+      prisma.case.findMany({
         where,
         skip,
         take: limitNum,
         select: {
-          caseId: true,
+          id: true,
           patientFhirId: true,
           encounterFhirId: true,
           status: true,
           priority: true,
           createdAt: true,
-          lastUpdatedAt: true,
+          updatedAt: true,
           assignedUserId: true,
           facilityId: true,
           medicalRecordNumber: true,
@@ -65,25 +65,11 @@ router.get('/', async (req: Request, res: Response) => {
           currentDRG: true,
           openDate: true,
           closeDate: true,
-          assignedUser: { select: { userId: true, fullName: true, email: true, userRole: true } },
-          cdiReview: {
-            select: {
-              cdiReviewId: true,
-              currentDRG: true,
-              suggestedFinding: true,
-              clinicalEvidence: true,
-              aiConfidenceScore: true,
-              potentialFinancialImpact: true,
-              status: true,
-              evidence: true,
-              queries: true,
-            },
-          },
-          denial: { select: { denialId: true, status: true, deniedAmount: true } },
+          assignedUser: { select: { id: true, name: true, email: true, role: true } },
         },
         orderBy: { createdAt: 'desc' },
       }),
-      prisma.cases.count({ where }),
+      prisma.case.count({ where }),
     ]);
 
     res.json({
@@ -117,7 +103,7 @@ router.post('/:caseId/conversation', async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Invalid case ID' });
     }
 
-    const theCase = await prisma.cases.findUnique({ where: { caseId: parsedCaseId } });
+    const theCase = await prisma.case.findUnique({ where: { id: parsedCaseId.toString() } });
     if (!theCase) return res.status(404).json({ error: 'Case not found' });
 
     // First message: perform RAG grounding scoped to encounter
@@ -148,11 +134,11 @@ router.get('/:id', async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Invalid case ID' });
     }
 
-    const caseRecord = await prisma.cases.findUnique({
-      where: { caseId },
+    const caseRecord = await prisma.case.findUnique({
+      where: { id: caseId },
       include: {
         assignedUser: {
-          select: { userId: true, fullName: true, email: true, userRole: true }
+          select: { id: true, name: true, email: true, role: true }
         },
         cdiReview: {
           include: {

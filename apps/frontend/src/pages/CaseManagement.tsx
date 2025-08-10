@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button';
 import { useCases, useSearchCases } from '@/hooks/useData';
 import { formatCurrency, formatDate } from '@/lib/utils';
 import { UnifiedCase } from '@/types/unified-case';
-import { AlertTriangle, Clock, FileText } from 'lucide-react';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 

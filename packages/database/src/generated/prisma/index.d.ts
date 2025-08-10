@@ -1806,6 +1806,8 @@ export namespace Prisma {
     role: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    fullName: string | null
+    userRole: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1815,6 +1817,8 @@ export namespace Prisma {
     role: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    fullName: string | null
+    userRole: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1824,6 +1828,8 @@ export namespace Prisma {
     role: number
     createdAt: number
     updatedAt: number
+    fullName: number
+    userRole: number
     _all: number
   }
 
@@ -1835,6 +1841,8 @@ export namespace Prisma {
     role?: true
     createdAt?: true
     updatedAt?: true
+    fullName?: true
+    userRole?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1844,6 +1852,8 @@ export namespace Prisma {
     role?: true
     createdAt?: true
     updatedAt?: true
+    fullName?: true
+    userRole?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1853,6 +1863,8 @@ export namespace Prisma {
     role?: true
     createdAt?: true
     updatedAt?: true
+    fullName?: true
+    userRole?: true
     _all?: true
   }
 
@@ -1935,6 +1947,8 @@ export namespace Prisma {
     role: string
     createdAt: Date
     updatedAt: Date
+    fullName: string | null
+    userRole: string | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -1961,6 +1975,8 @@ export namespace Prisma {
     role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    fullName?: boolean
+    userRole?: boolean
     queries?: boolean | User$queriesArgs<ExtArgs>
     assignedCases?: boolean | User$assignedCasesArgs<ExtArgs>
     preBillAnalyses?: boolean | User$preBillAnalysesArgs<ExtArgs>
@@ -1976,9 +1992,11 @@ export namespace Prisma {
     role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    fullName?: boolean
+    userRole?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "role" | "createdAt" | "updatedAt" | "fullName" | "userRole", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     queries?: boolean | User$queriesArgs<ExtArgs>
     assignedCases?: boolean | User$assignedCasesArgs<ExtArgs>
@@ -2000,6 +2018,8 @@ export namespace Prisma {
       role: string
       createdAt: Date
       updatedAt: Date
+      fullName: string | null
+      userRole: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -2378,6 +2398,8 @@ export namespace Prisma {
     readonly role: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
+    readonly fullName: FieldRef<"User", 'String'>
+    readonly userRole: FieldRef<"User", 'String'>
   }
     
 
@@ -3833,8 +3855,18 @@ export namespace Prisma {
 
   export type AggregateCase = {
     _count: CaseCountAggregateOutputType | null
+    _avg: CaseAvgAggregateOutputType | null
+    _sum: CaseSumAggregateOutputType | null
     _min: CaseMinAggregateOutputType | null
     _max: CaseMaxAggregateOutputType | null
+  }
+
+  export type CaseAvgAggregateOutputType = {
+    age: number | null
+  }
+
+  export type CaseSumAggregateOutputType = {
+    age: number | null
   }
 
   export type CaseMinAggregateOutputType = {
@@ -3846,6 +3878,19 @@ export namespace Prisma {
     assignedUserId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    patientFhirId: string | null
+    encounterFhirId: string | null
+    medicalRecordNumber: string | null
+    patientName: string | null
+    age: number | null
+    gender: string | null
+    admissionDate: Date | null
+    dischargeDate: Date | null
+    primaryDiagnosis: string | null
+    currentDRG: string | null
+    openDate: Date | null
+    closeDate: Date | null
+    facilityId: string | null
   }
 
   export type CaseMaxAggregateOutputType = {
@@ -3857,6 +3902,19 @@ export namespace Prisma {
     assignedUserId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    patientFhirId: string | null
+    encounterFhirId: string | null
+    medicalRecordNumber: string | null
+    patientName: string | null
+    age: number | null
+    gender: string | null
+    admissionDate: Date | null
+    dischargeDate: Date | null
+    primaryDiagnosis: string | null
+    currentDRG: string | null
+    openDate: Date | null
+    closeDate: Date | null
+    facilityId: string | null
   }
 
   export type CaseCountAggregateOutputType = {
@@ -3868,9 +3926,30 @@ export namespace Prisma {
     assignedUserId: number
     createdAt: number
     updatedAt: number
+    patientFhirId: number
+    encounterFhirId: number
+    medicalRecordNumber: number
+    patientName: number
+    age: number
+    gender: number
+    admissionDate: number
+    dischargeDate: number
+    primaryDiagnosis: number
+    currentDRG: number
+    openDate: number
+    closeDate: number
+    facilityId: number
     _all: number
   }
 
+
+  export type CaseAvgAggregateInputType = {
+    age?: true
+  }
+
+  export type CaseSumAggregateInputType = {
+    age?: true
+  }
 
   export type CaseMinAggregateInputType = {
     id?: true
@@ -3881,6 +3960,19 @@ export namespace Prisma {
     assignedUserId?: true
     createdAt?: true
     updatedAt?: true
+    patientFhirId?: true
+    encounterFhirId?: true
+    medicalRecordNumber?: true
+    patientName?: true
+    age?: true
+    gender?: true
+    admissionDate?: true
+    dischargeDate?: true
+    primaryDiagnosis?: true
+    currentDRG?: true
+    openDate?: true
+    closeDate?: true
+    facilityId?: true
   }
 
   export type CaseMaxAggregateInputType = {
@@ -3892,6 +3984,19 @@ export namespace Prisma {
     assignedUserId?: true
     createdAt?: true
     updatedAt?: true
+    patientFhirId?: true
+    encounterFhirId?: true
+    medicalRecordNumber?: true
+    patientName?: true
+    age?: true
+    gender?: true
+    admissionDate?: true
+    dischargeDate?: true
+    primaryDiagnosis?: true
+    currentDRG?: true
+    openDate?: true
+    closeDate?: true
+    facilityId?: true
   }
 
   export type CaseCountAggregateInputType = {
@@ -3903,6 +4008,19 @@ export namespace Prisma {
     assignedUserId?: true
     createdAt?: true
     updatedAt?: true
+    patientFhirId?: true
+    encounterFhirId?: true
+    medicalRecordNumber?: true
+    patientName?: true
+    age?: true
+    gender?: true
+    admissionDate?: true
+    dischargeDate?: true
+    primaryDiagnosis?: true
+    currentDRG?: true
+    openDate?: true
+    closeDate?: true
+    facilityId?: true
     _all?: true
   }
 
@@ -3944,6 +4062,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: CaseAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CaseSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: CaseMinAggregateInputType
@@ -3974,6 +4104,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: CaseCountAggregateInputType | true
+    _avg?: CaseAvgAggregateInputType
+    _sum?: CaseSumAggregateInputType
     _min?: CaseMinAggregateInputType
     _max?: CaseMaxAggregateInputType
   }
@@ -3987,7 +4119,22 @@ export namespace Prisma {
     assignedUserId: string | null
     createdAt: Date
     updatedAt: Date
+    patientFhirId: string | null
+    encounterFhirId: string | null
+    medicalRecordNumber: string | null
+    patientName: string | null
+    age: number | null
+    gender: string | null
+    admissionDate: Date | null
+    dischargeDate: Date | null
+    primaryDiagnosis: string | null
+    currentDRG: string | null
+    openDate: Date | null
+    closeDate: Date | null
+    facilityId: string | null
     _count: CaseCountAggregateOutputType | null
+    _avg: CaseAvgAggregateOutputType | null
+    _sum: CaseSumAggregateOutputType | null
     _min: CaseMinAggregateOutputType | null
     _max: CaseMaxAggregateOutputType | null
   }
@@ -4015,6 +4162,19 @@ export namespace Prisma {
     assignedUserId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    patientFhirId?: boolean
+    encounterFhirId?: boolean
+    medicalRecordNumber?: boolean
+    patientName?: boolean
+    age?: boolean
+    gender?: boolean
+    admissionDate?: boolean
+    dischargeDate?: boolean
+    primaryDiagnosis?: boolean
+    currentDRG?: boolean
+    openDate?: boolean
+    closeDate?: boolean
+    facilityId?: boolean
     assignedUser?: boolean | Case$assignedUserArgs<ExtArgs>
     encounters?: boolean | Case$encountersArgs<ExtArgs>
     denials?: boolean | Case$denialsArgs<ExtArgs>
@@ -4032,9 +4192,22 @@ export namespace Prisma {
     assignedUserId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    patientFhirId?: boolean
+    encounterFhirId?: boolean
+    medicalRecordNumber?: boolean
+    patientName?: boolean
+    age?: boolean
+    gender?: boolean
+    admissionDate?: boolean
+    dischargeDate?: boolean
+    primaryDiagnosis?: boolean
+    currentDRG?: boolean
+    openDate?: boolean
+    closeDate?: boolean
+    facilityId?: boolean
   }
 
-  export type CaseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "status" | "priority" | "assignedUserId" | "createdAt" | "updatedAt", ExtArgs["result"]["case"]>
+  export type CaseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "status" | "priority" | "assignedUserId" | "createdAt" | "updatedAt" | "patientFhirId" | "encounterFhirId" | "medicalRecordNumber" | "patientName" | "age" | "gender" | "admissionDate" | "dischargeDate" | "primaryDiagnosis" | "currentDRG" | "openDate" | "closeDate" | "facilityId", ExtArgs["result"]["case"]>
   export type CaseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     assignedUser?: boolean | Case$assignedUserArgs<ExtArgs>
     encounters?: boolean | Case$encountersArgs<ExtArgs>
@@ -4058,6 +4231,19 @@ export namespace Prisma {
       assignedUserId: string | null
       createdAt: Date
       updatedAt: Date
+      patientFhirId: string | null
+      encounterFhirId: string | null
+      medicalRecordNumber: string | null
+      patientName: string | null
+      age: number | null
+      gender: string | null
+      admissionDate: Date | null
+      dischargeDate: Date | null
+      primaryDiagnosis: string | null
+      currentDRG: string | null
+      openDate: Date | null
+      closeDate: Date | null
+      facilityId: string | null
     }, ExtArgs["result"]["case"]>
     composites: {}
   }
@@ -4438,6 +4624,19 @@ export namespace Prisma {
     readonly assignedUserId: FieldRef<"Case", 'String'>
     readonly createdAt: FieldRef<"Case", 'DateTime'>
     readonly updatedAt: FieldRef<"Case", 'DateTime'>
+    readonly patientFhirId: FieldRef<"Case", 'String'>
+    readonly encounterFhirId: FieldRef<"Case", 'String'>
+    readonly medicalRecordNumber: FieldRef<"Case", 'String'>
+    readonly patientName: FieldRef<"Case", 'String'>
+    readonly age: FieldRef<"Case", 'Int'>
+    readonly gender: FieldRef<"Case", 'String'>
+    readonly admissionDate: FieldRef<"Case", 'DateTime'>
+    readonly dischargeDate: FieldRef<"Case", 'DateTime'>
+    readonly primaryDiagnosis: FieldRef<"Case", 'String'>
+    readonly currentDRG: FieldRef<"Case", 'String'>
+    readonly openDate: FieldRef<"Case", 'DateTime'>
+    readonly closeDate: FieldRef<"Case", 'DateTime'>
+    readonly facilityId: FieldRef<"Case", 'String'>
   }
     
 
@@ -8792,10 +8991,12 @@ export namespace Prisma {
 
   export type PreBillAnalysisAvgAggregateOutputType = {
     confidence: number | null
+    potentialFinancialImpact: number | null
   }
 
   export type PreBillAnalysisSumAggregateOutputType = {
     confidence: number | null
+    potentialFinancialImpact: number | null
   }
 
   export type PreBillAnalysisMinAggregateOutputType = {
@@ -8809,6 +9010,10 @@ export namespace Prisma {
     userId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    potentialFinancialImpact: number | null
+    description: string | null
+    evidenceId: string | null
+    embedding: string | null
   }
 
   export type PreBillAnalysisMaxAggregateOutputType = {
@@ -8822,6 +9027,10 @@ export namespace Prisma {
     userId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    potentialFinancialImpact: number | null
+    description: string | null
+    evidenceId: string | null
+    embedding: string | null
   }
 
   export type PreBillAnalysisCountAggregateOutputType = {
@@ -8835,16 +9044,22 @@ export namespace Prisma {
     userId: number
     createdAt: number
     updatedAt: number
+    potentialFinancialImpact: number
+    description: number
+    evidenceId: number
+    embedding: number
     _all: number
   }
 
 
   export type PreBillAnalysisAvgAggregateInputType = {
     confidence?: true
+    potentialFinancialImpact?: true
   }
 
   export type PreBillAnalysisSumAggregateInputType = {
     confidence?: true
+    potentialFinancialImpact?: true
   }
 
   export type PreBillAnalysisMinAggregateInputType = {
@@ -8858,6 +9073,10 @@ export namespace Prisma {
     userId?: true
     createdAt?: true
     updatedAt?: true
+    potentialFinancialImpact?: true
+    description?: true
+    evidenceId?: true
+    embedding?: true
   }
 
   export type PreBillAnalysisMaxAggregateInputType = {
@@ -8871,6 +9090,10 @@ export namespace Prisma {
     userId?: true
     createdAt?: true
     updatedAt?: true
+    potentialFinancialImpact?: true
+    description?: true
+    evidenceId?: true
+    embedding?: true
   }
 
   export type PreBillAnalysisCountAggregateInputType = {
@@ -8884,6 +9107,10 @@ export namespace Prisma {
     userId?: true
     createdAt?: true
     updatedAt?: true
+    potentialFinancialImpact?: true
+    description?: true
+    evidenceId?: true
+    embedding?: true
     _all?: true
   }
 
@@ -8984,6 +9211,10 @@ export namespace Prisma {
     userId: string | null
     createdAt: Date
     updatedAt: Date
+    potentialFinancialImpact: number | null
+    description: string | null
+    evidenceId: string | null
+    embedding: string | null
     _count: PreBillAnalysisCountAggregateOutputType | null
     _avg: PreBillAnalysisAvgAggregateOutputType | null
     _sum: PreBillAnalysisSumAggregateOutputType | null
@@ -9016,6 +9247,10 @@ export namespace Prisma {
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    potentialFinancialImpact?: boolean
+    description?: boolean
+    evidenceId?: boolean
+    embedding?: boolean
     encounter?: boolean | EncounterDefaultArgs<ExtArgs>
     user?: boolean | PreBillAnalysis$userArgs<ExtArgs>
   }, ExtArgs["result"]["preBillAnalysis"]>
@@ -9033,9 +9268,13 @@ export namespace Prisma {
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    potentialFinancialImpact?: boolean
+    description?: boolean
+    evidenceId?: boolean
+    embedding?: boolean
   }
 
-  export type PreBillAnalysisOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "encounterId" | "confidence" | "recommendations" | "riskFactors" | "notes" | "status" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["preBillAnalysis"]>
+  export type PreBillAnalysisOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "encounterId" | "confidence" | "recommendations" | "riskFactors" | "notes" | "status" | "userId" | "createdAt" | "updatedAt" | "potentialFinancialImpact" | "description" | "evidenceId" | "embedding", ExtArgs["result"]["preBillAnalysis"]>
   export type PreBillAnalysisInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     encounter?: boolean | EncounterDefaultArgs<ExtArgs>
     user?: boolean | PreBillAnalysis$userArgs<ExtArgs>
@@ -9058,6 +9297,10 @@ export namespace Prisma {
       userId: string | null
       createdAt: Date
       updatedAt: Date
+      potentialFinancialImpact: number | null
+      description: string | null
+      evidenceId: string | null
+      embedding: string | null
     }, ExtArgs["result"]["preBillAnalysis"]>
     composites: {}
   }
@@ -9439,6 +9682,10 @@ export namespace Prisma {
     readonly userId: FieldRef<"PreBillAnalysis", 'String'>
     readonly createdAt: FieldRef<"PreBillAnalysis", 'DateTime'>
     readonly updatedAt: FieldRef<"PreBillAnalysis", 'DateTime'>
+    readonly potentialFinancialImpact: FieldRef<"PreBillAnalysis", 'Float'>
+    readonly description: FieldRef<"PreBillAnalysis", 'String'>
+    readonly evidenceId: FieldRef<"PreBillAnalysis", 'String'>
+    readonly embedding: FieldRef<"PreBillAnalysis", 'String'>
   }
     
 
@@ -9832,10 +10079,12 @@ export namespace Prisma {
 
   export type DenialAvgAggregateOutputType = {
     amount: number | null
+    deniedAmount: number | null
   }
 
   export type DenialSumAggregateOutputType = {
     amount: number | null
+    deniedAmount: number | null
   }
 
   export type DenialMinAggregateOutputType = {
@@ -9848,6 +10097,10 @@ export namespace Prisma {
     resolution: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    denialReasonCode: string | null
+    deniedAmount: number | null
+    appealLetterDraft: string | null
+    claimFhirId: string | null
   }
 
   export type DenialMaxAggregateOutputType = {
@@ -9860,6 +10113,10 @@ export namespace Prisma {
     resolution: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    denialReasonCode: string | null
+    deniedAmount: number | null
+    appealLetterDraft: string | null
+    claimFhirId: string | null
   }
 
   export type DenialCountAggregateOutputType = {
@@ -9872,16 +10129,22 @@ export namespace Prisma {
     resolution: number
     createdAt: number
     updatedAt: number
+    denialReasonCode: number
+    deniedAmount: number
+    appealLetterDraft: number
+    claimFhirId: number
     _all: number
   }
 
 
   export type DenialAvgAggregateInputType = {
     amount?: true
+    deniedAmount?: true
   }
 
   export type DenialSumAggregateInputType = {
     amount?: true
+    deniedAmount?: true
   }
 
   export type DenialMinAggregateInputType = {
@@ -9894,6 +10157,10 @@ export namespace Prisma {
     resolution?: true
     createdAt?: true
     updatedAt?: true
+    denialReasonCode?: true
+    deniedAmount?: true
+    appealLetterDraft?: true
+    claimFhirId?: true
   }
 
   export type DenialMaxAggregateInputType = {
@@ -9906,6 +10173,10 @@ export namespace Prisma {
     resolution?: true
     createdAt?: true
     updatedAt?: true
+    denialReasonCode?: true
+    deniedAmount?: true
+    appealLetterDraft?: true
+    claimFhirId?: true
   }
 
   export type DenialCountAggregateInputType = {
@@ -9918,6 +10189,10 @@ export namespace Prisma {
     resolution?: true
     createdAt?: true
     updatedAt?: true
+    denialReasonCode?: true
+    deniedAmount?: true
+    appealLetterDraft?: true
+    claimFhirId?: true
     _all?: true
   }
 
@@ -10017,6 +10292,10 @@ export namespace Prisma {
     resolution: string | null
     createdAt: Date
     updatedAt: Date
+    denialReasonCode: string | null
+    deniedAmount: number | null
+    appealLetterDraft: string | null
+    claimFhirId: string | null
     _count: DenialCountAggregateOutputType | null
     _avg: DenialAvgAggregateOutputType | null
     _sum: DenialSumAggregateOutputType | null
@@ -10048,6 +10327,10 @@ export namespace Prisma {
     resolution?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    denialReasonCode?: boolean
+    deniedAmount?: boolean
+    appealLetterDraft?: boolean
+    claimFhirId?: boolean
     case?: boolean | Denial$caseArgs<ExtArgs>
   }, ExtArgs["result"]["denial"]>
 
@@ -10063,9 +10346,13 @@ export namespace Prisma {
     resolution?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    denialReasonCode?: boolean
+    deniedAmount?: boolean
+    appealLetterDraft?: boolean
+    claimFhirId?: boolean
   }
 
-  export type DenialOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "caseId" | "denialReason" | "amount" | "status" | "appealDate" | "resolution" | "createdAt" | "updatedAt", ExtArgs["result"]["denial"]>
+  export type DenialOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "caseId" | "denialReason" | "amount" | "status" | "appealDate" | "resolution" | "createdAt" | "updatedAt" | "denialReasonCode" | "deniedAmount" | "appealLetterDraft" | "claimFhirId", ExtArgs["result"]["denial"]>
   export type DenialInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     case?: boolean | Denial$caseArgs<ExtArgs>
   }
@@ -10085,6 +10372,10 @@ export namespace Prisma {
       resolution: string | null
       createdAt: Date
       updatedAt: Date
+      denialReasonCode: string | null
+      deniedAmount: number | null
+      appealLetterDraft: string | null
+      claimFhirId: string | null
     }, ExtArgs["result"]["denial"]>
     composites: {}
   }
@@ -10464,6 +10755,10 @@ export namespace Prisma {
     readonly resolution: FieldRef<"Denial", 'String'>
     readonly createdAt: FieldRef<"Denial", 'DateTime'>
     readonly updatedAt: FieldRef<"Denial", 'DateTime'>
+    readonly denialReasonCode: FieldRef<"Denial", 'String'>
+    readonly deniedAmount: FieldRef<"Denial", 'Float'>
+    readonly appealLetterDraft: FieldRef<"Denial", 'String'>
+    readonly claimFhirId: FieldRef<"Denial", 'String'>
   }
     
 
@@ -10869,6 +11164,10 @@ export namespace Prisma {
     value: number | null
     dimension: string | null
     timestamp: Date | null
+    caseId: string | null
+    userId: string | null
+    activityType: string | null
+    description: string | null
   }
 
   export type AnalyticsMaxAggregateOutputType = {
@@ -10877,6 +11176,10 @@ export namespace Prisma {
     value: number | null
     dimension: string | null
     timestamp: Date | null
+    caseId: string | null
+    userId: string | null
+    activityType: string | null
+    description: string | null
   }
 
   export type AnalyticsCountAggregateOutputType = {
@@ -10885,6 +11188,10 @@ export namespace Prisma {
     value: number
     dimension: number
     timestamp: number
+    caseId: number
+    userId: number
+    activityType: number
+    description: number
     _all: number
   }
 
@@ -10903,6 +11210,10 @@ export namespace Prisma {
     value?: true
     dimension?: true
     timestamp?: true
+    caseId?: true
+    userId?: true
+    activityType?: true
+    description?: true
   }
 
   export type AnalyticsMaxAggregateInputType = {
@@ -10911,6 +11222,10 @@ export namespace Prisma {
     value?: true
     dimension?: true
     timestamp?: true
+    caseId?: true
+    userId?: true
+    activityType?: true
+    description?: true
   }
 
   export type AnalyticsCountAggregateInputType = {
@@ -10919,6 +11234,10 @@ export namespace Prisma {
     value?: true
     dimension?: true
     timestamp?: true
+    caseId?: true
+    userId?: true
+    activityType?: true
+    description?: true
     _all?: true
   }
 
@@ -11014,6 +11333,10 @@ export namespace Prisma {
     value: number
     dimension: string | null
     timestamp: Date
+    caseId: string | null
+    userId: string | null
+    activityType: string | null
+    description: string | null
     _count: AnalyticsCountAggregateOutputType | null
     _avg: AnalyticsAvgAggregateOutputType | null
     _sum: AnalyticsSumAggregateOutputType | null
@@ -11041,6 +11364,10 @@ export namespace Prisma {
     value?: boolean
     dimension?: boolean
     timestamp?: boolean
+    caseId?: boolean
+    userId?: boolean
+    activityType?: boolean
+    description?: boolean
   }, ExtArgs["result"]["analytics"]>
 
 
@@ -11051,9 +11378,13 @@ export namespace Prisma {
     value?: boolean
     dimension?: boolean
     timestamp?: boolean
+    caseId?: boolean
+    userId?: boolean
+    activityType?: boolean
+    description?: boolean
   }
 
-  export type AnalyticsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "metric" | "value" | "dimension" | "timestamp", ExtArgs["result"]["analytics"]>
+  export type AnalyticsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "metric" | "value" | "dimension" | "timestamp" | "caseId" | "userId" | "activityType" | "description", ExtArgs["result"]["analytics"]>
 
   export type $AnalyticsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Analytics"
@@ -11064,6 +11395,10 @@ export namespace Prisma {
       value: number
       dimension: string | null
       timestamp: Date
+      caseId: string | null
+      userId: string | null
+      activityType: string | null
+      description: string | null
     }, ExtArgs["result"]["analytics"]>
     composites: {}
   }
@@ -11438,6 +11773,10 @@ export namespace Prisma {
     readonly value: FieldRef<"Analytics", 'Float'>
     readonly dimension: FieldRef<"Analytics", 'String'>
     readonly timestamp: FieldRef<"Analytics", 'DateTime'>
+    readonly caseId: FieldRef<"Analytics", 'String'>
+    readonly userId: FieldRef<"Analytics", 'String'>
+    readonly activityType: FieldRef<"Analytics", 'String'>
+    readonly description: FieldRef<"Analytics", 'String'>
   }
     
 
@@ -11779,7 +12118,9 @@ export namespace Prisma {
     email: 'email',
     role: 'role',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    fullName: 'fullName',
+    userRole: 'userRole'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -11809,7 +12150,20 @@ export namespace Prisma {
     priority: 'priority',
     assignedUserId: 'assignedUserId',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    patientFhirId: 'patientFhirId',
+    encounterFhirId: 'encounterFhirId',
+    medicalRecordNumber: 'medicalRecordNumber',
+    patientName: 'patientName',
+    age: 'age',
+    gender: 'gender',
+    admissionDate: 'admissionDate',
+    dischargeDate: 'dischargeDate',
+    primaryDiagnosis: 'primaryDiagnosis',
+    currentDRG: 'currentDRG',
+    openDate: 'openDate',
+    closeDate: 'closeDate',
+    facilityId: 'facilityId'
   };
 
   export type CaseScalarFieldEnum = (typeof CaseScalarFieldEnum)[keyof typeof CaseScalarFieldEnum]
@@ -11875,7 +12229,11 @@ export namespace Prisma {
     status: 'status',
     userId: 'userId',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    potentialFinancialImpact: 'potentialFinancialImpact',
+    description: 'description',
+    evidenceId: 'evidenceId',
+    embedding: 'embedding'
   };
 
   export type PreBillAnalysisScalarFieldEnum = (typeof PreBillAnalysisScalarFieldEnum)[keyof typeof PreBillAnalysisScalarFieldEnum]
@@ -11890,7 +12248,11 @@ export namespace Prisma {
     appealDate: 'appealDate',
     resolution: 'resolution',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    denialReasonCode: 'denialReasonCode',
+    deniedAmount: 'deniedAmount',
+    appealLetterDraft: 'appealLetterDraft',
+    claimFhirId: 'claimFhirId'
   };
 
   export type DenialScalarFieldEnum = (typeof DenialScalarFieldEnum)[keyof typeof DenialScalarFieldEnum]
@@ -11901,7 +12263,11 @@ export namespace Prisma {
     metric: 'metric',
     value: 'value',
     dimension: 'dimension',
-    timestamp: 'timestamp'
+    timestamp: 'timestamp',
+    caseId: 'caseId',
+    userId: 'userId',
+    activityType: 'activityType',
+    description: 'description'
   };
 
   export type AnalyticsScalarFieldEnum = (typeof AnalyticsScalarFieldEnum)[keyof typeof AnalyticsScalarFieldEnum]
@@ -11950,16 +12316,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Boolean'
+   * Reference to a field of type 'Int'
    */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
     
 
 
   /**
-   * Reference to a field of type 'Int'
+   * Reference to a field of type 'Boolean'
    */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
   /**
    * Deep Input Types
@@ -11976,6 +12342,8 @@ export namespace Prisma {
     role?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    fullName?: StringNullableFilter<"User"> | string | null
+    userRole?: StringNullableFilter<"User"> | string | null
     queries?: QueryListRelationFilter
     assignedCases?: CaseListRelationFilter
     preBillAnalyses?: PreBillAnalysisListRelationFilter
@@ -11988,6 +12356,8 @@ export namespace Prisma {
     role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    fullName?: SortOrderInput | SortOrder
+    userRole?: SortOrderInput | SortOrder
     queries?: QueryOrderByRelationAggregateInput
     assignedCases?: CaseOrderByRelationAggregateInput
     preBillAnalyses?: PreBillAnalysisOrderByRelationAggregateInput
@@ -12003,6 +12373,8 @@ export namespace Prisma {
     role?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    fullName?: StringNullableFilter<"User"> | string | null
+    userRole?: StringNullableFilter<"User"> | string | null
     queries?: QueryListRelationFilter
     assignedCases?: CaseListRelationFilter
     preBillAnalyses?: PreBillAnalysisListRelationFilter
@@ -12015,6 +12387,8 @@ export namespace Prisma {
     role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    fullName?: SortOrderInput | SortOrder
+    userRole?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -12030,6 +12404,8 @@ export namespace Prisma {
     role?: StringWithAggregatesFilter<"User"> | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    fullName?: StringNullableWithAggregatesFilter<"User"> | string | null
+    userRole?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type QueryWhereInput = {
@@ -12126,6 +12502,19 @@ export namespace Prisma {
     assignedUserId?: StringNullableFilter<"Case"> | string | null
     createdAt?: DateTimeFilter<"Case"> | Date | string
     updatedAt?: DateTimeFilter<"Case"> | Date | string
+    patientFhirId?: StringNullableFilter<"Case"> | string | null
+    encounterFhirId?: StringNullableFilter<"Case"> | string | null
+    medicalRecordNumber?: StringNullableFilter<"Case"> | string | null
+    patientName?: StringNullableFilter<"Case"> | string | null
+    age?: IntNullableFilter<"Case"> | number | null
+    gender?: StringNullableFilter<"Case"> | string | null
+    admissionDate?: DateTimeNullableFilter<"Case"> | Date | string | null
+    dischargeDate?: DateTimeNullableFilter<"Case"> | Date | string | null
+    primaryDiagnosis?: StringNullableFilter<"Case"> | string | null
+    currentDRG?: StringNullableFilter<"Case"> | string | null
+    openDate?: DateTimeNullableFilter<"Case"> | Date | string | null
+    closeDate?: DateTimeNullableFilter<"Case"> | Date | string | null
+    facilityId?: StringNullableFilter<"Case"> | string | null
     assignedUser?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     encounters?: EncounterListRelationFilter
     denials?: DenialListRelationFilter
@@ -12140,6 +12529,19 @@ export namespace Prisma {
     assignedUserId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    patientFhirId?: SortOrderInput | SortOrder
+    encounterFhirId?: SortOrderInput | SortOrder
+    medicalRecordNumber?: SortOrderInput | SortOrder
+    patientName?: SortOrderInput | SortOrder
+    age?: SortOrderInput | SortOrder
+    gender?: SortOrderInput | SortOrder
+    admissionDate?: SortOrderInput | SortOrder
+    dischargeDate?: SortOrderInput | SortOrder
+    primaryDiagnosis?: SortOrderInput | SortOrder
+    currentDRG?: SortOrderInput | SortOrder
+    openDate?: SortOrderInput | SortOrder
+    closeDate?: SortOrderInput | SortOrder
+    facilityId?: SortOrderInput | SortOrder
     assignedUser?: UserOrderByWithRelationInput
     encounters?: EncounterOrderByRelationAggregateInput
     denials?: DenialOrderByRelationAggregateInput
@@ -12157,6 +12559,19 @@ export namespace Prisma {
     assignedUserId?: StringNullableFilter<"Case"> | string | null
     createdAt?: DateTimeFilter<"Case"> | Date | string
     updatedAt?: DateTimeFilter<"Case"> | Date | string
+    patientFhirId?: StringNullableFilter<"Case"> | string | null
+    encounterFhirId?: StringNullableFilter<"Case"> | string | null
+    medicalRecordNumber?: StringNullableFilter<"Case"> | string | null
+    patientName?: StringNullableFilter<"Case"> | string | null
+    age?: IntNullableFilter<"Case"> | number | null
+    gender?: StringNullableFilter<"Case"> | string | null
+    admissionDate?: DateTimeNullableFilter<"Case"> | Date | string | null
+    dischargeDate?: DateTimeNullableFilter<"Case"> | Date | string | null
+    primaryDiagnosis?: StringNullableFilter<"Case"> | string | null
+    currentDRG?: StringNullableFilter<"Case"> | string | null
+    openDate?: DateTimeNullableFilter<"Case"> | Date | string | null
+    closeDate?: DateTimeNullableFilter<"Case"> | Date | string | null
+    facilityId?: StringNullableFilter<"Case"> | string | null
     assignedUser?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     encounters?: EncounterListRelationFilter
     denials?: DenialListRelationFilter
@@ -12171,9 +12586,24 @@ export namespace Prisma {
     assignedUserId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    patientFhirId?: SortOrderInput | SortOrder
+    encounterFhirId?: SortOrderInput | SortOrder
+    medicalRecordNumber?: SortOrderInput | SortOrder
+    patientName?: SortOrderInput | SortOrder
+    age?: SortOrderInput | SortOrder
+    gender?: SortOrderInput | SortOrder
+    admissionDate?: SortOrderInput | SortOrder
+    dischargeDate?: SortOrderInput | SortOrder
+    primaryDiagnosis?: SortOrderInput | SortOrder
+    currentDRG?: SortOrderInput | SortOrder
+    openDate?: SortOrderInput | SortOrder
+    closeDate?: SortOrderInput | SortOrder
+    facilityId?: SortOrderInput | SortOrder
     _count?: CaseCountOrderByAggregateInput
+    _avg?: CaseAvgOrderByAggregateInput
     _max?: CaseMaxOrderByAggregateInput
     _min?: CaseMinOrderByAggregateInput
+    _sum?: CaseSumOrderByAggregateInput
   }
 
   export type CaseScalarWhereWithAggregatesInput = {
@@ -12188,6 +12618,19 @@ export namespace Prisma {
     assignedUserId?: StringNullableWithAggregatesFilter<"Case"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Case"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Case"> | Date | string
+    patientFhirId?: StringNullableWithAggregatesFilter<"Case"> | string | null
+    encounterFhirId?: StringNullableWithAggregatesFilter<"Case"> | string | null
+    medicalRecordNumber?: StringNullableWithAggregatesFilter<"Case"> | string | null
+    patientName?: StringNullableWithAggregatesFilter<"Case"> | string | null
+    age?: IntNullableWithAggregatesFilter<"Case"> | number | null
+    gender?: StringNullableWithAggregatesFilter<"Case"> | string | null
+    admissionDate?: DateTimeNullableWithAggregatesFilter<"Case"> | Date | string | null
+    dischargeDate?: DateTimeNullableWithAggregatesFilter<"Case"> | Date | string | null
+    primaryDiagnosis?: StringNullableWithAggregatesFilter<"Case"> | string | null
+    currentDRG?: StringNullableWithAggregatesFilter<"Case"> | string | null
+    openDate?: DateTimeNullableWithAggregatesFilter<"Case"> | Date | string | null
+    closeDate?: DateTimeNullableWithAggregatesFilter<"Case"> | Date | string | null
+    facilityId?: StringNullableWithAggregatesFilter<"Case"> | string | null
   }
 
   export type PatientWhereInput = {
@@ -12466,6 +12909,10 @@ export namespace Prisma {
     userId?: StringNullableFilter<"PreBillAnalysis"> | string | null
     createdAt?: DateTimeFilter<"PreBillAnalysis"> | Date | string
     updatedAt?: DateTimeFilter<"PreBillAnalysis"> | Date | string
+    potentialFinancialImpact?: FloatNullableFilter<"PreBillAnalysis"> | number | null
+    description?: StringNullableFilter<"PreBillAnalysis"> | string | null
+    evidenceId?: StringNullableFilter<"PreBillAnalysis"> | string | null
+    embedding?: StringNullableFilter<"PreBillAnalysis"> | string | null
     encounter?: XOR<EncounterScalarRelationFilter, EncounterWhereInput>
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }
@@ -12481,12 +12928,17 @@ export namespace Prisma {
     userId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    potentialFinancialImpact?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    evidenceId?: SortOrderInput | SortOrder
+    embedding?: SortOrderInput | SortOrder
     encounter?: EncounterOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
   }
 
   export type PreBillAnalysisWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    evidenceId?: string
     AND?: PreBillAnalysisWhereInput | PreBillAnalysisWhereInput[]
     OR?: PreBillAnalysisWhereInput[]
     NOT?: PreBillAnalysisWhereInput | PreBillAnalysisWhereInput[]
@@ -12499,9 +12951,12 @@ export namespace Prisma {
     userId?: StringNullableFilter<"PreBillAnalysis"> | string | null
     createdAt?: DateTimeFilter<"PreBillAnalysis"> | Date | string
     updatedAt?: DateTimeFilter<"PreBillAnalysis"> | Date | string
+    potentialFinancialImpact?: FloatNullableFilter<"PreBillAnalysis"> | number | null
+    description?: StringNullableFilter<"PreBillAnalysis"> | string | null
+    embedding?: StringNullableFilter<"PreBillAnalysis"> | string | null
     encounter?: XOR<EncounterScalarRelationFilter, EncounterWhereInput>
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-  }, "id">
+  }, "id" | "evidenceId">
 
   export type PreBillAnalysisOrderByWithAggregationInput = {
     id?: SortOrder
@@ -12514,6 +12969,10 @@ export namespace Prisma {
     userId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    potentialFinancialImpact?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    evidenceId?: SortOrderInput | SortOrder
+    embedding?: SortOrderInput | SortOrder
     _count?: PreBillAnalysisCountOrderByAggregateInput
     _avg?: PreBillAnalysisAvgOrderByAggregateInput
     _max?: PreBillAnalysisMaxOrderByAggregateInput
@@ -12535,6 +12994,10 @@ export namespace Prisma {
     userId?: StringNullableWithAggregatesFilter<"PreBillAnalysis"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"PreBillAnalysis"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"PreBillAnalysis"> | Date | string
+    potentialFinancialImpact?: FloatNullableWithAggregatesFilter<"PreBillAnalysis"> | number | null
+    description?: StringNullableWithAggregatesFilter<"PreBillAnalysis"> | string | null
+    evidenceId?: StringNullableWithAggregatesFilter<"PreBillAnalysis"> | string | null
+    embedding?: StringNullableWithAggregatesFilter<"PreBillAnalysis"> | string | null
   }
 
   export type DenialWhereInput = {
@@ -12550,6 +13013,10 @@ export namespace Prisma {
     resolution?: StringNullableFilter<"Denial"> | string | null
     createdAt?: DateTimeFilter<"Denial"> | Date | string
     updatedAt?: DateTimeFilter<"Denial"> | Date | string
+    denialReasonCode?: StringNullableFilter<"Denial"> | string | null
+    deniedAmount?: FloatNullableFilter<"Denial"> | number | null
+    appealLetterDraft?: StringNullableFilter<"Denial"> | string | null
+    claimFhirId?: StringNullableFilter<"Denial"> | string | null
     case?: XOR<CaseNullableScalarRelationFilter, CaseWhereInput> | null
   }
 
@@ -12563,6 +13030,10 @@ export namespace Prisma {
     resolution?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    denialReasonCode?: SortOrderInput | SortOrder
+    deniedAmount?: SortOrderInput | SortOrder
+    appealLetterDraft?: SortOrderInput | SortOrder
+    claimFhirId?: SortOrderInput | SortOrder
     case?: CaseOrderByWithRelationInput
   }
 
@@ -12579,6 +13050,10 @@ export namespace Prisma {
     resolution?: StringNullableFilter<"Denial"> | string | null
     createdAt?: DateTimeFilter<"Denial"> | Date | string
     updatedAt?: DateTimeFilter<"Denial"> | Date | string
+    denialReasonCode?: StringNullableFilter<"Denial"> | string | null
+    deniedAmount?: FloatNullableFilter<"Denial"> | number | null
+    appealLetterDraft?: StringNullableFilter<"Denial"> | string | null
+    claimFhirId?: StringNullableFilter<"Denial"> | string | null
     case?: XOR<CaseNullableScalarRelationFilter, CaseWhereInput> | null
   }, "id">
 
@@ -12592,6 +13067,10 @@ export namespace Prisma {
     resolution?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    denialReasonCode?: SortOrderInput | SortOrder
+    deniedAmount?: SortOrderInput | SortOrder
+    appealLetterDraft?: SortOrderInput | SortOrder
+    claimFhirId?: SortOrderInput | SortOrder
     _count?: DenialCountOrderByAggregateInput
     _avg?: DenialAvgOrderByAggregateInput
     _max?: DenialMaxOrderByAggregateInput
@@ -12612,6 +13091,10 @@ export namespace Prisma {
     resolution?: StringNullableWithAggregatesFilter<"Denial"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Denial"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Denial"> | Date | string
+    denialReasonCode?: StringNullableWithAggregatesFilter<"Denial"> | string | null
+    deniedAmount?: FloatNullableWithAggregatesFilter<"Denial"> | number | null
+    appealLetterDraft?: StringNullableWithAggregatesFilter<"Denial"> | string | null
+    claimFhirId?: StringNullableWithAggregatesFilter<"Denial"> | string | null
   }
 
   export type AnalyticsWhereInput = {
@@ -12623,6 +13106,10 @@ export namespace Prisma {
     value?: FloatFilter<"Analytics"> | number
     dimension?: StringNullableFilter<"Analytics"> | string | null
     timestamp?: DateTimeFilter<"Analytics"> | Date | string
+    caseId?: StringNullableFilter<"Analytics"> | string | null
+    userId?: StringNullableFilter<"Analytics"> | string | null
+    activityType?: StringNullableFilter<"Analytics"> | string | null
+    description?: StringNullableFilter<"Analytics"> | string | null
   }
 
   export type AnalyticsOrderByWithRelationInput = {
@@ -12631,6 +13118,10 @@ export namespace Prisma {
     value?: SortOrder
     dimension?: SortOrderInput | SortOrder
     timestamp?: SortOrder
+    caseId?: SortOrderInput | SortOrder
+    userId?: SortOrderInput | SortOrder
+    activityType?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
   }
 
   export type AnalyticsWhereUniqueInput = Prisma.AtLeast<{
@@ -12642,6 +13133,10 @@ export namespace Prisma {
     value?: FloatFilter<"Analytics"> | number
     dimension?: StringNullableFilter<"Analytics"> | string | null
     timestamp?: DateTimeFilter<"Analytics"> | Date | string
+    caseId?: StringNullableFilter<"Analytics"> | string | null
+    userId?: StringNullableFilter<"Analytics"> | string | null
+    activityType?: StringNullableFilter<"Analytics"> | string | null
+    description?: StringNullableFilter<"Analytics"> | string | null
   }, "id">
 
   export type AnalyticsOrderByWithAggregationInput = {
@@ -12650,6 +13145,10 @@ export namespace Prisma {
     value?: SortOrder
     dimension?: SortOrderInput | SortOrder
     timestamp?: SortOrder
+    caseId?: SortOrderInput | SortOrder
+    userId?: SortOrderInput | SortOrder
+    activityType?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
     _count?: AnalyticsCountOrderByAggregateInput
     _avg?: AnalyticsAvgOrderByAggregateInput
     _max?: AnalyticsMaxOrderByAggregateInput
@@ -12666,6 +13165,10 @@ export namespace Prisma {
     value?: FloatWithAggregatesFilter<"Analytics"> | number
     dimension?: StringNullableWithAggregatesFilter<"Analytics"> | string | null
     timestamp?: DateTimeWithAggregatesFilter<"Analytics"> | Date | string
+    caseId?: StringNullableWithAggregatesFilter<"Analytics"> | string | null
+    userId?: StringNullableWithAggregatesFilter<"Analytics"> | string | null
+    activityType?: StringNullableWithAggregatesFilter<"Analytics"> | string | null
+    description?: StringNullableWithAggregatesFilter<"Analytics"> | string | null
   }
 
   export type UserCreateInput = {
@@ -12675,6 +13178,8 @@ export namespace Prisma {
     role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    fullName?: string | null
+    userRole?: string | null
     queries?: QueryCreateNestedManyWithoutUserInput
     assignedCases?: CaseCreateNestedManyWithoutAssignedUserInput
     preBillAnalyses?: PreBillAnalysisCreateNestedManyWithoutUserInput
@@ -12687,6 +13192,8 @@ export namespace Prisma {
     role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    fullName?: string | null
+    userRole?: string | null
     queries?: QueryUncheckedCreateNestedManyWithoutUserInput
     assignedCases?: CaseUncheckedCreateNestedManyWithoutAssignedUserInput
     preBillAnalyses?: PreBillAnalysisUncheckedCreateNestedManyWithoutUserInput
@@ -12699,6 +13206,8 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    userRole?: NullableStringFieldUpdateOperationsInput | string | null
     queries?: QueryUpdateManyWithoutUserNestedInput
     assignedCases?: CaseUpdateManyWithoutAssignedUserNestedInput
     preBillAnalyses?: PreBillAnalysisUpdateManyWithoutUserNestedInput
@@ -12711,6 +13220,8 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    userRole?: NullableStringFieldUpdateOperationsInput | string | null
     queries?: QueryUncheckedUpdateManyWithoutUserNestedInput
     assignedCases?: CaseUncheckedUpdateManyWithoutAssignedUserNestedInput
     preBillAnalyses?: PreBillAnalysisUncheckedUpdateManyWithoutUserNestedInput
@@ -12723,6 +13234,8 @@ export namespace Prisma {
     role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    fullName?: string | null
+    userRole?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -12732,6 +13245,8 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    userRole?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -12741,6 +13256,8 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    userRole?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type QueryCreateInput = {
@@ -12841,6 +13358,19 @@ export namespace Prisma {
     priority?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    patientFhirId?: string | null
+    encounterFhirId?: string | null
+    medicalRecordNumber?: string | null
+    patientName?: string | null
+    age?: number | null
+    gender?: string | null
+    admissionDate?: Date | string | null
+    dischargeDate?: Date | string | null
+    primaryDiagnosis?: string | null
+    currentDRG?: string | null
+    openDate?: Date | string | null
+    closeDate?: Date | string | null
+    facilityId?: string | null
     assignedUser?: UserCreateNestedOneWithoutAssignedCasesInput
     encounters?: EncounterCreateNestedManyWithoutCaseInput
     denials?: DenialCreateNestedManyWithoutCaseInput
@@ -12855,6 +13385,19 @@ export namespace Prisma {
     assignedUserId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    patientFhirId?: string | null
+    encounterFhirId?: string | null
+    medicalRecordNumber?: string | null
+    patientName?: string | null
+    age?: number | null
+    gender?: string | null
+    admissionDate?: Date | string | null
+    dischargeDate?: Date | string | null
+    primaryDiagnosis?: string | null
+    currentDRG?: string | null
+    openDate?: Date | string | null
+    closeDate?: Date | string | null
+    facilityId?: string | null
     encounters?: EncounterUncheckedCreateNestedManyWithoutCaseInput
     denials?: DenialUncheckedCreateNestedManyWithoutCaseInput
   }
@@ -12867,6 +13410,19 @@ export namespace Prisma {
     priority?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    patientFhirId?: NullableStringFieldUpdateOperationsInput | string | null
+    encounterFhirId?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalRecordNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    patientName?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dischargeDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    primaryDiagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    currentDRG?: NullableStringFieldUpdateOperationsInput | string | null
+    openDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    closeDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    facilityId?: NullableStringFieldUpdateOperationsInput | string | null
     assignedUser?: UserUpdateOneWithoutAssignedCasesNestedInput
     encounters?: EncounterUpdateManyWithoutCaseNestedInput
     denials?: DenialUpdateManyWithoutCaseNestedInput
@@ -12881,6 +13437,19 @@ export namespace Prisma {
     assignedUserId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    patientFhirId?: NullableStringFieldUpdateOperationsInput | string | null
+    encounterFhirId?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalRecordNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    patientName?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dischargeDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    primaryDiagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    currentDRG?: NullableStringFieldUpdateOperationsInput | string | null
+    openDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    closeDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    facilityId?: NullableStringFieldUpdateOperationsInput | string | null
     encounters?: EncounterUncheckedUpdateManyWithoutCaseNestedInput
     denials?: DenialUncheckedUpdateManyWithoutCaseNestedInput
   }
@@ -12894,6 +13463,19 @@ export namespace Prisma {
     assignedUserId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    patientFhirId?: string | null
+    encounterFhirId?: string | null
+    medicalRecordNumber?: string | null
+    patientName?: string | null
+    age?: number | null
+    gender?: string | null
+    admissionDate?: Date | string | null
+    dischargeDate?: Date | string | null
+    primaryDiagnosis?: string | null
+    currentDRG?: string | null
+    openDate?: Date | string | null
+    closeDate?: Date | string | null
+    facilityId?: string | null
   }
 
   export type CaseUpdateManyMutationInput = {
@@ -12904,6 +13486,19 @@ export namespace Prisma {
     priority?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    patientFhirId?: NullableStringFieldUpdateOperationsInput | string | null
+    encounterFhirId?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalRecordNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    patientName?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dischargeDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    primaryDiagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    currentDRG?: NullableStringFieldUpdateOperationsInput | string | null
+    openDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    closeDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    facilityId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CaseUncheckedUpdateManyInput = {
@@ -12915,6 +13510,19 @@ export namespace Prisma {
     assignedUserId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    patientFhirId?: NullableStringFieldUpdateOperationsInput | string | null
+    encounterFhirId?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalRecordNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    patientName?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dischargeDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    primaryDiagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    currentDRG?: NullableStringFieldUpdateOperationsInput | string | null
+    openDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    closeDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    facilityId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PatientCreateInput = {
@@ -13204,6 +13812,10 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    potentialFinancialImpact?: number | null
+    description?: string | null
+    evidenceId?: string | null
+    embedding?: string | null
     encounter: EncounterCreateNestedOneWithoutPreBillAnalysesInput
     user?: UserCreateNestedOneWithoutPreBillAnalysesInput
   }
@@ -13219,6 +13831,10 @@ export namespace Prisma {
     userId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    potentialFinancialImpact?: number | null
+    description?: string | null
+    evidenceId?: string | null
+    embedding?: string | null
   }
 
   export type PreBillAnalysisUpdateInput = {
@@ -13230,6 +13846,10 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    potentialFinancialImpact?: NullableFloatFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    evidenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    embedding?: NullableStringFieldUpdateOperationsInput | string | null
     encounter?: EncounterUpdateOneRequiredWithoutPreBillAnalysesNestedInput
     user?: UserUpdateOneWithoutPreBillAnalysesNestedInput
   }
@@ -13245,6 +13865,10 @@ export namespace Prisma {
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    potentialFinancialImpact?: NullableFloatFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    evidenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    embedding?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PreBillAnalysisCreateManyInput = {
@@ -13258,6 +13882,10 @@ export namespace Prisma {
     userId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    potentialFinancialImpact?: number | null
+    description?: string | null
+    evidenceId?: string | null
+    embedding?: string | null
   }
 
   export type PreBillAnalysisUpdateManyMutationInput = {
@@ -13269,6 +13897,10 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    potentialFinancialImpact?: NullableFloatFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    evidenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    embedding?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PreBillAnalysisUncheckedUpdateManyInput = {
@@ -13282,6 +13914,10 @@ export namespace Prisma {
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    potentialFinancialImpact?: NullableFloatFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    evidenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    embedding?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type DenialCreateInput = {
@@ -13293,6 +13929,10 @@ export namespace Prisma {
     resolution?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    denialReasonCode?: string | null
+    deniedAmount?: number | null
+    appealLetterDraft?: string | null
+    claimFhirId?: string | null
     case?: CaseCreateNestedOneWithoutDenialsInput
   }
 
@@ -13306,6 +13946,10 @@ export namespace Prisma {
     resolution?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    denialReasonCode?: string | null
+    deniedAmount?: number | null
+    appealLetterDraft?: string | null
+    claimFhirId?: string | null
   }
 
   export type DenialUpdateInput = {
@@ -13317,6 +13961,10 @@ export namespace Prisma {
     resolution?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    denialReasonCode?: NullableStringFieldUpdateOperationsInput | string | null
+    deniedAmount?: NullableFloatFieldUpdateOperationsInput | number | null
+    appealLetterDraft?: NullableStringFieldUpdateOperationsInput | string | null
+    claimFhirId?: NullableStringFieldUpdateOperationsInput | string | null
     case?: CaseUpdateOneWithoutDenialsNestedInput
   }
 
@@ -13330,6 +13978,10 @@ export namespace Prisma {
     resolution?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    denialReasonCode?: NullableStringFieldUpdateOperationsInput | string | null
+    deniedAmount?: NullableFloatFieldUpdateOperationsInput | number | null
+    appealLetterDraft?: NullableStringFieldUpdateOperationsInput | string | null
+    claimFhirId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type DenialCreateManyInput = {
@@ -13342,6 +13994,10 @@ export namespace Prisma {
     resolution?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    denialReasonCode?: string | null
+    deniedAmount?: number | null
+    appealLetterDraft?: string | null
+    claimFhirId?: string | null
   }
 
   export type DenialUpdateManyMutationInput = {
@@ -13353,6 +14009,10 @@ export namespace Prisma {
     resolution?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    denialReasonCode?: NullableStringFieldUpdateOperationsInput | string | null
+    deniedAmount?: NullableFloatFieldUpdateOperationsInput | number | null
+    appealLetterDraft?: NullableStringFieldUpdateOperationsInput | string | null
+    claimFhirId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type DenialUncheckedUpdateManyInput = {
@@ -13365,6 +14025,10 @@ export namespace Prisma {
     resolution?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    denialReasonCode?: NullableStringFieldUpdateOperationsInput | string | null
+    deniedAmount?: NullableFloatFieldUpdateOperationsInput | number | null
+    appealLetterDraft?: NullableStringFieldUpdateOperationsInput | string | null
+    claimFhirId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AnalyticsCreateInput = {
@@ -13373,6 +14037,10 @@ export namespace Prisma {
     value: number
     dimension?: string | null
     timestamp?: Date | string
+    caseId?: string | null
+    userId?: string | null
+    activityType?: string | null
+    description?: string | null
   }
 
   export type AnalyticsUncheckedCreateInput = {
@@ -13381,6 +14049,10 @@ export namespace Prisma {
     value: number
     dimension?: string | null
     timestamp?: Date | string
+    caseId?: string | null
+    userId?: string | null
+    activityType?: string | null
+    description?: string | null
   }
 
   export type AnalyticsUpdateInput = {
@@ -13389,6 +14061,10 @@ export namespace Prisma {
     value?: FloatFieldUpdateOperationsInput | number
     dimension?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    caseId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    activityType?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AnalyticsUncheckedUpdateInput = {
@@ -13397,6 +14073,10 @@ export namespace Prisma {
     value?: FloatFieldUpdateOperationsInput | number
     dimension?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    caseId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    activityType?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AnalyticsCreateManyInput = {
@@ -13405,6 +14085,10 @@ export namespace Prisma {
     value: number
     dimension?: string | null
     timestamp?: Date | string
+    caseId?: string | null
+    userId?: string | null
+    activityType?: string | null
+    description?: string | null
   }
 
   export type AnalyticsUpdateManyMutationInput = {
@@ -13413,6 +14097,10 @@ export namespace Prisma {
     value?: FloatFieldUpdateOperationsInput | number
     dimension?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    caseId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    activityType?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AnalyticsUncheckedUpdateManyInput = {
@@ -13421,6 +14109,10 @@ export namespace Prisma {
     value?: FloatFieldUpdateOperationsInput | number
     dimension?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    caseId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    activityType?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -13448,6 +14140,20 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type QueryListRelationFilter = {
     every?: QueryWhereInput
     some?: QueryWhereInput
@@ -13464,6 +14170,11 @@ export namespace Prisma {
     every?: PreBillAnalysisWhereInput
     some?: PreBillAnalysisWhereInput
     none?: PreBillAnalysisWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type QueryOrderByRelationAggregateInput = {
@@ -13485,6 +14196,8 @@ export namespace Prisma {
     role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    fullName?: SortOrder
+    userRole?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -13494,6 +14207,8 @@ export namespace Prisma {
     role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    fullName?: SortOrder
+    userRole?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -13503,6 +14218,8 @@ export namespace Prisma {
     role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    fullName?: SortOrder
+    userRole?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -13536,7 +14253,7 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | null
     notIn?: string[] | null
@@ -13547,7 +14264,10 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type FloatNullableFilter<$PrismaModel = never> = {
@@ -13564,11 +14284,6 @@ export namespace Prisma {
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
   }
 
   export type QueryCountOrderByAggregateInput = {
@@ -13618,23 +14333,6 @@ export namespace Prisma {
     confidence?: SortOrder
   }
 
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
   export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
     in?: number[] | null
@@ -13649,6 +14347,28 @@ export namespace Prisma {
     _sum?: NestedFloatNullableFilter<$PrismaModel>
     _min?: NestedFloatNullableFilter<$PrismaModel>
     _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type UserNullableScalarRelationFilter = {
@@ -13685,6 +14405,23 @@ export namespace Prisma {
     assignedUserId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    patientFhirId?: SortOrder
+    encounterFhirId?: SortOrder
+    medicalRecordNumber?: SortOrder
+    patientName?: SortOrder
+    age?: SortOrder
+    gender?: SortOrder
+    admissionDate?: SortOrder
+    dischargeDate?: SortOrder
+    primaryDiagnosis?: SortOrder
+    currentDRG?: SortOrder
+    openDate?: SortOrder
+    closeDate?: SortOrder
+    facilityId?: SortOrder
+  }
+
+  export type CaseAvgOrderByAggregateInput = {
+    age?: SortOrder
   }
 
   export type CaseMaxOrderByAggregateInput = {
@@ -13696,6 +14433,19 @@ export namespace Prisma {
     assignedUserId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    patientFhirId?: SortOrder
+    encounterFhirId?: SortOrder
+    medicalRecordNumber?: SortOrder
+    patientName?: SortOrder
+    age?: SortOrder
+    gender?: SortOrder
+    admissionDate?: SortOrder
+    dischargeDate?: SortOrder
+    primaryDiagnosis?: SortOrder
+    currentDRG?: SortOrder
+    openDate?: SortOrder
+    closeDate?: SortOrder
+    facilityId?: SortOrder
   }
 
   export type CaseMinOrderByAggregateInput = {
@@ -13707,9 +14457,42 @@ export namespace Prisma {
     assignedUserId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    patientFhirId?: SortOrder
+    encounterFhirId?: SortOrder
+    medicalRecordNumber?: SortOrder
+    patientName?: SortOrder
+    age?: SortOrder
+    gender?: SortOrder
+    admissionDate?: SortOrder
+    dischargeDate?: SortOrder
+    primaryDiagnosis?: SortOrder
+    currentDRG?: SortOrder
+    openDate?: SortOrder
+    closeDate?: SortOrder
+    facilityId?: SortOrder
   }
 
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
+  export type CaseSumOrderByAggregateInput = {
+    age?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | null
     notIn?: Date[] | string[] | null
@@ -13717,7 +14500,10 @@ export namespace Prisma {
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type PatientCountOrderByAggregateInput = {
@@ -13748,20 +14534,6 @@ export namespace Prisma {
     gender?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | null
-    notIn?: Date[] | string[] | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type PatientScalarRelationFilter = {
@@ -13918,10 +14690,15 @@ export namespace Prisma {
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    potentialFinancialImpact?: SortOrder
+    description?: SortOrder
+    evidenceId?: SortOrder
+    embedding?: SortOrder
   }
 
   export type PreBillAnalysisAvgOrderByAggregateInput = {
     confidence?: SortOrder
+    potentialFinancialImpact?: SortOrder
   }
 
   export type PreBillAnalysisMaxOrderByAggregateInput = {
@@ -13935,6 +14712,10 @@ export namespace Prisma {
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    potentialFinancialImpact?: SortOrder
+    description?: SortOrder
+    evidenceId?: SortOrder
+    embedding?: SortOrder
   }
 
   export type PreBillAnalysisMinOrderByAggregateInput = {
@@ -13948,10 +14729,15 @@ export namespace Prisma {
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    potentialFinancialImpact?: SortOrder
+    description?: SortOrder
+    evidenceId?: SortOrder
+    embedding?: SortOrder
   }
 
   export type PreBillAnalysisSumOrderByAggregateInput = {
     confidence?: SortOrder
+    potentialFinancialImpact?: SortOrder
   }
 
   export type FloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -13980,10 +14766,15 @@ export namespace Prisma {
     resolution?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    denialReasonCode?: SortOrder
+    deniedAmount?: SortOrder
+    appealLetterDraft?: SortOrder
+    claimFhirId?: SortOrder
   }
 
   export type DenialAvgOrderByAggregateInput = {
     amount?: SortOrder
+    deniedAmount?: SortOrder
   }
 
   export type DenialMaxOrderByAggregateInput = {
@@ -13996,6 +14787,10 @@ export namespace Prisma {
     resolution?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    denialReasonCode?: SortOrder
+    deniedAmount?: SortOrder
+    appealLetterDraft?: SortOrder
+    claimFhirId?: SortOrder
   }
 
   export type DenialMinOrderByAggregateInput = {
@@ -14008,10 +14803,15 @@ export namespace Prisma {
     resolution?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    denialReasonCode?: SortOrder
+    deniedAmount?: SortOrder
+    appealLetterDraft?: SortOrder
+    claimFhirId?: SortOrder
   }
 
   export type DenialSumOrderByAggregateInput = {
     amount?: SortOrder
+    deniedAmount?: SortOrder
   }
 
   export type AnalyticsCountOrderByAggregateInput = {
@@ -14020,6 +14820,10 @@ export namespace Prisma {
     value?: SortOrder
     dimension?: SortOrder
     timestamp?: SortOrder
+    caseId?: SortOrder
+    userId?: SortOrder
+    activityType?: SortOrder
+    description?: SortOrder
   }
 
   export type AnalyticsAvgOrderByAggregateInput = {
@@ -14032,6 +14836,10 @@ export namespace Prisma {
     value?: SortOrder
     dimension?: SortOrder
     timestamp?: SortOrder
+    caseId?: SortOrder
+    userId?: SortOrder
+    activityType?: SortOrder
+    description?: SortOrder
   }
 
   export type AnalyticsMinOrderByAggregateInput = {
@@ -14040,6 +14848,10 @@ export namespace Prisma {
     value?: SortOrder
     dimension?: SortOrder
     timestamp?: SortOrder
+    caseId?: SortOrder
+    userId?: SortOrder
+    activityType?: SortOrder
+    description?: SortOrder
   }
 
   export type AnalyticsSumOrderByAggregateInput = {
@@ -14094,6 +14906,10 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type QueryUpdateManyWithoutUserNestedInput = {
@@ -14186,10 +15002,6 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-  }
-
   export type NullableFloatFieldUpdateOperationsInput = {
     set?: number | null
     increment?: number
@@ -14238,6 +15050,18 @@ export namespace Prisma {
     connectOrCreate?: DenialCreateOrConnectWithoutCaseInput | DenialCreateOrConnectWithoutCaseInput[]
     createMany?: DenialCreateManyCaseInputEnvelope
     connect?: DenialWhereUniqueInput | DenialWhereUniqueInput[]
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type UserUpdateOneWithoutAssignedCasesNestedInput = {
@@ -14318,10 +15142,6 @@ export namespace Prisma {
     connectOrCreate?: EncounterCreateOrConnectWithoutPatientInput | EncounterCreateOrConnectWithoutPatientInput[]
     createMany?: EncounterCreateManyPatientInputEnvelope
     connect?: EncounterWhereUniqueInput | EncounterWhereUniqueInput[]
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
   }
 
   export type EncounterUpdateManyWithoutPatientNestedInput = {
@@ -14619,6 +15439,20 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[]
@@ -14661,31 +15495,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | null
@@ -14714,6 +15523,17 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
     in?: number[] | null
@@ -14739,6 +15559,22 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -14836,6 +15672,19 @@ export namespace Prisma {
     priority?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    patientFhirId?: string | null
+    encounterFhirId?: string | null
+    medicalRecordNumber?: string | null
+    patientName?: string | null
+    age?: number | null
+    gender?: string | null
+    admissionDate?: Date | string | null
+    dischargeDate?: Date | string | null
+    primaryDiagnosis?: string | null
+    currentDRG?: string | null
+    openDate?: Date | string | null
+    closeDate?: Date | string | null
+    facilityId?: string | null
     encounters?: EncounterCreateNestedManyWithoutCaseInput
     denials?: DenialCreateNestedManyWithoutCaseInput
   }
@@ -14848,6 +15697,19 @@ export namespace Prisma {
     priority?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    patientFhirId?: string | null
+    encounterFhirId?: string | null
+    medicalRecordNumber?: string | null
+    patientName?: string | null
+    age?: number | null
+    gender?: string | null
+    admissionDate?: Date | string | null
+    dischargeDate?: Date | string | null
+    primaryDiagnosis?: string | null
+    currentDRG?: string | null
+    openDate?: Date | string | null
+    closeDate?: Date | string | null
+    facilityId?: string | null
     encounters?: EncounterUncheckedCreateNestedManyWithoutCaseInput
     denials?: DenialUncheckedCreateNestedManyWithoutCaseInput
   }
@@ -14870,6 +15732,10 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    potentialFinancialImpact?: number | null
+    description?: string | null
+    evidenceId?: string | null
+    embedding?: string | null
     encounter: EncounterCreateNestedOneWithoutPreBillAnalysesInput
   }
 
@@ -14883,6 +15749,10 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    potentialFinancialImpact?: number | null
+    description?: string | null
+    evidenceId?: string | null
+    embedding?: string | null
   }
 
   export type PreBillAnalysisCreateOrConnectWithoutUserInput = {
@@ -14954,6 +15824,19 @@ export namespace Prisma {
     assignedUserId?: StringNullableFilter<"Case"> | string | null
     createdAt?: DateTimeFilter<"Case"> | Date | string
     updatedAt?: DateTimeFilter<"Case"> | Date | string
+    patientFhirId?: StringNullableFilter<"Case"> | string | null
+    encounterFhirId?: StringNullableFilter<"Case"> | string | null
+    medicalRecordNumber?: StringNullableFilter<"Case"> | string | null
+    patientName?: StringNullableFilter<"Case"> | string | null
+    age?: IntNullableFilter<"Case"> | number | null
+    gender?: StringNullableFilter<"Case"> | string | null
+    admissionDate?: DateTimeNullableFilter<"Case"> | Date | string | null
+    dischargeDate?: DateTimeNullableFilter<"Case"> | Date | string | null
+    primaryDiagnosis?: StringNullableFilter<"Case"> | string | null
+    currentDRG?: StringNullableFilter<"Case"> | string | null
+    openDate?: DateTimeNullableFilter<"Case"> | Date | string | null
+    closeDate?: DateTimeNullableFilter<"Case"> | Date | string | null
+    facilityId?: StringNullableFilter<"Case"> | string | null
   }
 
   export type PreBillAnalysisUpsertWithWhereUniqueWithoutUserInput = {
@@ -14986,6 +15869,10 @@ export namespace Prisma {
     userId?: StringNullableFilter<"PreBillAnalysis"> | string | null
     createdAt?: DateTimeFilter<"PreBillAnalysis"> | Date | string
     updatedAt?: DateTimeFilter<"PreBillAnalysis"> | Date | string
+    potentialFinancialImpact?: FloatNullableFilter<"PreBillAnalysis"> | number | null
+    description?: StringNullableFilter<"PreBillAnalysis"> | string | null
+    evidenceId?: StringNullableFilter<"PreBillAnalysis"> | string | null
+    embedding?: StringNullableFilter<"PreBillAnalysis"> | string | null
   }
 
   export type UserCreateWithoutQueriesInput = {
@@ -14995,6 +15882,8 @@ export namespace Prisma {
     role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    fullName?: string | null
+    userRole?: string | null
     assignedCases?: CaseCreateNestedManyWithoutAssignedUserInput
     preBillAnalyses?: PreBillAnalysisCreateNestedManyWithoutUserInput
   }
@@ -15006,6 +15895,8 @@ export namespace Prisma {
     role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    fullName?: string | null
+    userRole?: string | null
     assignedCases?: CaseUncheckedCreateNestedManyWithoutAssignedUserInput
     preBillAnalyses?: PreBillAnalysisUncheckedCreateNestedManyWithoutUserInput
   }
@@ -15033,6 +15924,8 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    userRole?: NullableStringFieldUpdateOperationsInput | string | null
     assignedCases?: CaseUpdateManyWithoutAssignedUserNestedInput
     preBillAnalyses?: PreBillAnalysisUpdateManyWithoutUserNestedInput
   }
@@ -15044,6 +15937,8 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    userRole?: NullableStringFieldUpdateOperationsInput | string | null
     assignedCases?: CaseUncheckedUpdateManyWithoutAssignedUserNestedInput
     preBillAnalyses?: PreBillAnalysisUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -15055,6 +15950,8 @@ export namespace Prisma {
     role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    fullName?: string | null
+    userRole?: string | null
     queries?: QueryCreateNestedManyWithoutUserInput
     preBillAnalyses?: PreBillAnalysisCreateNestedManyWithoutUserInput
   }
@@ -15066,6 +15963,8 @@ export namespace Prisma {
     role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    fullName?: string | null
+    userRole?: string | null
     queries?: QueryUncheckedCreateNestedManyWithoutUserInput
     preBillAnalyses?: PreBillAnalysisUncheckedCreateNestedManyWithoutUserInput
   }
@@ -15123,6 +16022,10 @@ export namespace Prisma {
     resolution?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    denialReasonCode?: string | null
+    deniedAmount?: number | null
+    appealLetterDraft?: string | null
+    claimFhirId?: string | null
   }
 
   export type DenialUncheckedCreateWithoutCaseInput = {
@@ -15134,6 +16037,10 @@ export namespace Prisma {
     resolution?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    denialReasonCode?: string | null
+    deniedAmount?: number | null
+    appealLetterDraft?: string | null
+    claimFhirId?: string | null
   }
 
   export type DenialCreateOrConnectWithoutCaseInput = {
@@ -15163,6 +16070,8 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    userRole?: NullableStringFieldUpdateOperationsInput | string | null
     queries?: QueryUpdateManyWithoutUserNestedInput
     preBillAnalyses?: PreBillAnalysisUpdateManyWithoutUserNestedInput
   }
@@ -15174,6 +16083,8 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    userRole?: NullableStringFieldUpdateOperationsInput | string | null
     queries?: QueryUncheckedUpdateManyWithoutUserNestedInput
     preBillAnalyses?: PreBillAnalysisUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -15239,6 +16150,10 @@ export namespace Prisma {
     resolution?: StringNullableFilter<"Denial"> | string | null
     createdAt?: DateTimeFilter<"Denial"> | Date | string
     updatedAt?: DateTimeFilter<"Denial"> | Date | string
+    denialReasonCode?: StringNullableFilter<"Denial"> | string | null
+    deniedAmount?: FloatNullableFilter<"Denial"> | number | null
+    appealLetterDraft?: StringNullableFilter<"Denial"> | string | null
+    claimFhirId?: StringNullableFilter<"Denial"> | string | null
   }
 
   export type EncounterCreateWithoutPatientInput = {
@@ -15329,6 +16244,19 @@ export namespace Prisma {
     priority?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    patientFhirId?: string | null
+    encounterFhirId?: string | null
+    medicalRecordNumber?: string | null
+    patientName?: string | null
+    age?: number | null
+    gender?: string | null
+    admissionDate?: Date | string | null
+    dischargeDate?: Date | string | null
+    primaryDiagnosis?: string | null
+    currentDRG?: string | null
+    openDate?: Date | string | null
+    closeDate?: Date | string | null
+    facilityId?: string | null
     assignedUser?: UserCreateNestedOneWithoutAssignedCasesInput
     denials?: DenialCreateNestedManyWithoutCaseInput
   }
@@ -15342,6 +16270,19 @@ export namespace Prisma {
     assignedUserId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    patientFhirId?: string | null
+    encounterFhirId?: string | null
+    medicalRecordNumber?: string | null
+    patientName?: string | null
+    age?: number | null
+    gender?: string | null
+    admissionDate?: Date | string | null
+    dischargeDate?: Date | string | null
+    primaryDiagnosis?: string | null
+    currentDRG?: string | null
+    openDate?: Date | string | null
+    closeDate?: Date | string | null
+    facilityId?: string | null
     denials?: DenialUncheckedCreateNestedManyWithoutCaseInput
   }
 
@@ -15403,6 +16344,10 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    potentialFinancialImpact?: number | null
+    description?: string | null
+    evidenceId?: string | null
+    embedding?: string | null
     user?: UserCreateNestedOneWithoutPreBillAnalysesInput
   }
 
@@ -15416,6 +16361,10 @@ export namespace Prisma {
     userId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    potentialFinancialImpact?: number | null
+    description?: string | null
+    evidenceId?: string | null
+    embedding?: string | null
   }
 
   export type PreBillAnalysisCreateOrConnectWithoutEncounterInput = {
@@ -15477,6 +16426,19 @@ export namespace Prisma {
     priority?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    patientFhirId?: NullableStringFieldUpdateOperationsInput | string | null
+    encounterFhirId?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalRecordNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    patientName?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dischargeDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    primaryDiagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    currentDRG?: NullableStringFieldUpdateOperationsInput | string | null
+    openDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    closeDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    facilityId?: NullableStringFieldUpdateOperationsInput | string | null
     assignedUser?: UserUpdateOneWithoutAssignedCasesNestedInput
     denials?: DenialUpdateManyWithoutCaseNestedInput
   }
@@ -15490,6 +16452,19 @@ export namespace Prisma {
     assignedUserId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    patientFhirId?: NullableStringFieldUpdateOperationsInput | string | null
+    encounterFhirId?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalRecordNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    patientName?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dischargeDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    primaryDiagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    currentDRG?: NullableStringFieldUpdateOperationsInput | string | null
+    openDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    closeDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    facilityId?: NullableStringFieldUpdateOperationsInput | string | null
     denials?: DenialUncheckedUpdateManyWithoutCaseNestedInput
   }
 
@@ -15756,6 +16731,8 @@ export namespace Prisma {
     role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    fullName?: string | null
+    userRole?: string | null
     queries?: QueryCreateNestedManyWithoutUserInput
     assignedCases?: CaseCreateNestedManyWithoutAssignedUserInput
   }
@@ -15767,6 +16744,8 @@ export namespace Prisma {
     role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    fullName?: string | null
+    userRole?: string | null
     queries?: QueryUncheckedCreateNestedManyWithoutUserInput
     assignedCases?: CaseUncheckedCreateNestedManyWithoutAssignedUserInput
   }
@@ -15835,6 +16814,8 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    userRole?: NullableStringFieldUpdateOperationsInput | string | null
     queries?: QueryUpdateManyWithoutUserNestedInput
     assignedCases?: CaseUpdateManyWithoutAssignedUserNestedInput
   }
@@ -15846,6 +16827,8 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    userRole?: NullableStringFieldUpdateOperationsInput | string | null
     queries?: QueryUncheckedUpdateManyWithoutUserNestedInput
     assignedCases?: CaseUncheckedUpdateManyWithoutAssignedUserNestedInput
   }
@@ -15858,6 +16841,19 @@ export namespace Prisma {
     priority?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    patientFhirId?: string | null
+    encounterFhirId?: string | null
+    medicalRecordNumber?: string | null
+    patientName?: string | null
+    age?: number | null
+    gender?: string | null
+    admissionDate?: Date | string | null
+    dischargeDate?: Date | string | null
+    primaryDiagnosis?: string | null
+    currentDRG?: string | null
+    openDate?: Date | string | null
+    closeDate?: Date | string | null
+    facilityId?: string | null
     assignedUser?: UserCreateNestedOneWithoutAssignedCasesInput
     encounters?: EncounterCreateNestedManyWithoutCaseInput
   }
@@ -15871,6 +16867,19 @@ export namespace Prisma {
     assignedUserId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    patientFhirId?: string | null
+    encounterFhirId?: string | null
+    medicalRecordNumber?: string | null
+    patientName?: string | null
+    age?: number | null
+    gender?: string | null
+    admissionDate?: Date | string | null
+    dischargeDate?: Date | string | null
+    primaryDiagnosis?: string | null
+    currentDRG?: string | null
+    openDate?: Date | string | null
+    closeDate?: Date | string | null
+    facilityId?: string | null
     encounters?: EncounterUncheckedCreateNestedManyWithoutCaseInput
   }
 
@@ -15898,6 +16907,19 @@ export namespace Prisma {
     priority?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    patientFhirId?: NullableStringFieldUpdateOperationsInput | string | null
+    encounterFhirId?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalRecordNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    patientName?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dischargeDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    primaryDiagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    currentDRG?: NullableStringFieldUpdateOperationsInput | string | null
+    openDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    closeDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    facilityId?: NullableStringFieldUpdateOperationsInput | string | null
     assignedUser?: UserUpdateOneWithoutAssignedCasesNestedInput
     encounters?: EncounterUpdateManyWithoutCaseNestedInput
   }
@@ -15911,6 +16933,19 @@ export namespace Prisma {
     assignedUserId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    patientFhirId?: NullableStringFieldUpdateOperationsInput | string | null
+    encounterFhirId?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalRecordNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    patientName?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dischargeDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    primaryDiagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    currentDRG?: NullableStringFieldUpdateOperationsInput | string | null
+    openDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    closeDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    facilityId?: NullableStringFieldUpdateOperationsInput | string | null
     encounters?: EncounterUncheckedUpdateManyWithoutCaseNestedInput
   }
 
@@ -15934,6 +16969,19 @@ export namespace Prisma {
     priority?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    patientFhirId?: string | null
+    encounterFhirId?: string | null
+    medicalRecordNumber?: string | null
+    patientName?: string | null
+    age?: number | null
+    gender?: string | null
+    admissionDate?: Date | string | null
+    dischargeDate?: Date | string | null
+    primaryDiagnosis?: string | null
+    currentDRG?: string | null
+    openDate?: Date | string | null
+    closeDate?: Date | string | null
+    facilityId?: string | null
   }
 
   export type PreBillAnalysisCreateManyUserInput = {
@@ -15946,6 +16994,10 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    potentialFinancialImpact?: number | null
+    description?: string | null
+    evidenceId?: string | null
+    embedding?: string | null
   }
 
   export type QueryUpdateWithoutUserInput = {
@@ -15992,6 +17044,19 @@ export namespace Prisma {
     priority?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    patientFhirId?: NullableStringFieldUpdateOperationsInput | string | null
+    encounterFhirId?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalRecordNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    patientName?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dischargeDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    primaryDiagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    currentDRG?: NullableStringFieldUpdateOperationsInput | string | null
+    openDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    closeDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    facilityId?: NullableStringFieldUpdateOperationsInput | string | null
     encounters?: EncounterUpdateManyWithoutCaseNestedInput
     denials?: DenialUpdateManyWithoutCaseNestedInput
   }
@@ -16004,6 +17069,19 @@ export namespace Prisma {
     priority?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    patientFhirId?: NullableStringFieldUpdateOperationsInput | string | null
+    encounterFhirId?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalRecordNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    patientName?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dischargeDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    primaryDiagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    currentDRG?: NullableStringFieldUpdateOperationsInput | string | null
+    openDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    closeDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    facilityId?: NullableStringFieldUpdateOperationsInput | string | null
     encounters?: EncounterUncheckedUpdateManyWithoutCaseNestedInput
     denials?: DenialUncheckedUpdateManyWithoutCaseNestedInput
   }
@@ -16016,6 +17094,19 @@ export namespace Prisma {
     priority?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    patientFhirId?: NullableStringFieldUpdateOperationsInput | string | null
+    encounterFhirId?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalRecordNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    patientName?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dischargeDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    primaryDiagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    currentDRG?: NullableStringFieldUpdateOperationsInput | string | null
+    openDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    closeDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    facilityId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PreBillAnalysisUpdateWithoutUserInput = {
@@ -16027,6 +17118,10 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    potentialFinancialImpact?: NullableFloatFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    evidenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    embedding?: NullableStringFieldUpdateOperationsInput | string | null
     encounter?: EncounterUpdateOneRequiredWithoutPreBillAnalysesNestedInput
   }
 
@@ -16040,6 +17135,10 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    potentialFinancialImpact?: NullableFloatFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    evidenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    embedding?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PreBillAnalysisUncheckedUpdateManyWithoutUserInput = {
@@ -16052,6 +17151,10 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    potentialFinancialImpact?: NullableFloatFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    evidenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    embedding?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type EncounterCreateManyCaseInput = {
@@ -16075,6 +17178,10 @@ export namespace Prisma {
     resolution?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    denialReasonCode?: string | null
+    deniedAmount?: number | null
+    appealLetterDraft?: string | null
+    claimFhirId?: string | null
   }
 
   export type EncounterUpdateWithoutCaseInput = {
@@ -16128,6 +17235,10 @@ export namespace Prisma {
     resolution?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    denialReasonCode?: NullableStringFieldUpdateOperationsInput | string | null
+    deniedAmount?: NullableFloatFieldUpdateOperationsInput | number | null
+    appealLetterDraft?: NullableStringFieldUpdateOperationsInput | string | null
+    claimFhirId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type DenialUncheckedUpdateWithoutCaseInput = {
@@ -16139,6 +17250,10 @@ export namespace Prisma {
     resolution?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    denialReasonCode?: NullableStringFieldUpdateOperationsInput | string | null
+    deniedAmount?: NullableFloatFieldUpdateOperationsInput | number | null
+    appealLetterDraft?: NullableStringFieldUpdateOperationsInput | string | null
+    claimFhirId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type DenialUncheckedUpdateManyWithoutCaseInput = {
@@ -16150,6 +17265,10 @@ export namespace Prisma {
     resolution?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    denialReasonCode?: NullableStringFieldUpdateOperationsInput | string | null
+    deniedAmount?: NullableFloatFieldUpdateOperationsInput | number | null
+    appealLetterDraft?: NullableStringFieldUpdateOperationsInput | string | null
+    claimFhirId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type EncounterCreateManyPatientInput = {
@@ -16229,6 +17348,10 @@ export namespace Prisma {
     userId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    potentialFinancialImpact?: number | null
+    description?: string | null
+    evidenceId?: string | null
+    embedding?: string | null
   }
 
   export type DiagnosisUpdateWithoutEncounterInput = {
@@ -16279,6 +17402,10 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    potentialFinancialImpact?: NullableFloatFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    evidenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    embedding?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneWithoutPreBillAnalysesNestedInput
   }
 
@@ -16292,6 +17419,10 @@ export namespace Prisma {
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    potentialFinancialImpact?: NullableFloatFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    evidenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    embedding?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PreBillAnalysisUncheckedUpdateManyWithoutEncounterInput = {
@@ -16304,6 +17435,10 @@ export namespace Prisma {
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    potentialFinancialImpact?: NullableFloatFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    evidenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    embedding?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

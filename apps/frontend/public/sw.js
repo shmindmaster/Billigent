@@ -84,7 +84,7 @@ async function handleApiRequest(request) {
       const cachedResponse = await caches.match(request);
       return cachedResponse || networkResponse;
       
-    } catch (error) {
+    } catch (_error) {
       // Network failed, try cache
       const cachedResponse = await caches.match(request);
       return cachedResponse || new Response('Offline', { 
@@ -116,7 +116,7 @@ async function handleStaticRequest(request) {
     
     return networkResponse;
     
-  } catch (error) {
+  } catch (_error) {
     // Return cached version if available
     const cachedResponse = await caches.match(request);
     return cachedResponse || new Response('Offline', { 

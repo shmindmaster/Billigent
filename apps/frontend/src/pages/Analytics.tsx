@@ -45,7 +45,7 @@ const Analytics: React.FC = () => {
     return (
       <ErrorState
         title="Analytics Error"
-        message={error?.message || 'Failed to load analytics data'}
+        message={typeof error === 'string' ? error : (error as any)?.message || 'Failed to load analytics data'}
         onRetry={refetch}
         className="m-8"
       />

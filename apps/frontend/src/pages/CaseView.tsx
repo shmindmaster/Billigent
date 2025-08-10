@@ -31,9 +31,7 @@ const UnifiedCaseView: React.FC = () => {
     }
   };
 
-  const handleClaimLookup = (claimId: string) => {
-    navigate(`/cases?search=${claimId}`);
-  };
+  // Removed unused handleClaimLookup function
 
   // Removed CDI and Denials review handlers; not present on UnifiedCase type
 
