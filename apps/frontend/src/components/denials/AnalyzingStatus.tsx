@@ -4,7 +4,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
 interface Props {
-  denialId: number;
+  denialId: string | number;
   status: string;
 }
 

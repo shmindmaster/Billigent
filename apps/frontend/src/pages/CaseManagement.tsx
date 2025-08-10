@@ -186,14 +186,14 @@ const CaseManagement: React.FC = () => {
             key: 'status',
             label: 'Status',
             value: statusFilter,
-            onChange: setStatusFilter,
+            onChange: (v: string) => setStatusFilter(v as 'all' | 'open' | 'review' | 'closed' | 'pending'),
             options: statusOptions
           },
           {
             key: 'priority',
             label: 'Priority',
             value: priorityFilter,
-            onChange: setPriorityFilter,
+            onChange: (v: string) => setPriorityFilter(v as 'all' | 'high' | 'medium' | 'low' | 'urgent'),
             options: priorityOptions
           }
         ]}

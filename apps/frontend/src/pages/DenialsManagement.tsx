@@ -51,7 +51,7 @@ const DenialsManagement: React.FC = () => {
 
   // New state variables for async API workflow
   const [isProcessing, setIsProcessing] = useState(false);
-  const [analysisTaskId, setAnalysisTaskId] = useState<number | null>(null);
+  const [analysisTaskId, setAnalysisTaskId] = useState<string | null>(null);
   const [currentError, setCurrentError] = useState<string>('');
   const [_aiGeneratedAppealLetters, _setAiGeneratedAppealLetters] = useState<Record<string, string>>({});
 
@@ -84,9 +84,11 @@ const DenialsManagement: React.FC = () => {
       try {
         setCurrentError('');
         const result = await getAnalysisResult(analysisTaskId);
-        
-        // Treat multiple success statuses as completion for Azure Responses API
-        if (String(result.status).toLowerCase() === 'readyforreview') {
+        const data = result?.data as any;
+
+        // Treat multiple success statuses as completion for Responses API
+        const status = String(data?.status || '').toLowerCase();
+        if (status === 'readyforreview' || status === 'completed' || status === 'done') {
           // Invalidate to reload denials list
           queryClient.invalidateQueries({ queryKey: ['denials'] });
           setIsProcessing(false);
@@ -106,7 +108,7 @@ const DenialsManagement: React.FC = () => {
         // Update status to indicate failure
         setDenials(prevDenials => 
           prevDenials.map(denial => {
-            if (denial.id === analysisTaskId) {
+            if (analysisTaskId && String(denial.id) === analysisTaskId) {
               return { ...denial, status: 'Denied' as const };
             }
             return denial;
@@ -175,14 +177,22 @@ const DenialsManagement: React.FC = () => {
       
       const prompt = 'Analyze this denial letter, identify the reason code and summary, and then generate a complete, evidence-based appeal letter by analyzing the associated patient chart data.';
       
-      // Start background analysis
-      const denialId = await startBackgroundAnalysis(file, prompt, {
-        // Minimal stub metadata; in a real flow, collect from form/selection
-        patientFhirId: 'Patient/123',
-        encounterFhirId: 'Encounter/123',
-        claimFhirId: `Claim/${Date.now()}`,
+      // Start background analysis (single-arg API returning ResponsesAPIResult)
+      const startResult = await startBackgroundAnalysis({
+        fileName: file.name,
+        prompt,
+        metadata: {
+          patientFhirId: 'Patient/123',
+          encounterFhirId: 'Encounter/123',
+          claimFhirId: `Claim/${Date.now()}`,
+        },
       });
-      setAnalysisTaskId(denialId);
+      const analysisId = (startResult?.data as any)?.analysisId as string | undefined;
+      if (analysisId) {
+        setAnalysisTaskId(analysisId);
+      } else {
+        throw new ResponsesAPIError('Invalid start analysis response');
+      }
       // Refresh list so new denial appears as Analyzing
       queryClient.invalidateQueries({ queryKey: ['denials'] });
       
@@ -286,7 +296,7 @@ const DenialsManagement: React.FC = () => {
 
   if (error) {
     return (
-      <ErrorState title="Failed to load denials" message={(error as Error)?.message || 'Unknown error'} onRetry={() => refetch()} />
+      <ErrorState title="Failed to load denials" message={String(error || 'Unknown error')} onRetry={() => refetch()} />
     );
   }
 
@@ -481,7 +491,7 @@ const DenialsManagement: React.FC = () => {
                       {denial.potentialRecovery ? formatCurrency(denial.potentialRecovery) : 'N/A'}
                     </TableCell>
                     <TableCell className="text-center">
-                      <AnalyzingStatus denialId={Number(denial.id)} status={denial.status} />
+                      <AnalyzingStatus denialId={String(denial.id)} status={denial.status} />
                     </TableCell>
                     <TableCell className="text-center">
                       <Button
