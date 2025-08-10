@@ -86,7 +86,7 @@ class DatabaseIndexer {
     console.log('🔍 Starting database data indexing...');
     
     // Get CDI evidence records with embeddings
-    const records = await this.prisma.cDI_Evidence.findMany({
+    const records = await this.prisma.preBillAnalysis.findMany({
       where: { 
         embedding: { not: null },
         description: { not: "" }
@@ -163,4 +163,5 @@ if (require.main === module) {
 }
 
 export { DatabaseIndexer };
+
 

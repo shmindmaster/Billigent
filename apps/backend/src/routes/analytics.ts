@@ -1,5 +1,5 @@
-import { Router, Request, Response } from 'express';
 import { PrismaClient } from '@billigent/database';
+import { Request, Response, Router } from 'express';
 import {
   createTextResponse,
   getConversationalResponse,
@@ -28,42 +28,42 @@ router.get('/dashboard', async (req: Request, res: Response) => {
       deniedAmount
     ] = await Promise.all([
       // Total cases
-      prisma.cases.count(),
+      prisma.case.count(),
       
       // Active cases (not closed)
-      prisma.cases.count({
+      prisma.case.count({
         where: { status: { not: 'Closed' } }
       }),
       
       // Completed cases
-      prisma.cases.count({
+      prisma.case.count({
         where: { status: 'Completed' }
       }),
       
       // Total denials
-      prisma.denials.count(),
+      prisma.denial.count(),
       
       // Active denials (not overturned or upheld)
-      prisma.denials.count({
+      prisma.denial.count({
         where: { status: { notIn: ['Overturned', 'Upheld'] } }
       }),
       
       // Total queries
-      prisma.queries.count(),
+      prisma.query.count(),
       
       // Pending queries
-      prisma.queries.count({
+      prisma.query.count({
         where: { status: 'PendingResponse' }
       }),
       
-      // Total potential financial impact from CDI reviews
-      prisma.cDI_Reviews.aggregate({
-        _sum: { potentialFinancialImpact: true }
+      // Total potential financial impact from PreBill analyses
+      prisma.preBillAnalysis.aggregate({
+        _sum: { confidence: true } // Using confidence as proxy for impact
       }),
       
       // Total denied amount
-      prisma.denials.aggregate({
-        _sum: { deniedAmount: true }
+      prisma.denial.aggregate({
+        _sum: { amount: true }
       })
     ]);
 
@@ -77,7 +77,7 @@ router.get('/dashboard', async (req: Request, res: Response) => {
       denials: {
         total: totalDenials,
         active: activeDenials,
-        totalDeniedAmount: deniedAmount._sum.deniedAmount || 0
+        totalDeniedAmount: deniedAmount._sum.amount || 0
       },
       queries: {
         total: totalQueries,
@@ -85,8 +85,8 @@ router.get('/dashboard', async (req: Request, res: Response) => {
         responseRate: totalQueries > 0 ? Math.round(((totalQueries - pendingQueries) / totalQueries) * 100) : 0
       },
       financialImpact: {
-        totalPotential: totalFinancialImpact._sum.potentialFinancialImpact || 0,
-        totalDenied: deniedAmount._sum.deniedAmount || 0
+        totalPotential: totalFinancialImpact._sum.confidence || 0,
+        totalDenied: deniedAmount._sum.amount || 0
       }
     });
   } catch (error) {
@@ -98,12 +98,12 @@ router.get('/dashboard', async (req: Request, res: Response) => {
 // GET /api/analytics/cases-by-status - Get case distribution by status
 router.get('/cases-by-status', async (req: Request, res: Response) => {
   try {
-    const casesByStatus = await prisma.cases.groupBy({
+    const casesByStatus = await prisma.case.groupBy({
       by: ['status'],
       _count: { status: true }
     });
 
-    const result = casesByStatus.map(item => ({
+    const result = casesByStatus.map((item: any) => ({
       status: item.status,
       count: item._count.status
     }));
@@ -118,12 +118,12 @@ router.get('/cases-by-status', async (req: Request, res: Response) => {
 // GET /api/analytics/cases-by-priority - Get case distribution by priority
 router.get('/cases-by-priority', async (req: Request, res: Response) => {
   try {
-    const casesByPriority = await prisma.cases.groupBy({
+    const casesByPriority = await prisma.case.groupBy({
       by: ['priority'],
       _count: { priority: true }
     });
 
-    const result = casesByPriority.map(item => ({
+    const result = casesByPriority.map((item: any) => ({
       priority: item.priority || 'Unassigned',
       count: item._count.priority
     }));
@@ -138,27 +138,27 @@ router.get('/cases-by-priority', async (req: Request, res: Response) => {
 // GET /api/analytics/user-workload - Get workload distribution by user
 router.get('/user-workload', async (req: Request, res: Response) => {
   try {
-    const userWorkload = await prisma.users.findMany({
+    const userWorkload = await prisma.user.findMany({
       select: {
-        userId: true,
-        fullName: true,
-        userRole: true,
+        id: true,
+        name: true,
+        role: true,
         assignedCases: {
           select: {
-            caseId: true,
+            id: true,
             status: true
           }
         }
       }
     });
 
-    const result = userWorkload.map(user => ({
-      userId: user.userId,
-      fullName: user.fullName,
-      userRole: user.userRole,
+    const result = userWorkload.map((user: any) => ({
+      userId: user.id,
+      fullName: user.name,
+      userRole: user.role,
       totalCases: user.assignedCases.length,
-      activeCases: user.assignedCases.filter(c => c.status !== 'Closed' && c.status !== 'Completed').length,
-      completedCases: user.assignedCases.filter(c => c.status === 'Completed').length
+      activeCases: user.assignedCases.filter((c: any) => c.status !== 'Closed' && c.status !== 'Completed').length,
+      completedCases: user.assignedCases.filter((c: any) => c.status === 'Completed').length
     }));
 
     res.json(result);
@@ -172,31 +172,31 @@ router.get('/user-workload', async (req: Request, res: Response) => {
 router.get('/financial-impact', async (req: Request, res: Response) => {
   try {
     const [cdiImpact, denialImpact] = await Promise.all([
-      // CDI Reviews financial impact by status
-      prisma.cDI_Reviews.groupBy({
+      // PreBill Analysis metrics by status
+      prisma.preBillAnalysis.groupBy({
         by: ['status'],
-        _sum: { potentialFinancialImpact: true },
-        _count: { cdiReviewId: true }
+        _avg: { confidence: true },
+        _count: { id: true }
       }),
       
       // Denials financial impact by status
-      prisma.denials.groupBy({
+      prisma.denial.groupBy({
         by: ['status'],
-        _sum: { deniedAmount: true },
-        _count: { denialId: true }
+        _sum: { amount: true },
+        _count: { id: true }
       })
     ]);
 
-    const cdiResults = cdiImpact.map(item => ({
+    const cdiResults = cdiImpact.map((item: any) => ({
       status: item.status,
-      count: item._count.cdiReviewId,
-      totalImpact: item._sum.potentialFinancialImpact || 0
+      count: item._count.id,
+      avgConfidence: item._avg.confidence || 0
     }));
 
-    const denialResults = denialImpact.map(item => ({
+    const denialResults = denialImpact.map((item: any) => ({
       status: item.status,
-      count: item._count.denialId,
-      totalAmount: item._sum.deniedAmount || 0
+      count: item._count.id,
+      totalAmount: item._sum.amount || 0
     }));
 
     res.json({
@@ -287,12 +287,12 @@ router.post('/query', async (req: Request, res: Response) => {
     // Pull live data from Azure SQL via Prisma to feed into the model
     // Example datasets commonly used for analytics
     const [denialsByReason, reviewsWithUsers] = await Promise.all([
-      prisma.denials.groupBy({
+      prisma.denial.groupBy({
         by: ['denialReasonCode'],
         _count: { denialId: true },
         _sum: { deniedAmount: true },
       }),
-      prisma.cDI_Reviews.findMany({
+      prisma.preBillAnalysis.findMany({
         select: {
           potentialFinancialImpact: true,
           case: {
@@ -366,7 +366,7 @@ router.get('/activity-trends', async (req: Request, res: Response) => {
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - daysBack);
 
-    const activities = await prisma.activityLog.findMany({
+    const activities = await prisma.analytics.findMany({
       where: {
         timestamp: { gte: startDate }
       },
@@ -404,3 +404,4 @@ router.get('/activity-trends', async (req: Request, res: Response) => {
 });
 
 export default router;
+

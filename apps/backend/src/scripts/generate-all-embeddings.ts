@@ -10,7 +10,7 @@ function float32ArrayToBuffer(arr: number[]): Buffer {
 }
 
 async function processBatch(skip: number, take: number): Promise<number> {
-  const records = await prisma.cDI_Evidence.findMany({
+  const records = await prisma.preBillAnalysis.findMany({
     where: { embedding: null } as any,
     orderBy: { evidenceId: 'asc' },
     skip,
@@ -30,7 +30,7 @@ async function processBatch(skip: number, take: number): Promise<number> {
       }
       const vec = await generateEmbedding(text);
       const buf = float32ArrayToBuffer(vec);
-      await prisma.cDI_Evidence.update({
+      await prisma.preBillAnalysis.update({
         where: { evidenceId: rec.evidenceId },
         data: { embedding: buf } as any,
       });
@@ -70,3 +70,4 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
+

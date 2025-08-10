@@ -45,7 +45,7 @@ async function generateEmbeddingForText(client: OpenAI, text: string): Promise<n
 }
 
 async function processBatch(skip: number, take: number, client: OpenAI): Promise<number> {
-  const records = await prisma.cDI_Evidence.findMany({
+  const records = await prisma.preBillAnalysis.findMany({
     // Cast where to any to avoid type errors before prisma generate
     where: { embedding: null } as any,
     orderBy: { evidenceId: 'asc' },
@@ -70,7 +70,7 @@ async function processBatch(skip: number, take: number, client: OpenAI): Promise
         continue;
       }
       const buf = float32ArrayToBuffer(vec);
-      await prisma.cDI_Evidence.update({
+      await prisma.preBillAnalysis.update({
         where: { evidenceId: rec.evidenceId },
         // Cast data to any to avoid type errors until Prisma client is regenerated
         data: { embedding: buf } as any,
@@ -114,3 +114,4 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
+

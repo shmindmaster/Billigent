@@ -30,7 +30,7 @@ router.get('/', async (req: Request, res: Response) => {
     if (caseId) where.caseId = parseInt(caseId as string, 10);
 
     const [denials, total] = await Promise.all([
-      prisma.denials.findMany({
+      prisma.denial.findMany({
         where,
         skip,
         take: limitNum,
@@ -61,7 +61,7 @@ router.get('/', async (req: Request, res: Response) => {
         },
         orderBy: { denialId: 'desc' },
       }),
-      prisma.denials.count({ where }),
+      prisma.denial.count({ where }),
     ]);
 
     res.json({
@@ -89,7 +89,7 @@ router.get('/:id', async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Invalid denial ID' });
     }
 
-    const denial = await prisma.denials.findUnique({
+    const denial = await prisma.denial.findUnique({
       where: { denialId },
       select: {
         denialId: true,
@@ -160,10 +160,10 @@ router.post('/', upload.single('file'), async (req: Request, res: Response) => {
         return res.status(400).json({ error: 'Missing required fields: caseId, claimFhirId' });
       }
 
-      const existingCase = await prisma.cases.findUnique({ where: { caseId: parseInt(caseId, 10) } });
+      const existingCase = await prisma.case.findUnique({ where: { caseId: parseInt(caseId, 10) } });
       if (!existingCase) return res.status(404).json({ error: 'Case not found' });
 
-      const newDenial = await prisma.denials.create({
+      const newDenial = await prisma.denial.create({
         data: {
           caseId: parseInt(caseId, 10),
           claimFhirId,
@@ -180,7 +180,7 @@ router.post('/', upload.single('file'), async (req: Request, res: Response) => {
         },
       });
 
-      await prisma.activityLog.create({
+      await prisma.analytics.create({
         data: {
           caseId: parseInt(caseId, 10),
           userId: existingCase.assignedUserId || 1,
@@ -205,7 +205,7 @@ router.post('/', upload.single('file'), async (req: Request, res: Response) => {
     }
 
     // Upsert case using unique encounterFhirId
-    const newCase = await prisma.cases.upsert({
+    const newCase = await prisma.case.upsert({
       where: { encounterFhirId },
       update: { status: 'Open' },
       create: {
@@ -222,7 +222,7 @@ router.post('/', upload.single('file'), async (req: Request, res: Response) => {
     const taskId = await startPdfAnalysis(file.buffer, prompt);
 
     // Create denial with status Analyzing and store responseId
-    const createdDenial = await prisma.denials.create({
+    const createdDenial = await prisma.denial.create({
       data: {
         caseId: newCase.caseId,
         claimFhirId,
@@ -258,7 +258,7 @@ router.post('/', upload.single('file'), async (req: Request, res: Response) => {
       },
     }).catch(async (err: any) => {
       console.warn('responseId column may be missing, creating without it:', err?.message);
-      const denial = await prisma.denials.create({
+      const denial = await prisma.denial.create({
         data: {
           caseId: newCase.caseId,
           claimFhirId,
@@ -287,7 +287,7 @@ router.post('/', upload.single('file'), async (req: Request, res: Response) => {
     });
 
     // Log activity
-    await prisma.activityLog.create({
+    await prisma.analytics.create({
       data: {
         caseId: newCase.caseId,
         userId: newCase.assignedUserId || 1,
@@ -336,7 +336,7 @@ router.put('/:id', async (req: Request, res: Response) => {
       updateData.appealSubmittedDate = new Date(updateData.appealSubmittedDate);
     }
 
-    const updatedDenial = await prisma.denials.update({
+    const updatedDenial = await prisma.denial.update({
       where: { denialId },
       data: updateData,
       select: {
@@ -383,7 +383,7 @@ router.put('/:id', async (req: Request, res: Response) => {
       description = `Final outcome recorded: ${updateData.finalOutcome}`;
     }
 
-    await prisma.activityLog.create({
+    await prisma.analytics.create({
       data: {
         caseId: updatedDenial.caseId,
         userId: updatedDenial.case.assignedUser?.userId || 1,
@@ -410,7 +410,7 @@ router.delete('/:id', async (req: Request, res: Response) => {
     }
 
     // Get denial info for logging before deletion
-    const denial = await prisma.denials.findUnique({
+    const denial = await prisma.denial.findUnique({
       where: { denialId },
       include: { case: true }
     });
@@ -420,10 +420,10 @@ router.delete('/:id', async (req: Request, res: Response) => {
     }
 
     // Delete the denial
-    await prisma.denials.delete({ where: { denialId } });
+    await prisma.denial.delete({ where: { denialId } });
 
     // Log activity
-    await prisma.activityLog.create({
+    await prisma.analytics.create({
       data: {
         caseId: denial.caseId,
         userId: denial.case.assignedUserId || 1,
@@ -445,7 +445,7 @@ router.get('/:denialId/status', async (req: Request, res: Response) => {
     const denialId = parseInt(req.params.denialId, 10);
     if (isNaN(denialId)) return res.status(400).json({ error: 'Invalid denial ID' });
 
-    const denial = await prisma.denials.findUnique({ where: { denialId }, select: { status: true } });
+    const denial = await prisma.denial.findUnique({ where: { denialId }, select: { status: true } });
     if (!denial) return res.status(404).json({ error: 'Denial not found' });
 
     const responseId = pendingTaskByDenialId.get(denialId);
@@ -472,7 +472,7 @@ router.get('/:denialId/status', async (req: Request, res: Response) => {
           : undefined)
         ?? '';
 
-      await prisma.denials.update({
+      await prisma.denial.update({
         where: { denialId },
         data: { status: 'ReadyForReview', appealLetterDraft: text },
       });
@@ -482,7 +482,7 @@ router.get('/:denialId/status', async (req: Request, res: Response) => {
     }
 
     if (status === 'failed' || status === 'error') {
-      await prisma.denials.update({ where: { denialId }, data: { status: 'AnalysisFailed' } });
+      await prisma.denial.update({ where: { denialId }, data: { status: 'AnalysisFailed' } });
       pendingTaskByDenialId.delete(denialId);
       return res.status(500).json({ status: 'AnalysisFailed', error: 'Analysis failed' });
     }
@@ -496,3 +496,4 @@ router.get('/:denialId/status', async (req: Request, res: Response) => {
 });
 
 export default router;
+

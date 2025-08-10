@@ -44,7 +44,7 @@ export class ResponsesAPIService {
         throw new Error(`API request failed: ${response.status} ${response.statusText}`);
       }
 
-      return await response.json();
+      return await response.json() as ResponsesAPIResponse;
     } catch (error) {
       console.error('ResponsesAPIService error:', error);
       return {
@@ -69,7 +69,7 @@ export class ResponsesAPIService {
         throw new Error(`API request failed: ${response.status} ${response.statusText}`);
       }
 
-      return await response.json();
+      return await response.json() as ResponsesAPIResponse;
     } catch (error) {
       console.error('ResponsesAPIService status error:', error);
       return {
@@ -82,7 +82,9 @@ export class ResponsesAPIService {
   }
 }
 
-export const responsesAPIService = new ResponsesAPIService();export async function getConversationalResponse(query: string, context?: any): Promise<string> {
+export const responsesAPIService = new ResponsesAPIService();
+
+export async function getConversationalResponse(query: string, context?: any): Promise<string> {
   try {
     const response = await responsesAPIService.submitQuery(query, context);
     return response.data?.answer || response.error || 'No response available';
@@ -91,3 +93,40 @@ export const responsesAPIService = new ResponsesAPIService();export async functi
     return 'Error generating response';
   }
 }
+
+// Stub exports for missing functions (to be implemented)
+export const createTextResponse = async (..._args: any[]): Promise<any> => {
+  throw new Error('Function not implemented yet');
+};
+
+export const startBackgroundAnalysisFromBase64 = async (..._args: any[]): Promise<any> => {
+  throw new Error('Function not implemented yet');
+};
+
+export const retrieveResponse = async (..._args: any[]): Promise<any> => {
+  throw new Error('Function not implemented yet');
+};
+
+export const getAnalyticsWithCodeInterpreter = async (..._args: any[]): Promise<any> => {
+  throw new Error('Function not implemented yet');
+};
+
+export const uploadPdfForAnalysis = async (..._args: any[]): Promise<any> => {
+  throw new Error('Function not implemented yet');
+};
+
+export const startPdfAnalysisWithFileId = async (..._args: any[]): Promise<any> => {
+  throw new Error('Function not implemented yet');
+};
+
+export const startPdfAnalysis = async (..._args: any[]): Promise<any> => {
+  throw new Error('Function not implemented yet');
+};
+
+export const getResponse = async (..._args: any[]): Promise<any> => {
+  throw new Error('Function not implemented yet');
+};
+
+export const generateAppealLetter = async (..._args: any[]): Promise<any> => {
+  throw new Error('Function not implemented yet');
+};
