@@ -1,0 +1,31 @@
+{
+  "name": "billigent",
+  "version": "1.0.0",
+  "description": "Enterprise-ready Azure-native clinical intelligence cockpit",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "pnpm run -r build",
+    "dev": "pnpm run -r dev",
+    "test": "pnpm run -r test",
+    "lint": "pnpm run -r lint",
+    "clean": "pnpm run -r clean",
+    "db:generate": "pnpm --filter @billigent/database db:generate",
+    "db:push": "pnpm --filter @billigent/database db:push",
+    "db:migrate": "pnpm --filter @billigent/database db:migrate",
+    "db:seed": "pnpm --filter @billigent/database db:seed"
+  },
+  "devDependencies": {
+    "@types/node": "^24.2.0",
+    "typescript": "^5.9.2",
+    "tsx": "^4.20.3"
+  },
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "packageManager": "pnpm@9.15.0"
+}
