@@ -1,0 +1,95 @@
+# ====================================
+# 🚫 DATA EXCLUSION ZONE - NO DATA IN REPO!
+# ====================================
+
+# Dataset directories (ALL DATA GOES TO AZURE!)
+**/huggingface_data/
+**/.playwright-mcp/
+**/synthea_output/
+**/tmp/
+**/apps/*/tmp/
+**/apps/*/synthea_output/
+**/packages/*/tmp/
+
+# Medical data files (NEVER COMMIT!)
+*.zip
+*.csv
+*.xlsx
+*.json
+*.pdf
+*.dat
+*.log
+*.xml
+*.ndjson
+
+# Medical coding datasets
+*icd10*
+*hcpcs*
+*drg*
+*medical*
+*coding*
+*claims*
+*patients*
+
+# ====================================
+# 🔨 BUILD / DIST / NODE_MODULES
+# ====================================
+**/node_modules/
+**/dist/
+**/build/
+**/.next/
+**/.output/
+**/out/
+**/coverage/
+**/.turbo/
+**/.cache/
+**/.parcel-cache/
+**/.vite/
+**/.rollup.cache/
+
+# ====================================
+# 🗑️ TEMP / CACHE / LOG / BACKUPS
+# ====================================
+*.cache
+*.tmp
+*.temp
+*_cache/
+temp_*
+**/query_engine-*.tmp*
+**/logs/
+**/log/
+**/*.log
+**/debug.log
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/pnpm-debug.log*
+**/.eslintcache
+**/.stylelintcache
+**/.tsbuildinfo
+**/.DS_Store
+**/Thumbs.db
+**/backup/
+**/processed/
+**/upload/
+**/download/
+
+# ====================================
+# 🛠️ IDE / TOOLING / MISC
+# ====================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+*.orig
+*.rej
+**/.env
+**/.env.*
+!.env.example
+
+# GitHub-specific
+.github/chatmodes
+.github/instructions
+.github/prompts
+.github/copilot-instructions.md

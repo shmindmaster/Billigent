@@ -1,0 +1,163 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  role      String   @default("user")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  queries         Query[]
+  assignedCases   Case[]
+  preBillAnalyses PreBillAnalysis[]
+
+  @@map("users")
+}
+
+model Query {
+  id         String   @id @default(uuid())
+  question   String
+  answer     String?
+  confidence Float?
+  sources    String? // JSON as string for SQL Server
+  status     String   @default("pending")
+  context    String? // JSON as string for SQL Server
+  userId     String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("queries")
+}
+
+model Case {
+  id             String   @id @default(uuid())
+  title          String
+  description    String?
+  status         String   @default("open")
+  priority       String   @default("medium")
+  assignedUserId String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  assignedUser User?       @relation(fields: [assignedUserId], references: [id])
+  encounters   Encounter[]
+  denials      Denial[]
+
+  @@map("cases")
+}
+
+model Patient {
+  id        String    @id @default(uuid())
+  name      String
+  mrn       String    @unique
+  dob       DateTime?
+  gender    String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  encounters Encounter[]
+
+  @@map("patients")
+}
+
+model Encounter {
+  id             String    @id @default(uuid())
+  patientId      String
+  caseId         String?
+  encounterId    String    @unique
+  chiefComplaint String?
+  admissionDate  DateTime?
+  dischargeDate  DateTime?
+  status         String    @default("active")
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  patient         Patient           @relation(fields: [patientId], references: [id])
+  case            Case?             @relation(fields: [caseId], references: [id])
+  diagnoses       Diagnosis[]
+  procedures      Procedure[]
+  preBillAnalyses PreBillAnalysis[]
+
+  @@map("encounters")
+}
+
+model Diagnosis {
+  id          String  @id @default(uuid())
+  encounterId String
+  icdCode     String
+  description String
+  isPrimary   Boolean @default(false)
+
+  encounter Encounter @relation(fields: [encounterId], references: [id])
+
+  @@map("diagnoses")
+}
+
+model Procedure {
+  id          String @id @default(uuid())
+  encounterId String
+  cptCode     String
+  description String
+
+  encounter Encounter @relation(fields: [encounterId], references: [id])
+
+  @@map("procedures")
+}
+
+model PreBillAnalysis {
+  id              String   @id @default(uuid())
+  encounterId     String
+  confidence      Float
+  recommendations String // JSON as string for SQL Server
+  riskFactors     String? // Comma-separated string for SQL Server
+  notes           String?
+  status          String   @default("pending")
+  userId          String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  encounter Encounter @relation(fields: [encounterId], references: [id])
+  user      User?     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@map("pre_bill_analyses")
+}
+
+model Denial {
+  id           String    @id @default(uuid())
+  caseId       String?
+  denialReason String
+  amount       Float
+  status       String    @default("pending")
+  appealDate   DateTime?
+  resolution   String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  case Case? @relation(fields: [caseId], references: [id])
+
+  @@map("denials")
+}
+
+model Analytics {
+  id        String   @id @default(uuid())
+  metric    String
+  value     Float
+  dimension String?
+  timestamp DateTime @default(now())
+
+  @@map("analytics")
+}
