@@ -17,52 +17,52 @@ graph TB
         Web[Web Browser]
         Mobile[Mobile App]
     end
-    
+
     subgraph "CDN & Gateway"
         CDN[Azure CDN]
         APIM[API Management]
         WAF[Web Application Firewall]
     end
-    
+
     subgraph "Frontend"
         React[React 19 + TypeScript]
         Vite[Vite Build System]
         PWA[Progressive Web App]
     end
-    
+
     subgraph "API Gateway & Security"
         Gateway[Azure API Gateway]
         Auth[Microsoft Entra ID]
         RBAC[Role-Based Access Control]
     end
-    
+
     subgraph "Backend Services"
         API[Express.js API Server]
         Worker[Background Workers]
         Scheduler[Task Scheduler]
     end
-    
+
     subgraph "AI/ML Services"
         OpenAI[Azure OpenAI]
         Search[Azure AI Search]
         Form[Form Recognizer]
         Cognitive[Cognitive Services]
     end
-    
+
     subgraph "Data Layer"
         SQL[Azure SQL Database]
         DataLake[Azure Data Lake]
         Cache[Redis Cache]
         Cosmos[Cosmos DB]
     end
-    
+
     subgraph "Infrastructure"
         AKS[Azure Kubernetes Service]
         Monitor[Application Insights]
         KeyVault[Azure Key Vault]
         Storage[Azure Storage]
     end
-    
+
     Web --> CDN
     Mobile --> CDN
     CDN --> WAF
@@ -87,6 +87,7 @@ graph TB
 ### Frontend Architecture
 
 #### React 19 + TypeScript
+
 - **Framework**: React 19 with concurrent features
 - **Language**: TypeScript 5.9+ for type safety
 - **Build Tool**: Vite 5.4+ for fast development and optimized builds
@@ -94,12 +95,14 @@ graph TB
 - **Component Library**: Shadcn/ui for consistent design system
 
 #### State Management
+
 - **Server State**: TanStack Query (React Query) for API data management
 - **Client State**: React Context + useReducer for application state
 - **Form State**: React Hook Form with Zod validation
 - **Cache Strategy**: Intelligent caching with stale-while-revalidate
 
 #### Performance Optimizations
+
 - **Code Splitting**: Route-based and component-based lazy loading
 - **Bundle Analysis**: Optimized chunks for vendor, UI, and application code
 - **Service Worker**: Offline capabilities and intelligent caching
@@ -114,7 +117,7 @@ interface ApplicationArchitecture {
     caseManagement: React.lazy(() => import('./pages/CaseManagement'));
     denials: React.lazy(() => import('./pages/DenialsManagement'));
   };
-  
+
   // State management layers
   state: {
     server: TanStackQuery;
@@ -122,7 +125,7 @@ interface ApplicationArchitecture {
     forms: ReactHookForm;
     cache: ServiceWorker;
   };
-  
+
   // Performance monitoring
   monitoring: {
     webVitals: CoreWebVitals;
@@ -135,6 +138,7 @@ interface ApplicationArchitecture {
 ### Backend Architecture
 
 #### Node.js + Express Framework
+
 - **Runtime**: Node.js 22 LTS for performance and stability
 - **Framework**: Express.js with TypeScript for API development
 - **ORM**: Prisma for type-safe database access
@@ -142,6 +146,7 @@ interface ApplicationArchitecture {
 - **Authentication**: Microsoft Entra ID integration
 
 #### Microservices Design
+
 ```typescript
 interface MicroserviceArchitecture {
   services: {
@@ -152,13 +157,13 @@ interface MicroserviceArchitecture {
     ai: AIOrchestrationService;
     notifications: NotificationService;
   };
-  
+
   communication: {
     http: RESTfulAPIs;
     messaging: AzureServiceBus;
     events: EventDrivenArchitecture;
   };
-  
+
   dataAccess: {
     relational: PrismaORM;
     documents: CosmosDB;
@@ -169,6 +174,7 @@ interface MicroserviceArchitecture {
 ```
 
 #### API Design Principles
+
 - **RESTful APIs**: Resource-based URLs with proper HTTP methods
 - **OpenAPI Specification**: Comprehensive API documentation
 - **Versioning**: API versioning strategy for backward compatibility
@@ -178,6 +184,7 @@ interface MicroserviceArchitecture {
 ### Database Architecture
 
 #### Primary Database: Azure SQL Database
+
 ```sql
 -- Core Entity Relationships
 CREATE TABLE Users (
@@ -213,6 +220,7 @@ CREATE TABLE Diagnoses (
 ```
 
 #### Data Lake Architecture
+
 ```
 Azure Data Lake Storage Gen2:
 /bronze/                    # Raw data ingestion
@@ -244,25 +252,26 @@ Azure Data Lake Storage Gen2:
 ### Azure OpenAI Integration
 
 #### GPT-5-mini Implementation
+
 ```typescript
 interface AzureOpenAIService {
   // Core conversation management
   createConversation(context: ClinicalContext): Promise<ConversationId>;
   addMessage(conversationId: string, message: UserMessage): Promise<void>;
   getResponse(conversationId: string): Promise<AIResponse>;
-  
+
   // Specialized clinical functions
   analyzeClinicalDocumentation(
     encounter: FHIREncounter,
     context: ClinicalGuidelines
   ): Promise<DocumentationAnalysis>;
-  
+
   generateCodingRecommendations(
     diagnosis: string,
     procedures: string[],
     context: MedicalCodingStandards
   ): Promise<CodingRecommendation[]>;
-  
+
   createAppealLetter(
     denial: DenialDetails,
     evidence: ClinicalEvidence
@@ -271,6 +280,7 @@ interface AzureOpenAIService {
 ```
 
 #### Responses API Architecture
+
 ```mermaid
 graph TB
     A[User Request] --> B[Request Validation]
@@ -282,7 +292,7 @@ graph TB
     G --> H[Quality Validation]
     H --> I[Response Caching]
     I --> J[User Interface]
-    
+
     D --> K[Medical Knowledge Base]
     K --> L[ICD-10/CPT Codes]
     K --> M[Clinical Guidelines]
@@ -292,16 +302,17 @@ graph TB
 ### Retrieval-Augmented Generation (RAG)
 
 #### Vector Database: Azure AI Search
+
 ```typescript
 interface RAGArchitecture {
   // Vector store configuration
   vectorStore: {
     service: AzureAISearch;
     dimensions: 1536; // OpenAI embedding dimensions
-    similarityAlgorithm: 'cosine';
-    indexStrategy: 'hierarchical';
+    similarityAlgorithm: "cosine";
+    indexStrategy: "hierarchical";
   };
-  
+
   // Knowledge sources
   knowledgeSources: {
     medicalCoding: MedicalCodingDatabase;
@@ -309,7 +320,7 @@ interface RAGArchitecture {
     regulatoryDocs: RegulatoryDocuments;
     historicalCases: CaseHistoryDB;
   };
-  
+
   // Retrieval pipeline
   retrievalPipeline: {
     queryExpansion: QueryExpansionService;
@@ -321,6 +332,7 @@ interface RAGArchitecture {
 ```
 
 #### Embedding Strategy
+
 ```typescript
 interface EmbeddingStrategy {
   // Text preprocessing
@@ -329,15 +341,15 @@ interface EmbeddingStrategy {
     normalization: TextNormalization;
     entityRecognition: MedicalNER;
   };
-  
+
   // Embedding generation
   embedding: {
-    model: 'text-embedding-ada-002';
+    model: "text-embedding-ada-002";
     batchSize: 100;
     maxTokens: 8191;
     parallelProcessing: true;
   };
-  
+
   // Vector storage
   storage: {
     indexing: HierarchicalNavigableSmallWorld;
@@ -352,17 +364,18 @@ interface EmbeddingStrategy {
 ### Authentication & Authorization
 
 #### Microsoft Entra ID Integration
+
 ```typescript
 interface SecurityArchitecture {
   // Authentication layer
   authentication: {
     provider: MicrosoftEntraID;
     protocol: OAuth2_OIDC;
-    tokenLifetime: '8 hours';
+    tokenLifetime: "8 hours";
     refreshTokens: true;
     multiFactorAuth: Required;
   };
-  
+
   // Authorization framework
   authorization: {
     rbac: RoleBasedAccessControl;
@@ -370,7 +383,7 @@ interface SecurityArchitecture {
     dataPermissions: DataLevelSecurity;
     apiPermissions: EndpointSecurity;
   };
-  
+
   // Healthcare-specific roles
   roles: {
     cdiSpecialist: CDISpecialistRole;
@@ -383,26 +396,27 @@ interface SecurityArchitecture {
 ```
 
 #### Role-Based Access Control (RBAC)
+
 ```typescript
 enum Permission {
   // Case management permissions
-  VIEW_CASES = 'cases:view',
-  EDIT_CASES = 'cases:edit',
-  DELETE_CASES = 'cases:delete',
-  ASSIGN_CASES = 'cases:assign',
-  
+  VIEW_CASES = "cases:view",
+  EDIT_CASES = "cases:edit",
+  DELETE_CASES = "cases:delete",
+  ASSIGN_CASES = "cases:assign",
+
   // Analytics permissions
-  VIEW_ANALYTICS = 'analytics:view',
-  EXPORT_REPORTS = 'analytics:export',
-  
+  VIEW_ANALYTICS = "analytics:view",
+  EXPORT_REPORTS = "analytics:export",
+
   // Denials management
-  PROCESS_DENIALS = 'denials:process',
-  GENERATE_APPEALS = 'denials:appeal',
-  
+  PROCESS_DENIALS = "denials:process",
+  GENERATE_APPEALS = "denials:appeal",
+
   // System administration
-  MANAGE_USERS = 'users:manage',
-  SYSTEM_CONFIG = 'system:config',
-  AUDIT_LOGS = 'audit:view'
+  MANAGE_USERS = "users:manage",
+  SYSTEM_CONFIG = "system:config",
+  AUDIT_LOGS = "audit:view",
 }
 
 interface Role {
@@ -416,24 +430,25 @@ interface Role {
 ### Data Security & HIPAA Compliance
 
 #### Encryption Strategy
+
 ```typescript
 interface EncryptionStrategy {
   // Data at rest
   atRest: {
-    algorithm: 'AES-256-GCM';
+    algorithm: "AES-256-GCM";
     keyManagement: AzureKeyVault;
-    keyRotation: 'monthly';
+    keyRotation: "monthly";
     transparentDataEncryption: true;
   };
-  
+
   // Data in transit
   inTransit: {
-    protocol: 'TLS 1.3';
+    protocol: "TLS 1.3";
     certificateManagement: AzureKeyVault;
     perfectForwardSecrecy: true;
-    certificateRotation: 'quarterly';
+    certificateRotation: "quarterly";
   };
-  
+
   // Application-level encryption
   applicationLevel: {
     fieldLevelEncryption: SensitiveFields;
@@ -444,6 +459,7 @@ interface EncryptionStrategy {
 ```
 
 #### Audit & Compliance Framework
+
 ```typescript
 interface ComplianceFramework {
   // HIPAA compliance
@@ -453,7 +469,7 @@ interface ComplianceFramework {
     dataIntegrity: CryptographicHashing;
     breachNotification: AutomatedAlerts;
   };
-  
+
   // SOX compliance
   sox: {
     financialControls: FinancialDataProtection;
@@ -461,7 +477,7 @@ interface ComplianceFramework {
     accessReviews: QuarterlyAccessReviews;
     changeManagement: ControlledDeployments;
   };
-  
+
   // Security monitoring
   monitoring: {
     realTimeAlerts: SecurityIncidentDetection;
@@ -477,6 +493,7 @@ interface ComplianceFramework {
 ### Azure Kubernetes Service (AKS)
 
 #### Cluster Configuration
+
 ```yaml
 # AKS cluster specification
 apiVersion: v1
@@ -499,13 +516,13 @@ data:
         enableAutoScaling: true
         minCount: 3
         maxCount: 10
-    
+
     networking:
       networkPlugin: azure
       serviceCidr: 10.0.0.0/16
       dnsServiceIP: 10.0.0.10
       dockerBridgeCidr: 172.17.0.1/16
-    
+
     security:
       rbac: enabled
       networkPolicy: azure
@@ -514,6 +531,7 @@ data:
 ```
 
 #### Container Architecture
+
 ```dockerfile
 # Multi-stage build for Node.js backend
 FROM node:22-alpine AS base
@@ -541,6 +559,7 @@ CMD ["node", "dist/main.js"]
 ### Monitoring & Observability
 
 #### Application Insights Integration
+
 ```typescript
 interface MonitoringStrategy {
   // Application monitoring
@@ -550,7 +569,7 @@ interface MonitoringStrategy {
     dependencyTracking: ExternalServices;
     exceptionTracking: ErrorAnalysis;
   };
-  
+
   // Distributed tracing
   distributedTracing: {
     correlationIds: RequestTracking;
@@ -558,7 +577,7 @@ interface MonitoringStrategy {
     performanceMetrics: ResponseTimes;
     errorCorrelation: FailureAnalysis;
   };
-  
+
   // Business metrics
   businessMetrics: {
     userEngagement: UserActivityMetrics;
@@ -570,16 +589,17 @@ interface MonitoringStrategy {
 ```
 
 #### Alerting & Incident Response
+
 ```typescript
 interface AlertingStrategy {
   // Performance alerts
   performance: {
-    responseTimeThreshold: '2 seconds';
-    errorRateThreshold: '1%';
-    availabilityThreshold: '99.9%';
-    diskSpaceThreshold: '80%';
+    responseTimeThreshold: "2 seconds";
+    errorRateThreshold: "1%";
+    availabilityThreshold: "99.9%";
+    diskSpaceThreshold: "80%";
   };
-  
+
   // Security alerts
   security: {
     unauthorizedAccess: ImmediateAlert;
@@ -587,7 +607,7 @@ interface AlertingStrategy {
     anomalousActivity: WarningAlert;
     complianceViolation: CriticalAlert;
   };
-  
+
   // Business alerts
   business: {
     processingDelays: BusinessImpactAlert;
@@ -603,6 +623,7 @@ interface AlertingStrategy {
 ### CI/CD Pipeline
 
 #### GitHub Actions Workflow
+
 ```yaml
 name: Billigent CI/CD Pipeline
 
@@ -619,18 +640,18 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          cache: 'npm'
-      
+          node-version: "22"
+          cache: "npm"
+
       - name: Install dependencies
         run: npm ci
-      
+
       - name: Run tests
         run: npm run test:coverage
-      
+
       - name: Run E2E tests
         run: npm run test:e2e
-      
+
       - name: Security scan
         run: npm audit --audit-level high
 
@@ -639,12 +660,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Build Docker images
         run: |
           docker build -t billigent-frontend ./apps/frontend
           docker build -t billigent-backend ./apps/backend
-      
+
       - name: Push to Azure Container Registry
         run: |
           az acr login --name billigentacr
@@ -668,6 +689,7 @@ jobs:
 ```
 
 ### Environment Strategy
+
 ```typescript
 interface EnvironmentStrategy {
   // Development environment
@@ -677,7 +699,7 @@ interface EnvironmentStrategy {
     authentication: MockAuthentication;
     monitoring: BasicLogging;
   };
-  
+
   // Staging environment
   staging: {
     infrastructure: AzureContainerApps;
@@ -685,7 +707,7 @@ interface EnvironmentStrategy {
     authentication: EntraIDIntegration;
     monitoring: ApplicationInsights;
   };
-  
+
   // Production environment
   production: {
     infrastructure: AzureKubernetesService;
@@ -700,6 +722,7 @@ interface EnvironmentStrategy {
 ## Performance & Scalability
 
 ### Performance Requirements
+
 - **Frontend Load Time**: < 2 seconds initial page load
 - **API Response Time**: < 500ms for 95% of requests
 - **Database Query Time**: < 200ms for complex queries
@@ -707,6 +730,7 @@ interface EnvironmentStrategy {
 - **Concurrent Users**: 1,000+ simultaneous users
 
 ### Scalability Strategy
+
 ```typescript
 interface ScalabilityStrategy {
   // Horizontal scaling
@@ -716,7 +740,7 @@ interface ScalabilityStrategy {
     database: ReadReplicas;
     cache: RedisCluster;
   };
-  
+
   // Performance optimization
   optimization: {
     caching: MultiLayerCaching;
@@ -724,7 +748,7 @@ interface ScalabilityStrategy {
     bundleOptimization: CodeSplitting;
     imageOptimization: WebPFormat;
   };
-  
+
   // Load balancing
   loadBalancing: {
     global: AzureTrafficManager;
@@ -737,27 +761,28 @@ interface ScalabilityStrategy {
 ## Disaster Recovery & Business Continuity
 
 ### Backup Strategy
+
 ```typescript
 interface BackupStrategy {
   // Database backups
   database: {
-    frequency: 'hourly';
-    retention: '30 days';
+    frequency: "hourly";
+    retention: "30 days";
     crossRegion: true;
     pointInTimeRecovery: true;
   };
-  
+
   // File storage backups
   storage: {
-    frequency: 'daily';
-    retention: '90 days';
+    frequency: "daily";
+    retention: "90 days";
     geoRedundancy: true;
     versionControl: true;
   };
-  
+
   // Configuration backups
   configuration: {
-    frequency: 'on-change';
+    frequency: "on-change";
     versionControl: GitRepository;
     immutableStorage: true;
   };
@@ -765,6 +790,7 @@ interface BackupStrategy {
 ```
 
 ### Disaster Recovery Plan
+
 - **RTO (Recovery Time Objective)**: 4 hours
 - **RPO (Recovery Point Objective)**: 1 hour
 - **Multi-Region Deployment**: Primary (East US 2), Secondary (West US 2)
@@ -774,6 +800,7 @@ interface BackupStrategy {
 ## Integration Architecture
 
 ### EHR System Integration
+
 ```typescript
 interface EHRIntegration {
   // FHIR R4 compliance
@@ -783,7 +810,7 @@ interface EHRIntegration {
     authentication: OAuth2WithPKCE;
     security: TLS1_3_Mutual_Auth;
   };
-  
+
   // Major EHR systems
   systems: {
     epic: EpicFHIRIntegration;
@@ -791,7 +818,7 @@ interface EHRIntegration {
     allscripts: AllscriptsFHIRIntegration;
     athenahealth: AthenaFHIRIntegration;
   };
-  
+
   // Data synchronization
   synchronization: {
     realTime: FHIRSubscriptions;
@@ -804,16 +831,17 @@ interface EHRIntegration {
 ## Compliance & Governance
 
 ### Technical Governance Framework
+
 ```typescript
 interface TechnicalGovernance {
   // Code quality standards
   codeQuality: {
-    testCoverage: '>90%';
+    testCoverage: ">90%";
     linting: ESLintStrict;
     typeScript: StrictMode;
     security: SonarQubeScan;
   };
-  
+
   // Architecture governance
   architecture: {
     designReviews: MandatoryForMajorChanges;
@@ -821,7 +849,7 @@ interface TechnicalGovernance {
     performanceReviews: ContinuousMonitoring;
     securityReviews: MonthlyAssessment;
   };
-  
+
   // Deployment governance
   deployment: {
     approvalProcess: PeerReviewRequired;

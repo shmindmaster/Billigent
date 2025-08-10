@@ -8,7 +8,7 @@ import { useTheme } from '@/contexts/ThemeContext';
 import { useCases, useDashboardStats } from '@/hooks/useData';
 import { formatCurrency } from '@/lib/utils';
 import { UnifiedCase } from '@/types/unified-case';
-import { AlertTriangle, CheckCircle, Clock, DollarSign, FileText, TrendingUp, XCircle } from 'lucide-react';
+import { AlertTriangle, CheckCircle, Clock, FileText, XCircle } from 'lucide-react';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -42,7 +42,7 @@ const Dashboard: React.FC = () => {
     return (
       <ErrorState
         title="Dashboard Error"
-        message={statsError?.message || casesError?.message || 'Failed to load dashboard data'}
+        message={String(statsError || casesError || 'Failed to load dashboard data')}
         onRetry={() => {
           refetchStats();
           window.location.reload();
@@ -69,19 +69,15 @@ const Dashboard: React.FC = () => {
 
   // Calculate actionable work queue data from real cases
   const workQueueData = {
-    newPreBillCases: allCases?.filter((c: UnifiedCase) => 
-      c.cdiCase?.status === 'New'
-    ).length || 0,
+    newPreBillCases: 0, // not available in current type
     denialsAwaitingReview: allCases?.filter((c: UnifiedCase) => 
-      c.status === 'Under Review'
+      c.status === 'review'
     ).length || 0,
     overdueQueries: allCases?.filter((c: UnifiedCase) => {
-      const daysOpen = Math.floor((Date.now() - new Date(c.encounterDate).getTime()) / (1000 * 60 * 60 * 24));
-      return daysOpen > 7; // Consider cases older than 7 days as overdue
+      const daysOpen = Math.floor((Date.now() - new Date(c.encounter.date).getTime()) / (1000 * 60 * 60 * 24));
+      return daysOpen > 7;
     }).length || 0,
-    pendingAppeals: allCases?.filter((c: UnifiedCase) => 
-      c.cdiCase?.status === 'Queried'
-    ).length || 0,
+    pendingAppeals: 0, // not available in current type
     highPriorityCases: allCases?.filter((c: UnifiedCase) => 
       c.priority === 'high'
     ).length || 0
@@ -138,7 +134,6 @@ const Dashboard: React.FC = () => {
           month: 'long', 
           day: 'numeric' 
         })}`}
-        breadcrumbs={[{ label: 'Dashboard' }]}
       >
         <FilterControls
           dateRange={{
@@ -164,50 +159,36 @@ const Dashboard: React.FC = () => {
               {
                 label: 'Net Revenue Identified',
                 value: formatCurrency(kpiData.netRevenueIdentified),
-                icon: DollarSign,
-                iconColor: 'text-green-400',
-                subtitle: 'From CDI Reviews',
-                trend: kpiData.revenueChange !== 0 ? { 
-                  value: kpiData.revenueChange, 
-                  isPositive: kpiData.revenueChange >= 0 
+                change: kpiData.revenueChange !== 0 ? {
+                  value: Math.abs(kpiData.revenueChange),
+                  trend: kpiData.revenueChange > 0 ? 'up' : (kpiData.revenueChange < 0 ? 'down' : 'neutral')
                 } : undefined
               },
               {
                 label: 'Appeal Overturn Rate',
                 value: `${kpiData.appealOverturnRate}%`,
-                icon: TrendingUp,
-                iconColor: 'text-blue-400',
-                subtitle: '(n/a)',
-                trend: kpiData.overturnChange !== 0 ? { 
-                  value: kpiData.overturnChange, 
-                  isPositive: kpiData.overturnChange >= 0 
+                change: kpiData.overturnChange !== 0 ? {
+                  value: Math.abs(kpiData.overturnChange),
+                  trend: kpiData.overturnChange > 0 ? 'up' : (kpiData.overturnChange < 0 ? 'down' : 'neutral')
                 } : undefined
               },
               {
                 label: 'Query Agreement Rate',
                 value: `${kpiData.queryAgreementRate}%`,
-                icon: FileText,
-                iconColor: 'text-purple-400',
-                subtitle: '(n/a)',
-                trend: kpiData.agreementChange !== 0 ? { 
-                  value: kpiData.agreementChange, 
-                  isPositive: kpiData.agreementChange >= 0 
+                change: kpiData.agreementChange !== 0 ? {
+                  value: Math.abs(kpiData.agreementChange),
+                  trend: kpiData.agreementChange > 0 ? 'up' : (kpiData.agreementChange < 0 ? 'down' : 'neutral')
                 } : undefined
               },
               {
                 label: 'Avg Processing Time',
                 value: `${kpiData.avgProcessingTime} days`,
-                icon: Clock,
-                iconColor: 'text-orange-400',
-                subtitle: '(n/a)',
-                trend: kpiData.timeChange !== 0 ? { 
-                  value: kpiData.timeChange, 
-                  isPositive: kpiData.timeChange <= 0 
+                change: kpiData.timeChange !== 0 ? {
+                  value: Math.abs(kpiData.timeChange),
+                  trend: kpiData.timeChange < 0 ? 'up' : (kpiData.timeChange > 0 ? 'down' : 'neutral')
                 } : undefined
               }
             ]}
-            columns={2}
-            className="mb-6"
           />
         </div>
 

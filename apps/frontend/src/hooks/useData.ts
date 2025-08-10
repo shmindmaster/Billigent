@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 // Mock data hook - will be replaced with real API calls
 export function useData() {
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const [error, _setError] = useState<string | null>(null);
 
   const refreshData = () => {
@@ -18,9 +18,9 @@ export function useData() {
   }, []);
 
   return {
-    loading,
+    isLoading,
     error,
-    refreshData,
+    refetch: refreshData,
     // Mock data
     cases: [],
     denials: [],
@@ -31,43 +31,73 @@ export function useData() {
 
 // Additional exports for specific functionality
 export function useAnalyticsData() {
-  const [loading, _setLoading] = useState(false);
-  const [data, _setData] = useState(null);
+  const [isLoading, _setLoading] = useState(false);
+  const [data, _setData] = useState<any>(null);
+  const [error, _setError] = useState<string | null>(null);
+  const refetch = () => {
+    _setLoading(true);
+    setTimeout(() => _setLoading(false), 500);
+  };
 
-  return { loading, data };
+  return { isLoading, data, error, refetch };
 }
 
 export function useCases() {
-  const [loading, _setLoading] = useState(false);
-  const [cases, _setCases] = useState([]);
+  const [isLoading, setLoading] = useState(false);
+  const [data, _setData] = useState<any[]>([]);
+  const [error, _setError] = useState<string | null>(null);
+  const refetch = () => {
+    setLoading(true);
+    setTimeout(() => setLoading(false), 500);
+  };
 
-  return { loading, cases };
+  return { isLoading, data, error, refetch };
 }
 
-export function useSearchCases() {
-  const [loading, _setLoading] = useState(false);
-  const [results, _setResults] = useState([]);
+export function useSearchCases(_query?: string) {
+  const [isLoading, _setLoading] = useState(false);
+  const [data, _setData] = useState<any[]>([]);
+  const [error, _setError] = useState<string | null>(null);
+  const refetch = () => {
+    _setLoading(true);
+    setTimeout(() => _setLoading(false), 500);
+  };
 
-  return { loading, results };
+  return { isLoading, data, error, refetch };
 }
 
 export function useDenials() {
-  const [loading, _setLoading] = useState(false);
-  const [denials, _setDenials] = useState([]);
+  const [isLoading, setLoading] = useState(false);
+  const [data, _setData] = useState<any[]>([]);
+  const [error, _setError] = useState<string | null>(null);
+  const refetch = () => {
+    setLoading(true);
+    setTimeout(() => setLoading(false), 500);
+  };
 
-  return { loading, denials };
+  return { isLoading, data, error, refetch };
 }
 
 export function useDashboardStats() {
-  const [loading, _setLoading] = useState(false);
-  const [stats, _setStats] = useState({});
+  const [isLoading, _setLoading] = useState(false);
+  const [data, _setData] = useState<any>({});
+  const [error, _setError] = useState<string | null>(null);
+  const refetch = () => {
+    _setLoading(true);
+    setTimeout(() => _setLoading(false), 500);
+  };
 
-  return { loading, stats };
+  return { isLoading, data, error, refetch };
 }
 
 export function useUnifiedCase(_id: string) {
-  const [loading, _setLoading] = useState(false);
-  const [case_, _setCase] = useState(null);
+  const [isLoading, _setLoading] = useState(false);
+  const [data, _setData] = useState<any>(null);
+  const [error, _setError] = useState<string | null>(null);
+  const refetch = () => {
+    _setLoading(true);
+    setTimeout(() => _setLoading(false), 500);
+  };
 
-  return { loading, case: case_ };
+  return { isLoading, data, error, refetch };
 }

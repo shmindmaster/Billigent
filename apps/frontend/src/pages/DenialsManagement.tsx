@@ -302,10 +302,6 @@ const DenialsManagement: React.FC = () => {
       <PageHeader
         title="AI-Powered Denials Management"
         description="Generative AI automatically drafts evidence-based appeal letters by synthesizing clinical data into persuasive arguments with payer-specific formatting."
-        breadcrumbs={[
-          { label: 'Home', to: '/dashboard' },
-          { label: 'Denials' }
-        ]}
       />
 
       {/* File Upload Section */}

@@ -135,3 +135,11 @@ test-output/
 
 # Docker
 .dockerignore
+
+# GitHub configuration (ignore specific subdirectories)
+.github/chatmodes/
+.github/instructions/
+.github/prompts/
+.github/workflows/
+# But track the main copilot instructions file
+!.github/copilot-instructions.md
