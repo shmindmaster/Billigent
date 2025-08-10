@@ -1,95 +1,137 @@
-# ====================================
-# 🚫 DATA EXCLUSION ZONE - NO DATA IN REPO!
-# ====================================
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
 
-# Dataset directories (ALL DATA GOES TO AZURE!)
-**/huggingface_data/
-**/.playwright-mcp/
-**/synthea_output/
-**/tmp/
-**/apps/*/tmp/
-**/apps/*/synthea_output/
-**/packages/*/tmp/
+# Production builds
+dist/
+build/
 
-# Medical data files (NEVER COMMIT!)
-*.zip
-*.csv
-*.xlsx
-*.json
-*.pdf
-*.dat
-*.log
-*.xml
-*.ndjson
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# Medical coding datasets
-*icd10*
-*hcpcs*
-*drg*
-*medical*
-*coding*
-*claims*
-*patients*
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# ====================================
-# 🔨 BUILD / DIST / NODE_MODULES
-# ====================================
-**/node_modules/
-**/dist/
-**/build/
-**/.next/
-**/.output/
-**/out/
-**/coverage/
-**/.turbo/
-**/.cache/
-**/.parcel-cache/
-**/.vite/
-**/.rollup.cache/
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
 
-# ====================================
-# 🗑️ TEMP / CACHE / LOG / BACKUPS
-# ====================================
-*.cache
-*.tmp
-*.temp
-*_cache/
-temp_*
-**/query_engine-*.tmp*
-**/logs/
-**/log/
-**/*.log
-**/debug.log
-**/npm-debug.log*
-**/yarn-debug.log*
-**/yarn-error.log*
-**/pnpm-debug.log*
-**/.eslintcache
-**/.stylelintcache
-**/.tsbuildinfo
-**/.DS_Store
-**/Thumbs.db
-**/backup/
-**/processed/
-**/upload/
-**/download/
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
 
-# ====================================
-# 🛠️ IDE / TOOLING / MISC
-# ====================================
+# nyc test coverage
+.nyc_output
+
+# ESLint cache
+.eslintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# Next.js build output
+.next
+
+# Nuxt.js build / generate output
+.nuxt
+dist
+
+# Gatsby files
+.cache/
+public
+
+# Storybook build outputs
+.out
+.storybook-out
+
+# Temporary folders
+tmp/
+temp/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Azure Functions
+local.settings.json
+host.json
 .vscode/
-.idea/
-*.swp
-*.swo
-*.bak
-*.orig
-*.rej
-**/.env
-**/.env.*
-!.env.example
 
-# GitHub-specific
-.github/chatmodes
-.github/instructions
-.github/prompts
-.github/copilot-instructions.md
+# Prisma
+.env
+prisma/.env
+
+# TypeScript
+*.tsbuildinfo
+
+# Database
+*.db
+*.sqlite
+
+# Test files
+test-results/
+playwright-report/
+test-output/
+
+# Azure
+.azure/
+
+# Docker
+.dockerignore
