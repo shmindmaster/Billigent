@@ -16,9 +16,10 @@ export async function generateDenialAppeal(denialId: string) {
   if (!parentCase.encounterFhirId) throw new Error('Case has no encounter FHIR ID');
 
   const clinicalHistory = await getClinicalEvidence(parentCase.encounterFhirId);
-  const letter = await generateAppealLetter(denial, clinicalHistory);
-  await prisma.denial.update({ where: { id: denialId }, data: { appealLetterDraft: letter } });
-  return letter;
+  const appealResponse = await generateAppealLetter(denial, clinicalHistory);
+  const appealLetterText = appealResponse.data?.answer || appealResponse.error || 'Appeal letter generation failed';
+  await prisma.denial.update({ where: { id: denialId }, data: { appealLetterDraft: appealLetterText } });
+  return appealResponse;
 }
 
 

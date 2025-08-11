@@ -1,5 +1,5 @@
 import { OpenAIClient, AzureKeyCredential as OpenAIKeyCredential } from '@azure/openai';
-import { AzureKeyCredential, SearchClient } from '@azure/search-documents';
+import { AzureKeyCredential, SearchClient, SearchIndexClient } from '@azure/search-documents';
 import { config } from 'dotenv';
 
 config();
@@ -29,25 +29,47 @@ export interface RAGResponse {
 
 export class RAGService {
   private searchClient: SearchClient<any>;
+  private searchIndexClient: SearchIndexClient;
   private openaiClient: OpenAIClient;
   private config: RAGConfig;
 
   constructor(config?: Partial<RAGConfig>) {
     this.config = {
-      searchEndpoint: process.env.AZURE_SEARCH_ENDPOINT || '',
-      searchApiKey: process.env.AZURE_SEARCH_API_KEY || '',
-      searchIndexName: process.env.AZURE_SEARCH_INDEX_NAME || process.env.RAG_INDEX_NAME || 'clinical-docs-index',
-      openaiEndpoint: process.env.AZURE_OPENAI_ENDPOINT || process.env.VITE_AZURE_OPENAI_RESPONSES_ENDPOINT || '',
-      openaiApiKey: process.env.AZURE_OPENAI_API_KEY || '',
-      embeddingModel: process.env.AZURE_OPENAI_EMBED_MODEL || process.env.AZURE_OPENAI_EMBEDDING_MODEL || 'text-embedding-3-small',
-      chatModel: process.env.AZURE_OPENAI_MODEL_DEPLOYMENT || process.env.AZURE_OPENAI_MODEL || 'gpt-4.1',
+      searchEndpoint: process.env.AZURE_SEARCH_ENDPOINT || config?.searchEndpoint || '',
+      searchApiKey: process.env.AZURE_SEARCH_API_KEY || config?.searchApiKey || '',
+      searchIndexName: process.env.AZURE_SEARCH_INDEX_NAME || 'billigent-clinical-knowledge',
+      openaiEndpoint: process.env.AZURE_OPENAI_ENDPOINT || config?.openaiEndpoint || '',
+      openaiApiKey: process.env.AZURE_OPENAI_API_KEY || config?.openaiApiKey || '',
+      embeddingModel: process.env.AZURE_OPENAI_EMBEDDING_MODEL || 'text-embedding-3-small',
+      chatModel: process.env.AZURE_OPENAI_MODEL || 'gpt-4o',
       ...config
     };
 
+    // Validate required configuration
+    if (!this.config.searchEndpoint) {
+      throw new Error('AZURE_SEARCH_ENDPOINT environment variable is required');
+    }
+    if (!this.config.searchApiKey) {
+      throw new Error('AZURE_SEARCH_API_KEY environment variable is required');
+    }
+    if (!this.config.openaiEndpoint) {
+      throw new Error('AZURE_OPENAI_ENDPOINT environment variable is required');
+    }
+    if (!this.config.openaiApiKey) {
+      throw new Error('AZURE_OPENAI_API_KEY environment variable is required');
+    }
+
+    const searchCredential = new AzureKeyCredential(this.config.searchApiKey);
+    
     this.searchClient = new SearchClient(
       this.config.searchEndpoint,
       this.config.searchIndexName,
-      new AzureKeyCredential(this.config.searchApiKey)
+      searchCredential
+    );
+
+    this.searchIndexClient = new SearchIndexClient(
+      this.config.searchEndpoint,
+      searchCredential
     );
 
     this.openaiClient = new OpenAIClient(
@@ -67,8 +89,99 @@ export class RAGService {
       console.error('Error generating embedding:', error);
       throw error;
     }
-  }  async searchDocuments(query: string, topK: number = 5): Promise<RAGDocument[]> {
+  }
+
+  async ensureIndexExists(): Promise<void> {
     try {
+      // Check if index exists
+      await this.searchIndexClient.getIndex(this.config.searchIndexName);
+      console.log(`Index ${this.config.searchIndexName} already exists`);
+    } catch (error: any) {
+      if (error.statusCode === 404) {
+        console.log(`Creating index ${this.config.searchIndexName}...`);
+        
+        // Create the index with vector search configuration
+        const indexDefinition = {
+          name: this.config.searchIndexName,
+          fields: [
+            { 
+              name: 'id', 
+              type: 'Edm.String' as const, 
+              key: true, 
+              searchable: false, 
+              filterable: true 
+            },
+            { 
+              name: 'content', 
+              type: 'Edm.String' as const, 
+              searchable: true, 
+              filterable: false 
+            },
+            { 
+              name: 'contentVector', 
+              type: 'Collection(Edm.Single)' as const, 
+              searchable: true, 
+              vectorSearchDimensions: 1536,
+              vectorSearchProfileName: 'default-vector-profile'
+            },
+            { 
+              name: 'category', 
+              type: 'Edm.String' as const, 
+              searchable: true, 
+              filterable: true, 
+              facetable: true 
+            },
+            { 
+              name: 'source', 
+              type: 'Edm.String' as const, 
+              searchable: false, 
+              filterable: true 
+            },
+            { 
+              name: 'metadata', 
+              type: 'Edm.String' as const, 
+              searchable: false, 
+              filterable: false 
+            }
+          ],
+          vectorSearch: {
+            profiles: [
+              {
+                name: 'default-vector-profile',
+                algorithmConfigurationName: 'default-vector-algorithm'
+              }
+            ],
+            algorithms: [
+              {
+                name: 'default-vector-algorithm',
+                kind: 'hnsw' as const,
+                hnswParameters: {
+                  metric: 'cosine',
+                  m: 4,
+                  efConstruction: 400,
+                  efSearch: 500
+                }
+              }
+            ]
+          }
+        };
+
+        await this.searchIndexClient.createIndex(indexDefinition);
+        console.log(`Index ${this.config.searchIndexName} created successfully`);
+        
+        // Wait a bit for index to be ready
+        await new Promise(resolve => setTimeout(resolve, 2000));
+      } else {
+        console.error('Error checking/creating index:', error);
+        throw error;
+      }
+    }
+  }
+
+  async searchDocuments(query: string, topK: number = 5): Promise<RAGDocument[]> {
+    try {
+      await this.ensureIndexExists();
+      
       const embedding = await this.generateEmbedding(query);
       
       const searchResults = await this.searchClient.search(query, {
@@ -80,7 +193,7 @@ export class RAGService {
             fields: ['contentVector']
           }]
         },
-        select: ['id', 'content', 'metadata'],
+        select: ['id', 'content', 'metadata', 'category', 'source'],
         top: topK
       });
 
@@ -89,7 +202,11 @@ export class RAGService {
         documents.push({
           id: result.document.id,
           content: result.document.content,
-          metadata: result.document.metadata,
+          metadata: {
+            category: result.document.category,
+            source: result.document.source,
+            ...(result.document.metadata ? JSON.parse(result.document.metadata) : {})
+          },
           score: result.score
         });
       }
@@ -97,6 +214,7 @@ export class RAGService {
       return documents;
     } catch (error) {
       console.error('Error searching documents:', error);
+      // Return empty array on search failure to allow graceful degradation
       return [];
     }
   }
@@ -104,29 +222,41 @@ export class RAGService {
   async generateResponse(query: string, context: RAGDocument[]): Promise<string> {
     try {
       const contextText = context
-        .map(doc => `Source: ${doc.content}`)
-        .join('\n\n');
+        .map(doc => `Source: ${doc.metadata?.source || 'Unknown'}\nCategory: ${doc.metadata?.category || 'General'}\nContent: ${doc.content}`)
+        .join('\n\n---\n\n');
 
-      const prompt = `Based on the following context, answer the question: "${query}"
+      const prompt = `You are a clinical AI assistant specializing in healthcare documentation and coding. Based on the following medical knowledge base context, provide a comprehensive answer to the healthcare question.
 
-Context:
+Context from Clinical Knowledge Base:
 ${contextText}
 
-Answer:`;
+Healthcare Question: "${query}"
+
+Instructions:
+1. Provide accurate medical information based only on the provided context
+2. If discussing ICD-10 codes, include full code and description
+3. For CDI recommendations, be specific about documentation gaps
+4. If the context doesn't contain relevant information, clearly state this
+5. Always prioritize patient safety and clinical accuracy
+
+Clinical Response:`;
 
       const response = await this.openaiClient.getChatCompletions(
         this.config.chatModel,
         [{ role: 'user', content: prompt }],
         {
-          maxTokens: 500,
-          temperature: 0.3
+          maxTokens: 800,
+          temperature: 0.2, // Lower temperature for medical accuracy
+          topP: 0.9,
+          frequencyPenalty: 0,
+          presencePenalty: 0
         }
       );
 
-      return response.choices[0]?.message?.content || 'Unable to generate response';
+      return response.choices[0]?.message?.content || 'Unable to generate response based on available clinical context';
     } catch (error) {
       console.error('Error generating response:', error);
-      return 'Error generating response';
+      return 'Error generating clinical response';
     }
   }
 
@@ -135,8 +265,9 @@ Answer:`;
       const relevantDocs = await this.searchDocuments(question, topK);
       const answer = await this.generateResponse(question, relevantDocs);
       
+      // Calculate confidence based on document relevance scores
       const confidence = relevantDocs.length > 0 
-        ? Math.min(relevantDocs[0].score || 0, 1.0)
+        ? Math.min((relevantDocs[0].score || 0) * 0.8, 1.0) // Cap at 80% of top score
         : 0;
 
       return {
@@ -147,21 +278,125 @@ Answer:`;
     } catch (error) {
       console.error('Error in RAG query:', error);
       return {
-        answer: 'I apologize, but I encountered an error while processing your question.',
+        answer: 'I apologize, but I encountered an error while accessing the clinical knowledge base. Please try again or consult with clinical documentation specialists.',
         sources: [],
         confidence: 0
       };
     }
   }
+
+  async indexDocument(document: {
+    id: string;
+    content: string;
+    category: string;
+    source: string;
+    metadata?: Record<string, any>;
+  }): Promise<void> {
+    try {
+      await this.ensureIndexExists();
+      
+      const embedding = await this.generateEmbedding(document.content);
+      
+      const indexDocument = {
+        id: document.id,
+        content: document.content,
+        contentVector: embedding,
+        category: document.category,
+        source: document.source,
+        metadata: JSON.stringify(document.metadata || {})
+      };
+
+      await this.searchClient.uploadDocuments([indexDocument]);
+      console.log(`Document ${document.id} indexed successfully`);
+    } catch (error) {
+      console.error('Error indexing document:', error);
+      throw error;
+    }
+  }
+
+  async batchIndexDocuments(documents: Array<{
+    id: string;
+    content: string;
+    category: string;
+    source: string;
+    metadata?: Record<string, any>;
+  }>): Promise<void> {
+    try {
+      await this.ensureIndexExists();
+      
+      console.log(`Generating embeddings for ${documents.length} documents...`);
+      
+      const indexDocuments = await Promise.all(documents.map(async (doc) => {
+        const embedding = await this.generateEmbedding(doc.content);
+        return {
+          id: doc.id,
+          content: doc.content,
+          contentVector: embedding,
+          category: doc.category,
+          source: doc.source,
+          metadata: JSON.stringify(doc.metadata || {})
+        };
+      }));
+
+      // Batch upload in chunks of 100 (Azure Search limit)
+      const chunkSize = 100;
+      for (let i = 0; i < indexDocuments.length; i += chunkSize) {
+        const chunk = indexDocuments.slice(i, i + chunkSize);
+        await this.searchClient.uploadDocuments(chunk);
+        console.log(`Uploaded chunk ${Math.floor(i / chunkSize) + 1}/${Math.ceil(indexDocuments.length / chunkSize)}`);
+      }
+
+      console.log(`Successfully indexed ${documents.length} documents`);
+    } catch (error) {
+      console.error('Error batch indexing documents:', error);
+      throw error;
+    }
+  }
 }
 
-export const ragService = new RAGService();export async function getGroundedIcdResponse(query: string, context?: any): Promise<string> {
+export const ragService = new RAGService();
+
+export async function getGroundedIcdResponse(query: string, context?: any): Promise<string> {
   try {
-    const icdQuery = `${query}\n\nPlease provide specific ICD-10 codes with descriptions for this medical scenario.`;
+    const icdQuery = `${query}\n\nPlease provide specific ICD-10 codes with descriptions for this medical scenario, including both primary and secondary diagnoses if applicable.`;
     const response = await ragService.query(icdQuery);
     return response.answer;
   } catch (error) {
     console.error('Error getting grounded ICD response:', error);
-    return 'Error generating ICD response';
+    return 'Error generating ICD response from clinical knowledge base';
+  }
+}
+
+export async function getCdiRecommendations(
+  clinicalNotes: string, 
+  currentDiagnoses: string[], 
+  encounter?: any
+): Promise<RAGResponse> {
+  try {
+    const cdiQuery = `
+    Clinical Documentation Improvement Review:
+    
+    Current Clinical Notes: ${clinicalNotes}
+    
+    Current Diagnoses: ${currentDiagnoses.join(', ')}
+    
+    ${encounter ? `Encounter Details: ${JSON.stringify(encounter)}` : ''}
+    
+    Please analyze for:
+    1. Missing documentation that could support higher specificity diagnosis codes
+    2. Potential secondary diagnoses not currently captured
+    3. Clinical indicators that might support different DRG assignments
+    4. Queries that should be sent to physicians for clarification
+    5. Financial impact of documentation improvements
+    `;
+    
+    return await ragService.query(cdiQuery);
+  } catch (error) {
+    console.error('Error getting CDI recommendations:', error);
+    return {
+      answer: 'Error generating CDI recommendations from clinical knowledge base',
+      sources: [],
+      confidence: 0
+    };
   }
 }

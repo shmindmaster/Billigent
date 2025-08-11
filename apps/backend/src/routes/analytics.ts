@@ -1,13 +1,13 @@
 import { PrismaClient } from '@billigent/database';
 import { Request, Response, Router } from 'express';
 import {
-  createTextResponse,
-  getAnalyticsWithCodeInterpreter,
-  getConversationalResponse,
-  retrieveResponse,
-  startBackgroundAnalysisFromBase64,
-  startPdfAnalysisWithFileId,
-  uploadPdfForAnalysis,
+    createTextResponse,
+    getAnalyticsWithCodeInterpreter,
+    getConversationalResponse,
+    retrieveResponse,
+    startBackgroundAnalysisFromBase64,
+    startPdfAnalysisWithFileId,
+    uploadPdfForAnalysis,
 } from '../services/responses-api.service';
 
 const router: Router = Router();
@@ -252,12 +252,12 @@ router.post('/ai/background/start', async (req: Request, res: Response) => {
     // Prefer uploading via Files API and referencing file_id for higher reliability
     try {
       const fileBuffer = Buffer.from(String(base64Data), 'base64');
-      const fileId = await uploadPdfForAnalysis(filename, fileBuffer);
+      const fileId = await uploadPdfForAnalysis(fileBuffer, filename);
       const result = await startPdfAnalysisWithFileId(fileId, prompt);
       return res.json(result);
     } catch (fileErr) {
       console.warn('Files API path failed, falling back to inline base64:', fileErr);
-      const fallback = await startBackgroundAnalysisFromBase64(filename, mimeType, base64Data, prompt);
+      const fallback = await startBackgroundAnalysisFromBase64(base64Data, `analysis-${Date.now()}`);
       return res.json(fallback);
     }
   } catch (error: any) {
@@ -339,19 +339,17 @@ router.post('/query', async (req: Request, res: Response) => {
 
     // If called with 'question', return standardized object per spec; if 'prompt' was used, return raw
     if (typeof question === 'string') {
-      // Prefer first image if any
-      const firstImage = Array.isArray(resp.content)
-        ? resp.content.find((c: any) => c?.type === 'image' && (c?.image?.data || c?.image?.url))
-        : undefined as any;
-      if (firstImage && firstImage.image && (firstImage.image.data || firstImage.image.url)) {
-        if (firstImage.image.data) return res.json({ type: 'image', content: `data:image/png;base64,${firstImage.image.data}` });
-        if (firstImage.image.url) return res.json({ type: 'image', content: firstImage.image.url });
+      // Check if the response contains data with chart or image content
+      if (resp.data?.chart || resp.data?.image) {
+        return res.json({ 
+          type: 'image', 
+          content: resp.data.chart || resp.data.image 
+        });
       }
-      // Fallback to concatenated text
-      const text = Array.isArray(resp.content)
-        ? resp.content.filter((c: any) => c?.type === 'text').map((t: any) => t?.text || '').join('\n')
-        : '';
-      return res.json({ type: 'text', content: text || 'No output produced.' });
+      
+      // Fallback to text response
+      const text = resp.data?.answer || resp.data?.content || 'No output produced.';
+      return res.json({ type: 'text', content: text });
     }
 
     // Backward compatible return for legacy callers

@@ -7,12 +7,13 @@ node_modules/
 dist/
 build/
 
-# Environment variables
-.env
+# Environment variables - specific exclusions
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+# Track .env and .env.example with placeholder values
+# But exclude any .env.local files with actual secrets
 
 # Logs
 npm-debug.log*
@@ -114,9 +115,10 @@ local.settings.json
 host.json
 .vscode/
 
-# Prisma
-.env
-prisma/.env
+# Prisma - exclude actual environment files with secrets
+# But allow .env files with placeholder values
+.env.local
+prisma/.env.local
 
 # TypeScript
 *.tsbuildinfo
