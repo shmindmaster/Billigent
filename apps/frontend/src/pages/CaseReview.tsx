@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, FileText, Clock, DollarSign, User, Calendar, Send, MessageSquare } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
+import { ArrowLeft, Calendar, Clock, DollarSign, FileText, MessageSquare, Send, User } from 'lucide-react';
+import React, { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 // Using local evidence type shape inline
-import { useUnifiedCase, useAssignCase, useCreateQuery } from '@/hooks/useData';
-import { getConversationalResponse, ResponsesAPIError } from '@/lib/responses-api';
-import { useTheme } from '@/contexts/ThemeContext';
 import { IcdSuggestionCard } from '@/components/shared/IcdSuggestionCard';
+import { useTheme } from '@/contexts/ThemeContext';
+import { useAssignCase, useCreateQuery, useUnifiedCase } from '@/hooks/useData';
+import { getConversationalResponse, ResponsesAPIError } from '@/lib/responses-api';
+import { formatDate } from '@/lib/utils';
 
 interface ConversationMessage {
   id: string;
@@ -50,7 +51,7 @@ const CaseReview: React.FC = () => {
 
   const handlePatientLookup = () => {
     if (caseData) {
-      navigate(`/patients?search=${caseData.patientId}`);
+      navigate(`/patients?search=${caseData.patientFhirId}`);
     }
   };
 
@@ -211,7 +212,7 @@ const CaseReview: React.FC = () => {
           <div className="text-center">
             <FileText className="w-16 h-16 text-gray-400 mx-auto mb-4" />
             <h2 className={`text-xl font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-2`}>Case Not Found</h2>
-            <p className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-700'} mb-6`}>{error || 'The requested case could not be found.'}</p>
+            <p className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-700'} mb-6`}>{typeof error === 'string' ? error : (error as any)?.message || 'The requested case could not be found.'}</p>
             <Button onClick={() => navigate('/pre-bill')} variant="outline">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Worklist
@@ -265,8 +266,8 @@ const CaseReview: React.FC = () => {
               <Calendar className="w-5 h-5 text-green-400" />
               <div>
                 <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-700'}`}>Encounter Date</p>
-                 <p className={`${theme === 'dark' ? 'text-white' : 'text-gray-900'} font-semibold`}>{caseData.admissionDate || '—'}</p>
-                 <p className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>Discharged: {caseData.dischargeDate || '—'}</p>
+                 <p className={`${theme === 'dark' ? 'text-white' : 'text-gray-900'} font-semibold`}>{caseData.admissionDate ? formatDate(caseData.admissionDate) : '—'}</p>
+                 <p className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>Discharged: {caseData.dischargeDate ? formatDate(caseData.dischargeDate) : '—'}</p>
               </div>
             </div>
             

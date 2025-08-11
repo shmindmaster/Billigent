@@ -74,8 +74,8 @@ export async function persistPreBillResults(results: PreBillAnalysisResult): Pro
       data: {
         encounterId: results.encounterId,
         confidence: results.confidence,
-        recommendations: results.recommendations,
-        riskFactors: results.riskFactors,
+        recommendations: JSON.stringify(results.recommendations),
+        riskFactors: results.riskFactors.join(', '),
         notes: results.notes,
         status: 'completed'
       }

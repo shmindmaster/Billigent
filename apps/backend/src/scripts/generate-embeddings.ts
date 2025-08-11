@@ -1,6 +1,6 @@
+import { PrismaClient } from '@billigent/database';
 import 'dotenv/config';
 import OpenAI from 'openai';
-import { PrismaClient } from '@billigent/database';
 
 // Azure OpenAI config
 const openaiEndpointBase = process.env.AZURE_OPENAI_ENDPOINT || '';
@@ -71,7 +71,7 @@ async function processBatch(skip: number, take: number, client: OpenAI): Promise
       }
       const buf = float32ArrayToBuffer(vec);
       await prisma.preBillAnalysis.update({
-        where: { evidenceId: rec.evidenceId },
+        where: { evidenceId: rec.evidenceId || undefined },
         // Cast data to any to avoid type errors until Prisma client is regenerated
         data: { embedding: buf } as any,
       });

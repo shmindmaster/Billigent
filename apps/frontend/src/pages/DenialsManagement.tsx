@@ -74,7 +74,7 @@ const DenialsManagement: React.FC = () => {
         dateReceived: d.createdAt
       })));
     }
-  }, [liveDenials, isLoading]);
+  }, [denials, isLoading]);
 
   // Polling effect for background analysis results
   useEffect(() => {

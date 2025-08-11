@@ -1,7 +1,7 @@
-import { Router, Request, Response } from 'express';
 import { PrismaClient } from '@billigent/database';
+import { Request, Response, Router, type Router as ExpressRouter } from 'express';
 
-const router = Router();
+const router: ExpressRouter = Router();
 const prisma = new PrismaClient();
 
 // GET /api/users - Get all users

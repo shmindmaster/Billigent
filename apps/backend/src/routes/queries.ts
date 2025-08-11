@@ -1,8 +1,8 @@
 import { PrismaClient } from '@billigent/database';
-import { Request, Response, Router } from 'express';
+import { Request, Response, Router, type Router as ExpressRouter } from 'express';
 import { ragService } from '../services/rag.service';
 
-const router = Router();
+const router: ExpressRouter = Router();
 const prisma = new PrismaClient();
 
 // GET /api/queries - Get all queries

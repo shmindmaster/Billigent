@@ -133,10 +133,6 @@ const Analytics: React.FC = () => {
         <PageHeader
           title="Reports & Analytics"
           description="Interactive dashboards with drill-down capabilities for actionable insights"
-          breadcrumbs={[
-            { label: 'Home', to: '/dashboard' },
-            { label: 'Analytics' }
-          ]}
         >
           <FilterControls
             dateRange={{

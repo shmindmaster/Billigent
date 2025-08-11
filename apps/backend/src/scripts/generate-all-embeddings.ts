@@ -1,5 +1,5 @@
-import 'dotenv/config';
 import { PrismaClient } from '@billigent/database';
+import 'dotenv/config';
 import { generateEmbedding } from '../services/embedding.service';
 
 const prisma = new PrismaClient();
@@ -31,7 +31,7 @@ async function processBatch(skip: number, take: number): Promise<number> {
       const vec = await generateEmbedding(text);
       const buf = float32ArrayToBuffer(vec);
       await prisma.preBillAnalysis.update({
-        where: { evidenceId: rec.evidenceId },
+        where: { evidenceId: rec.evidenceId || undefined },
         data: { embedding: buf } as any,
       });
       processed++;

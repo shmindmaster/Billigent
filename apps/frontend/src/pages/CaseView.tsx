@@ -120,7 +120,7 @@ const UnifiedCaseView: React.FC = () => {
               <div>
                 <p className={`text-sm ${subtleClass}`}>Assigned To</p>
                 <p className={`font-semibold ${theme === 'dark' ? 'text-green-400' : 'text-green-600'}`}>
-                  {caseData.assignedUser?.name || 'Unassigned'}
+                  {'Unassigned'}
                 </p>
               </div>
             </div>
@@ -139,21 +139,15 @@ const UnifiedCaseView: React.FC = () => {
             <CardContent className="space-y-4">
               <div className="flex justify-between items-center">
                 <span className={`text-sm ${subtleClass}`}>Total Charges:</span>
-                <span className={`${bodyClass} font-medium`}>{formatCurrency(caseData.financial?.totalCharges || 0)}</span>
+                <span className={`${bodyClass} font-medium`}>{formatCurrency(0)}</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className={`text-sm ${subtleClass}`}>Expected Reimbursement:</span>
-                <span className={`${bodyClass} font-medium`}>{formatCurrency(caseData.financial?.expectedReimbursement || 0)}</span>
+                <span className={`${bodyClass} font-medium`}>{formatCurrency(0)}</span>
               </div>
-              {typeof caseData.financial?.actualReimbursement === 'number' && (
-                <div className="flex justify-between items-center">
-                  <span className={`text-sm ${subtleClass}`}>Actual Reimbursement:</span>
-                  <span className={`${theme === 'dark' ? 'text-green-400' : 'text-green-600'} font-medium`}>{formatCurrency(caseData.financial?.actualReimbursement || 0)}</span>
-                </div>
-              )}
               <div className="flex justify-between items-center pt-2 border-t border-gray-700">
                 <span className={`text-sm ${subtleClass}`}>Outstanding Balance:</span>
-                <span className={`${theme === 'dark' ? 'text-green-400' : 'text-green-600'} font-bold text-lg`}>{formatCurrency(caseData.financial?.outstandingBalance || 0)}</span>
+                <span className={`${theme === 'dark' ? 'text-green-400' : 'text-green-600'} font-bold text-lg`}>{formatCurrency(0)}</span>
               </div>
             </CardContent>
           </Card>
@@ -167,7 +161,7 @@ const UnifiedCaseView: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <p className={`text-sm ${subtleClass}`}>Assigned To</p>
-                  <p className={`${bodyClass} font-medium`}>{caseData.assignedTo || 'Unassigned'}</p>
+                  <p className={`${bodyClass} font-medium`}>{'Unassigned'}</p>
                 </div>
                 <div>
                   <p className={`text-sm ${subtleClass}`}>Last Updated</p>

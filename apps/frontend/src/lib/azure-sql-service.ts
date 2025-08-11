@@ -109,6 +109,19 @@ export type DashboardStats = {
   denials: { total: number; active: number; totalDeniedAmount: number };
   queries: { total: number; pending: number; responseRate: number };
   financialImpact: { totalPotential: number; totalDenied: number };
+  // Extended analytics fields
+  totalRevenue?: string;
+  cdiRevenue?: string;
+  appealRecovery?: string;
+  avgCaseValue?: string;
+  queryResponseRate?: string;
+  avgResponseTime?: string;
+  casesProcessed?: string;
+  productivityScore?: string;
+  overallSuccessRate?: string;
+  totalDenials?: string;
+  appealsWon?: string;
+  avgAppealTime?: string;
 };
 
 export type AnalyticsResponse = {
