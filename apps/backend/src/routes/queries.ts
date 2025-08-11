@@ -1,5 +1,5 @@
-import { Router, Request, Response } from 'express';
 import { PrismaClient } from '@billigent/database';
+import { Request, Response, Router } from 'express';
 import { ragService } from '../services/rag.service';
 
 const router = Router();

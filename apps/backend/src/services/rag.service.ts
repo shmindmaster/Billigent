@@ -1,5 +1,5 @@
-import { SearchClient, AzureKeyCredential } from '@azure/search-documents';
 import { OpenAIClient, AzureKeyCredential as OpenAIKeyCredential } from '@azure/openai';
+import { AzureKeyCredential, SearchClient } from '@azure/search-documents';
 import { config } from 'dotenv';
 
 config();

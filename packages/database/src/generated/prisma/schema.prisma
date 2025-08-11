@@ -19,6 +19,10 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  // CDI-specific fields for healthcare workflows
+  fullName String?
+  userRole String?
+
   queries         Query[]
   assignedCases   Case[]
   preBillAnalyses PreBillAnalysis[]
@@ -52,6 +56,21 @@ model Case {
   assignedUserId String?
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
+
+  // CDI-specific fields for healthcare workflows
+  patientFhirId       String?
+  encounterFhirId     String?
+  medicalRecordNumber String?
+  patientName         String?
+  age                 Int?
+  gender              String?
+  admissionDate       DateTime?
+  dischargeDate       DateTime?
+  primaryDiagnosis    String?
+  currentDRG          String?
+  openDate            DateTime?
+  closeDate           DateTime?
+  facilityId          String?
 
   assignedUser User?       @relation(fields: [assignedUserId], references: [id])
   encounters   Encounter[]
@@ -130,6 +149,12 @@ model PreBillAnalysis {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
+  // CDI-specific fields
+  potentialFinancialImpact Float?
+  description              String?
+  evidenceId               String? @unique
+  embedding                String? // Vector embedding as string
+
   encounter Encounter @relation(fields: [encounterId], references: [id])
   user      User?     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
@@ -147,6 +172,12 @@ model Denial {
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 
+  // CDI-specific fields for denials management
+  denialReasonCode  String?
+  deniedAmount      Float?
+  appealLetterDraft String?
+  claimFhirId       String?
+
   case Case? @relation(fields: [caseId], references: [id])
 
   @@map("denials")
@@ -158,6 +189,12 @@ model Analytics {
   value     Float
   dimension String?
   timestamp DateTime @default(now())
+
+  // CDI-specific analytics fields
+  caseId       String?
+  userId       String?
+  activityType String?
+  description  String?
 
   @@map("analytics")
 }
