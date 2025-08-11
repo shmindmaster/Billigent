@@ -1,14 +1,11 @@
-export interface CaseDetail {
-  id: string;
-  patientId: string;
-  patientName: string;
-  encounterDate: string;
-  admissionDate: string;
-  currentDRG: string;
-  suggestedFinding: string;
-  potentialImpact: number;
-  status: 'New' | 'Queried' | 'In Progress' | 'Completed';
-  evidence: ClinicalEvidence[];
+import type { Case as DbCase } from '@billigent/database';
+
+// Extended case interface that includes AI-generated properties
+export interface CaseDetail extends DbCase {
+  // AI-generated analysis properties  
+  suggestedFinding?: string;
+  evidence?: ClinicalEvidence[];
+  
   // Optional structured ICD suggestion payload
   icdSuggestions?: {
     suggested_codes: Array<{ code: string; description: string; rationale: string }>;

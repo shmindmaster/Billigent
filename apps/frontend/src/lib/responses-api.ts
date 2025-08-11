@@ -6,6 +6,10 @@ export interface ResponsesAPIResult {
   success: boolean;
   data?: unknown;
   error?: string;
+  // For conversational AI responses
+  id?: string;
+  status?: 'completed' | 'pending' | 'failed';
+  content?: Array<{ type: string; text?: string; [key: string]: any }>;
 }
 
 export class ResponsesAPIError extends Error {
@@ -59,6 +63,18 @@ export async function getConversationalResponse(query: string): Promise<Response
     setTimeout(() => {
       resolve({
         success: true,
+        id: `response_${Date.now()}`,
+        status: 'completed',
+        content: [
+          {
+            type: 'text',
+            text: `Based on the clinical evidence provided, I can help clarify the following regarding "${query}":
+
+This appears to be a significant finding that could impact the case's documentation and coding. The clinical indicators suggest this diagnosis should be carefully considered for accurate DRG assignment.
+
+Would you like me to elaborate on any specific aspect of this finding?`
+          }
+        ],
         data: {
           response: `Mock response to: ${query}`,
           timestamp: new Date().toISOString(),

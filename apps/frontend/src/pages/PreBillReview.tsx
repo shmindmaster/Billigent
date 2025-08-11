@@ -1,6 +1,6 @@
+import { Spinner } from '@/components/shared/Spinner';
 import { useEffect, useState } from 'react';
 import { Heading } from '../components/shared/Heading';
-import { Spinner } from '../components/shared/Spinner';
 import { Badge } from '../components/ui/badge';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';

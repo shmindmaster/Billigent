@@ -77,14 +77,14 @@ const CaseReview: React.FC = () => {
       // Get conversational response from AI
       const response = await getConversationalResponse(currentQuestion as any);
       
-      if (response.status === 'completed') {
+      if (response.status === 'completed' && response.id && response.content) {
         // Add AI response to history
         const aiMessage: ConversationMessage = {
           id: response.id,
           role: 'assistant',
           content: response.content
-            .filter(item => item.type === 'text')
-            .map(item => item.text)
+            .filter((item: any) => item.type === 'text')
+            .map((item: any) => item.text)
             .join('\n'),
           timestamp: new Date()
         };
@@ -317,7 +317,7 @@ const CaseReview: React.FC = () => {
               ) : (
                 <div className="bg-blue-600 bg-opacity-10 border border-blue-600 border-opacity-30 rounded-lg p-4 mb-6">
                   <h3 className="text-lg font-semibold text-blue-400 mb-2">
-                    Potential Diagnosis: {caseData.suggestedFinding}
+                    Potential Diagnosis: {caseData.suggestedFinding || 'No AI suggestion available'}
                   </h3>
                   <p className="text-gray-300 text-sm">
                     This finding could significantly impact the DRG assignment and reimbursement for this case.
@@ -425,12 +425,14 @@ const CaseReview: React.FC = () => {
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-gray-400">Evidence Items:</span>
-                  <span className="text-white font-medium">{caseData.evidence.length}</span>
+                  <span className="text-white font-medium">{caseData.evidence?.length || 0}</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-gray-400">Avg. Relevance:</span>
                   <span className="text-white font-medium">
-                    {Math.round(caseData.evidence.reduce((sum, ev) => sum + ev.relevanceScore, 0) / caseData.evidence.length)}%
+                    {caseData.evidence && caseData.evidence.length > 0
+                      ? Math.round(caseData.evidence.reduce((sum: number, ev: any) => sum + ev.relevanceScore, 0) / caseData.evidence.length)
+                      : 0}%
                   </span>
                 </div>
               </div>
@@ -448,7 +450,7 @@ const CaseReview: React.FC = () => {
           </div>
           
           <div className="space-y-4 max-h-[800px] overflow-y-auto pr-2">
-            {caseData.evidence
+            {(caseData.evidence || [])
               .sort((a, b) => b.relevanceScore - a.relevanceScore)
               .map((evidence) => (
                 <Card key={evidence.id} className="bg-gray-900 border-gray-700">
