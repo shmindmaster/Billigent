@@ -1,5 +1,7 @@
 /* eslint-disable require-await */
-// Mock Responses API service
+// Responses API service (currently mocked; reads env for endpoint/key)
+const RESPONSES_ENDPOINT = (import.meta as any)?.env?.VITE_AZURE_OPENAI_RESPONSES_ENDPOINT || '';
+const RESPONSES_API_KEY = (import.meta as any)?.env?.VITE_AZURE_OPENAI_API_KEY || '';
 export interface ResponsesAPIResult {
   success: boolean;
   data?: unknown;

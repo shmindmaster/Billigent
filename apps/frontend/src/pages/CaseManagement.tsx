@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useCases, useSearchCases } from '@/hooks/useData';
 import { formatCurrency, formatDate } from '@/lib/utils';
-import { UnifiedCase } from '@/types/unified-case';
+// Using backend case shape
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,8 +16,9 @@ const CaseManagement: React.FC = () => {
   const [statusFilter, setStatusFilter] = React.useState<'all' | 'open' | 'review' | 'closed' | 'pending'>('all');
   const [priorityFilter, setPriorityFilter] = React.useState<'all' | 'high' | 'medium' | 'low' | 'urgent'>('all');
 
-  // Data fetching
-  const { data: cases = [], isLoading } = useCases();
+  // Data fetching (live)
+  const { data: casesResp, isLoading } = useCases({ status: statusFilter !== 'all' ? statusFilter : undefined, priority: priorityFilter !== 'all' ? priorityFilter : undefined });
+  const cases = casesResp?.cases ?? [];
   const { data: searchResults = [] } = useSearchCases(searchTerm);
 
   const displayCases = searchTerm ? searchResults : cases;
@@ -25,9 +26,9 @@ const CaseManagement: React.FC = () => {
   // Stats calculation
   const stats = React.useMemo(() => {
     const totalCases = cases.length;
-    const activeCases = cases.filter((c: UnifiedCase) => c.status === 'open').length;
-    const reviewNeeded = cases.filter((c: UnifiedCase) => c.status === 'review').length;
-    const totalValue = cases.reduce((sum: number, c: UnifiedCase) => sum + (c.financial?.outstandingBalance || 0), 0);
+    const activeCases = cases.filter((c: any) => c.status === 'open').length;
+    const reviewNeeded = cases.filter((c: any) => c.status === 'review').length;
+    const totalValue = 0;
 
     return [
       {
@@ -75,7 +76,7 @@ const CaseManagement: React.FC = () => {
     {
       key: 'caseId',
       label: 'Case ID',
-      render: (_: any, row: UnifiedCase) => (
+      render: (_: any, row: any) => (
         <Button
           variant="ghost"
           className="h-auto p-0 font-mono text-blue-400 hover:text-blue-300"
@@ -88,22 +89,22 @@ const CaseManagement: React.FC = () => {
     {
       key: 'patient',
       label: 'Patient',
-      render: (_: any, row: UnifiedCase) => (
+      render: (_: any, row: any) => (
         <div>
           <div className="font-medium">{row.patient?.name}</div>
-          <div className="text-sm text-gray-400">ID: {row.patientId}</div>
+          <div className="text-sm text-gray-400">ID: {row.patientFhirId}</div>
         </div>
       )
     },
     {
       key: 'date',
       label: 'Date',
-      render: (_: any, row: UnifiedCase) => formatDate(row.encounter.date)
+      render: (_: any, row: any) => row.admissionDate ? formatDate(row.admissionDate) : '—'
     },
     {
       key: 'status',
       label: 'Status',
-      render: (_: any, row: UnifiedCase) => (
+      render: (_: any, row: any) => (
         <Badge variant={row.status === 'open' ? 'default' : 'secondary'}>
           {row.status}
         </Badge>
@@ -112,7 +113,7 @@ const CaseManagement: React.FC = () => {
     {
       key: 'priority',
       label: 'Priority',
-      render: (_: any, row: UnifiedCase) => (
+      render: (_: any, row: any) => (
         <Badge 
           variant={
             row.priority === 'high' ? 'destructive' :
@@ -126,18 +127,17 @@ const CaseManagement: React.FC = () => {
     {
       key: 'impact',
       label: 'Potential Impact',
-      render: (_: any, row: UnifiedCase) => 
-        formatCurrency(row.financial?.outstandingBalance || 0)
+      render: (_: any, row: any) => '—'
     },
     {
       key: 'actions',
       label: 'Actions',
-      render: (_: any, row: UnifiedCase) => (
+      render: (_: any, row: any) => (
         <div className="flex space-x-2">
           <Button
             size="sm"
             variant="outline"
-            onClick={() => navigate(`/cases/${row.id}`)}
+          onClick={() => navigate(`/cases/${row.id}`)}
           >
             View
           </Button>
@@ -157,11 +157,11 @@ const CaseManagement: React.FC = () => {
     let filtered = displayCases;
 
     if (statusFilter !== 'all') {
-      filtered = filtered.filter((c: UnifiedCase) => c.status === statusFilter);
+      filtered = filtered.filter((c: any) => c.status === statusFilter);
     }
 
     if (priorityFilter !== 'all') {
-      filtered = filtered.filter((c: UnifiedCase) => c.priority === priorityFilter);
+      filtered = filtered.filter((c: any) => c.priority === priorityFilter);
     }
 
     return filtered;

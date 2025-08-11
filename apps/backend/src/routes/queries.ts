@@ -51,7 +51,7 @@ router.post('/', async (req: Request, res: Response) => {
       data: {
         answer: ragResponse.answer,
         confidence: ragResponse.confidence,
-        sources: ragResponse.sources,
+        sources: JSON.stringify(ragResponse.sources),
         status: 'completed'
       },
       include: {

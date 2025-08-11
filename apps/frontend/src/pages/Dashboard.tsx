@@ -7,7 +7,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useCases, useDashboardStats } from '@/hooks/useData';
 import { formatCurrency } from '@/lib/utils';
-import { UnifiedCase } from '@/types/unified-case';
+// Display uses backend case shape; no custom type import
 import { AlertTriangle, CheckCircle, Clock, FileText, XCircle } from 'lucide-react';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -27,10 +27,11 @@ const Dashboard: React.FC = () => {
   } = useDashboardStats();
 
   const {
-    data: allCases,
+    data: casesResp,
     isLoading: casesLoading,
     error: casesError
   } = useCases();
+  const allCases = casesResp?.cases || [];
 
   // Show page loading state while data loads
   if (statsLoading || casesLoading) {
@@ -70,15 +71,16 @@ const Dashboard: React.FC = () => {
   // Calculate actionable work queue data from real cases
   const workQueueData = {
     newPreBillCases: 0, // not available in current type
-    denialsAwaitingReview: allCases?.filter((c: UnifiedCase) => 
+    denialsAwaitingReview: allCases?.filter((c: any) => 
       c.status === 'review'
     ).length || 0,
-    overdueQueries: allCases?.filter((c: UnifiedCase) => {
-      const daysOpen = Math.floor((Date.now() - new Date(c.encounter.date).getTime()) / (1000 * 60 * 60 * 24));
+    overdueQueries: allCases?.filter((c: any) => {
+      const opened = c.createdAt ? new Date(c.createdAt).getTime() : Date.now();
+      const daysOpen = Math.floor((Date.now() - opened) / (1000 * 60 * 60 * 24));
       return daysOpen > 7;
     }).length || 0,
-    pendingAppeals: 0, // not available in current type
-    highPriorityCases: allCases?.filter((c: UnifiedCase) => 
+    pendingAppeals: 0,
+    highPriorityCases: allCases?.filter((c: any) => 
       c.priority === 'high'
     ).length || 0
   };

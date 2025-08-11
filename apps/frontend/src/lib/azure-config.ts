@@ -46,8 +46,8 @@ class AzureConfigService {
       sqlUsername: this.getEnvVar('VITE_AZURE_SQL_USERNAME', 'sa'),
       sqlPassword: this.getEnvVar('VITE_AZURE_SQL_PASSWORD', 'YourPassword123!'),
       
-      // Azure OpenAI
-      openaiEndpoint: this.getEnvVar('VITE_AZURE_OPENAI_ENDPOINT', ''),
+      // Azure OpenAI (Responses or standard)
+      openaiEndpoint: this.getEnvVar('VITE_AZURE_OPENAI_RESPONSES_ENDPOINT', this.getEnvVar('VITE_AZURE_OPENAI_ENDPOINT', '')),
       openaiApiKey: this.getEnvVar('VITE_AZURE_OPENAI_API_KEY', ''),
       openaiDeploymentName: this.getEnvVar('VITE_AZURE_OPENAI_DEPLOYMENT_NAME', 'gpt-4'),
       
@@ -63,7 +63,7 @@ class AzureConfigService {
       
       // Application Settings
       environment: (this.getEnvVar('VITE_NODE_ENV', 'development') as 'development' | 'staging' | 'production'),
-      apiBaseUrl: this.getEnvVar('VITE_API_BASE', 'http://localhost:3001'),
+      apiBaseUrl: this.getEnvVar('VITE_API_BASE_URL', this.getEnvVar('VITE_API_BASE', 'http://localhost:3001')),
     };
   }
 

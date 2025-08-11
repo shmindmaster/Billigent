@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, FileText, Clock, DollarSign, User, Calendar, Send, MessageSquare } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import { getCaseDetail } from '@/data/case-detail-data';
-import { CaseDetail, ClinicalEvidence } from '@/types/case-detail';
+// Using local evidence type shape inline
+import { useUnifiedCase, useAssignCase, useCreateQuery } from '@/hooks/useData';
 import { getConversationalResponse, ResponsesAPIError } from '@/lib/responses-api';
 import { useTheme } from '@/contexts/ThemeContext';
 import { IcdSuggestionCard } from '@/components/shared/IcdSuggestionCard';
@@ -22,50 +22,30 @@ const CaseReview: React.FC = () => {
   const { caseId } = useParams<{ caseId: string }>();
   const navigate = useNavigate();
   const { theme } = useTheme();
-  const [caseData, setCaseData] = useState<CaseDetail | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { data: caseData, isLoading: loading, error } = useUnifiedCase(caseId || '');
 
   // Conversation state
   const [conversationHistory, setConversationHistory] = useState<ConversationMessage[]>([]);
-  const [previousResponseId, setPreviousResponseId] = useState<string>(`initial_analysis_${  caseId}`);
+  const [previousResponseId, setPreviousResponseId] = useState<string>(`initial_${caseId}`);
   const [followUpQuestion, setFollowUpQuestion] = useState('');
   const [isSendingMessage, setIsSendingMessage] = useState(false);
 
-  useEffect(() => {
-    if (!caseId) {
-      setError('Case ID is required');
-      setLoading(false);
-      return;
-    }
+  const assignCase = useAssignCase();
+  const createQuery = useCreateQuery();
 
-    const fetchCase = async () => {
-      try {
-        const data = await getCaseDetail(parseInt(caseId));
-        setCaseData(data);
-      } catch (error) {
-        console.error('Error fetching case:', error);
-        setError('Case not found');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCase();
-  }, [caseId]);
-
-  const handleAction = (action: 'agree' | 'disagree') => {
-    console.log(`Action: ${action} for case ${caseId}`);
-    
+  const handleAction = async (action: 'agree' | 'disagree') => {
+    if (!caseId) return;
     if (action === 'agree') {
-      // Show AI-powered success message
-      alert(`✨ AI-Powered Query Generated Successfully!\n\nCase ${caseId}: Our advanced NLP engine has analyzed the clinical evidence and generated an AHIMA-compliant physician query with 96% confidence score.\n\n🤖 AI Features Applied:\n• Clinical evidence synthesis\n• Natural language generation\n• Compliance validation\n• Automated physician notification\n\nThe query has been sent to the attending physician for documentation clarification.`);
+      try {
+        await createQuery.mutateAsync({ question: `Generate physician query for case ${caseId}`, userId: 'system' });
+        navigate(`/cases/${caseId}`);
+      } catch (e) {
+        console.error(e);
+        alert('Failed to generate query');
+      }
     } else {
-      alert(`Case ${caseId} marked as disagreed. The AI suggestion has been rejected and logged for machine learning model improvement. The case will maintain its current DRG assignment.`);
+      navigate('/pre-bill');
     }
-    
-    // Navigate back to worklist
-    navigate('/pre-bill');
   };
 
   const handlePatientLookup = () => {
@@ -94,7 +74,7 @@ const CaseReview: React.FC = () => {
 
     try {
       // Get conversational response from AI
-      const response = await getConversationalResponse(currentQuestion, previousResponseId);
+      const response = await getConversationalResponse(currentQuestion as any);
       
       if (response.status === 'completed') {
         // Add AI response to history
@@ -156,7 +136,7 @@ const CaseReview: React.FC = () => {
     return highlightedText;
   };
 
-  const getEvidenceIcon = (type: ClinicalEvidence['type']) => {
+  const getEvidenceIcon = (type: string) => {
     switch (type) {
       case 'lab_result':
         return '🧪';
@@ -270,13 +250,13 @@ const CaseReview: React.FC = () => {
                   onClick={handlePatientLookup}
                   className={`font-semibold underline text-left ${theme === 'dark' ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-700'}`}
                 >
-                  {caseData.patientName}
+                   {caseData.patientName || '—'}
                 </button>
                 <button
                   onClick={handlePatientLookup}
                   className={`text-sm underline block ${theme === 'dark' ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-700'}`}
                 >
-                  {caseData.patientId}
+                   {caseData.patientFhirId || '—'}
                 </button>
               </div>
             </div>
@@ -285,8 +265,8 @@ const CaseReview: React.FC = () => {
               <Calendar className="w-5 h-5 text-green-400" />
               <div>
                 <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-700'}`}>Encounter Date</p>
-                <p className={`${theme === 'dark' ? 'text-white' : 'text-gray-900'} font-semibold`}>{caseData.encounterDate}</p>
-                <p className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>Admitted: {caseData.admissionDate}</p>
+                 <p className={`${theme === 'dark' ? 'text-white' : 'text-gray-900'} font-semibold`}>{caseData.admissionDate || '—'}</p>
+                 <p className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>Discharged: {caseData.dischargeDate || '—'}</p>
               </div>
             </div>
             
@@ -294,7 +274,7 @@ const CaseReview: React.FC = () => {
               <FileText className="w-5 h-5 text-purple-400" />
               <div>
                 <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-700'}`}>Current DRG</p>
-                <p className={`${theme === 'dark' ? 'text-white' : 'text-gray-900'} font-semibold text-sm`}>{caseData.currentDRG}</p>
+                 <p className={`${theme === 'dark' ? 'text-white' : 'text-gray-900'} font-semibold text-sm`}>{caseData.currentDRG || '—'}</p>
               </div>
             </div>
             
@@ -302,9 +282,9 @@ const CaseReview: React.FC = () => {
               <DollarSign className="w-5 h-5 text-yellow-400" />
               <div>
                 <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-700'}`}>Potential Impact</p>
-                <p className={`${theme === 'dark' ? 'text-green-400' : 'text-green-600'} font-semibold`}>
-                  ${caseData.potentialImpact.toLocaleString('en-US', { minimumFractionDigits: 2 })}
-                </p>
+                 <p className={`${theme === 'dark' ? 'text-green-400' : 'text-green-600'} font-semibold`}>
+                   {(0).toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                 </p>
               </div>
             </div>
           </div>

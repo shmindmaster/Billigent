@@ -28,7 +28,7 @@ export interface RAGResponse {
 }
 
 export class RAGService {
-  private searchClient: SearchClient;
+  private searchClient: SearchClient<any>;
   private openaiClient: OpenAIClient;
   private config: RAGConfig;
 
@@ -36,11 +36,11 @@ export class RAGService {
     this.config = {
       searchEndpoint: process.env.AZURE_SEARCH_ENDPOINT || '',
       searchApiKey: process.env.AZURE_SEARCH_API_KEY || '',
-      searchIndexName: process.env.AZURE_SEARCH_INDEX_NAME || 'knowledge-base',
-      openaiEndpoint: process.env.AZURE_OPENAI_ENDPOINT || '',
+      searchIndexName: process.env.AZURE_SEARCH_INDEX_NAME || process.env.RAG_INDEX_NAME || 'clinical-docs-index',
+      openaiEndpoint: process.env.AZURE_OPENAI_ENDPOINT || process.env.VITE_AZURE_OPENAI_RESPONSES_ENDPOINT || '',
       openaiApiKey: process.env.AZURE_OPENAI_API_KEY || '',
-      embeddingModel: process.env.AZURE_OPENAI_EMBEDDING_MODEL || 'text-embedding-ada-002',
-      chatModel: process.env.AZURE_OPENAI_CHAT_MODEL || 'gpt-4',
+      embeddingModel: process.env.AZURE_OPENAI_EMBED_MODEL || process.env.AZURE_OPENAI_EMBEDDING_MODEL || 'text-embedding-3-small',
+      chatModel: process.env.AZURE_OPENAI_MODEL_DEPLOYMENT || process.env.AZURE_OPENAI_MODEL || 'gpt-4.1',
       ...config
     };
 

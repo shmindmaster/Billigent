@@ -1,13 +1,12 @@
-import { PrismaClient } from '@billigent/database';
 import { Request, Response, Router } from 'express';
-import multer from 'multer';
-import { startPdfAnalysis, getResponse } from '../services/responses-api.service';
+import * as multer from 'multer';
+import { prisma } from '../services/prisma.service';
+import { getResponse, startPdfAnalysis } from '../services/responses-api.service';
 
 const router: Router = Router();
-const prisma = new PrismaClient();
-const upload = multer({ storage: multer.memoryStorage() });
+const upload = multer.default({ storage: multer.default.memoryStorage() });
 // Fallback in-memory map when DB column `responseId` is not yet migrated
-const pendingTaskByDenialId = new Map<number, string>();
+const pendingTaskByDenialId = new Map<string, string>();
 
 // GET /api/denials - List denials with filtering
 router.get('/', async (req: Request, res: Response) => {
@@ -27,7 +26,7 @@ router.get('/', async (req: Request, res: Response) => {
     const where: any = {};
     
     if (status) where.status = status;
-    if (caseId) where.caseId = parseInt(caseId as string, 10);
+    if (caseId) where.caseId = caseId; // Keep as string, don't parse to int
 
     const [denials, total] = await Promise.all([
       prisma.denial.findMany({
@@ -35,31 +34,24 @@ router.get('/', async (req: Request, res: Response) => {
         skip,
         take: limitNum,
         select: {
-          denialId: true,
+          id: true,
           claimFhirId: true,
-          eobFhirId: true,
           denialReasonCode: true,
           deniedAmount: true,
           status: true,
           appealLetterDraft: true,
-          denialDate: true,
-          appealDeadline: true,
-          appealSubmittedDate: true,
-          appealStatus: true,
-          finalOutcome: true,
-          recoveredAmount: true,
           caseId: true,
           case: {
             select: {
-              caseId: true,
+              id: true,
               patientFhirId: true,
               encounterFhirId: true,
               status: true,
-              assignedUser: { select: { userId: true, fullName: true, email: true } },
+              assignedUser: { select: { id: true, fullName: true, email: true } },
             },
           },
         },
-        orderBy: { denialId: 'desc' },
+        orderBy: { id: 'desc' },
       }),
       prisma.denial.count({ where }),
     ]);
@@ -83,16 +75,12 @@ router.get('/', async (req: Request, res: Response) => {
 router.get('/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const denialId = parseInt(id, 10);
-
-    if (isNaN(denialId)) {
-      return res.status(400).json({ error: 'Invalid denial ID' });
-    }
+    const denialId = id; // No need to parse as int since IDs are strings
 
     const denial = await prisma.denial.findUnique({
-      where: { denialId },
+      where: { id: denialId },
       select: {
-        denialId: true,
+        id: true,
         claimFhirId: true,
         eobFhirId: true,
         denialReasonCode: true,
@@ -111,7 +99,7 @@ router.get('/:id', async (req: Request, res: Response) => {
             caseId: true,
             patientFhirId: true,
             encounterFhirId: true,
-            assignedUser: { select: { userId: true, fullName: true, email: true, userRole: true } },
+            assignedUser: { select: { id: true, fullName: true, email: true, userRole: true } },
             activityLogs: {
               where: {
                 activityType: { in: ['denial_created', 'denial_updated', 'appeal_drafted', 'appeal_submitted'] },
@@ -160,23 +148,18 @@ router.post('/', upload.single('file'), async (req: Request, res: Response) => {
         return res.status(400).json({ error: 'Missing required fields: caseId, claimFhirId' });
       }
 
-      const existingCase = await prisma.case.findUnique({ where: { caseId: parseInt(caseId, 10) } });
+      const existingCase = await prisma.case.findUnique({ where: { id: caseId } });
       if (!existingCase) return res.status(404).json({ error: 'Case not found' });
 
       const newDenial = await prisma.denial.create({
         data: {
-          caseId: parseInt(caseId, 10),
+          caseId: caseId,
           claimFhirId,
-          eobFhirId,
           denialReasonCode,
           deniedAmount: deniedAmount ? parseFloat(deniedAmount) : null,
           status: status || 'New',
-          denialDate: denialDate ? new Date(denialDate) : null,
-          appealDeadline: appealDeadline ? new Date(appealDeadline) : null,
-          appealSubmittedDate: appealSubmittedDate ? new Date(appealSubmittedDate) : null,
-          appealStatus,
-          finalOutcome,
-          recoveredAmount: recoveredAmount ? parseFloat(recoveredAmount) : null
+          denialReason: denialReasonCode || 'Unspecified',
+          amount: deniedAmount ? parseFloat(deniedAmount) : 0,
         },
       });
 

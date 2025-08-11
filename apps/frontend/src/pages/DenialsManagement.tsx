@@ -56,14 +56,14 @@ const DenialsManagement: React.FC = () => {
   const [_aiGeneratedAppealLetters, _setAiGeneratedAppealLetters] = useState<Record<string, string>>({});
 
   // Load denials data from Azure SQL
-  const { data: liveDenials, isLoading, error, refetch } = useDenials();
+  const { data: liveDenialsResp, isLoading, error, refetch } = useDenials();
   const queryClient = useQueryClient();
   const { data: _cases } = useCases();
 
   useEffect(() => {
     setLoading(isLoading);
-    if (liveDenials) {
-            setDenials(liveDenials.map((d: Denial) => ({
+    if (liveDenialsResp?.denials) {
+            setDenials(liveDenialsResp.denials.map((d: Denial) => ({
         id: d.id,
         patientId: d.caseId || 'N/A',
         claimId: d.caseId || 'N/A', // Using caseId as claimId fallback

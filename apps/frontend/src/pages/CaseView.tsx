@@ -2,11 +2,9 @@ import { Breadcrumbs } from '@/components/shared/Breadcrumbs';
 import { Heading } from '@/components/shared/Heading';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-// Removed tabs; simplifying view to align with current UnifiedCase type
 import { useTheme } from '@/contexts/ThemeContext';
 import { useUnifiedCase } from '@/hooks/useData';
 import { formatCurrency, formatDate, formatDateTime } from '@/lib/utils';
-import { UnifiedCase } from '@/types/unified-case';
 import { ArrowLeft, Calendar, DollarSign, FileText, User } from 'lucide-react';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -16,8 +14,7 @@ const UnifiedCaseView: React.FC = () => {
   const navigate = useNavigate();
   const { theme } = useTheme();
   const cid = caseId ?? '';
-  const { data, isLoading, error } = useUnifiedCase(cid);
-  const caseData = data as UnifiedCase | undefined;
+  const { data: caseData, isLoading, error } = useUnifiedCase(cid);
 
   const cardClass = theme === 'dark' ? 'bg-gray-900 border-gray-700' : 'bg-white border-gray-200';
   const titleClass = theme === 'dark' ? 'text-white' : 'text-gray-900';
@@ -27,7 +24,7 @@ const UnifiedCaseView: React.FC = () => {
 
   const handlePatientLookup = () => {
     if (caseData) {
-      navigate(`/cases?search=${caseData.patientId}`);
+      navigate(`/cases?search=${caseData.patientFhirId ?? ''}`);
     }
   };
 
@@ -95,18 +92,18 @@ const UnifiedCaseView: React.FC = () => {
                   onClick={handlePatientLookup}
                   className={`font-semibold underline text-left ${theme === 'dark' ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-700'}`}
                 >
-                  {caseData.patient?.name}
+                  {caseData.patientName || 'Unknown'}
                 </button>
-                <p className={`text-sm ${subtleClass}`}>{caseData.patientId}</p>
+                <p className={`text-sm ${subtleClass}`}>{caseData.patientFhirId || '—'}</p>
               </div>
             </div>
             
             <div className="flex items-center space-x-3">
               <Calendar className="w-5 h-5 text-green-400" />
               <div>
-                <p className={`text-sm ${subtleClass}`}>Encounter</p>
-                <p className={`font-semibold ${bodyClass}`}>{caseData.encounter?.id}</p>
-                <p className={`text-sm ${secondaryTextClass}`}>{caseData.encounter?.date ? formatDate(caseData.encounter.date) : 'N/A'}</p>
+                <p className={`text-sm ${subtleClass}`}>Admission</p>
+                <p className={`font-semibold ${bodyClass}`}>{caseData.admissionDate ? formatDate(caseData.admissionDate as any) : 'N/A'}</p>
+                <p className={`text-sm ${secondaryTextClass}`}>Discharge: {caseData.dischargeDate ? formatDate(caseData.dischargeDate as any) : 'N/A'}</p>
               </div>
             </div>
             
@@ -121,9 +118,9 @@ const UnifiedCaseView: React.FC = () => {
             <div className="flex items-center space-x-3">
               <DollarSign className="w-5 h-5 text-yellow-400" />
               <div>
-                <p className={`text-sm ${subtleClass}`}>Outstanding Balance</p>
-                <p className={`font-semibold text-green-600 ${theme === 'dark' ? 'text-green-400' : 'text-green-600'}`}>
-                  {formatCurrency(caseData.financial?.outstandingBalance || 0)}
+                <p className={`text-sm ${subtleClass}`}>Assigned To</p>
+                <p className={`font-semibold ${theme === 'dark' ? 'text-green-400' : 'text-green-600'}`}>
+                  {caseData.assignedUser?.name || 'Unassigned'}
                 </p>
               </div>
             </div>
