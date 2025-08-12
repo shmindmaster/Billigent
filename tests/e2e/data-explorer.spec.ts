@@ -2,10 +2,10 @@ import { test, expect } from '@playwright/test';
 
 test('Data Explorer loads, lists files, previews sample, SAS works', async ({ page }) => {
   await page.goto('http://localhost:5173/data-explorer');
-  await expect(page.getByText('Data Explorer')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Data Explorer' })).toBeVisible();
 
   // Wait for manifest rows
-  await page.waitForSelector('table >> text=/silver\\//');
+  await page.waitForSelector('tbody tr');
 
   // Click first row
   const firstRow = (await page.$$('tbody tr'))[0];
