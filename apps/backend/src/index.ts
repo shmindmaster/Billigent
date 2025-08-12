@@ -1,18 +1,19 @@
-import express from 'express';
+import { PrismaClient } from '@billigent/database';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import { PrismaClient } from '@billigent/database';
+import express from 'express';
 
 // Import routes
+import analyticsRoutes from './routes/analytics';
 import caseRoutes from './routes/cases';
+import cdiRoutes from './routes/cdi';
+import denialRoutes from './routes/denials';
 import queryRoutes from './routes/queries';
 import userRoutes from './routes/users';
-import denialRoutes from './routes/denials';
-import analyticsRoutes from './routes/analytics';
 // Eager import services to validate env at startup when present
 import './services/datalake.service';
-import './services/responses-api.service';
 import './services/rag.service';
+import './services/responses-api.service';
 
 // Import middleware
 import { errorHandler } from './middleware/errorHandler';
@@ -50,6 +51,7 @@ app.use('/api/queries', queryRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/denials', denialRoutes);
 app.use('/api/analytics', analyticsRoutes);
+app.use('/api/cdi', cdiRoutes);
 
 // Error handling middleware (must be last)
 app.use(errorHandler);

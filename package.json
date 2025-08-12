@@ -16,7 +16,8 @@
     "db:generate": "pnpm --filter @billigent/database db:generate",
     "db:push": "pnpm --filter @billigent/database db:push",
     "db:migrate": "pnpm --filter @billigent/database db:migrate",
-    "db:seed": "pnpm --filter @billigent/database db:seed"
+    "db:seed": "pnpm --filter @billigent/database db:seed",
+    "populate-ai-search": "npx tsx scripts/run-ai-search-population.ts"
   },
   "devDependencies": {
     "@types/node": "^24.2.0",
