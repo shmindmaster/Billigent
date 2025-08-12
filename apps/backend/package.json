@@ -8,7 +8,10 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "lint": "eslint src --ext .ts,.tsx",
-    "clean": "rimraf dist"
+    "clean": "rimraf dist",
+    "adls:inventory": "tsx scripts/adls-ops.ts inventory",
+    "adls:plan": "tsx scripts/adls-ops.ts move-plan",
+    "adls:copy": "tsx scripts/adls-ops.ts copy-verify"
   },
   "dependencies": {
     "@azure/identity": "^4.11.1",
@@ -26,7 +29,8 @@
     "openai": "^4.104.0",
     "pdf-parse": "^1.1.1",
     "winston": "^3.17.0",
-    "zod": "^3.25.76"
+    "zod": "^3.25.76",
+    "csv-stringify": "^6.5.2"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
