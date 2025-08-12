@@ -63,6 +63,66 @@ export type Denial = $Result.DefaultSelection<Prisma.$DenialPayload>
  * 
  */
 export type Analytics = $Result.DefaultSelection<Prisma.$AnalyticsPayload>
+/**
+ * Model Icd10Cm
+ * ---------- Lookup vocab (current snapshots only) ----------
+ */
+export type Icd10Cm = $Result.DefaultSelection<Prisma.$Icd10CmPayload>
+/**
+ * Model Icd10Pcs
+ * 
+ */
+export type Icd10Pcs = $Result.DefaultSelection<Prisma.$Icd10PcsPayload>
+/**
+ * Model MsDrg
+ * 
+ */
+export type MsDrg = $Result.DefaultSelection<Prisma.$MsDrgPayload>
+/**
+ * Model Hcpcs
+ * 
+ */
+export type Hcpcs = $Result.DefaultSelection<Prisma.$HcpcsPayload>
+/**
+ * Model NcciPtp
+ * 
+ */
+export type NcciPtp = $Result.DefaultSelection<Prisma.$NcciPtpPayload>
+/**
+ * Model NcciMue
+ * 
+ */
+export type NcciMue = $Result.DefaultSelection<Prisma.$NcciMuePayload>
+/**
+ * Model Carc
+ * 
+ */
+export type Carc = $Result.DefaultSelection<Prisma.$CarcPayload>
+/**
+ * Model Rarc
+ * 
+ */
+export type Rarc = $Result.DefaultSelection<Prisma.$RarcPayload>
+/**
+ * Model NuccTaxonomy
+ * ---------- Provider taxonomy (light) ----------
+ */
+export type NuccTaxonomy = $Result.DefaultSelection<Prisma.$NuccTaxonomyPayload>
+/**
+ * Model NpiProvider
+ * Minimal NPI subset (tiny; weekly delta only if needed)
+ */
+export type NpiProvider = $Result.DefaultSelection<Prisma.$NpiProviderPayload>
+/**
+ * Model EobLine
+ * ---------- Denial/EOB working facts ----------
+ */
+export type EobLine = $Result.DefaultSelection<Prisma.$EobLinePayload>
+/**
+ * Model EobAdjudication
+ * 
+ */
+export type EobAdjudication = $Result.DefaultSelection<Prisma.$EobAdjudicationPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -288,6 +348,126 @@ export class PrismaClient<
     * ```
     */
   get analytics(): Prisma.AnalyticsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.icd10Cm`: Exposes CRUD operations for the **Icd10Cm** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Icd10Cms
+    * const icd10Cms = await prisma.icd10Cm.findMany()
+    * ```
+    */
+  get icd10Cm(): Prisma.Icd10CmDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.icd10Pcs`: Exposes CRUD operations for the **Icd10Pcs** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Icd10Pcs
+    * const icd10Pcs = await prisma.icd10Pcs.findMany()
+    * ```
+    */
+  get icd10Pcs(): Prisma.Icd10PcsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.msDrg`: Exposes CRUD operations for the **MsDrg** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MsDrgs
+    * const msDrgs = await prisma.msDrg.findMany()
+    * ```
+    */
+  get msDrg(): Prisma.MsDrgDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.hcpcs`: Exposes CRUD operations for the **Hcpcs** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Hcpcs
+    * const hcpcs = await prisma.hcpcs.findMany()
+    * ```
+    */
+  get hcpcs(): Prisma.HcpcsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.ncciPtp`: Exposes CRUD operations for the **NcciPtp** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more NcciPtps
+    * const ncciPtps = await prisma.ncciPtp.findMany()
+    * ```
+    */
+  get ncciPtp(): Prisma.NcciPtpDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.ncciMue`: Exposes CRUD operations for the **NcciMue** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more NcciMues
+    * const ncciMues = await prisma.ncciMue.findMany()
+    * ```
+    */
+  get ncciMue(): Prisma.NcciMueDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.carc`: Exposes CRUD operations for the **Carc** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Carcs
+    * const carcs = await prisma.carc.findMany()
+    * ```
+    */
+  get carc(): Prisma.CarcDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.rarc`: Exposes CRUD operations for the **Rarc** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Rarcs
+    * const rarcs = await prisma.rarc.findMany()
+    * ```
+    */
+  get rarc(): Prisma.RarcDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.nuccTaxonomy`: Exposes CRUD operations for the **NuccTaxonomy** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more NuccTaxonomies
+    * const nuccTaxonomies = await prisma.nuccTaxonomy.findMany()
+    * ```
+    */
+  get nuccTaxonomy(): Prisma.NuccTaxonomyDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.npiProvider`: Exposes CRUD operations for the **NpiProvider** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more NpiProviders
+    * const npiProviders = await prisma.npiProvider.findMany()
+    * ```
+    */
+  get npiProvider(): Prisma.NpiProviderDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.eobLine`: Exposes CRUD operations for the **EobLine** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EobLines
+    * const eobLines = await prisma.eobLine.findMany()
+    * ```
+    */
+  get eobLine(): Prisma.EobLineDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.eobAdjudication`: Exposes CRUD operations for the **EobAdjudication** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EobAdjudications
+    * const eobAdjudications = await prisma.eobAdjudication.findMany()
+    * ```
+    */
+  get eobAdjudication(): Prisma.EobAdjudicationDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -737,7 +917,19 @@ export namespace Prisma {
     Procedure: 'Procedure',
     PreBillAnalysis: 'PreBillAnalysis',
     Denial: 'Denial',
-    Analytics: 'Analytics'
+    Analytics: 'Analytics',
+    Icd10Cm: 'Icd10Cm',
+    Icd10Pcs: 'Icd10Pcs',
+    MsDrg: 'MsDrg',
+    Hcpcs: 'Hcpcs',
+    NcciPtp: 'NcciPtp',
+    NcciMue: 'NcciMue',
+    Carc: 'Carc',
+    Rarc: 'Rarc',
+    NuccTaxonomy: 'NuccTaxonomy',
+    NpiProvider: 'NpiProvider',
+    EobLine: 'EobLine',
+    EobAdjudication: 'EobAdjudication'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -756,7 +948,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "query" | "case" | "patient" | "encounter" | "diagnosis" | "procedure" | "preBillAnalysis" | "denial" | "analytics"
+      modelProps: "user" | "query" | "case" | "patient" | "encounter" | "diagnosis" | "procedure" | "preBillAnalysis" | "denial" | "analytics" | "icd10Cm" | "icd10Pcs" | "msDrg" | "hcpcs" | "ncciPtp" | "ncciMue" | "carc" | "rarc" | "nuccTaxonomy" | "npiProvider" | "eobLine" | "eobAdjudication"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1420,6 +1612,798 @@ export namespace Prisma {
           }
         }
       }
+      Icd10Cm: {
+        payload: Prisma.$Icd10CmPayload<ExtArgs>
+        fields: Prisma.Icd10CmFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.Icd10CmFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Icd10CmPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.Icd10CmFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Icd10CmPayload>
+          }
+          findFirst: {
+            args: Prisma.Icd10CmFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Icd10CmPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.Icd10CmFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Icd10CmPayload>
+          }
+          findMany: {
+            args: Prisma.Icd10CmFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Icd10CmPayload>[]
+          }
+          create: {
+            args: Prisma.Icd10CmCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Icd10CmPayload>
+          }
+          createMany: {
+            args: Prisma.Icd10CmCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.Icd10CmDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Icd10CmPayload>
+          }
+          update: {
+            args: Prisma.Icd10CmUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Icd10CmPayload>
+          }
+          deleteMany: {
+            args: Prisma.Icd10CmDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.Icd10CmUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.Icd10CmUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Icd10CmPayload>
+          }
+          aggregate: {
+            args: Prisma.Icd10CmAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateIcd10Cm>
+          }
+          groupBy: {
+            args: Prisma.Icd10CmGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Icd10CmGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.Icd10CmCountArgs<ExtArgs>
+            result: $Utils.Optional<Icd10CmCountAggregateOutputType> | number
+          }
+        }
+      }
+      Icd10Pcs: {
+        payload: Prisma.$Icd10PcsPayload<ExtArgs>
+        fields: Prisma.Icd10PcsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.Icd10PcsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Icd10PcsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.Icd10PcsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Icd10PcsPayload>
+          }
+          findFirst: {
+            args: Prisma.Icd10PcsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Icd10PcsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.Icd10PcsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Icd10PcsPayload>
+          }
+          findMany: {
+            args: Prisma.Icd10PcsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Icd10PcsPayload>[]
+          }
+          create: {
+            args: Prisma.Icd10PcsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Icd10PcsPayload>
+          }
+          createMany: {
+            args: Prisma.Icd10PcsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.Icd10PcsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Icd10PcsPayload>
+          }
+          update: {
+            args: Prisma.Icd10PcsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Icd10PcsPayload>
+          }
+          deleteMany: {
+            args: Prisma.Icd10PcsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.Icd10PcsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.Icd10PcsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Icd10PcsPayload>
+          }
+          aggregate: {
+            args: Prisma.Icd10PcsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateIcd10Pcs>
+          }
+          groupBy: {
+            args: Prisma.Icd10PcsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Icd10PcsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.Icd10PcsCountArgs<ExtArgs>
+            result: $Utils.Optional<Icd10PcsCountAggregateOutputType> | number
+          }
+        }
+      }
+      MsDrg: {
+        payload: Prisma.$MsDrgPayload<ExtArgs>
+        fields: Prisma.MsDrgFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MsDrgFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MsDrgPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MsDrgFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MsDrgPayload>
+          }
+          findFirst: {
+            args: Prisma.MsDrgFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MsDrgPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MsDrgFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MsDrgPayload>
+          }
+          findMany: {
+            args: Prisma.MsDrgFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MsDrgPayload>[]
+          }
+          create: {
+            args: Prisma.MsDrgCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MsDrgPayload>
+          }
+          createMany: {
+            args: Prisma.MsDrgCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.MsDrgDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MsDrgPayload>
+          }
+          update: {
+            args: Prisma.MsDrgUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MsDrgPayload>
+          }
+          deleteMany: {
+            args: Prisma.MsDrgDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MsDrgUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.MsDrgUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MsDrgPayload>
+          }
+          aggregate: {
+            args: Prisma.MsDrgAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMsDrg>
+          }
+          groupBy: {
+            args: Prisma.MsDrgGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MsDrgGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MsDrgCountArgs<ExtArgs>
+            result: $Utils.Optional<MsDrgCountAggregateOutputType> | number
+          }
+        }
+      }
+      Hcpcs: {
+        payload: Prisma.$HcpcsPayload<ExtArgs>
+        fields: Prisma.HcpcsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.HcpcsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HcpcsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.HcpcsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HcpcsPayload>
+          }
+          findFirst: {
+            args: Prisma.HcpcsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HcpcsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.HcpcsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HcpcsPayload>
+          }
+          findMany: {
+            args: Prisma.HcpcsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HcpcsPayload>[]
+          }
+          create: {
+            args: Prisma.HcpcsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HcpcsPayload>
+          }
+          createMany: {
+            args: Prisma.HcpcsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.HcpcsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HcpcsPayload>
+          }
+          update: {
+            args: Prisma.HcpcsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HcpcsPayload>
+          }
+          deleteMany: {
+            args: Prisma.HcpcsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.HcpcsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.HcpcsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HcpcsPayload>
+          }
+          aggregate: {
+            args: Prisma.HcpcsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateHcpcs>
+          }
+          groupBy: {
+            args: Prisma.HcpcsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<HcpcsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.HcpcsCountArgs<ExtArgs>
+            result: $Utils.Optional<HcpcsCountAggregateOutputType> | number
+          }
+        }
+      }
+      NcciPtp: {
+        payload: Prisma.$NcciPtpPayload<ExtArgs>
+        fields: Prisma.NcciPtpFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.NcciPtpFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NcciPtpPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.NcciPtpFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NcciPtpPayload>
+          }
+          findFirst: {
+            args: Prisma.NcciPtpFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NcciPtpPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.NcciPtpFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NcciPtpPayload>
+          }
+          findMany: {
+            args: Prisma.NcciPtpFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NcciPtpPayload>[]
+          }
+          create: {
+            args: Prisma.NcciPtpCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NcciPtpPayload>
+          }
+          createMany: {
+            args: Prisma.NcciPtpCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.NcciPtpDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NcciPtpPayload>
+          }
+          update: {
+            args: Prisma.NcciPtpUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NcciPtpPayload>
+          }
+          deleteMany: {
+            args: Prisma.NcciPtpDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.NcciPtpUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.NcciPtpUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NcciPtpPayload>
+          }
+          aggregate: {
+            args: Prisma.NcciPtpAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateNcciPtp>
+          }
+          groupBy: {
+            args: Prisma.NcciPtpGroupByArgs<ExtArgs>
+            result: $Utils.Optional<NcciPtpGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.NcciPtpCountArgs<ExtArgs>
+            result: $Utils.Optional<NcciPtpCountAggregateOutputType> | number
+          }
+        }
+      }
+      NcciMue: {
+        payload: Prisma.$NcciMuePayload<ExtArgs>
+        fields: Prisma.NcciMueFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.NcciMueFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NcciMuePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.NcciMueFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NcciMuePayload>
+          }
+          findFirst: {
+            args: Prisma.NcciMueFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NcciMuePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.NcciMueFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NcciMuePayload>
+          }
+          findMany: {
+            args: Prisma.NcciMueFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NcciMuePayload>[]
+          }
+          create: {
+            args: Prisma.NcciMueCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NcciMuePayload>
+          }
+          createMany: {
+            args: Prisma.NcciMueCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.NcciMueDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NcciMuePayload>
+          }
+          update: {
+            args: Prisma.NcciMueUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NcciMuePayload>
+          }
+          deleteMany: {
+            args: Prisma.NcciMueDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.NcciMueUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.NcciMueUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NcciMuePayload>
+          }
+          aggregate: {
+            args: Prisma.NcciMueAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateNcciMue>
+          }
+          groupBy: {
+            args: Prisma.NcciMueGroupByArgs<ExtArgs>
+            result: $Utils.Optional<NcciMueGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.NcciMueCountArgs<ExtArgs>
+            result: $Utils.Optional<NcciMueCountAggregateOutputType> | number
+          }
+        }
+      }
+      Carc: {
+        payload: Prisma.$CarcPayload<ExtArgs>
+        fields: Prisma.CarcFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CarcFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CarcPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CarcFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CarcPayload>
+          }
+          findFirst: {
+            args: Prisma.CarcFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CarcPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CarcFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CarcPayload>
+          }
+          findMany: {
+            args: Prisma.CarcFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CarcPayload>[]
+          }
+          create: {
+            args: Prisma.CarcCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CarcPayload>
+          }
+          createMany: {
+            args: Prisma.CarcCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.CarcDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CarcPayload>
+          }
+          update: {
+            args: Prisma.CarcUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CarcPayload>
+          }
+          deleteMany: {
+            args: Prisma.CarcDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CarcUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.CarcUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CarcPayload>
+          }
+          aggregate: {
+            args: Prisma.CarcAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCarc>
+          }
+          groupBy: {
+            args: Prisma.CarcGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CarcGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CarcCountArgs<ExtArgs>
+            result: $Utils.Optional<CarcCountAggregateOutputType> | number
+          }
+        }
+      }
+      Rarc: {
+        payload: Prisma.$RarcPayload<ExtArgs>
+        fields: Prisma.RarcFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RarcFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RarcPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RarcFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RarcPayload>
+          }
+          findFirst: {
+            args: Prisma.RarcFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RarcPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RarcFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RarcPayload>
+          }
+          findMany: {
+            args: Prisma.RarcFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RarcPayload>[]
+          }
+          create: {
+            args: Prisma.RarcCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RarcPayload>
+          }
+          createMany: {
+            args: Prisma.RarcCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.RarcDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RarcPayload>
+          }
+          update: {
+            args: Prisma.RarcUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RarcPayload>
+          }
+          deleteMany: {
+            args: Prisma.RarcDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RarcUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.RarcUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RarcPayload>
+          }
+          aggregate: {
+            args: Prisma.RarcAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRarc>
+          }
+          groupBy: {
+            args: Prisma.RarcGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RarcGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RarcCountArgs<ExtArgs>
+            result: $Utils.Optional<RarcCountAggregateOutputType> | number
+          }
+        }
+      }
+      NuccTaxonomy: {
+        payload: Prisma.$NuccTaxonomyPayload<ExtArgs>
+        fields: Prisma.NuccTaxonomyFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.NuccTaxonomyFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NuccTaxonomyPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.NuccTaxonomyFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NuccTaxonomyPayload>
+          }
+          findFirst: {
+            args: Prisma.NuccTaxonomyFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NuccTaxonomyPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.NuccTaxonomyFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NuccTaxonomyPayload>
+          }
+          findMany: {
+            args: Prisma.NuccTaxonomyFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NuccTaxonomyPayload>[]
+          }
+          create: {
+            args: Prisma.NuccTaxonomyCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NuccTaxonomyPayload>
+          }
+          createMany: {
+            args: Prisma.NuccTaxonomyCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.NuccTaxonomyDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NuccTaxonomyPayload>
+          }
+          update: {
+            args: Prisma.NuccTaxonomyUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NuccTaxonomyPayload>
+          }
+          deleteMany: {
+            args: Prisma.NuccTaxonomyDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.NuccTaxonomyUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.NuccTaxonomyUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NuccTaxonomyPayload>
+          }
+          aggregate: {
+            args: Prisma.NuccTaxonomyAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateNuccTaxonomy>
+          }
+          groupBy: {
+            args: Prisma.NuccTaxonomyGroupByArgs<ExtArgs>
+            result: $Utils.Optional<NuccTaxonomyGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.NuccTaxonomyCountArgs<ExtArgs>
+            result: $Utils.Optional<NuccTaxonomyCountAggregateOutputType> | number
+          }
+        }
+      }
+      NpiProvider: {
+        payload: Prisma.$NpiProviderPayload<ExtArgs>
+        fields: Prisma.NpiProviderFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.NpiProviderFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NpiProviderPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.NpiProviderFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NpiProviderPayload>
+          }
+          findFirst: {
+            args: Prisma.NpiProviderFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NpiProviderPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.NpiProviderFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NpiProviderPayload>
+          }
+          findMany: {
+            args: Prisma.NpiProviderFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NpiProviderPayload>[]
+          }
+          create: {
+            args: Prisma.NpiProviderCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NpiProviderPayload>
+          }
+          createMany: {
+            args: Prisma.NpiProviderCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.NpiProviderDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NpiProviderPayload>
+          }
+          update: {
+            args: Prisma.NpiProviderUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NpiProviderPayload>
+          }
+          deleteMany: {
+            args: Prisma.NpiProviderDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.NpiProviderUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.NpiProviderUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NpiProviderPayload>
+          }
+          aggregate: {
+            args: Prisma.NpiProviderAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateNpiProvider>
+          }
+          groupBy: {
+            args: Prisma.NpiProviderGroupByArgs<ExtArgs>
+            result: $Utils.Optional<NpiProviderGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.NpiProviderCountArgs<ExtArgs>
+            result: $Utils.Optional<NpiProviderCountAggregateOutputType> | number
+          }
+        }
+      }
+      EobLine: {
+        payload: Prisma.$EobLinePayload<ExtArgs>
+        fields: Prisma.EobLineFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EobLineFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EobLinePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EobLineFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EobLinePayload>
+          }
+          findFirst: {
+            args: Prisma.EobLineFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EobLinePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EobLineFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EobLinePayload>
+          }
+          findMany: {
+            args: Prisma.EobLineFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EobLinePayload>[]
+          }
+          create: {
+            args: Prisma.EobLineCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EobLinePayload>
+          }
+          createMany: {
+            args: Prisma.EobLineCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.EobLineDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EobLinePayload>
+          }
+          update: {
+            args: Prisma.EobLineUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EobLinePayload>
+          }
+          deleteMany: {
+            args: Prisma.EobLineDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EobLineUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.EobLineUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EobLinePayload>
+          }
+          aggregate: {
+            args: Prisma.EobLineAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEobLine>
+          }
+          groupBy: {
+            args: Prisma.EobLineGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EobLineGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EobLineCountArgs<ExtArgs>
+            result: $Utils.Optional<EobLineCountAggregateOutputType> | number
+          }
+        }
+      }
+      EobAdjudication: {
+        payload: Prisma.$EobAdjudicationPayload<ExtArgs>
+        fields: Prisma.EobAdjudicationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EobAdjudicationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EobAdjudicationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EobAdjudicationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EobAdjudicationPayload>
+          }
+          findFirst: {
+            args: Prisma.EobAdjudicationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EobAdjudicationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EobAdjudicationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EobAdjudicationPayload>
+          }
+          findMany: {
+            args: Prisma.EobAdjudicationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EobAdjudicationPayload>[]
+          }
+          create: {
+            args: Prisma.EobAdjudicationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EobAdjudicationPayload>
+          }
+          createMany: {
+            args: Prisma.EobAdjudicationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.EobAdjudicationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EobAdjudicationPayload>
+          }
+          update: {
+            args: Prisma.EobAdjudicationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EobAdjudicationPayload>
+          }
+          deleteMany: {
+            args: Prisma.EobAdjudicationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EobAdjudicationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.EobAdjudicationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EobAdjudicationPayload>
+          }
+          aggregate: {
+            args: Prisma.EobAdjudicationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEobAdjudication>
+          }
+          groupBy: {
+            args: Prisma.EobAdjudicationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EobAdjudicationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EobAdjudicationCountArgs<ExtArgs>
+            result: $Utils.Optional<EobAdjudicationCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1522,6 +2506,18 @@ export namespace Prisma {
     preBillAnalysis?: PreBillAnalysisOmit
     denial?: DenialOmit
     analytics?: AnalyticsOmit
+    icd10Cm?: Icd10CmOmit
+    icd10Pcs?: Icd10PcsOmit
+    msDrg?: MsDrgOmit
+    hcpcs?: HcpcsOmit
+    ncciPtp?: NcciPtpOmit
+    ncciMue?: NcciMueOmit
+    carc?: CarcOmit
+    rarc?: RarcOmit
+    nuccTaxonomy?: NuccTaxonomyOmit
+    npiProvider?: NpiProviderOmit
+    eobLine?: EobLineOmit
+    eobAdjudication?: EobAdjudicationOmit
   }
 
   /* Types for Logging */
@@ -1782,6 +2778,37 @@ export namespace Prisma {
    */
   export type EncounterCountOutputTypeCountProceduresArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ProcedureWhereInput
+  }
+
+
+  /**
+   * Count Type EobLineCountOutputType
+   */
+
+  export type EobLineCountOutputType = {
+    adjudications: number
+  }
+
+  export type EobLineCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    adjudications?: boolean | EobLineCountOutputTypeCountAdjudicationsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * EobLineCountOutputType without action
+   */
+  export type EobLineCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EobLineCountOutputType
+     */
+    select?: EobLineCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * EobLineCountOutputType without action
+   */
+  export type EobLineCountOutputTypeCountAdjudicationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EobAdjudicationWhereInput
   }
 
 
@@ -12098,6 +13125,10997 @@ export namespace Prisma {
 
 
   /**
+   * Model Icd10Cm
+   */
+
+  export type AggregateIcd10Cm = {
+    _count: Icd10CmCountAggregateOutputType | null
+    _min: Icd10CmMinAggregateOutputType | null
+    _max: Icd10CmMaxAggregateOutputType | null
+  }
+
+  export type Icd10CmMinAggregateOutputType = {
+    code: string | null
+    title: string | null
+    longDesc: string | null
+    effFrom: Date | null
+    effTo: Date | null
+  }
+
+  export type Icd10CmMaxAggregateOutputType = {
+    code: string | null
+    title: string | null
+    longDesc: string | null
+    effFrom: Date | null
+    effTo: Date | null
+  }
+
+  export type Icd10CmCountAggregateOutputType = {
+    code: number
+    title: number
+    longDesc: number
+    effFrom: number
+    effTo: number
+    _all: number
+  }
+
+
+  export type Icd10CmMinAggregateInputType = {
+    code?: true
+    title?: true
+    longDesc?: true
+    effFrom?: true
+    effTo?: true
+  }
+
+  export type Icd10CmMaxAggregateInputType = {
+    code?: true
+    title?: true
+    longDesc?: true
+    effFrom?: true
+    effTo?: true
+  }
+
+  export type Icd10CmCountAggregateInputType = {
+    code?: true
+    title?: true
+    longDesc?: true
+    effFrom?: true
+    effTo?: true
+    _all?: true
+  }
+
+  export type Icd10CmAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Icd10Cm to aggregate.
+     */
+    where?: Icd10CmWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Icd10Cms to fetch.
+     */
+    orderBy?: Icd10CmOrderByWithRelationInput | Icd10CmOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: Icd10CmWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Icd10Cms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Icd10Cms.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Icd10Cms
+    **/
+    _count?: true | Icd10CmCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Icd10CmMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Icd10CmMaxAggregateInputType
+  }
+
+  export type GetIcd10CmAggregateType<T extends Icd10CmAggregateArgs> = {
+        [P in keyof T & keyof AggregateIcd10Cm]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateIcd10Cm[P]>
+      : GetScalarType<T[P], AggregateIcd10Cm[P]>
+  }
+
+
+
+
+  export type Icd10CmGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: Icd10CmWhereInput
+    orderBy?: Icd10CmOrderByWithAggregationInput | Icd10CmOrderByWithAggregationInput[]
+    by: Icd10CmScalarFieldEnum[] | Icd10CmScalarFieldEnum
+    having?: Icd10CmScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Icd10CmCountAggregateInputType | true
+    _min?: Icd10CmMinAggregateInputType
+    _max?: Icd10CmMaxAggregateInputType
+  }
+
+  export type Icd10CmGroupByOutputType = {
+    code: string
+    title: string | null
+    longDesc: string | null
+    effFrom: Date
+    effTo: Date | null
+    _count: Icd10CmCountAggregateOutputType | null
+    _min: Icd10CmMinAggregateOutputType | null
+    _max: Icd10CmMaxAggregateOutputType | null
+  }
+
+  type GetIcd10CmGroupByPayload<T extends Icd10CmGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Icd10CmGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Icd10CmGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Icd10CmGroupByOutputType[P]>
+            : GetScalarType<T[P], Icd10CmGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type Icd10CmSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    code?: boolean
+    title?: boolean
+    longDesc?: boolean
+    effFrom?: boolean
+    effTo?: boolean
+  }, ExtArgs["result"]["icd10Cm"]>
+
+
+
+  export type Icd10CmSelectScalar = {
+    code?: boolean
+    title?: boolean
+    longDesc?: boolean
+    effFrom?: boolean
+    effTo?: boolean
+  }
+
+  export type Icd10CmOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"code" | "title" | "longDesc" | "effFrom" | "effTo", ExtArgs["result"]["icd10Cm"]>
+
+  export type $Icd10CmPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Icd10Cm"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      code: string
+      title: string | null
+      longDesc: string | null
+      effFrom: Date
+      effTo: Date | null
+    }, ExtArgs["result"]["icd10Cm"]>
+    composites: {}
+  }
+
+  type Icd10CmGetPayload<S extends boolean | null | undefined | Icd10CmDefaultArgs> = $Result.GetResult<Prisma.$Icd10CmPayload, S>
+
+  type Icd10CmCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<Icd10CmFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Icd10CmCountAggregateInputType | true
+    }
+
+  export interface Icd10CmDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Icd10Cm'], meta: { name: 'Icd10Cm' } }
+    /**
+     * Find zero or one Icd10Cm that matches the filter.
+     * @param {Icd10CmFindUniqueArgs} args - Arguments to find a Icd10Cm
+     * @example
+     * // Get one Icd10Cm
+     * const icd10Cm = await prisma.icd10Cm.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends Icd10CmFindUniqueArgs>(args: SelectSubset<T, Icd10CmFindUniqueArgs<ExtArgs>>): Prisma__Icd10CmClient<$Result.GetResult<Prisma.$Icd10CmPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Icd10Cm that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {Icd10CmFindUniqueOrThrowArgs} args - Arguments to find a Icd10Cm
+     * @example
+     * // Get one Icd10Cm
+     * const icd10Cm = await prisma.icd10Cm.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends Icd10CmFindUniqueOrThrowArgs>(args: SelectSubset<T, Icd10CmFindUniqueOrThrowArgs<ExtArgs>>): Prisma__Icd10CmClient<$Result.GetResult<Prisma.$Icd10CmPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Icd10Cm that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Icd10CmFindFirstArgs} args - Arguments to find a Icd10Cm
+     * @example
+     * // Get one Icd10Cm
+     * const icd10Cm = await prisma.icd10Cm.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends Icd10CmFindFirstArgs>(args?: SelectSubset<T, Icd10CmFindFirstArgs<ExtArgs>>): Prisma__Icd10CmClient<$Result.GetResult<Prisma.$Icd10CmPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Icd10Cm that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Icd10CmFindFirstOrThrowArgs} args - Arguments to find a Icd10Cm
+     * @example
+     * // Get one Icd10Cm
+     * const icd10Cm = await prisma.icd10Cm.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends Icd10CmFindFirstOrThrowArgs>(args?: SelectSubset<T, Icd10CmFindFirstOrThrowArgs<ExtArgs>>): Prisma__Icd10CmClient<$Result.GetResult<Prisma.$Icd10CmPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Icd10Cms that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Icd10CmFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Icd10Cms
+     * const icd10Cms = await prisma.icd10Cm.findMany()
+     * 
+     * // Get first 10 Icd10Cms
+     * const icd10Cms = await prisma.icd10Cm.findMany({ take: 10 })
+     * 
+     * // Only select the `code`
+     * const icd10CmWithCodeOnly = await prisma.icd10Cm.findMany({ select: { code: true } })
+     * 
+     */
+    findMany<T extends Icd10CmFindManyArgs>(args?: SelectSubset<T, Icd10CmFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Icd10CmPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Icd10Cm.
+     * @param {Icd10CmCreateArgs} args - Arguments to create a Icd10Cm.
+     * @example
+     * // Create one Icd10Cm
+     * const Icd10Cm = await prisma.icd10Cm.create({
+     *   data: {
+     *     // ... data to create a Icd10Cm
+     *   }
+     * })
+     * 
+     */
+    create<T extends Icd10CmCreateArgs>(args: SelectSubset<T, Icd10CmCreateArgs<ExtArgs>>): Prisma__Icd10CmClient<$Result.GetResult<Prisma.$Icd10CmPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Icd10Cms.
+     * @param {Icd10CmCreateManyArgs} args - Arguments to create many Icd10Cms.
+     * @example
+     * // Create many Icd10Cms
+     * const icd10Cm = await prisma.icd10Cm.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends Icd10CmCreateManyArgs>(args?: SelectSubset<T, Icd10CmCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Icd10Cm.
+     * @param {Icd10CmDeleteArgs} args - Arguments to delete one Icd10Cm.
+     * @example
+     * // Delete one Icd10Cm
+     * const Icd10Cm = await prisma.icd10Cm.delete({
+     *   where: {
+     *     // ... filter to delete one Icd10Cm
+     *   }
+     * })
+     * 
+     */
+    delete<T extends Icd10CmDeleteArgs>(args: SelectSubset<T, Icd10CmDeleteArgs<ExtArgs>>): Prisma__Icd10CmClient<$Result.GetResult<Prisma.$Icd10CmPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Icd10Cm.
+     * @param {Icd10CmUpdateArgs} args - Arguments to update one Icd10Cm.
+     * @example
+     * // Update one Icd10Cm
+     * const icd10Cm = await prisma.icd10Cm.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends Icd10CmUpdateArgs>(args: SelectSubset<T, Icd10CmUpdateArgs<ExtArgs>>): Prisma__Icd10CmClient<$Result.GetResult<Prisma.$Icd10CmPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Icd10Cms.
+     * @param {Icd10CmDeleteManyArgs} args - Arguments to filter Icd10Cms to delete.
+     * @example
+     * // Delete a few Icd10Cms
+     * const { count } = await prisma.icd10Cm.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends Icd10CmDeleteManyArgs>(args?: SelectSubset<T, Icd10CmDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Icd10Cms.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Icd10CmUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Icd10Cms
+     * const icd10Cm = await prisma.icd10Cm.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends Icd10CmUpdateManyArgs>(args: SelectSubset<T, Icd10CmUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Icd10Cm.
+     * @param {Icd10CmUpsertArgs} args - Arguments to update or create a Icd10Cm.
+     * @example
+     * // Update or create a Icd10Cm
+     * const icd10Cm = await prisma.icd10Cm.upsert({
+     *   create: {
+     *     // ... data to create a Icd10Cm
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Icd10Cm we want to update
+     *   }
+     * })
+     */
+    upsert<T extends Icd10CmUpsertArgs>(args: SelectSubset<T, Icd10CmUpsertArgs<ExtArgs>>): Prisma__Icd10CmClient<$Result.GetResult<Prisma.$Icd10CmPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Icd10Cms.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Icd10CmCountArgs} args - Arguments to filter Icd10Cms to count.
+     * @example
+     * // Count the number of Icd10Cms
+     * const count = await prisma.icd10Cm.count({
+     *   where: {
+     *     // ... the filter for the Icd10Cms we want to count
+     *   }
+     * })
+    **/
+    count<T extends Icd10CmCountArgs>(
+      args?: Subset<T, Icd10CmCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Icd10CmCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Icd10Cm.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Icd10CmAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Icd10CmAggregateArgs>(args: Subset<T, Icd10CmAggregateArgs>): Prisma.PrismaPromise<GetIcd10CmAggregateType<T>>
+
+    /**
+     * Group by Icd10Cm.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Icd10CmGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends Icd10CmGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: Icd10CmGroupByArgs['orderBy'] }
+        : { orderBy?: Icd10CmGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, Icd10CmGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetIcd10CmGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Icd10Cm model
+   */
+  readonly fields: Icd10CmFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Icd10Cm.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__Icd10CmClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Icd10Cm model
+   */
+  interface Icd10CmFieldRefs {
+    readonly code: FieldRef<"Icd10Cm", 'String'>
+    readonly title: FieldRef<"Icd10Cm", 'String'>
+    readonly longDesc: FieldRef<"Icd10Cm", 'String'>
+    readonly effFrom: FieldRef<"Icd10Cm", 'DateTime'>
+    readonly effTo: FieldRef<"Icd10Cm", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Icd10Cm findUnique
+   */
+  export type Icd10CmFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Icd10Cm
+     */
+    select?: Icd10CmSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Icd10Cm
+     */
+    omit?: Icd10CmOmit<ExtArgs> | null
+    /**
+     * Filter, which Icd10Cm to fetch.
+     */
+    where: Icd10CmWhereUniqueInput
+  }
+
+  /**
+   * Icd10Cm findUniqueOrThrow
+   */
+  export type Icd10CmFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Icd10Cm
+     */
+    select?: Icd10CmSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Icd10Cm
+     */
+    omit?: Icd10CmOmit<ExtArgs> | null
+    /**
+     * Filter, which Icd10Cm to fetch.
+     */
+    where: Icd10CmWhereUniqueInput
+  }
+
+  /**
+   * Icd10Cm findFirst
+   */
+  export type Icd10CmFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Icd10Cm
+     */
+    select?: Icd10CmSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Icd10Cm
+     */
+    omit?: Icd10CmOmit<ExtArgs> | null
+    /**
+     * Filter, which Icd10Cm to fetch.
+     */
+    where?: Icd10CmWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Icd10Cms to fetch.
+     */
+    orderBy?: Icd10CmOrderByWithRelationInput | Icd10CmOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Icd10Cms.
+     */
+    cursor?: Icd10CmWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Icd10Cms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Icd10Cms.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Icd10Cms.
+     */
+    distinct?: Icd10CmScalarFieldEnum | Icd10CmScalarFieldEnum[]
+  }
+
+  /**
+   * Icd10Cm findFirstOrThrow
+   */
+  export type Icd10CmFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Icd10Cm
+     */
+    select?: Icd10CmSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Icd10Cm
+     */
+    omit?: Icd10CmOmit<ExtArgs> | null
+    /**
+     * Filter, which Icd10Cm to fetch.
+     */
+    where?: Icd10CmWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Icd10Cms to fetch.
+     */
+    orderBy?: Icd10CmOrderByWithRelationInput | Icd10CmOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Icd10Cms.
+     */
+    cursor?: Icd10CmWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Icd10Cms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Icd10Cms.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Icd10Cms.
+     */
+    distinct?: Icd10CmScalarFieldEnum | Icd10CmScalarFieldEnum[]
+  }
+
+  /**
+   * Icd10Cm findMany
+   */
+  export type Icd10CmFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Icd10Cm
+     */
+    select?: Icd10CmSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Icd10Cm
+     */
+    omit?: Icd10CmOmit<ExtArgs> | null
+    /**
+     * Filter, which Icd10Cms to fetch.
+     */
+    where?: Icd10CmWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Icd10Cms to fetch.
+     */
+    orderBy?: Icd10CmOrderByWithRelationInput | Icd10CmOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Icd10Cms.
+     */
+    cursor?: Icd10CmWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Icd10Cms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Icd10Cms.
+     */
+    skip?: number
+    distinct?: Icd10CmScalarFieldEnum | Icd10CmScalarFieldEnum[]
+  }
+
+  /**
+   * Icd10Cm create
+   */
+  export type Icd10CmCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Icd10Cm
+     */
+    select?: Icd10CmSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Icd10Cm
+     */
+    omit?: Icd10CmOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Icd10Cm.
+     */
+    data: XOR<Icd10CmCreateInput, Icd10CmUncheckedCreateInput>
+  }
+
+  /**
+   * Icd10Cm createMany
+   */
+  export type Icd10CmCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Icd10Cms.
+     */
+    data: Icd10CmCreateManyInput | Icd10CmCreateManyInput[]
+  }
+
+  /**
+   * Icd10Cm update
+   */
+  export type Icd10CmUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Icd10Cm
+     */
+    select?: Icd10CmSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Icd10Cm
+     */
+    omit?: Icd10CmOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Icd10Cm.
+     */
+    data: XOR<Icd10CmUpdateInput, Icd10CmUncheckedUpdateInput>
+    /**
+     * Choose, which Icd10Cm to update.
+     */
+    where: Icd10CmWhereUniqueInput
+  }
+
+  /**
+   * Icd10Cm updateMany
+   */
+  export type Icd10CmUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Icd10Cms.
+     */
+    data: XOR<Icd10CmUpdateManyMutationInput, Icd10CmUncheckedUpdateManyInput>
+    /**
+     * Filter which Icd10Cms to update
+     */
+    where?: Icd10CmWhereInput
+    /**
+     * Limit how many Icd10Cms to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Icd10Cm upsert
+   */
+  export type Icd10CmUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Icd10Cm
+     */
+    select?: Icd10CmSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Icd10Cm
+     */
+    omit?: Icd10CmOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Icd10Cm to update in case it exists.
+     */
+    where: Icd10CmWhereUniqueInput
+    /**
+     * In case the Icd10Cm found by the `where` argument doesn't exist, create a new Icd10Cm with this data.
+     */
+    create: XOR<Icd10CmCreateInput, Icd10CmUncheckedCreateInput>
+    /**
+     * In case the Icd10Cm was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<Icd10CmUpdateInput, Icd10CmUncheckedUpdateInput>
+  }
+
+  /**
+   * Icd10Cm delete
+   */
+  export type Icd10CmDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Icd10Cm
+     */
+    select?: Icd10CmSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Icd10Cm
+     */
+    omit?: Icd10CmOmit<ExtArgs> | null
+    /**
+     * Filter which Icd10Cm to delete.
+     */
+    where: Icd10CmWhereUniqueInput
+  }
+
+  /**
+   * Icd10Cm deleteMany
+   */
+  export type Icd10CmDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Icd10Cms to delete
+     */
+    where?: Icd10CmWhereInput
+    /**
+     * Limit how many Icd10Cms to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Icd10Cm without action
+   */
+  export type Icd10CmDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Icd10Cm
+     */
+    select?: Icd10CmSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Icd10Cm
+     */
+    omit?: Icd10CmOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Icd10Pcs
+   */
+
+  export type AggregateIcd10Pcs = {
+    _count: Icd10PcsCountAggregateOutputType | null
+    _min: Icd10PcsMinAggregateOutputType | null
+    _max: Icd10PcsMaxAggregateOutputType | null
+  }
+
+  export type Icd10PcsMinAggregateOutputType = {
+    code: string | null
+    title: string | null
+    effFrom: Date | null
+    effTo: Date | null
+  }
+
+  export type Icd10PcsMaxAggregateOutputType = {
+    code: string | null
+    title: string | null
+    effFrom: Date | null
+    effTo: Date | null
+  }
+
+  export type Icd10PcsCountAggregateOutputType = {
+    code: number
+    title: number
+    effFrom: number
+    effTo: number
+    _all: number
+  }
+
+
+  export type Icd10PcsMinAggregateInputType = {
+    code?: true
+    title?: true
+    effFrom?: true
+    effTo?: true
+  }
+
+  export type Icd10PcsMaxAggregateInputType = {
+    code?: true
+    title?: true
+    effFrom?: true
+    effTo?: true
+  }
+
+  export type Icd10PcsCountAggregateInputType = {
+    code?: true
+    title?: true
+    effFrom?: true
+    effTo?: true
+    _all?: true
+  }
+
+  export type Icd10PcsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Icd10Pcs to aggregate.
+     */
+    where?: Icd10PcsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Icd10Pcs to fetch.
+     */
+    orderBy?: Icd10PcsOrderByWithRelationInput | Icd10PcsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: Icd10PcsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Icd10Pcs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Icd10Pcs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Icd10Pcs
+    **/
+    _count?: true | Icd10PcsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Icd10PcsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Icd10PcsMaxAggregateInputType
+  }
+
+  export type GetIcd10PcsAggregateType<T extends Icd10PcsAggregateArgs> = {
+        [P in keyof T & keyof AggregateIcd10Pcs]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateIcd10Pcs[P]>
+      : GetScalarType<T[P], AggregateIcd10Pcs[P]>
+  }
+
+
+
+
+  export type Icd10PcsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: Icd10PcsWhereInput
+    orderBy?: Icd10PcsOrderByWithAggregationInput | Icd10PcsOrderByWithAggregationInput[]
+    by: Icd10PcsScalarFieldEnum[] | Icd10PcsScalarFieldEnum
+    having?: Icd10PcsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Icd10PcsCountAggregateInputType | true
+    _min?: Icd10PcsMinAggregateInputType
+    _max?: Icd10PcsMaxAggregateInputType
+  }
+
+  export type Icd10PcsGroupByOutputType = {
+    code: string
+    title: string | null
+    effFrom: Date
+    effTo: Date | null
+    _count: Icd10PcsCountAggregateOutputType | null
+    _min: Icd10PcsMinAggregateOutputType | null
+    _max: Icd10PcsMaxAggregateOutputType | null
+  }
+
+  type GetIcd10PcsGroupByPayload<T extends Icd10PcsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Icd10PcsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Icd10PcsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Icd10PcsGroupByOutputType[P]>
+            : GetScalarType<T[P], Icd10PcsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type Icd10PcsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    code?: boolean
+    title?: boolean
+    effFrom?: boolean
+    effTo?: boolean
+  }, ExtArgs["result"]["icd10Pcs"]>
+
+
+
+  export type Icd10PcsSelectScalar = {
+    code?: boolean
+    title?: boolean
+    effFrom?: boolean
+    effTo?: boolean
+  }
+
+  export type Icd10PcsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"code" | "title" | "effFrom" | "effTo", ExtArgs["result"]["icd10Pcs"]>
+
+  export type $Icd10PcsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Icd10Pcs"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      code: string
+      title: string | null
+      effFrom: Date
+      effTo: Date | null
+    }, ExtArgs["result"]["icd10Pcs"]>
+    composites: {}
+  }
+
+  type Icd10PcsGetPayload<S extends boolean | null | undefined | Icd10PcsDefaultArgs> = $Result.GetResult<Prisma.$Icd10PcsPayload, S>
+
+  type Icd10PcsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<Icd10PcsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Icd10PcsCountAggregateInputType | true
+    }
+
+  export interface Icd10PcsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Icd10Pcs'], meta: { name: 'Icd10Pcs' } }
+    /**
+     * Find zero or one Icd10Pcs that matches the filter.
+     * @param {Icd10PcsFindUniqueArgs} args - Arguments to find a Icd10Pcs
+     * @example
+     * // Get one Icd10Pcs
+     * const icd10Pcs = await prisma.icd10Pcs.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends Icd10PcsFindUniqueArgs>(args: SelectSubset<T, Icd10PcsFindUniqueArgs<ExtArgs>>): Prisma__Icd10PcsClient<$Result.GetResult<Prisma.$Icd10PcsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Icd10Pcs that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {Icd10PcsFindUniqueOrThrowArgs} args - Arguments to find a Icd10Pcs
+     * @example
+     * // Get one Icd10Pcs
+     * const icd10Pcs = await prisma.icd10Pcs.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends Icd10PcsFindUniqueOrThrowArgs>(args: SelectSubset<T, Icd10PcsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__Icd10PcsClient<$Result.GetResult<Prisma.$Icd10PcsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Icd10Pcs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Icd10PcsFindFirstArgs} args - Arguments to find a Icd10Pcs
+     * @example
+     * // Get one Icd10Pcs
+     * const icd10Pcs = await prisma.icd10Pcs.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends Icd10PcsFindFirstArgs>(args?: SelectSubset<T, Icd10PcsFindFirstArgs<ExtArgs>>): Prisma__Icd10PcsClient<$Result.GetResult<Prisma.$Icd10PcsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Icd10Pcs that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Icd10PcsFindFirstOrThrowArgs} args - Arguments to find a Icd10Pcs
+     * @example
+     * // Get one Icd10Pcs
+     * const icd10Pcs = await prisma.icd10Pcs.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends Icd10PcsFindFirstOrThrowArgs>(args?: SelectSubset<T, Icd10PcsFindFirstOrThrowArgs<ExtArgs>>): Prisma__Icd10PcsClient<$Result.GetResult<Prisma.$Icd10PcsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Icd10Pcs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Icd10PcsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Icd10Pcs
+     * const icd10Pcs = await prisma.icd10Pcs.findMany()
+     * 
+     * // Get first 10 Icd10Pcs
+     * const icd10Pcs = await prisma.icd10Pcs.findMany({ take: 10 })
+     * 
+     * // Only select the `code`
+     * const icd10PcsWithCodeOnly = await prisma.icd10Pcs.findMany({ select: { code: true } })
+     * 
+     */
+    findMany<T extends Icd10PcsFindManyArgs>(args?: SelectSubset<T, Icd10PcsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Icd10PcsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Icd10Pcs.
+     * @param {Icd10PcsCreateArgs} args - Arguments to create a Icd10Pcs.
+     * @example
+     * // Create one Icd10Pcs
+     * const Icd10Pcs = await prisma.icd10Pcs.create({
+     *   data: {
+     *     // ... data to create a Icd10Pcs
+     *   }
+     * })
+     * 
+     */
+    create<T extends Icd10PcsCreateArgs>(args: SelectSubset<T, Icd10PcsCreateArgs<ExtArgs>>): Prisma__Icd10PcsClient<$Result.GetResult<Prisma.$Icd10PcsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Icd10Pcs.
+     * @param {Icd10PcsCreateManyArgs} args - Arguments to create many Icd10Pcs.
+     * @example
+     * // Create many Icd10Pcs
+     * const icd10Pcs = await prisma.icd10Pcs.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends Icd10PcsCreateManyArgs>(args?: SelectSubset<T, Icd10PcsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Icd10Pcs.
+     * @param {Icd10PcsDeleteArgs} args - Arguments to delete one Icd10Pcs.
+     * @example
+     * // Delete one Icd10Pcs
+     * const Icd10Pcs = await prisma.icd10Pcs.delete({
+     *   where: {
+     *     // ... filter to delete one Icd10Pcs
+     *   }
+     * })
+     * 
+     */
+    delete<T extends Icd10PcsDeleteArgs>(args: SelectSubset<T, Icd10PcsDeleteArgs<ExtArgs>>): Prisma__Icd10PcsClient<$Result.GetResult<Prisma.$Icd10PcsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Icd10Pcs.
+     * @param {Icd10PcsUpdateArgs} args - Arguments to update one Icd10Pcs.
+     * @example
+     * // Update one Icd10Pcs
+     * const icd10Pcs = await prisma.icd10Pcs.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends Icd10PcsUpdateArgs>(args: SelectSubset<T, Icd10PcsUpdateArgs<ExtArgs>>): Prisma__Icd10PcsClient<$Result.GetResult<Prisma.$Icd10PcsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Icd10Pcs.
+     * @param {Icd10PcsDeleteManyArgs} args - Arguments to filter Icd10Pcs to delete.
+     * @example
+     * // Delete a few Icd10Pcs
+     * const { count } = await prisma.icd10Pcs.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends Icd10PcsDeleteManyArgs>(args?: SelectSubset<T, Icd10PcsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Icd10Pcs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Icd10PcsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Icd10Pcs
+     * const icd10Pcs = await prisma.icd10Pcs.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends Icd10PcsUpdateManyArgs>(args: SelectSubset<T, Icd10PcsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Icd10Pcs.
+     * @param {Icd10PcsUpsertArgs} args - Arguments to update or create a Icd10Pcs.
+     * @example
+     * // Update or create a Icd10Pcs
+     * const icd10Pcs = await prisma.icd10Pcs.upsert({
+     *   create: {
+     *     // ... data to create a Icd10Pcs
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Icd10Pcs we want to update
+     *   }
+     * })
+     */
+    upsert<T extends Icd10PcsUpsertArgs>(args: SelectSubset<T, Icd10PcsUpsertArgs<ExtArgs>>): Prisma__Icd10PcsClient<$Result.GetResult<Prisma.$Icd10PcsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Icd10Pcs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Icd10PcsCountArgs} args - Arguments to filter Icd10Pcs to count.
+     * @example
+     * // Count the number of Icd10Pcs
+     * const count = await prisma.icd10Pcs.count({
+     *   where: {
+     *     // ... the filter for the Icd10Pcs we want to count
+     *   }
+     * })
+    **/
+    count<T extends Icd10PcsCountArgs>(
+      args?: Subset<T, Icd10PcsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Icd10PcsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Icd10Pcs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Icd10PcsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Icd10PcsAggregateArgs>(args: Subset<T, Icd10PcsAggregateArgs>): Prisma.PrismaPromise<GetIcd10PcsAggregateType<T>>
+
+    /**
+     * Group by Icd10Pcs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Icd10PcsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends Icd10PcsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: Icd10PcsGroupByArgs['orderBy'] }
+        : { orderBy?: Icd10PcsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, Icd10PcsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetIcd10PcsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Icd10Pcs model
+   */
+  readonly fields: Icd10PcsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Icd10Pcs.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__Icd10PcsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Icd10Pcs model
+   */
+  interface Icd10PcsFieldRefs {
+    readonly code: FieldRef<"Icd10Pcs", 'String'>
+    readonly title: FieldRef<"Icd10Pcs", 'String'>
+    readonly effFrom: FieldRef<"Icd10Pcs", 'DateTime'>
+    readonly effTo: FieldRef<"Icd10Pcs", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Icd10Pcs findUnique
+   */
+  export type Icd10PcsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Icd10Pcs
+     */
+    select?: Icd10PcsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Icd10Pcs
+     */
+    omit?: Icd10PcsOmit<ExtArgs> | null
+    /**
+     * Filter, which Icd10Pcs to fetch.
+     */
+    where: Icd10PcsWhereUniqueInput
+  }
+
+  /**
+   * Icd10Pcs findUniqueOrThrow
+   */
+  export type Icd10PcsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Icd10Pcs
+     */
+    select?: Icd10PcsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Icd10Pcs
+     */
+    omit?: Icd10PcsOmit<ExtArgs> | null
+    /**
+     * Filter, which Icd10Pcs to fetch.
+     */
+    where: Icd10PcsWhereUniqueInput
+  }
+
+  /**
+   * Icd10Pcs findFirst
+   */
+  export type Icd10PcsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Icd10Pcs
+     */
+    select?: Icd10PcsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Icd10Pcs
+     */
+    omit?: Icd10PcsOmit<ExtArgs> | null
+    /**
+     * Filter, which Icd10Pcs to fetch.
+     */
+    where?: Icd10PcsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Icd10Pcs to fetch.
+     */
+    orderBy?: Icd10PcsOrderByWithRelationInput | Icd10PcsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Icd10Pcs.
+     */
+    cursor?: Icd10PcsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Icd10Pcs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Icd10Pcs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Icd10Pcs.
+     */
+    distinct?: Icd10PcsScalarFieldEnum | Icd10PcsScalarFieldEnum[]
+  }
+
+  /**
+   * Icd10Pcs findFirstOrThrow
+   */
+  export type Icd10PcsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Icd10Pcs
+     */
+    select?: Icd10PcsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Icd10Pcs
+     */
+    omit?: Icd10PcsOmit<ExtArgs> | null
+    /**
+     * Filter, which Icd10Pcs to fetch.
+     */
+    where?: Icd10PcsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Icd10Pcs to fetch.
+     */
+    orderBy?: Icd10PcsOrderByWithRelationInput | Icd10PcsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Icd10Pcs.
+     */
+    cursor?: Icd10PcsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Icd10Pcs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Icd10Pcs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Icd10Pcs.
+     */
+    distinct?: Icd10PcsScalarFieldEnum | Icd10PcsScalarFieldEnum[]
+  }
+
+  /**
+   * Icd10Pcs findMany
+   */
+  export type Icd10PcsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Icd10Pcs
+     */
+    select?: Icd10PcsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Icd10Pcs
+     */
+    omit?: Icd10PcsOmit<ExtArgs> | null
+    /**
+     * Filter, which Icd10Pcs to fetch.
+     */
+    where?: Icd10PcsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Icd10Pcs to fetch.
+     */
+    orderBy?: Icd10PcsOrderByWithRelationInput | Icd10PcsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Icd10Pcs.
+     */
+    cursor?: Icd10PcsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Icd10Pcs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Icd10Pcs.
+     */
+    skip?: number
+    distinct?: Icd10PcsScalarFieldEnum | Icd10PcsScalarFieldEnum[]
+  }
+
+  /**
+   * Icd10Pcs create
+   */
+  export type Icd10PcsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Icd10Pcs
+     */
+    select?: Icd10PcsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Icd10Pcs
+     */
+    omit?: Icd10PcsOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Icd10Pcs.
+     */
+    data: XOR<Icd10PcsCreateInput, Icd10PcsUncheckedCreateInput>
+  }
+
+  /**
+   * Icd10Pcs createMany
+   */
+  export type Icd10PcsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Icd10Pcs.
+     */
+    data: Icd10PcsCreateManyInput | Icd10PcsCreateManyInput[]
+  }
+
+  /**
+   * Icd10Pcs update
+   */
+  export type Icd10PcsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Icd10Pcs
+     */
+    select?: Icd10PcsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Icd10Pcs
+     */
+    omit?: Icd10PcsOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Icd10Pcs.
+     */
+    data: XOR<Icd10PcsUpdateInput, Icd10PcsUncheckedUpdateInput>
+    /**
+     * Choose, which Icd10Pcs to update.
+     */
+    where: Icd10PcsWhereUniqueInput
+  }
+
+  /**
+   * Icd10Pcs updateMany
+   */
+  export type Icd10PcsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Icd10Pcs.
+     */
+    data: XOR<Icd10PcsUpdateManyMutationInput, Icd10PcsUncheckedUpdateManyInput>
+    /**
+     * Filter which Icd10Pcs to update
+     */
+    where?: Icd10PcsWhereInput
+    /**
+     * Limit how many Icd10Pcs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Icd10Pcs upsert
+   */
+  export type Icd10PcsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Icd10Pcs
+     */
+    select?: Icd10PcsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Icd10Pcs
+     */
+    omit?: Icd10PcsOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Icd10Pcs to update in case it exists.
+     */
+    where: Icd10PcsWhereUniqueInput
+    /**
+     * In case the Icd10Pcs found by the `where` argument doesn't exist, create a new Icd10Pcs with this data.
+     */
+    create: XOR<Icd10PcsCreateInput, Icd10PcsUncheckedCreateInput>
+    /**
+     * In case the Icd10Pcs was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<Icd10PcsUpdateInput, Icd10PcsUncheckedUpdateInput>
+  }
+
+  /**
+   * Icd10Pcs delete
+   */
+  export type Icd10PcsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Icd10Pcs
+     */
+    select?: Icd10PcsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Icd10Pcs
+     */
+    omit?: Icd10PcsOmit<ExtArgs> | null
+    /**
+     * Filter which Icd10Pcs to delete.
+     */
+    where: Icd10PcsWhereUniqueInput
+  }
+
+  /**
+   * Icd10Pcs deleteMany
+   */
+  export type Icd10PcsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Icd10Pcs to delete
+     */
+    where?: Icd10PcsWhereInput
+    /**
+     * Limit how many Icd10Pcs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Icd10Pcs without action
+   */
+  export type Icd10PcsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Icd10Pcs
+     */
+    select?: Icd10PcsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Icd10Pcs
+     */
+    omit?: Icd10PcsOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MsDrg
+   */
+
+  export type AggregateMsDrg = {
+    _count: MsDrgCountAggregateOutputType | null
+    _avg: MsDrgAvgAggregateOutputType | null
+    _sum: MsDrgSumAggregateOutputType | null
+    _min: MsDrgMinAggregateOutputType | null
+    _max: MsDrgMaxAggregateOutputType | null
+  }
+
+  export type MsDrgAvgAggregateOutputType = {
+    rw: Decimal | null
+    gmlos: Decimal | null
+    amlos: Decimal | null
+  }
+
+  export type MsDrgSumAggregateOutputType = {
+    rw: Decimal | null
+    gmlos: Decimal | null
+    amlos: Decimal | null
+  }
+
+  export type MsDrgMinAggregateOutputType = {
+    drg: string | null
+    desc: string | null
+    rw: Decimal | null
+    gmlos: Decimal | null
+    amlos: Decimal | null
+    transfer: boolean | null
+    effFrom: Date | null
+    effTo: Date | null
+  }
+
+  export type MsDrgMaxAggregateOutputType = {
+    drg: string | null
+    desc: string | null
+    rw: Decimal | null
+    gmlos: Decimal | null
+    amlos: Decimal | null
+    transfer: boolean | null
+    effFrom: Date | null
+    effTo: Date | null
+  }
+
+  export type MsDrgCountAggregateOutputType = {
+    drg: number
+    desc: number
+    rw: number
+    gmlos: number
+    amlos: number
+    transfer: number
+    effFrom: number
+    effTo: number
+    _all: number
+  }
+
+
+  export type MsDrgAvgAggregateInputType = {
+    rw?: true
+    gmlos?: true
+    amlos?: true
+  }
+
+  export type MsDrgSumAggregateInputType = {
+    rw?: true
+    gmlos?: true
+    amlos?: true
+  }
+
+  export type MsDrgMinAggregateInputType = {
+    drg?: true
+    desc?: true
+    rw?: true
+    gmlos?: true
+    amlos?: true
+    transfer?: true
+    effFrom?: true
+    effTo?: true
+  }
+
+  export type MsDrgMaxAggregateInputType = {
+    drg?: true
+    desc?: true
+    rw?: true
+    gmlos?: true
+    amlos?: true
+    transfer?: true
+    effFrom?: true
+    effTo?: true
+  }
+
+  export type MsDrgCountAggregateInputType = {
+    drg?: true
+    desc?: true
+    rw?: true
+    gmlos?: true
+    amlos?: true
+    transfer?: true
+    effFrom?: true
+    effTo?: true
+    _all?: true
+  }
+
+  export type MsDrgAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MsDrg to aggregate.
+     */
+    where?: MsDrgWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MsDrgs to fetch.
+     */
+    orderBy?: MsDrgOrderByWithRelationInput | MsDrgOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MsDrgWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MsDrgs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MsDrgs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MsDrgs
+    **/
+    _count?: true | MsDrgCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MsDrgAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MsDrgSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MsDrgMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MsDrgMaxAggregateInputType
+  }
+
+  export type GetMsDrgAggregateType<T extends MsDrgAggregateArgs> = {
+        [P in keyof T & keyof AggregateMsDrg]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMsDrg[P]>
+      : GetScalarType<T[P], AggregateMsDrg[P]>
+  }
+
+
+
+
+  export type MsDrgGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MsDrgWhereInput
+    orderBy?: MsDrgOrderByWithAggregationInput | MsDrgOrderByWithAggregationInput[]
+    by: MsDrgScalarFieldEnum[] | MsDrgScalarFieldEnum
+    having?: MsDrgScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MsDrgCountAggregateInputType | true
+    _avg?: MsDrgAvgAggregateInputType
+    _sum?: MsDrgSumAggregateInputType
+    _min?: MsDrgMinAggregateInputType
+    _max?: MsDrgMaxAggregateInputType
+  }
+
+  export type MsDrgGroupByOutputType = {
+    drg: string
+    desc: string | null
+    rw: Decimal | null
+    gmlos: Decimal | null
+    amlos: Decimal | null
+    transfer: boolean | null
+    effFrom: Date
+    effTo: Date | null
+    _count: MsDrgCountAggregateOutputType | null
+    _avg: MsDrgAvgAggregateOutputType | null
+    _sum: MsDrgSumAggregateOutputType | null
+    _min: MsDrgMinAggregateOutputType | null
+    _max: MsDrgMaxAggregateOutputType | null
+  }
+
+  type GetMsDrgGroupByPayload<T extends MsDrgGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MsDrgGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MsDrgGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MsDrgGroupByOutputType[P]>
+            : GetScalarType<T[P], MsDrgGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MsDrgSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    drg?: boolean
+    desc?: boolean
+    rw?: boolean
+    gmlos?: boolean
+    amlos?: boolean
+    transfer?: boolean
+    effFrom?: boolean
+    effTo?: boolean
+  }, ExtArgs["result"]["msDrg"]>
+
+
+
+  export type MsDrgSelectScalar = {
+    drg?: boolean
+    desc?: boolean
+    rw?: boolean
+    gmlos?: boolean
+    amlos?: boolean
+    transfer?: boolean
+    effFrom?: boolean
+    effTo?: boolean
+  }
+
+  export type MsDrgOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"drg" | "desc" | "rw" | "gmlos" | "amlos" | "transfer" | "effFrom" | "effTo", ExtArgs["result"]["msDrg"]>
+
+  export type $MsDrgPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MsDrg"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      drg: string
+      desc: string | null
+      rw: Prisma.Decimal | null
+      gmlos: Prisma.Decimal | null
+      amlos: Prisma.Decimal | null
+      transfer: boolean | null
+      effFrom: Date
+      effTo: Date | null
+    }, ExtArgs["result"]["msDrg"]>
+    composites: {}
+  }
+
+  type MsDrgGetPayload<S extends boolean | null | undefined | MsDrgDefaultArgs> = $Result.GetResult<Prisma.$MsDrgPayload, S>
+
+  type MsDrgCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MsDrgFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MsDrgCountAggregateInputType | true
+    }
+
+  export interface MsDrgDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MsDrg'], meta: { name: 'MsDrg' } }
+    /**
+     * Find zero or one MsDrg that matches the filter.
+     * @param {MsDrgFindUniqueArgs} args - Arguments to find a MsDrg
+     * @example
+     * // Get one MsDrg
+     * const msDrg = await prisma.msDrg.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MsDrgFindUniqueArgs>(args: SelectSubset<T, MsDrgFindUniqueArgs<ExtArgs>>): Prisma__MsDrgClient<$Result.GetResult<Prisma.$MsDrgPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MsDrg that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MsDrgFindUniqueOrThrowArgs} args - Arguments to find a MsDrg
+     * @example
+     * // Get one MsDrg
+     * const msDrg = await prisma.msDrg.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MsDrgFindUniqueOrThrowArgs>(args: SelectSubset<T, MsDrgFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MsDrgClient<$Result.GetResult<Prisma.$MsDrgPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MsDrg that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MsDrgFindFirstArgs} args - Arguments to find a MsDrg
+     * @example
+     * // Get one MsDrg
+     * const msDrg = await prisma.msDrg.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MsDrgFindFirstArgs>(args?: SelectSubset<T, MsDrgFindFirstArgs<ExtArgs>>): Prisma__MsDrgClient<$Result.GetResult<Prisma.$MsDrgPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MsDrg that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MsDrgFindFirstOrThrowArgs} args - Arguments to find a MsDrg
+     * @example
+     * // Get one MsDrg
+     * const msDrg = await prisma.msDrg.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MsDrgFindFirstOrThrowArgs>(args?: SelectSubset<T, MsDrgFindFirstOrThrowArgs<ExtArgs>>): Prisma__MsDrgClient<$Result.GetResult<Prisma.$MsDrgPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MsDrgs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MsDrgFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MsDrgs
+     * const msDrgs = await prisma.msDrg.findMany()
+     * 
+     * // Get first 10 MsDrgs
+     * const msDrgs = await prisma.msDrg.findMany({ take: 10 })
+     * 
+     * // Only select the `drg`
+     * const msDrgWithDrgOnly = await prisma.msDrg.findMany({ select: { drg: true } })
+     * 
+     */
+    findMany<T extends MsDrgFindManyArgs>(args?: SelectSubset<T, MsDrgFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MsDrgPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MsDrg.
+     * @param {MsDrgCreateArgs} args - Arguments to create a MsDrg.
+     * @example
+     * // Create one MsDrg
+     * const MsDrg = await prisma.msDrg.create({
+     *   data: {
+     *     // ... data to create a MsDrg
+     *   }
+     * })
+     * 
+     */
+    create<T extends MsDrgCreateArgs>(args: SelectSubset<T, MsDrgCreateArgs<ExtArgs>>): Prisma__MsDrgClient<$Result.GetResult<Prisma.$MsDrgPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MsDrgs.
+     * @param {MsDrgCreateManyArgs} args - Arguments to create many MsDrgs.
+     * @example
+     * // Create many MsDrgs
+     * const msDrg = await prisma.msDrg.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MsDrgCreateManyArgs>(args?: SelectSubset<T, MsDrgCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a MsDrg.
+     * @param {MsDrgDeleteArgs} args - Arguments to delete one MsDrg.
+     * @example
+     * // Delete one MsDrg
+     * const MsDrg = await prisma.msDrg.delete({
+     *   where: {
+     *     // ... filter to delete one MsDrg
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MsDrgDeleteArgs>(args: SelectSubset<T, MsDrgDeleteArgs<ExtArgs>>): Prisma__MsDrgClient<$Result.GetResult<Prisma.$MsDrgPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MsDrg.
+     * @param {MsDrgUpdateArgs} args - Arguments to update one MsDrg.
+     * @example
+     * // Update one MsDrg
+     * const msDrg = await prisma.msDrg.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MsDrgUpdateArgs>(args: SelectSubset<T, MsDrgUpdateArgs<ExtArgs>>): Prisma__MsDrgClient<$Result.GetResult<Prisma.$MsDrgPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MsDrgs.
+     * @param {MsDrgDeleteManyArgs} args - Arguments to filter MsDrgs to delete.
+     * @example
+     * // Delete a few MsDrgs
+     * const { count } = await prisma.msDrg.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MsDrgDeleteManyArgs>(args?: SelectSubset<T, MsDrgDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MsDrgs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MsDrgUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MsDrgs
+     * const msDrg = await prisma.msDrg.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MsDrgUpdateManyArgs>(args: SelectSubset<T, MsDrgUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one MsDrg.
+     * @param {MsDrgUpsertArgs} args - Arguments to update or create a MsDrg.
+     * @example
+     * // Update or create a MsDrg
+     * const msDrg = await prisma.msDrg.upsert({
+     *   create: {
+     *     // ... data to create a MsDrg
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MsDrg we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MsDrgUpsertArgs>(args: SelectSubset<T, MsDrgUpsertArgs<ExtArgs>>): Prisma__MsDrgClient<$Result.GetResult<Prisma.$MsDrgPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MsDrgs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MsDrgCountArgs} args - Arguments to filter MsDrgs to count.
+     * @example
+     * // Count the number of MsDrgs
+     * const count = await prisma.msDrg.count({
+     *   where: {
+     *     // ... the filter for the MsDrgs we want to count
+     *   }
+     * })
+    **/
+    count<T extends MsDrgCountArgs>(
+      args?: Subset<T, MsDrgCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MsDrgCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MsDrg.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MsDrgAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MsDrgAggregateArgs>(args: Subset<T, MsDrgAggregateArgs>): Prisma.PrismaPromise<GetMsDrgAggregateType<T>>
+
+    /**
+     * Group by MsDrg.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MsDrgGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MsDrgGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MsDrgGroupByArgs['orderBy'] }
+        : { orderBy?: MsDrgGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MsDrgGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMsDrgGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MsDrg model
+   */
+  readonly fields: MsDrgFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MsDrg.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MsDrgClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MsDrg model
+   */
+  interface MsDrgFieldRefs {
+    readonly drg: FieldRef<"MsDrg", 'String'>
+    readonly desc: FieldRef<"MsDrg", 'String'>
+    readonly rw: FieldRef<"MsDrg", 'Decimal'>
+    readonly gmlos: FieldRef<"MsDrg", 'Decimal'>
+    readonly amlos: FieldRef<"MsDrg", 'Decimal'>
+    readonly transfer: FieldRef<"MsDrg", 'Boolean'>
+    readonly effFrom: FieldRef<"MsDrg", 'DateTime'>
+    readonly effTo: FieldRef<"MsDrg", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MsDrg findUnique
+   */
+  export type MsDrgFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MsDrg
+     */
+    select?: MsDrgSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MsDrg
+     */
+    omit?: MsDrgOmit<ExtArgs> | null
+    /**
+     * Filter, which MsDrg to fetch.
+     */
+    where: MsDrgWhereUniqueInput
+  }
+
+  /**
+   * MsDrg findUniqueOrThrow
+   */
+  export type MsDrgFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MsDrg
+     */
+    select?: MsDrgSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MsDrg
+     */
+    omit?: MsDrgOmit<ExtArgs> | null
+    /**
+     * Filter, which MsDrg to fetch.
+     */
+    where: MsDrgWhereUniqueInput
+  }
+
+  /**
+   * MsDrg findFirst
+   */
+  export type MsDrgFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MsDrg
+     */
+    select?: MsDrgSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MsDrg
+     */
+    omit?: MsDrgOmit<ExtArgs> | null
+    /**
+     * Filter, which MsDrg to fetch.
+     */
+    where?: MsDrgWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MsDrgs to fetch.
+     */
+    orderBy?: MsDrgOrderByWithRelationInput | MsDrgOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MsDrgs.
+     */
+    cursor?: MsDrgWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MsDrgs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MsDrgs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MsDrgs.
+     */
+    distinct?: MsDrgScalarFieldEnum | MsDrgScalarFieldEnum[]
+  }
+
+  /**
+   * MsDrg findFirstOrThrow
+   */
+  export type MsDrgFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MsDrg
+     */
+    select?: MsDrgSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MsDrg
+     */
+    omit?: MsDrgOmit<ExtArgs> | null
+    /**
+     * Filter, which MsDrg to fetch.
+     */
+    where?: MsDrgWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MsDrgs to fetch.
+     */
+    orderBy?: MsDrgOrderByWithRelationInput | MsDrgOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MsDrgs.
+     */
+    cursor?: MsDrgWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MsDrgs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MsDrgs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MsDrgs.
+     */
+    distinct?: MsDrgScalarFieldEnum | MsDrgScalarFieldEnum[]
+  }
+
+  /**
+   * MsDrg findMany
+   */
+  export type MsDrgFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MsDrg
+     */
+    select?: MsDrgSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MsDrg
+     */
+    omit?: MsDrgOmit<ExtArgs> | null
+    /**
+     * Filter, which MsDrgs to fetch.
+     */
+    where?: MsDrgWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MsDrgs to fetch.
+     */
+    orderBy?: MsDrgOrderByWithRelationInput | MsDrgOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MsDrgs.
+     */
+    cursor?: MsDrgWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MsDrgs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MsDrgs.
+     */
+    skip?: number
+    distinct?: MsDrgScalarFieldEnum | MsDrgScalarFieldEnum[]
+  }
+
+  /**
+   * MsDrg create
+   */
+  export type MsDrgCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MsDrg
+     */
+    select?: MsDrgSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MsDrg
+     */
+    omit?: MsDrgOmit<ExtArgs> | null
+    /**
+     * The data needed to create a MsDrg.
+     */
+    data: XOR<MsDrgCreateInput, MsDrgUncheckedCreateInput>
+  }
+
+  /**
+   * MsDrg createMany
+   */
+  export type MsDrgCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MsDrgs.
+     */
+    data: MsDrgCreateManyInput | MsDrgCreateManyInput[]
+  }
+
+  /**
+   * MsDrg update
+   */
+  export type MsDrgUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MsDrg
+     */
+    select?: MsDrgSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MsDrg
+     */
+    omit?: MsDrgOmit<ExtArgs> | null
+    /**
+     * The data needed to update a MsDrg.
+     */
+    data: XOR<MsDrgUpdateInput, MsDrgUncheckedUpdateInput>
+    /**
+     * Choose, which MsDrg to update.
+     */
+    where: MsDrgWhereUniqueInput
+  }
+
+  /**
+   * MsDrg updateMany
+   */
+  export type MsDrgUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MsDrgs.
+     */
+    data: XOR<MsDrgUpdateManyMutationInput, MsDrgUncheckedUpdateManyInput>
+    /**
+     * Filter which MsDrgs to update
+     */
+    where?: MsDrgWhereInput
+    /**
+     * Limit how many MsDrgs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MsDrg upsert
+   */
+  export type MsDrgUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MsDrg
+     */
+    select?: MsDrgSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MsDrg
+     */
+    omit?: MsDrgOmit<ExtArgs> | null
+    /**
+     * The filter to search for the MsDrg to update in case it exists.
+     */
+    where: MsDrgWhereUniqueInput
+    /**
+     * In case the MsDrg found by the `where` argument doesn't exist, create a new MsDrg with this data.
+     */
+    create: XOR<MsDrgCreateInput, MsDrgUncheckedCreateInput>
+    /**
+     * In case the MsDrg was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MsDrgUpdateInput, MsDrgUncheckedUpdateInput>
+  }
+
+  /**
+   * MsDrg delete
+   */
+  export type MsDrgDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MsDrg
+     */
+    select?: MsDrgSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MsDrg
+     */
+    omit?: MsDrgOmit<ExtArgs> | null
+    /**
+     * Filter which MsDrg to delete.
+     */
+    where: MsDrgWhereUniqueInput
+  }
+
+  /**
+   * MsDrg deleteMany
+   */
+  export type MsDrgDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MsDrgs to delete
+     */
+    where?: MsDrgWhereInput
+    /**
+     * Limit how many MsDrgs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MsDrg without action
+   */
+  export type MsDrgDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MsDrg
+     */
+    select?: MsDrgSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MsDrg
+     */
+    omit?: MsDrgOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Hcpcs
+   */
+
+  export type AggregateHcpcs = {
+    _count: HcpcsCountAggregateOutputType | null
+    _min: HcpcsMinAggregateOutputType | null
+    _max: HcpcsMaxAggregateOutputType | null
+  }
+
+  export type HcpcsMinAggregateOutputType = {
+    code: string | null
+    short: string | null
+    long: string | null
+    status: string | null
+    effFrom: Date | null
+    effTo: Date | null
+  }
+
+  export type HcpcsMaxAggregateOutputType = {
+    code: string | null
+    short: string | null
+    long: string | null
+    status: string | null
+    effFrom: Date | null
+    effTo: Date | null
+  }
+
+  export type HcpcsCountAggregateOutputType = {
+    code: number
+    short: number
+    long: number
+    status: number
+    effFrom: number
+    effTo: number
+    _all: number
+  }
+
+
+  export type HcpcsMinAggregateInputType = {
+    code?: true
+    short?: true
+    long?: true
+    status?: true
+    effFrom?: true
+    effTo?: true
+  }
+
+  export type HcpcsMaxAggregateInputType = {
+    code?: true
+    short?: true
+    long?: true
+    status?: true
+    effFrom?: true
+    effTo?: true
+  }
+
+  export type HcpcsCountAggregateInputType = {
+    code?: true
+    short?: true
+    long?: true
+    status?: true
+    effFrom?: true
+    effTo?: true
+    _all?: true
+  }
+
+  export type HcpcsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Hcpcs to aggregate.
+     */
+    where?: HcpcsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Hcpcs to fetch.
+     */
+    orderBy?: HcpcsOrderByWithRelationInput | HcpcsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: HcpcsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Hcpcs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Hcpcs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Hcpcs
+    **/
+    _count?: true | HcpcsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: HcpcsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: HcpcsMaxAggregateInputType
+  }
+
+  export type GetHcpcsAggregateType<T extends HcpcsAggregateArgs> = {
+        [P in keyof T & keyof AggregateHcpcs]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateHcpcs[P]>
+      : GetScalarType<T[P], AggregateHcpcs[P]>
+  }
+
+
+
+
+  export type HcpcsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HcpcsWhereInput
+    orderBy?: HcpcsOrderByWithAggregationInput | HcpcsOrderByWithAggregationInput[]
+    by: HcpcsScalarFieldEnum[] | HcpcsScalarFieldEnum
+    having?: HcpcsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: HcpcsCountAggregateInputType | true
+    _min?: HcpcsMinAggregateInputType
+    _max?: HcpcsMaxAggregateInputType
+  }
+
+  export type HcpcsGroupByOutputType = {
+    code: string
+    short: string | null
+    long: string | null
+    status: string | null
+    effFrom: Date
+    effTo: Date | null
+    _count: HcpcsCountAggregateOutputType | null
+    _min: HcpcsMinAggregateOutputType | null
+    _max: HcpcsMaxAggregateOutputType | null
+  }
+
+  type GetHcpcsGroupByPayload<T extends HcpcsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<HcpcsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof HcpcsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], HcpcsGroupByOutputType[P]>
+            : GetScalarType<T[P], HcpcsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type HcpcsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    code?: boolean
+    short?: boolean
+    long?: boolean
+    status?: boolean
+    effFrom?: boolean
+    effTo?: boolean
+  }, ExtArgs["result"]["hcpcs"]>
+
+
+
+  export type HcpcsSelectScalar = {
+    code?: boolean
+    short?: boolean
+    long?: boolean
+    status?: boolean
+    effFrom?: boolean
+    effTo?: boolean
+  }
+
+  export type HcpcsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"code" | "short" | "long" | "status" | "effFrom" | "effTo", ExtArgs["result"]["hcpcs"]>
+
+  export type $HcpcsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Hcpcs"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      code: string
+      short: string | null
+      long: string | null
+      status: string | null
+      effFrom: Date
+      effTo: Date | null
+    }, ExtArgs["result"]["hcpcs"]>
+    composites: {}
+  }
+
+  type HcpcsGetPayload<S extends boolean | null | undefined | HcpcsDefaultArgs> = $Result.GetResult<Prisma.$HcpcsPayload, S>
+
+  type HcpcsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<HcpcsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: HcpcsCountAggregateInputType | true
+    }
+
+  export interface HcpcsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Hcpcs'], meta: { name: 'Hcpcs' } }
+    /**
+     * Find zero or one Hcpcs that matches the filter.
+     * @param {HcpcsFindUniqueArgs} args - Arguments to find a Hcpcs
+     * @example
+     * // Get one Hcpcs
+     * const hcpcs = await prisma.hcpcs.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends HcpcsFindUniqueArgs>(args: SelectSubset<T, HcpcsFindUniqueArgs<ExtArgs>>): Prisma__HcpcsClient<$Result.GetResult<Prisma.$HcpcsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Hcpcs that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {HcpcsFindUniqueOrThrowArgs} args - Arguments to find a Hcpcs
+     * @example
+     * // Get one Hcpcs
+     * const hcpcs = await prisma.hcpcs.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends HcpcsFindUniqueOrThrowArgs>(args: SelectSubset<T, HcpcsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__HcpcsClient<$Result.GetResult<Prisma.$HcpcsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Hcpcs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HcpcsFindFirstArgs} args - Arguments to find a Hcpcs
+     * @example
+     * // Get one Hcpcs
+     * const hcpcs = await prisma.hcpcs.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends HcpcsFindFirstArgs>(args?: SelectSubset<T, HcpcsFindFirstArgs<ExtArgs>>): Prisma__HcpcsClient<$Result.GetResult<Prisma.$HcpcsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Hcpcs that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HcpcsFindFirstOrThrowArgs} args - Arguments to find a Hcpcs
+     * @example
+     * // Get one Hcpcs
+     * const hcpcs = await prisma.hcpcs.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends HcpcsFindFirstOrThrowArgs>(args?: SelectSubset<T, HcpcsFindFirstOrThrowArgs<ExtArgs>>): Prisma__HcpcsClient<$Result.GetResult<Prisma.$HcpcsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Hcpcs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HcpcsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Hcpcs
+     * const hcpcs = await prisma.hcpcs.findMany()
+     * 
+     * // Get first 10 Hcpcs
+     * const hcpcs = await prisma.hcpcs.findMany({ take: 10 })
+     * 
+     * // Only select the `code`
+     * const hcpcsWithCodeOnly = await prisma.hcpcs.findMany({ select: { code: true } })
+     * 
+     */
+    findMany<T extends HcpcsFindManyArgs>(args?: SelectSubset<T, HcpcsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HcpcsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Hcpcs.
+     * @param {HcpcsCreateArgs} args - Arguments to create a Hcpcs.
+     * @example
+     * // Create one Hcpcs
+     * const Hcpcs = await prisma.hcpcs.create({
+     *   data: {
+     *     // ... data to create a Hcpcs
+     *   }
+     * })
+     * 
+     */
+    create<T extends HcpcsCreateArgs>(args: SelectSubset<T, HcpcsCreateArgs<ExtArgs>>): Prisma__HcpcsClient<$Result.GetResult<Prisma.$HcpcsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Hcpcs.
+     * @param {HcpcsCreateManyArgs} args - Arguments to create many Hcpcs.
+     * @example
+     * // Create many Hcpcs
+     * const hcpcs = await prisma.hcpcs.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends HcpcsCreateManyArgs>(args?: SelectSubset<T, HcpcsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Hcpcs.
+     * @param {HcpcsDeleteArgs} args - Arguments to delete one Hcpcs.
+     * @example
+     * // Delete one Hcpcs
+     * const Hcpcs = await prisma.hcpcs.delete({
+     *   where: {
+     *     // ... filter to delete one Hcpcs
+     *   }
+     * })
+     * 
+     */
+    delete<T extends HcpcsDeleteArgs>(args: SelectSubset<T, HcpcsDeleteArgs<ExtArgs>>): Prisma__HcpcsClient<$Result.GetResult<Prisma.$HcpcsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Hcpcs.
+     * @param {HcpcsUpdateArgs} args - Arguments to update one Hcpcs.
+     * @example
+     * // Update one Hcpcs
+     * const hcpcs = await prisma.hcpcs.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends HcpcsUpdateArgs>(args: SelectSubset<T, HcpcsUpdateArgs<ExtArgs>>): Prisma__HcpcsClient<$Result.GetResult<Prisma.$HcpcsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Hcpcs.
+     * @param {HcpcsDeleteManyArgs} args - Arguments to filter Hcpcs to delete.
+     * @example
+     * // Delete a few Hcpcs
+     * const { count } = await prisma.hcpcs.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends HcpcsDeleteManyArgs>(args?: SelectSubset<T, HcpcsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Hcpcs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HcpcsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Hcpcs
+     * const hcpcs = await prisma.hcpcs.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends HcpcsUpdateManyArgs>(args: SelectSubset<T, HcpcsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Hcpcs.
+     * @param {HcpcsUpsertArgs} args - Arguments to update or create a Hcpcs.
+     * @example
+     * // Update or create a Hcpcs
+     * const hcpcs = await prisma.hcpcs.upsert({
+     *   create: {
+     *     // ... data to create a Hcpcs
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Hcpcs we want to update
+     *   }
+     * })
+     */
+    upsert<T extends HcpcsUpsertArgs>(args: SelectSubset<T, HcpcsUpsertArgs<ExtArgs>>): Prisma__HcpcsClient<$Result.GetResult<Prisma.$HcpcsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Hcpcs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HcpcsCountArgs} args - Arguments to filter Hcpcs to count.
+     * @example
+     * // Count the number of Hcpcs
+     * const count = await prisma.hcpcs.count({
+     *   where: {
+     *     // ... the filter for the Hcpcs we want to count
+     *   }
+     * })
+    **/
+    count<T extends HcpcsCountArgs>(
+      args?: Subset<T, HcpcsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], HcpcsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Hcpcs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HcpcsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends HcpcsAggregateArgs>(args: Subset<T, HcpcsAggregateArgs>): Prisma.PrismaPromise<GetHcpcsAggregateType<T>>
+
+    /**
+     * Group by Hcpcs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HcpcsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends HcpcsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: HcpcsGroupByArgs['orderBy'] }
+        : { orderBy?: HcpcsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, HcpcsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetHcpcsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Hcpcs model
+   */
+  readonly fields: HcpcsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Hcpcs.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__HcpcsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Hcpcs model
+   */
+  interface HcpcsFieldRefs {
+    readonly code: FieldRef<"Hcpcs", 'String'>
+    readonly short: FieldRef<"Hcpcs", 'String'>
+    readonly long: FieldRef<"Hcpcs", 'String'>
+    readonly status: FieldRef<"Hcpcs", 'String'>
+    readonly effFrom: FieldRef<"Hcpcs", 'DateTime'>
+    readonly effTo: FieldRef<"Hcpcs", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Hcpcs findUnique
+   */
+  export type HcpcsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hcpcs
+     */
+    select?: HcpcsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hcpcs
+     */
+    omit?: HcpcsOmit<ExtArgs> | null
+    /**
+     * Filter, which Hcpcs to fetch.
+     */
+    where: HcpcsWhereUniqueInput
+  }
+
+  /**
+   * Hcpcs findUniqueOrThrow
+   */
+  export type HcpcsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hcpcs
+     */
+    select?: HcpcsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hcpcs
+     */
+    omit?: HcpcsOmit<ExtArgs> | null
+    /**
+     * Filter, which Hcpcs to fetch.
+     */
+    where: HcpcsWhereUniqueInput
+  }
+
+  /**
+   * Hcpcs findFirst
+   */
+  export type HcpcsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hcpcs
+     */
+    select?: HcpcsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hcpcs
+     */
+    omit?: HcpcsOmit<ExtArgs> | null
+    /**
+     * Filter, which Hcpcs to fetch.
+     */
+    where?: HcpcsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Hcpcs to fetch.
+     */
+    orderBy?: HcpcsOrderByWithRelationInput | HcpcsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Hcpcs.
+     */
+    cursor?: HcpcsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Hcpcs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Hcpcs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Hcpcs.
+     */
+    distinct?: HcpcsScalarFieldEnum | HcpcsScalarFieldEnum[]
+  }
+
+  /**
+   * Hcpcs findFirstOrThrow
+   */
+  export type HcpcsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hcpcs
+     */
+    select?: HcpcsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hcpcs
+     */
+    omit?: HcpcsOmit<ExtArgs> | null
+    /**
+     * Filter, which Hcpcs to fetch.
+     */
+    where?: HcpcsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Hcpcs to fetch.
+     */
+    orderBy?: HcpcsOrderByWithRelationInput | HcpcsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Hcpcs.
+     */
+    cursor?: HcpcsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Hcpcs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Hcpcs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Hcpcs.
+     */
+    distinct?: HcpcsScalarFieldEnum | HcpcsScalarFieldEnum[]
+  }
+
+  /**
+   * Hcpcs findMany
+   */
+  export type HcpcsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hcpcs
+     */
+    select?: HcpcsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hcpcs
+     */
+    omit?: HcpcsOmit<ExtArgs> | null
+    /**
+     * Filter, which Hcpcs to fetch.
+     */
+    where?: HcpcsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Hcpcs to fetch.
+     */
+    orderBy?: HcpcsOrderByWithRelationInput | HcpcsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Hcpcs.
+     */
+    cursor?: HcpcsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Hcpcs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Hcpcs.
+     */
+    skip?: number
+    distinct?: HcpcsScalarFieldEnum | HcpcsScalarFieldEnum[]
+  }
+
+  /**
+   * Hcpcs create
+   */
+  export type HcpcsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hcpcs
+     */
+    select?: HcpcsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hcpcs
+     */
+    omit?: HcpcsOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Hcpcs.
+     */
+    data: XOR<HcpcsCreateInput, HcpcsUncheckedCreateInput>
+  }
+
+  /**
+   * Hcpcs createMany
+   */
+  export type HcpcsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Hcpcs.
+     */
+    data: HcpcsCreateManyInput | HcpcsCreateManyInput[]
+  }
+
+  /**
+   * Hcpcs update
+   */
+  export type HcpcsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hcpcs
+     */
+    select?: HcpcsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hcpcs
+     */
+    omit?: HcpcsOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Hcpcs.
+     */
+    data: XOR<HcpcsUpdateInput, HcpcsUncheckedUpdateInput>
+    /**
+     * Choose, which Hcpcs to update.
+     */
+    where: HcpcsWhereUniqueInput
+  }
+
+  /**
+   * Hcpcs updateMany
+   */
+  export type HcpcsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Hcpcs.
+     */
+    data: XOR<HcpcsUpdateManyMutationInput, HcpcsUncheckedUpdateManyInput>
+    /**
+     * Filter which Hcpcs to update
+     */
+    where?: HcpcsWhereInput
+    /**
+     * Limit how many Hcpcs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Hcpcs upsert
+   */
+  export type HcpcsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hcpcs
+     */
+    select?: HcpcsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hcpcs
+     */
+    omit?: HcpcsOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Hcpcs to update in case it exists.
+     */
+    where: HcpcsWhereUniqueInput
+    /**
+     * In case the Hcpcs found by the `where` argument doesn't exist, create a new Hcpcs with this data.
+     */
+    create: XOR<HcpcsCreateInput, HcpcsUncheckedCreateInput>
+    /**
+     * In case the Hcpcs was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<HcpcsUpdateInput, HcpcsUncheckedUpdateInput>
+  }
+
+  /**
+   * Hcpcs delete
+   */
+  export type HcpcsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hcpcs
+     */
+    select?: HcpcsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hcpcs
+     */
+    omit?: HcpcsOmit<ExtArgs> | null
+    /**
+     * Filter which Hcpcs to delete.
+     */
+    where: HcpcsWhereUniqueInput
+  }
+
+  /**
+   * Hcpcs deleteMany
+   */
+  export type HcpcsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Hcpcs to delete
+     */
+    where?: HcpcsWhereInput
+    /**
+     * Limit how many Hcpcs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Hcpcs without action
+   */
+  export type HcpcsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hcpcs
+     */
+    select?: HcpcsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hcpcs
+     */
+    omit?: HcpcsOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model NcciPtp
+   */
+
+  export type AggregateNcciPtp = {
+    _count: NcciPtpCountAggregateOutputType | null
+    _min: NcciPtpMinAggregateOutputType | null
+    _max: NcciPtpMaxAggregateOutputType | null
+  }
+
+  export type NcciPtpMinAggregateOutputType = {
+    id: string | null
+    codeA: string | null
+    codeB: string | null
+    modInd: string | null
+    effFrom: Date | null
+    effTo: Date | null
+  }
+
+  export type NcciPtpMaxAggregateOutputType = {
+    id: string | null
+    codeA: string | null
+    codeB: string | null
+    modInd: string | null
+    effFrom: Date | null
+    effTo: Date | null
+  }
+
+  export type NcciPtpCountAggregateOutputType = {
+    id: number
+    codeA: number
+    codeB: number
+    modInd: number
+    effFrom: number
+    effTo: number
+    _all: number
+  }
+
+
+  export type NcciPtpMinAggregateInputType = {
+    id?: true
+    codeA?: true
+    codeB?: true
+    modInd?: true
+    effFrom?: true
+    effTo?: true
+  }
+
+  export type NcciPtpMaxAggregateInputType = {
+    id?: true
+    codeA?: true
+    codeB?: true
+    modInd?: true
+    effFrom?: true
+    effTo?: true
+  }
+
+  export type NcciPtpCountAggregateInputType = {
+    id?: true
+    codeA?: true
+    codeB?: true
+    modInd?: true
+    effFrom?: true
+    effTo?: true
+    _all?: true
+  }
+
+  export type NcciPtpAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NcciPtp to aggregate.
+     */
+    where?: NcciPtpWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NcciPtps to fetch.
+     */
+    orderBy?: NcciPtpOrderByWithRelationInput | NcciPtpOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: NcciPtpWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NcciPtps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NcciPtps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned NcciPtps
+    **/
+    _count?: true | NcciPtpCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: NcciPtpMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: NcciPtpMaxAggregateInputType
+  }
+
+  export type GetNcciPtpAggregateType<T extends NcciPtpAggregateArgs> = {
+        [P in keyof T & keyof AggregateNcciPtp]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateNcciPtp[P]>
+      : GetScalarType<T[P], AggregateNcciPtp[P]>
+  }
+
+
+
+
+  export type NcciPtpGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NcciPtpWhereInput
+    orderBy?: NcciPtpOrderByWithAggregationInput | NcciPtpOrderByWithAggregationInput[]
+    by: NcciPtpScalarFieldEnum[] | NcciPtpScalarFieldEnum
+    having?: NcciPtpScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: NcciPtpCountAggregateInputType | true
+    _min?: NcciPtpMinAggregateInputType
+    _max?: NcciPtpMaxAggregateInputType
+  }
+
+  export type NcciPtpGroupByOutputType = {
+    id: string
+    codeA: string
+    codeB: string
+    modInd: string
+    effFrom: Date
+    effTo: Date | null
+    _count: NcciPtpCountAggregateOutputType | null
+    _min: NcciPtpMinAggregateOutputType | null
+    _max: NcciPtpMaxAggregateOutputType | null
+  }
+
+  type GetNcciPtpGroupByPayload<T extends NcciPtpGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<NcciPtpGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof NcciPtpGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], NcciPtpGroupByOutputType[P]>
+            : GetScalarType<T[P], NcciPtpGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type NcciPtpSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    codeA?: boolean
+    codeB?: boolean
+    modInd?: boolean
+    effFrom?: boolean
+    effTo?: boolean
+  }, ExtArgs["result"]["ncciPtp"]>
+
+
+
+  export type NcciPtpSelectScalar = {
+    id?: boolean
+    codeA?: boolean
+    codeB?: boolean
+    modInd?: boolean
+    effFrom?: boolean
+    effTo?: boolean
+  }
+
+  export type NcciPtpOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "codeA" | "codeB" | "modInd" | "effFrom" | "effTo", ExtArgs["result"]["ncciPtp"]>
+
+  export type $NcciPtpPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "NcciPtp"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      codeA: string
+      codeB: string
+      modInd: string
+      effFrom: Date
+      effTo: Date | null
+    }, ExtArgs["result"]["ncciPtp"]>
+    composites: {}
+  }
+
+  type NcciPtpGetPayload<S extends boolean | null | undefined | NcciPtpDefaultArgs> = $Result.GetResult<Prisma.$NcciPtpPayload, S>
+
+  type NcciPtpCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<NcciPtpFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: NcciPtpCountAggregateInputType | true
+    }
+
+  export interface NcciPtpDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['NcciPtp'], meta: { name: 'NcciPtp' } }
+    /**
+     * Find zero or one NcciPtp that matches the filter.
+     * @param {NcciPtpFindUniqueArgs} args - Arguments to find a NcciPtp
+     * @example
+     * // Get one NcciPtp
+     * const ncciPtp = await prisma.ncciPtp.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends NcciPtpFindUniqueArgs>(args: SelectSubset<T, NcciPtpFindUniqueArgs<ExtArgs>>): Prisma__NcciPtpClient<$Result.GetResult<Prisma.$NcciPtpPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one NcciPtp that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {NcciPtpFindUniqueOrThrowArgs} args - Arguments to find a NcciPtp
+     * @example
+     * // Get one NcciPtp
+     * const ncciPtp = await prisma.ncciPtp.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends NcciPtpFindUniqueOrThrowArgs>(args: SelectSubset<T, NcciPtpFindUniqueOrThrowArgs<ExtArgs>>): Prisma__NcciPtpClient<$Result.GetResult<Prisma.$NcciPtpPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first NcciPtp that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NcciPtpFindFirstArgs} args - Arguments to find a NcciPtp
+     * @example
+     * // Get one NcciPtp
+     * const ncciPtp = await prisma.ncciPtp.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends NcciPtpFindFirstArgs>(args?: SelectSubset<T, NcciPtpFindFirstArgs<ExtArgs>>): Prisma__NcciPtpClient<$Result.GetResult<Prisma.$NcciPtpPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first NcciPtp that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NcciPtpFindFirstOrThrowArgs} args - Arguments to find a NcciPtp
+     * @example
+     * // Get one NcciPtp
+     * const ncciPtp = await prisma.ncciPtp.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends NcciPtpFindFirstOrThrowArgs>(args?: SelectSubset<T, NcciPtpFindFirstOrThrowArgs<ExtArgs>>): Prisma__NcciPtpClient<$Result.GetResult<Prisma.$NcciPtpPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more NcciPtps that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NcciPtpFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all NcciPtps
+     * const ncciPtps = await prisma.ncciPtp.findMany()
+     * 
+     * // Get first 10 NcciPtps
+     * const ncciPtps = await prisma.ncciPtp.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const ncciPtpWithIdOnly = await prisma.ncciPtp.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends NcciPtpFindManyArgs>(args?: SelectSubset<T, NcciPtpFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NcciPtpPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a NcciPtp.
+     * @param {NcciPtpCreateArgs} args - Arguments to create a NcciPtp.
+     * @example
+     * // Create one NcciPtp
+     * const NcciPtp = await prisma.ncciPtp.create({
+     *   data: {
+     *     // ... data to create a NcciPtp
+     *   }
+     * })
+     * 
+     */
+    create<T extends NcciPtpCreateArgs>(args: SelectSubset<T, NcciPtpCreateArgs<ExtArgs>>): Prisma__NcciPtpClient<$Result.GetResult<Prisma.$NcciPtpPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many NcciPtps.
+     * @param {NcciPtpCreateManyArgs} args - Arguments to create many NcciPtps.
+     * @example
+     * // Create many NcciPtps
+     * const ncciPtp = await prisma.ncciPtp.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends NcciPtpCreateManyArgs>(args?: SelectSubset<T, NcciPtpCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a NcciPtp.
+     * @param {NcciPtpDeleteArgs} args - Arguments to delete one NcciPtp.
+     * @example
+     * // Delete one NcciPtp
+     * const NcciPtp = await prisma.ncciPtp.delete({
+     *   where: {
+     *     // ... filter to delete one NcciPtp
+     *   }
+     * })
+     * 
+     */
+    delete<T extends NcciPtpDeleteArgs>(args: SelectSubset<T, NcciPtpDeleteArgs<ExtArgs>>): Prisma__NcciPtpClient<$Result.GetResult<Prisma.$NcciPtpPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one NcciPtp.
+     * @param {NcciPtpUpdateArgs} args - Arguments to update one NcciPtp.
+     * @example
+     * // Update one NcciPtp
+     * const ncciPtp = await prisma.ncciPtp.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends NcciPtpUpdateArgs>(args: SelectSubset<T, NcciPtpUpdateArgs<ExtArgs>>): Prisma__NcciPtpClient<$Result.GetResult<Prisma.$NcciPtpPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more NcciPtps.
+     * @param {NcciPtpDeleteManyArgs} args - Arguments to filter NcciPtps to delete.
+     * @example
+     * // Delete a few NcciPtps
+     * const { count } = await prisma.ncciPtp.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends NcciPtpDeleteManyArgs>(args?: SelectSubset<T, NcciPtpDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more NcciPtps.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NcciPtpUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many NcciPtps
+     * const ncciPtp = await prisma.ncciPtp.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends NcciPtpUpdateManyArgs>(args: SelectSubset<T, NcciPtpUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one NcciPtp.
+     * @param {NcciPtpUpsertArgs} args - Arguments to update or create a NcciPtp.
+     * @example
+     * // Update or create a NcciPtp
+     * const ncciPtp = await prisma.ncciPtp.upsert({
+     *   create: {
+     *     // ... data to create a NcciPtp
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the NcciPtp we want to update
+     *   }
+     * })
+     */
+    upsert<T extends NcciPtpUpsertArgs>(args: SelectSubset<T, NcciPtpUpsertArgs<ExtArgs>>): Prisma__NcciPtpClient<$Result.GetResult<Prisma.$NcciPtpPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of NcciPtps.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NcciPtpCountArgs} args - Arguments to filter NcciPtps to count.
+     * @example
+     * // Count the number of NcciPtps
+     * const count = await prisma.ncciPtp.count({
+     *   where: {
+     *     // ... the filter for the NcciPtps we want to count
+     *   }
+     * })
+    **/
+    count<T extends NcciPtpCountArgs>(
+      args?: Subset<T, NcciPtpCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], NcciPtpCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a NcciPtp.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NcciPtpAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends NcciPtpAggregateArgs>(args: Subset<T, NcciPtpAggregateArgs>): Prisma.PrismaPromise<GetNcciPtpAggregateType<T>>
+
+    /**
+     * Group by NcciPtp.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NcciPtpGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends NcciPtpGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: NcciPtpGroupByArgs['orderBy'] }
+        : { orderBy?: NcciPtpGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, NcciPtpGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNcciPtpGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the NcciPtp model
+   */
+  readonly fields: NcciPtpFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for NcciPtp.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__NcciPtpClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the NcciPtp model
+   */
+  interface NcciPtpFieldRefs {
+    readonly id: FieldRef<"NcciPtp", 'String'>
+    readonly codeA: FieldRef<"NcciPtp", 'String'>
+    readonly codeB: FieldRef<"NcciPtp", 'String'>
+    readonly modInd: FieldRef<"NcciPtp", 'String'>
+    readonly effFrom: FieldRef<"NcciPtp", 'DateTime'>
+    readonly effTo: FieldRef<"NcciPtp", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * NcciPtp findUnique
+   */
+  export type NcciPtpFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NcciPtp
+     */
+    select?: NcciPtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NcciPtp
+     */
+    omit?: NcciPtpOmit<ExtArgs> | null
+    /**
+     * Filter, which NcciPtp to fetch.
+     */
+    where: NcciPtpWhereUniqueInput
+  }
+
+  /**
+   * NcciPtp findUniqueOrThrow
+   */
+  export type NcciPtpFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NcciPtp
+     */
+    select?: NcciPtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NcciPtp
+     */
+    omit?: NcciPtpOmit<ExtArgs> | null
+    /**
+     * Filter, which NcciPtp to fetch.
+     */
+    where: NcciPtpWhereUniqueInput
+  }
+
+  /**
+   * NcciPtp findFirst
+   */
+  export type NcciPtpFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NcciPtp
+     */
+    select?: NcciPtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NcciPtp
+     */
+    omit?: NcciPtpOmit<ExtArgs> | null
+    /**
+     * Filter, which NcciPtp to fetch.
+     */
+    where?: NcciPtpWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NcciPtps to fetch.
+     */
+    orderBy?: NcciPtpOrderByWithRelationInput | NcciPtpOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NcciPtps.
+     */
+    cursor?: NcciPtpWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NcciPtps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NcciPtps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NcciPtps.
+     */
+    distinct?: NcciPtpScalarFieldEnum | NcciPtpScalarFieldEnum[]
+  }
+
+  /**
+   * NcciPtp findFirstOrThrow
+   */
+  export type NcciPtpFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NcciPtp
+     */
+    select?: NcciPtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NcciPtp
+     */
+    omit?: NcciPtpOmit<ExtArgs> | null
+    /**
+     * Filter, which NcciPtp to fetch.
+     */
+    where?: NcciPtpWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NcciPtps to fetch.
+     */
+    orderBy?: NcciPtpOrderByWithRelationInput | NcciPtpOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NcciPtps.
+     */
+    cursor?: NcciPtpWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NcciPtps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NcciPtps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NcciPtps.
+     */
+    distinct?: NcciPtpScalarFieldEnum | NcciPtpScalarFieldEnum[]
+  }
+
+  /**
+   * NcciPtp findMany
+   */
+  export type NcciPtpFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NcciPtp
+     */
+    select?: NcciPtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NcciPtp
+     */
+    omit?: NcciPtpOmit<ExtArgs> | null
+    /**
+     * Filter, which NcciPtps to fetch.
+     */
+    where?: NcciPtpWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NcciPtps to fetch.
+     */
+    orderBy?: NcciPtpOrderByWithRelationInput | NcciPtpOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing NcciPtps.
+     */
+    cursor?: NcciPtpWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NcciPtps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NcciPtps.
+     */
+    skip?: number
+    distinct?: NcciPtpScalarFieldEnum | NcciPtpScalarFieldEnum[]
+  }
+
+  /**
+   * NcciPtp create
+   */
+  export type NcciPtpCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NcciPtp
+     */
+    select?: NcciPtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NcciPtp
+     */
+    omit?: NcciPtpOmit<ExtArgs> | null
+    /**
+     * The data needed to create a NcciPtp.
+     */
+    data: XOR<NcciPtpCreateInput, NcciPtpUncheckedCreateInput>
+  }
+
+  /**
+   * NcciPtp createMany
+   */
+  export type NcciPtpCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many NcciPtps.
+     */
+    data: NcciPtpCreateManyInput | NcciPtpCreateManyInput[]
+  }
+
+  /**
+   * NcciPtp update
+   */
+  export type NcciPtpUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NcciPtp
+     */
+    select?: NcciPtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NcciPtp
+     */
+    omit?: NcciPtpOmit<ExtArgs> | null
+    /**
+     * The data needed to update a NcciPtp.
+     */
+    data: XOR<NcciPtpUpdateInput, NcciPtpUncheckedUpdateInput>
+    /**
+     * Choose, which NcciPtp to update.
+     */
+    where: NcciPtpWhereUniqueInput
+  }
+
+  /**
+   * NcciPtp updateMany
+   */
+  export type NcciPtpUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update NcciPtps.
+     */
+    data: XOR<NcciPtpUpdateManyMutationInput, NcciPtpUncheckedUpdateManyInput>
+    /**
+     * Filter which NcciPtps to update
+     */
+    where?: NcciPtpWhereInput
+    /**
+     * Limit how many NcciPtps to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * NcciPtp upsert
+   */
+  export type NcciPtpUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NcciPtp
+     */
+    select?: NcciPtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NcciPtp
+     */
+    omit?: NcciPtpOmit<ExtArgs> | null
+    /**
+     * The filter to search for the NcciPtp to update in case it exists.
+     */
+    where: NcciPtpWhereUniqueInput
+    /**
+     * In case the NcciPtp found by the `where` argument doesn't exist, create a new NcciPtp with this data.
+     */
+    create: XOR<NcciPtpCreateInput, NcciPtpUncheckedCreateInput>
+    /**
+     * In case the NcciPtp was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<NcciPtpUpdateInput, NcciPtpUncheckedUpdateInput>
+  }
+
+  /**
+   * NcciPtp delete
+   */
+  export type NcciPtpDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NcciPtp
+     */
+    select?: NcciPtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NcciPtp
+     */
+    omit?: NcciPtpOmit<ExtArgs> | null
+    /**
+     * Filter which NcciPtp to delete.
+     */
+    where: NcciPtpWhereUniqueInput
+  }
+
+  /**
+   * NcciPtp deleteMany
+   */
+  export type NcciPtpDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NcciPtps to delete
+     */
+    where?: NcciPtpWhereInput
+    /**
+     * Limit how many NcciPtps to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * NcciPtp without action
+   */
+  export type NcciPtpDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NcciPtp
+     */
+    select?: NcciPtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NcciPtp
+     */
+    omit?: NcciPtpOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model NcciMue
+   */
+
+  export type AggregateNcciMue = {
+    _count: NcciMueCountAggregateOutputType | null
+    _avg: NcciMueAvgAggregateOutputType | null
+    _sum: NcciMueSumAggregateOutputType | null
+    _min: NcciMueMinAggregateOutputType | null
+    _max: NcciMueMaxAggregateOutputType | null
+  }
+
+  export type NcciMueAvgAggregateOutputType = {
+    mue: number | null
+  }
+
+  export type NcciMueSumAggregateOutputType = {
+    mue: number | null
+  }
+
+  export type NcciMueMinAggregateOutputType = {
+    code: string | null
+    effFrom: Date | null
+    mue: number | null
+    effTo: Date | null
+  }
+
+  export type NcciMueMaxAggregateOutputType = {
+    code: string | null
+    effFrom: Date | null
+    mue: number | null
+    effTo: Date | null
+  }
+
+  export type NcciMueCountAggregateOutputType = {
+    code: number
+    effFrom: number
+    mue: number
+    effTo: number
+    _all: number
+  }
+
+
+  export type NcciMueAvgAggregateInputType = {
+    mue?: true
+  }
+
+  export type NcciMueSumAggregateInputType = {
+    mue?: true
+  }
+
+  export type NcciMueMinAggregateInputType = {
+    code?: true
+    effFrom?: true
+    mue?: true
+    effTo?: true
+  }
+
+  export type NcciMueMaxAggregateInputType = {
+    code?: true
+    effFrom?: true
+    mue?: true
+    effTo?: true
+  }
+
+  export type NcciMueCountAggregateInputType = {
+    code?: true
+    effFrom?: true
+    mue?: true
+    effTo?: true
+    _all?: true
+  }
+
+  export type NcciMueAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NcciMue to aggregate.
+     */
+    where?: NcciMueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NcciMues to fetch.
+     */
+    orderBy?: NcciMueOrderByWithRelationInput | NcciMueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: NcciMueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NcciMues from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NcciMues.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned NcciMues
+    **/
+    _count?: true | NcciMueCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: NcciMueAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: NcciMueSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: NcciMueMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: NcciMueMaxAggregateInputType
+  }
+
+  export type GetNcciMueAggregateType<T extends NcciMueAggregateArgs> = {
+        [P in keyof T & keyof AggregateNcciMue]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateNcciMue[P]>
+      : GetScalarType<T[P], AggregateNcciMue[P]>
+  }
+
+
+
+
+  export type NcciMueGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NcciMueWhereInput
+    orderBy?: NcciMueOrderByWithAggregationInput | NcciMueOrderByWithAggregationInput[]
+    by: NcciMueScalarFieldEnum[] | NcciMueScalarFieldEnum
+    having?: NcciMueScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: NcciMueCountAggregateInputType | true
+    _avg?: NcciMueAvgAggregateInputType
+    _sum?: NcciMueSumAggregateInputType
+    _min?: NcciMueMinAggregateInputType
+    _max?: NcciMueMaxAggregateInputType
+  }
+
+  export type NcciMueGroupByOutputType = {
+    code: string
+    effFrom: Date
+    mue: number
+    effTo: Date | null
+    _count: NcciMueCountAggregateOutputType | null
+    _avg: NcciMueAvgAggregateOutputType | null
+    _sum: NcciMueSumAggregateOutputType | null
+    _min: NcciMueMinAggregateOutputType | null
+    _max: NcciMueMaxAggregateOutputType | null
+  }
+
+  type GetNcciMueGroupByPayload<T extends NcciMueGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<NcciMueGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof NcciMueGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], NcciMueGroupByOutputType[P]>
+            : GetScalarType<T[P], NcciMueGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type NcciMueSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    code?: boolean
+    effFrom?: boolean
+    mue?: boolean
+    effTo?: boolean
+  }, ExtArgs["result"]["ncciMue"]>
+
+
+
+  export type NcciMueSelectScalar = {
+    code?: boolean
+    effFrom?: boolean
+    mue?: boolean
+    effTo?: boolean
+  }
+
+  export type NcciMueOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"code" | "effFrom" | "mue" | "effTo", ExtArgs["result"]["ncciMue"]>
+
+  export type $NcciMuePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "NcciMue"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      code: string
+      effFrom: Date
+      mue: number
+      effTo: Date | null
+    }, ExtArgs["result"]["ncciMue"]>
+    composites: {}
+  }
+
+  type NcciMueGetPayload<S extends boolean | null | undefined | NcciMueDefaultArgs> = $Result.GetResult<Prisma.$NcciMuePayload, S>
+
+  type NcciMueCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<NcciMueFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: NcciMueCountAggregateInputType | true
+    }
+
+  export interface NcciMueDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['NcciMue'], meta: { name: 'NcciMue' } }
+    /**
+     * Find zero or one NcciMue that matches the filter.
+     * @param {NcciMueFindUniqueArgs} args - Arguments to find a NcciMue
+     * @example
+     * // Get one NcciMue
+     * const ncciMue = await prisma.ncciMue.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends NcciMueFindUniqueArgs>(args: SelectSubset<T, NcciMueFindUniqueArgs<ExtArgs>>): Prisma__NcciMueClient<$Result.GetResult<Prisma.$NcciMuePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one NcciMue that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {NcciMueFindUniqueOrThrowArgs} args - Arguments to find a NcciMue
+     * @example
+     * // Get one NcciMue
+     * const ncciMue = await prisma.ncciMue.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends NcciMueFindUniqueOrThrowArgs>(args: SelectSubset<T, NcciMueFindUniqueOrThrowArgs<ExtArgs>>): Prisma__NcciMueClient<$Result.GetResult<Prisma.$NcciMuePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first NcciMue that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NcciMueFindFirstArgs} args - Arguments to find a NcciMue
+     * @example
+     * // Get one NcciMue
+     * const ncciMue = await prisma.ncciMue.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends NcciMueFindFirstArgs>(args?: SelectSubset<T, NcciMueFindFirstArgs<ExtArgs>>): Prisma__NcciMueClient<$Result.GetResult<Prisma.$NcciMuePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first NcciMue that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NcciMueFindFirstOrThrowArgs} args - Arguments to find a NcciMue
+     * @example
+     * // Get one NcciMue
+     * const ncciMue = await prisma.ncciMue.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends NcciMueFindFirstOrThrowArgs>(args?: SelectSubset<T, NcciMueFindFirstOrThrowArgs<ExtArgs>>): Prisma__NcciMueClient<$Result.GetResult<Prisma.$NcciMuePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more NcciMues that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NcciMueFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all NcciMues
+     * const ncciMues = await prisma.ncciMue.findMany()
+     * 
+     * // Get first 10 NcciMues
+     * const ncciMues = await prisma.ncciMue.findMany({ take: 10 })
+     * 
+     * // Only select the `code`
+     * const ncciMueWithCodeOnly = await prisma.ncciMue.findMany({ select: { code: true } })
+     * 
+     */
+    findMany<T extends NcciMueFindManyArgs>(args?: SelectSubset<T, NcciMueFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NcciMuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a NcciMue.
+     * @param {NcciMueCreateArgs} args - Arguments to create a NcciMue.
+     * @example
+     * // Create one NcciMue
+     * const NcciMue = await prisma.ncciMue.create({
+     *   data: {
+     *     // ... data to create a NcciMue
+     *   }
+     * })
+     * 
+     */
+    create<T extends NcciMueCreateArgs>(args: SelectSubset<T, NcciMueCreateArgs<ExtArgs>>): Prisma__NcciMueClient<$Result.GetResult<Prisma.$NcciMuePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many NcciMues.
+     * @param {NcciMueCreateManyArgs} args - Arguments to create many NcciMues.
+     * @example
+     * // Create many NcciMues
+     * const ncciMue = await prisma.ncciMue.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends NcciMueCreateManyArgs>(args?: SelectSubset<T, NcciMueCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a NcciMue.
+     * @param {NcciMueDeleteArgs} args - Arguments to delete one NcciMue.
+     * @example
+     * // Delete one NcciMue
+     * const NcciMue = await prisma.ncciMue.delete({
+     *   where: {
+     *     // ... filter to delete one NcciMue
+     *   }
+     * })
+     * 
+     */
+    delete<T extends NcciMueDeleteArgs>(args: SelectSubset<T, NcciMueDeleteArgs<ExtArgs>>): Prisma__NcciMueClient<$Result.GetResult<Prisma.$NcciMuePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one NcciMue.
+     * @param {NcciMueUpdateArgs} args - Arguments to update one NcciMue.
+     * @example
+     * // Update one NcciMue
+     * const ncciMue = await prisma.ncciMue.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends NcciMueUpdateArgs>(args: SelectSubset<T, NcciMueUpdateArgs<ExtArgs>>): Prisma__NcciMueClient<$Result.GetResult<Prisma.$NcciMuePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more NcciMues.
+     * @param {NcciMueDeleteManyArgs} args - Arguments to filter NcciMues to delete.
+     * @example
+     * // Delete a few NcciMues
+     * const { count } = await prisma.ncciMue.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends NcciMueDeleteManyArgs>(args?: SelectSubset<T, NcciMueDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more NcciMues.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NcciMueUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many NcciMues
+     * const ncciMue = await prisma.ncciMue.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends NcciMueUpdateManyArgs>(args: SelectSubset<T, NcciMueUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one NcciMue.
+     * @param {NcciMueUpsertArgs} args - Arguments to update or create a NcciMue.
+     * @example
+     * // Update or create a NcciMue
+     * const ncciMue = await prisma.ncciMue.upsert({
+     *   create: {
+     *     // ... data to create a NcciMue
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the NcciMue we want to update
+     *   }
+     * })
+     */
+    upsert<T extends NcciMueUpsertArgs>(args: SelectSubset<T, NcciMueUpsertArgs<ExtArgs>>): Prisma__NcciMueClient<$Result.GetResult<Prisma.$NcciMuePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of NcciMues.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NcciMueCountArgs} args - Arguments to filter NcciMues to count.
+     * @example
+     * // Count the number of NcciMues
+     * const count = await prisma.ncciMue.count({
+     *   where: {
+     *     // ... the filter for the NcciMues we want to count
+     *   }
+     * })
+    **/
+    count<T extends NcciMueCountArgs>(
+      args?: Subset<T, NcciMueCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], NcciMueCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a NcciMue.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NcciMueAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends NcciMueAggregateArgs>(args: Subset<T, NcciMueAggregateArgs>): Prisma.PrismaPromise<GetNcciMueAggregateType<T>>
+
+    /**
+     * Group by NcciMue.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NcciMueGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends NcciMueGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: NcciMueGroupByArgs['orderBy'] }
+        : { orderBy?: NcciMueGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, NcciMueGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNcciMueGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the NcciMue model
+   */
+  readonly fields: NcciMueFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for NcciMue.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__NcciMueClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the NcciMue model
+   */
+  interface NcciMueFieldRefs {
+    readonly code: FieldRef<"NcciMue", 'String'>
+    readonly effFrom: FieldRef<"NcciMue", 'DateTime'>
+    readonly mue: FieldRef<"NcciMue", 'Int'>
+    readonly effTo: FieldRef<"NcciMue", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * NcciMue findUnique
+   */
+  export type NcciMueFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NcciMue
+     */
+    select?: NcciMueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NcciMue
+     */
+    omit?: NcciMueOmit<ExtArgs> | null
+    /**
+     * Filter, which NcciMue to fetch.
+     */
+    where: NcciMueWhereUniqueInput
+  }
+
+  /**
+   * NcciMue findUniqueOrThrow
+   */
+  export type NcciMueFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NcciMue
+     */
+    select?: NcciMueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NcciMue
+     */
+    omit?: NcciMueOmit<ExtArgs> | null
+    /**
+     * Filter, which NcciMue to fetch.
+     */
+    where: NcciMueWhereUniqueInput
+  }
+
+  /**
+   * NcciMue findFirst
+   */
+  export type NcciMueFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NcciMue
+     */
+    select?: NcciMueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NcciMue
+     */
+    omit?: NcciMueOmit<ExtArgs> | null
+    /**
+     * Filter, which NcciMue to fetch.
+     */
+    where?: NcciMueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NcciMues to fetch.
+     */
+    orderBy?: NcciMueOrderByWithRelationInput | NcciMueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NcciMues.
+     */
+    cursor?: NcciMueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NcciMues from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NcciMues.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NcciMues.
+     */
+    distinct?: NcciMueScalarFieldEnum | NcciMueScalarFieldEnum[]
+  }
+
+  /**
+   * NcciMue findFirstOrThrow
+   */
+  export type NcciMueFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NcciMue
+     */
+    select?: NcciMueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NcciMue
+     */
+    omit?: NcciMueOmit<ExtArgs> | null
+    /**
+     * Filter, which NcciMue to fetch.
+     */
+    where?: NcciMueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NcciMues to fetch.
+     */
+    orderBy?: NcciMueOrderByWithRelationInput | NcciMueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NcciMues.
+     */
+    cursor?: NcciMueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NcciMues from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NcciMues.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NcciMues.
+     */
+    distinct?: NcciMueScalarFieldEnum | NcciMueScalarFieldEnum[]
+  }
+
+  /**
+   * NcciMue findMany
+   */
+  export type NcciMueFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NcciMue
+     */
+    select?: NcciMueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NcciMue
+     */
+    omit?: NcciMueOmit<ExtArgs> | null
+    /**
+     * Filter, which NcciMues to fetch.
+     */
+    where?: NcciMueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NcciMues to fetch.
+     */
+    orderBy?: NcciMueOrderByWithRelationInput | NcciMueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing NcciMues.
+     */
+    cursor?: NcciMueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NcciMues from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NcciMues.
+     */
+    skip?: number
+    distinct?: NcciMueScalarFieldEnum | NcciMueScalarFieldEnum[]
+  }
+
+  /**
+   * NcciMue create
+   */
+  export type NcciMueCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NcciMue
+     */
+    select?: NcciMueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NcciMue
+     */
+    omit?: NcciMueOmit<ExtArgs> | null
+    /**
+     * The data needed to create a NcciMue.
+     */
+    data: XOR<NcciMueCreateInput, NcciMueUncheckedCreateInput>
+  }
+
+  /**
+   * NcciMue createMany
+   */
+  export type NcciMueCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many NcciMues.
+     */
+    data: NcciMueCreateManyInput | NcciMueCreateManyInput[]
+  }
+
+  /**
+   * NcciMue update
+   */
+  export type NcciMueUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NcciMue
+     */
+    select?: NcciMueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NcciMue
+     */
+    omit?: NcciMueOmit<ExtArgs> | null
+    /**
+     * The data needed to update a NcciMue.
+     */
+    data: XOR<NcciMueUpdateInput, NcciMueUncheckedUpdateInput>
+    /**
+     * Choose, which NcciMue to update.
+     */
+    where: NcciMueWhereUniqueInput
+  }
+
+  /**
+   * NcciMue updateMany
+   */
+  export type NcciMueUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update NcciMues.
+     */
+    data: XOR<NcciMueUpdateManyMutationInput, NcciMueUncheckedUpdateManyInput>
+    /**
+     * Filter which NcciMues to update
+     */
+    where?: NcciMueWhereInput
+    /**
+     * Limit how many NcciMues to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * NcciMue upsert
+   */
+  export type NcciMueUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NcciMue
+     */
+    select?: NcciMueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NcciMue
+     */
+    omit?: NcciMueOmit<ExtArgs> | null
+    /**
+     * The filter to search for the NcciMue to update in case it exists.
+     */
+    where: NcciMueWhereUniqueInput
+    /**
+     * In case the NcciMue found by the `where` argument doesn't exist, create a new NcciMue with this data.
+     */
+    create: XOR<NcciMueCreateInput, NcciMueUncheckedCreateInput>
+    /**
+     * In case the NcciMue was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<NcciMueUpdateInput, NcciMueUncheckedUpdateInput>
+  }
+
+  /**
+   * NcciMue delete
+   */
+  export type NcciMueDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NcciMue
+     */
+    select?: NcciMueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NcciMue
+     */
+    omit?: NcciMueOmit<ExtArgs> | null
+    /**
+     * Filter which NcciMue to delete.
+     */
+    where: NcciMueWhereUniqueInput
+  }
+
+  /**
+   * NcciMue deleteMany
+   */
+  export type NcciMueDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NcciMues to delete
+     */
+    where?: NcciMueWhereInput
+    /**
+     * Limit how many NcciMues to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * NcciMue without action
+   */
+  export type NcciMueDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NcciMue
+     */
+    select?: NcciMueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NcciMue
+     */
+    omit?: NcciMueOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Carc
+   */
+
+  export type AggregateCarc = {
+    _count: CarcCountAggregateOutputType | null
+    _min: CarcMinAggregateOutputType | null
+    _max: CarcMaxAggregateOutputType | null
+  }
+
+  export type CarcMinAggregateOutputType = {
+    code: string | null
+    grp: string | null
+    desc: string | null
+    effFrom: Date | null
+    effTo: Date | null
+  }
+
+  export type CarcMaxAggregateOutputType = {
+    code: string | null
+    grp: string | null
+    desc: string | null
+    effFrom: Date | null
+    effTo: Date | null
+  }
+
+  export type CarcCountAggregateOutputType = {
+    code: number
+    grp: number
+    desc: number
+    effFrom: number
+    effTo: number
+    _all: number
+  }
+
+
+  export type CarcMinAggregateInputType = {
+    code?: true
+    grp?: true
+    desc?: true
+    effFrom?: true
+    effTo?: true
+  }
+
+  export type CarcMaxAggregateInputType = {
+    code?: true
+    grp?: true
+    desc?: true
+    effFrom?: true
+    effTo?: true
+  }
+
+  export type CarcCountAggregateInputType = {
+    code?: true
+    grp?: true
+    desc?: true
+    effFrom?: true
+    effTo?: true
+    _all?: true
+  }
+
+  export type CarcAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Carc to aggregate.
+     */
+    where?: CarcWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Carcs to fetch.
+     */
+    orderBy?: CarcOrderByWithRelationInput | CarcOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CarcWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Carcs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Carcs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Carcs
+    **/
+    _count?: true | CarcCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CarcMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CarcMaxAggregateInputType
+  }
+
+  export type GetCarcAggregateType<T extends CarcAggregateArgs> = {
+        [P in keyof T & keyof AggregateCarc]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCarc[P]>
+      : GetScalarType<T[P], AggregateCarc[P]>
+  }
+
+
+
+
+  export type CarcGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CarcWhereInput
+    orderBy?: CarcOrderByWithAggregationInput | CarcOrderByWithAggregationInput[]
+    by: CarcScalarFieldEnum[] | CarcScalarFieldEnum
+    having?: CarcScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CarcCountAggregateInputType | true
+    _min?: CarcMinAggregateInputType
+    _max?: CarcMaxAggregateInputType
+  }
+
+  export type CarcGroupByOutputType = {
+    code: string
+    grp: string | null
+    desc: string | null
+    effFrom: Date | null
+    effTo: Date | null
+    _count: CarcCountAggregateOutputType | null
+    _min: CarcMinAggregateOutputType | null
+    _max: CarcMaxAggregateOutputType | null
+  }
+
+  type GetCarcGroupByPayload<T extends CarcGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CarcGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CarcGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CarcGroupByOutputType[P]>
+            : GetScalarType<T[P], CarcGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CarcSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    code?: boolean
+    grp?: boolean
+    desc?: boolean
+    effFrom?: boolean
+    effTo?: boolean
+  }, ExtArgs["result"]["carc"]>
+
+
+
+  export type CarcSelectScalar = {
+    code?: boolean
+    grp?: boolean
+    desc?: boolean
+    effFrom?: boolean
+    effTo?: boolean
+  }
+
+  export type CarcOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"code" | "grp" | "desc" | "effFrom" | "effTo", ExtArgs["result"]["carc"]>
+
+  export type $CarcPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Carc"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      code: string
+      grp: string | null
+      desc: string | null
+      effFrom: Date | null
+      effTo: Date | null
+    }, ExtArgs["result"]["carc"]>
+    composites: {}
+  }
+
+  type CarcGetPayload<S extends boolean | null | undefined | CarcDefaultArgs> = $Result.GetResult<Prisma.$CarcPayload, S>
+
+  type CarcCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CarcFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CarcCountAggregateInputType | true
+    }
+
+  export interface CarcDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Carc'], meta: { name: 'Carc' } }
+    /**
+     * Find zero or one Carc that matches the filter.
+     * @param {CarcFindUniqueArgs} args - Arguments to find a Carc
+     * @example
+     * // Get one Carc
+     * const carc = await prisma.carc.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CarcFindUniqueArgs>(args: SelectSubset<T, CarcFindUniqueArgs<ExtArgs>>): Prisma__CarcClient<$Result.GetResult<Prisma.$CarcPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Carc that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CarcFindUniqueOrThrowArgs} args - Arguments to find a Carc
+     * @example
+     * // Get one Carc
+     * const carc = await prisma.carc.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CarcFindUniqueOrThrowArgs>(args: SelectSubset<T, CarcFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CarcClient<$Result.GetResult<Prisma.$CarcPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Carc that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CarcFindFirstArgs} args - Arguments to find a Carc
+     * @example
+     * // Get one Carc
+     * const carc = await prisma.carc.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CarcFindFirstArgs>(args?: SelectSubset<T, CarcFindFirstArgs<ExtArgs>>): Prisma__CarcClient<$Result.GetResult<Prisma.$CarcPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Carc that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CarcFindFirstOrThrowArgs} args - Arguments to find a Carc
+     * @example
+     * // Get one Carc
+     * const carc = await prisma.carc.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CarcFindFirstOrThrowArgs>(args?: SelectSubset<T, CarcFindFirstOrThrowArgs<ExtArgs>>): Prisma__CarcClient<$Result.GetResult<Prisma.$CarcPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Carcs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CarcFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Carcs
+     * const carcs = await prisma.carc.findMany()
+     * 
+     * // Get first 10 Carcs
+     * const carcs = await prisma.carc.findMany({ take: 10 })
+     * 
+     * // Only select the `code`
+     * const carcWithCodeOnly = await prisma.carc.findMany({ select: { code: true } })
+     * 
+     */
+    findMany<T extends CarcFindManyArgs>(args?: SelectSubset<T, CarcFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CarcPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Carc.
+     * @param {CarcCreateArgs} args - Arguments to create a Carc.
+     * @example
+     * // Create one Carc
+     * const Carc = await prisma.carc.create({
+     *   data: {
+     *     // ... data to create a Carc
+     *   }
+     * })
+     * 
+     */
+    create<T extends CarcCreateArgs>(args: SelectSubset<T, CarcCreateArgs<ExtArgs>>): Prisma__CarcClient<$Result.GetResult<Prisma.$CarcPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Carcs.
+     * @param {CarcCreateManyArgs} args - Arguments to create many Carcs.
+     * @example
+     * // Create many Carcs
+     * const carc = await prisma.carc.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CarcCreateManyArgs>(args?: SelectSubset<T, CarcCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Carc.
+     * @param {CarcDeleteArgs} args - Arguments to delete one Carc.
+     * @example
+     * // Delete one Carc
+     * const Carc = await prisma.carc.delete({
+     *   where: {
+     *     // ... filter to delete one Carc
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CarcDeleteArgs>(args: SelectSubset<T, CarcDeleteArgs<ExtArgs>>): Prisma__CarcClient<$Result.GetResult<Prisma.$CarcPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Carc.
+     * @param {CarcUpdateArgs} args - Arguments to update one Carc.
+     * @example
+     * // Update one Carc
+     * const carc = await prisma.carc.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CarcUpdateArgs>(args: SelectSubset<T, CarcUpdateArgs<ExtArgs>>): Prisma__CarcClient<$Result.GetResult<Prisma.$CarcPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Carcs.
+     * @param {CarcDeleteManyArgs} args - Arguments to filter Carcs to delete.
+     * @example
+     * // Delete a few Carcs
+     * const { count } = await prisma.carc.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CarcDeleteManyArgs>(args?: SelectSubset<T, CarcDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Carcs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CarcUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Carcs
+     * const carc = await prisma.carc.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CarcUpdateManyArgs>(args: SelectSubset<T, CarcUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Carc.
+     * @param {CarcUpsertArgs} args - Arguments to update or create a Carc.
+     * @example
+     * // Update or create a Carc
+     * const carc = await prisma.carc.upsert({
+     *   create: {
+     *     // ... data to create a Carc
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Carc we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CarcUpsertArgs>(args: SelectSubset<T, CarcUpsertArgs<ExtArgs>>): Prisma__CarcClient<$Result.GetResult<Prisma.$CarcPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Carcs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CarcCountArgs} args - Arguments to filter Carcs to count.
+     * @example
+     * // Count the number of Carcs
+     * const count = await prisma.carc.count({
+     *   where: {
+     *     // ... the filter for the Carcs we want to count
+     *   }
+     * })
+    **/
+    count<T extends CarcCountArgs>(
+      args?: Subset<T, CarcCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CarcCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Carc.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CarcAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CarcAggregateArgs>(args: Subset<T, CarcAggregateArgs>): Prisma.PrismaPromise<GetCarcAggregateType<T>>
+
+    /**
+     * Group by Carc.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CarcGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CarcGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CarcGroupByArgs['orderBy'] }
+        : { orderBy?: CarcGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CarcGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCarcGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Carc model
+   */
+  readonly fields: CarcFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Carc.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CarcClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Carc model
+   */
+  interface CarcFieldRefs {
+    readonly code: FieldRef<"Carc", 'String'>
+    readonly grp: FieldRef<"Carc", 'String'>
+    readonly desc: FieldRef<"Carc", 'String'>
+    readonly effFrom: FieldRef<"Carc", 'DateTime'>
+    readonly effTo: FieldRef<"Carc", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Carc findUnique
+   */
+  export type CarcFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Carc
+     */
+    select?: CarcSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Carc
+     */
+    omit?: CarcOmit<ExtArgs> | null
+    /**
+     * Filter, which Carc to fetch.
+     */
+    where: CarcWhereUniqueInput
+  }
+
+  /**
+   * Carc findUniqueOrThrow
+   */
+  export type CarcFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Carc
+     */
+    select?: CarcSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Carc
+     */
+    omit?: CarcOmit<ExtArgs> | null
+    /**
+     * Filter, which Carc to fetch.
+     */
+    where: CarcWhereUniqueInput
+  }
+
+  /**
+   * Carc findFirst
+   */
+  export type CarcFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Carc
+     */
+    select?: CarcSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Carc
+     */
+    omit?: CarcOmit<ExtArgs> | null
+    /**
+     * Filter, which Carc to fetch.
+     */
+    where?: CarcWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Carcs to fetch.
+     */
+    orderBy?: CarcOrderByWithRelationInput | CarcOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Carcs.
+     */
+    cursor?: CarcWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Carcs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Carcs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Carcs.
+     */
+    distinct?: CarcScalarFieldEnum | CarcScalarFieldEnum[]
+  }
+
+  /**
+   * Carc findFirstOrThrow
+   */
+  export type CarcFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Carc
+     */
+    select?: CarcSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Carc
+     */
+    omit?: CarcOmit<ExtArgs> | null
+    /**
+     * Filter, which Carc to fetch.
+     */
+    where?: CarcWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Carcs to fetch.
+     */
+    orderBy?: CarcOrderByWithRelationInput | CarcOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Carcs.
+     */
+    cursor?: CarcWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Carcs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Carcs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Carcs.
+     */
+    distinct?: CarcScalarFieldEnum | CarcScalarFieldEnum[]
+  }
+
+  /**
+   * Carc findMany
+   */
+  export type CarcFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Carc
+     */
+    select?: CarcSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Carc
+     */
+    omit?: CarcOmit<ExtArgs> | null
+    /**
+     * Filter, which Carcs to fetch.
+     */
+    where?: CarcWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Carcs to fetch.
+     */
+    orderBy?: CarcOrderByWithRelationInput | CarcOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Carcs.
+     */
+    cursor?: CarcWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Carcs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Carcs.
+     */
+    skip?: number
+    distinct?: CarcScalarFieldEnum | CarcScalarFieldEnum[]
+  }
+
+  /**
+   * Carc create
+   */
+  export type CarcCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Carc
+     */
+    select?: CarcSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Carc
+     */
+    omit?: CarcOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Carc.
+     */
+    data: XOR<CarcCreateInput, CarcUncheckedCreateInput>
+  }
+
+  /**
+   * Carc createMany
+   */
+  export type CarcCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Carcs.
+     */
+    data: CarcCreateManyInput | CarcCreateManyInput[]
+  }
+
+  /**
+   * Carc update
+   */
+  export type CarcUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Carc
+     */
+    select?: CarcSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Carc
+     */
+    omit?: CarcOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Carc.
+     */
+    data: XOR<CarcUpdateInput, CarcUncheckedUpdateInput>
+    /**
+     * Choose, which Carc to update.
+     */
+    where: CarcWhereUniqueInput
+  }
+
+  /**
+   * Carc updateMany
+   */
+  export type CarcUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Carcs.
+     */
+    data: XOR<CarcUpdateManyMutationInput, CarcUncheckedUpdateManyInput>
+    /**
+     * Filter which Carcs to update
+     */
+    where?: CarcWhereInput
+    /**
+     * Limit how many Carcs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Carc upsert
+   */
+  export type CarcUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Carc
+     */
+    select?: CarcSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Carc
+     */
+    omit?: CarcOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Carc to update in case it exists.
+     */
+    where: CarcWhereUniqueInput
+    /**
+     * In case the Carc found by the `where` argument doesn't exist, create a new Carc with this data.
+     */
+    create: XOR<CarcCreateInput, CarcUncheckedCreateInput>
+    /**
+     * In case the Carc was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CarcUpdateInput, CarcUncheckedUpdateInput>
+  }
+
+  /**
+   * Carc delete
+   */
+  export type CarcDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Carc
+     */
+    select?: CarcSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Carc
+     */
+    omit?: CarcOmit<ExtArgs> | null
+    /**
+     * Filter which Carc to delete.
+     */
+    where: CarcWhereUniqueInput
+  }
+
+  /**
+   * Carc deleteMany
+   */
+  export type CarcDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Carcs to delete
+     */
+    where?: CarcWhereInput
+    /**
+     * Limit how many Carcs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Carc without action
+   */
+  export type CarcDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Carc
+     */
+    select?: CarcSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Carc
+     */
+    omit?: CarcOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Rarc
+   */
+
+  export type AggregateRarc = {
+    _count: RarcCountAggregateOutputType | null
+    _min: RarcMinAggregateOutputType | null
+    _max: RarcMaxAggregateOutputType | null
+  }
+
+  export type RarcMinAggregateOutputType = {
+    code: string | null
+    desc: string | null
+    effFrom: Date | null
+    effTo: Date | null
+  }
+
+  export type RarcMaxAggregateOutputType = {
+    code: string | null
+    desc: string | null
+    effFrom: Date | null
+    effTo: Date | null
+  }
+
+  export type RarcCountAggregateOutputType = {
+    code: number
+    desc: number
+    effFrom: number
+    effTo: number
+    _all: number
+  }
+
+
+  export type RarcMinAggregateInputType = {
+    code?: true
+    desc?: true
+    effFrom?: true
+    effTo?: true
+  }
+
+  export type RarcMaxAggregateInputType = {
+    code?: true
+    desc?: true
+    effFrom?: true
+    effTo?: true
+  }
+
+  export type RarcCountAggregateInputType = {
+    code?: true
+    desc?: true
+    effFrom?: true
+    effTo?: true
+    _all?: true
+  }
+
+  export type RarcAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Rarc to aggregate.
+     */
+    where?: RarcWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Rarcs to fetch.
+     */
+    orderBy?: RarcOrderByWithRelationInput | RarcOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RarcWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Rarcs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Rarcs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Rarcs
+    **/
+    _count?: true | RarcCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RarcMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RarcMaxAggregateInputType
+  }
+
+  export type GetRarcAggregateType<T extends RarcAggregateArgs> = {
+        [P in keyof T & keyof AggregateRarc]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRarc[P]>
+      : GetScalarType<T[P], AggregateRarc[P]>
+  }
+
+
+
+
+  export type RarcGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RarcWhereInput
+    orderBy?: RarcOrderByWithAggregationInput | RarcOrderByWithAggregationInput[]
+    by: RarcScalarFieldEnum[] | RarcScalarFieldEnum
+    having?: RarcScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RarcCountAggregateInputType | true
+    _min?: RarcMinAggregateInputType
+    _max?: RarcMaxAggregateInputType
+  }
+
+  export type RarcGroupByOutputType = {
+    code: string
+    desc: string | null
+    effFrom: Date | null
+    effTo: Date | null
+    _count: RarcCountAggregateOutputType | null
+    _min: RarcMinAggregateOutputType | null
+    _max: RarcMaxAggregateOutputType | null
+  }
+
+  type GetRarcGroupByPayload<T extends RarcGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RarcGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RarcGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RarcGroupByOutputType[P]>
+            : GetScalarType<T[P], RarcGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RarcSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    code?: boolean
+    desc?: boolean
+    effFrom?: boolean
+    effTo?: boolean
+  }, ExtArgs["result"]["rarc"]>
+
+
+
+  export type RarcSelectScalar = {
+    code?: boolean
+    desc?: boolean
+    effFrom?: boolean
+    effTo?: boolean
+  }
+
+  export type RarcOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"code" | "desc" | "effFrom" | "effTo", ExtArgs["result"]["rarc"]>
+
+  export type $RarcPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Rarc"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      code: string
+      desc: string | null
+      effFrom: Date | null
+      effTo: Date | null
+    }, ExtArgs["result"]["rarc"]>
+    composites: {}
+  }
+
+  type RarcGetPayload<S extends boolean | null | undefined | RarcDefaultArgs> = $Result.GetResult<Prisma.$RarcPayload, S>
+
+  type RarcCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RarcFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RarcCountAggregateInputType | true
+    }
+
+  export interface RarcDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Rarc'], meta: { name: 'Rarc' } }
+    /**
+     * Find zero or one Rarc that matches the filter.
+     * @param {RarcFindUniqueArgs} args - Arguments to find a Rarc
+     * @example
+     * // Get one Rarc
+     * const rarc = await prisma.rarc.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RarcFindUniqueArgs>(args: SelectSubset<T, RarcFindUniqueArgs<ExtArgs>>): Prisma__RarcClient<$Result.GetResult<Prisma.$RarcPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Rarc that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RarcFindUniqueOrThrowArgs} args - Arguments to find a Rarc
+     * @example
+     * // Get one Rarc
+     * const rarc = await prisma.rarc.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RarcFindUniqueOrThrowArgs>(args: SelectSubset<T, RarcFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RarcClient<$Result.GetResult<Prisma.$RarcPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Rarc that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RarcFindFirstArgs} args - Arguments to find a Rarc
+     * @example
+     * // Get one Rarc
+     * const rarc = await prisma.rarc.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RarcFindFirstArgs>(args?: SelectSubset<T, RarcFindFirstArgs<ExtArgs>>): Prisma__RarcClient<$Result.GetResult<Prisma.$RarcPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Rarc that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RarcFindFirstOrThrowArgs} args - Arguments to find a Rarc
+     * @example
+     * // Get one Rarc
+     * const rarc = await prisma.rarc.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RarcFindFirstOrThrowArgs>(args?: SelectSubset<T, RarcFindFirstOrThrowArgs<ExtArgs>>): Prisma__RarcClient<$Result.GetResult<Prisma.$RarcPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Rarcs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RarcFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Rarcs
+     * const rarcs = await prisma.rarc.findMany()
+     * 
+     * // Get first 10 Rarcs
+     * const rarcs = await prisma.rarc.findMany({ take: 10 })
+     * 
+     * // Only select the `code`
+     * const rarcWithCodeOnly = await prisma.rarc.findMany({ select: { code: true } })
+     * 
+     */
+    findMany<T extends RarcFindManyArgs>(args?: SelectSubset<T, RarcFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RarcPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Rarc.
+     * @param {RarcCreateArgs} args - Arguments to create a Rarc.
+     * @example
+     * // Create one Rarc
+     * const Rarc = await prisma.rarc.create({
+     *   data: {
+     *     // ... data to create a Rarc
+     *   }
+     * })
+     * 
+     */
+    create<T extends RarcCreateArgs>(args: SelectSubset<T, RarcCreateArgs<ExtArgs>>): Prisma__RarcClient<$Result.GetResult<Prisma.$RarcPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Rarcs.
+     * @param {RarcCreateManyArgs} args - Arguments to create many Rarcs.
+     * @example
+     * // Create many Rarcs
+     * const rarc = await prisma.rarc.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RarcCreateManyArgs>(args?: SelectSubset<T, RarcCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Rarc.
+     * @param {RarcDeleteArgs} args - Arguments to delete one Rarc.
+     * @example
+     * // Delete one Rarc
+     * const Rarc = await prisma.rarc.delete({
+     *   where: {
+     *     // ... filter to delete one Rarc
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RarcDeleteArgs>(args: SelectSubset<T, RarcDeleteArgs<ExtArgs>>): Prisma__RarcClient<$Result.GetResult<Prisma.$RarcPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Rarc.
+     * @param {RarcUpdateArgs} args - Arguments to update one Rarc.
+     * @example
+     * // Update one Rarc
+     * const rarc = await prisma.rarc.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RarcUpdateArgs>(args: SelectSubset<T, RarcUpdateArgs<ExtArgs>>): Prisma__RarcClient<$Result.GetResult<Prisma.$RarcPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Rarcs.
+     * @param {RarcDeleteManyArgs} args - Arguments to filter Rarcs to delete.
+     * @example
+     * // Delete a few Rarcs
+     * const { count } = await prisma.rarc.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RarcDeleteManyArgs>(args?: SelectSubset<T, RarcDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Rarcs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RarcUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Rarcs
+     * const rarc = await prisma.rarc.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RarcUpdateManyArgs>(args: SelectSubset<T, RarcUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Rarc.
+     * @param {RarcUpsertArgs} args - Arguments to update or create a Rarc.
+     * @example
+     * // Update or create a Rarc
+     * const rarc = await prisma.rarc.upsert({
+     *   create: {
+     *     // ... data to create a Rarc
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Rarc we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RarcUpsertArgs>(args: SelectSubset<T, RarcUpsertArgs<ExtArgs>>): Prisma__RarcClient<$Result.GetResult<Prisma.$RarcPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Rarcs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RarcCountArgs} args - Arguments to filter Rarcs to count.
+     * @example
+     * // Count the number of Rarcs
+     * const count = await prisma.rarc.count({
+     *   where: {
+     *     // ... the filter for the Rarcs we want to count
+     *   }
+     * })
+    **/
+    count<T extends RarcCountArgs>(
+      args?: Subset<T, RarcCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RarcCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Rarc.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RarcAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RarcAggregateArgs>(args: Subset<T, RarcAggregateArgs>): Prisma.PrismaPromise<GetRarcAggregateType<T>>
+
+    /**
+     * Group by Rarc.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RarcGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RarcGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RarcGroupByArgs['orderBy'] }
+        : { orderBy?: RarcGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RarcGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRarcGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Rarc model
+   */
+  readonly fields: RarcFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Rarc.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RarcClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Rarc model
+   */
+  interface RarcFieldRefs {
+    readonly code: FieldRef<"Rarc", 'String'>
+    readonly desc: FieldRef<"Rarc", 'String'>
+    readonly effFrom: FieldRef<"Rarc", 'DateTime'>
+    readonly effTo: FieldRef<"Rarc", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Rarc findUnique
+   */
+  export type RarcFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rarc
+     */
+    select?: RarcSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rarc
+     */
+    omit?: RarcOmit<ExtArgs> | null
+    /**
+     * Filter, which Rarc to fetch.
+     */
+    where: RarcWhereUniqueInput
+  }
+
+  /**
+   * Rarc findUniqueOrThrow
+   */
+  export type RarcFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rarc
+     */
+    select?: RarcSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rarc
+     */
+    omit?: RarcOmit<ExtArgs> | null
+    /**
+     * Filter, which Rarc to fetch.
+     */
+    where: RarcWhereUniqueInput
+  }
+
+  /**
+   * Rarc findFirst
+   */
+  export type RarcFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rarc
+     */
+    select?: RarcSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rarc
+     */
+    omit?: RarcOmit<ExtArgs> | null
+    /**
+     * Filter, which Rarc to fetch.
+     */
+    where?: RarcWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Rarcs to fetch.
+     */
+    orderBy?: RarcOrderByWithRelationInput | RarcOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Rarcs.
+     */
+    cursor?: RarcWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Rarcs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Rarcs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Rarcs.
+     */
+    distinct?: RarcScalarFieldEnum | RarcScalarFieldEnum[]
+  }
+
+  /**
+   * Rarc findFirstOrThrow
+   */
+  export type RarcFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rarc
+     */
+    select?: RarcSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rarc
+     */
+    omit?: RarcOmit<ExtArgs> | null
+    /**
+     * Filter, which Rarc to fetch.
+     */
+    where?: RarcWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Rarcs to fetch.
+     */
+    orderBy?: RarcOrderByWithRelationInput | RarcOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Rarcs.
+     */
+    cursor?: RarcWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Rarcs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Rarcs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Rarcs.
+     */
+    distinct?: RarcScalarFieldEnum | RarcScalarFieldEnum[]
+  }
+
+  /**
+   * Rarc findMany
+   */
+  export type RarcFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rarc
+     */
+    select?: RarcSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rarc
+     */
+    omit?: RarcOmit<ExtArgs> | null
+    /**
+     * Filter, which Rarcs to fetch.
+     */
+    where?: RarcWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Rarcs to fetch.
+     */
+    orderBy?: RarcOrderByWithRelationInput | RarcOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Rarcs.
+     */
+    cursor?: RarcWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Rarcs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Rarcs.
+     */
+    skip?: number
+    distinct?: RarcScalarFieldEnum | RarcScalarFieldEnum[]
+  }
+
+  /**
+   * Rarc create
+   */
+  export type RarcCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rarc
+     */
+    select?: RarcSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rarc
+     */
+    omit?: RarcOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Rarc.
+     */
+    data: XOR<RarcCreateInput, RarcUncheckedCreateInput>
+  }
+
+  /**
+   * Rarc createMany
+   */
+  export type RarcCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Rarcs.
+     */
+    data: RarcCreateManyInput | RarcCreateManyInput[]
+  }
+
+  /**
+   * Rarc update
+   */
+  export type RarcUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rarc
+     */
+    select?: RarcSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rarc
+     */
+    omit?: RarcOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Rarc.
+     */
+    data: XOR<RarcUpdateInput, RarcUncheckedUpdateInput>
+    /**
+     * Choose, which Rarc to update.
+     */
+    where: RarcWhereUniqueInput
+  }
+
+  /**
+   * Rarc updateMany
+   */
+  export type RarcUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Rarcs.
+     */
+    data: XOR<RarcUpdateManyMutationInput, RarcUncheckedUpdateManyInput>
+    /**
+     * Filter which Rarcs to update
+     */
+    where?: RarcWhereInput
+    /**
+     * Limit how many Rarcs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Rarc upsert
+   */
+  export type RarcUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rarc
+     */
+    select?: RarcSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rarc
+     */
+    omit?: RarcOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Rarc to update in case it exists.
+     */
+    where: RarcWhereUniqueInput
+    /**
+     * In case the Rarc found by the `where` argument doesn't exist, create a new Rarc with this data.
+     */
+    create: XOR<RarcCreateInput, RarcUncheckedCreateInput>
+    /**
+     * In case the Rarc was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RarcUpdateInput, RarcUncheckedUpdateInput>
+  }
+
+  /**
+   * Rarc delete
+   */
+  export type RarcDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rarc
+     */
+    select?: RarcSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rarc
+     */
+    omit?: RarcOmit<ExtArgs> | null
+    /**
+     * Filter which Rarc to delete.
+     */
+    where: RarcWhereUniqueInput
+  }
+
+  /**
+   * Rarc deleteMany
+   */
+  export type RarcDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Rarcs to delete
+     */
+    where?: RarcWhereInput
+    /**
+     * Limit how many Rarcs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Rarc without action
+   */
+  export type RarcDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rarc
+     */
+    select?: RarcSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rarc
+     */
+    omit?: RarcOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model NuccTaxonomy
+   */
+
+  export type AggregateNuccTaxonomy = {
+    _count: NuccTaxonomyCountAggregateOutputType | null
+    _min: NuccTaxonomyMinAggregateOutputType | null
+    _max: NuccTaxonomyMaxAggregateOutputType | null
+  }
+
+  export type NuccTaxonomyMinAggregateOutputType = {
+    code: string | null
+    grouping: string | null
+    classification: string | null
+    specialization: string | null
+    display: string | null
+  }
+
+  export type NuccTaxonomyMaxAggregateOutputType = {
+    code: string | null
+    grouping: string | null
+    classification: string | null
+    specialization: string | null
+    display: string | null
+  }
+
+  export type NuccTaxonomyCountAggregateOutputType = {
+    code: number
+    grouping: number
+    classification: number
+    specialization: number
+    display: number
+    _all: number
+  }
+
+
+  export type NuccTaxonomyMinAggregateInputType = {
+    code?: true
+    grouping?: true
+    classification?: true
+    specialization?: true
+    display?: true
+  }
+
+  export type NuccTaxonomyMaxAggregateInputType = {
+    code?: true
+    grouping?: true
+    classification?: true
+    specialization?: true
+    display?: true
+  }
+
+  export type NuccTaxonomyCountAggregateInputType = {
+    code?: true
+    grouping?: true
+    classification?: true
+    specialization?: true
+    display?: true
+    _all?: true
+  }
+
+  export type NuccTaxonomyAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NuccTaxonomy to aggregate.
+     */
+    where?: NuccTaxonomyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NuccTaxonomies to fetch.
+     */
+    orderBy?: NuccTaxonomyOrderByWithRelationInput | NuccTaxonomyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: NuccTaxonomyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NuccTaxonomies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NuccTaxonomies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned NuccTaxonomies
+    **/
+    _count?: true | NuccTaxonomyCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: NuccTaxonomyMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: NuccTaxonomyMaxAggregateInputType
+  }
+
+  export type GetNuccTaxonomyAggregateType<T extends NuccTaxonomyAggregateArgs> = {
+        [P in keyof T & keyof AggregateNuccTaxonomy]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateNuccTaxonomy[P]>
+      : GetScalarType<T[P], AggregateNuccTaxonomy[P]>
+  }
+
+
+
+
+  export type NuccTaxonomyGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NuccTaxonomyWhereInput
+    orderBy?: NuccTaxonomyOrderByWithAggregationInput | NuccTaxonomyOrderByWithAggregationInput[]
+    by: NuccTaxonomyScalarFieldEnum[] | NuccTaxonomyScalarFieldEnum
+    having?: NuccTaxonomyScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: NuccTaxonomyCountAggregateInputType | true
+    _min?: NuccTaxonomyMinAggregateInputType
+    _max?: NuccTaxonomyMaxAggregateInputType
+  }
+
+  export type NuccTaxonomyGroupByOutputType = {
+    code: string
+    grouping: string | null
+    classification: string | null
+    specialization: string | null
+    display: string | null
+    _count: NuccTaxonomyCountAggregateOutputType | null
+    _min: NuccTaxonomyMinAggregateOutputType | null
+    _max: NuccTaxonomyMaxAggregateOutputType | null
+  }
+
+  type GetNuccTaxonomyGroupByPayload<T extends NuccTaxonomyGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<NuccTaxonomyGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof NuccTaxonomyGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], NuccTaxonomyGroupByOutputType[P]>
+            : GetScalarType<T[P], NuccTaxonomyGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type NuccTaxonomySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    code?: boolean
+    grouping?: boolean
+    classification?: boolean
+    specialization?: boolean
+    display?: boolean
+  }, ExtArgs["result"]["nuccTaxonomy"]>
+
+
+
+  export type NuccTaxonomySelectScalar = {
+    code?: boolean
+    grouping?: boolean
+    classification?: boolean
+    specialization?: boolean
+    display?: boolean
+  }
+
+  export type NuccTaxonomyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"code" | "grouping" | "classification" | "specialization" | "display", ExtArgs["result"]["nuccTaxonomy"]>
+
+  export type $NuccTaxonomyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "NuccTaxonomy"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      code: string
+      grouping: string | null
+      classification: string | null
+      specialization: string | null
+      display: string | null
+    }, ExtArgs["result"]["nuccTaxonomy"]>
+    composites: {}
+  }
+
+  type NuccTaxonomyGetPayload<S extends boolean | null | undefined | NuccTaxonomyDefaultArgs> = $Result.GetResult<Prisma.$NuccTaxonomyPayload, S>
+
+  type NuccTaxonomyCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<NuccTaxonomyFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: NuccTaxonomyCountAggregateInputType | true
+    }
+
+  export interface NuccTaxonomyDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['NuccTaxonomy'], meta: { name: 'NuccTaxonomy' } }
+    /**
+     * Find zero or one NuccTaxonomy that matches the filter.
+     * @param {NuccTaxonomyFindUniqueArgs} args - Arguments to find a NuccTaxonomy
+     * @example
+     * // Get one NuccTaxonomy
+     * const nuccTaxonomy = await prisma.nuccTaxonomy.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends NuccTaxonomyFindUniqueArgs>(args: SelectSubset<T, NuccTaxonomyFindUniqueArgs<ExtArgs>>): Prisma__NuccTaxonomyClient<$Result.GetResult<Prisma.$NuccTaxonomyPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one NuccTaxonomy that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {NuccTaxonomyFindUniqueOrThrowArgs} args - Arguments to find a NuccTaxonomy
+     * @example
+     * // Get one NuccTaxonomy
+     * const nuccTaxonomy = await prisma.nuccTaxonomy.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends NuccTaxonomyFindUniqueOrThrowArgs>(args: SelectSubset<T, NuccTaxonomyFindUniqueOrThrowArgs<ExtArgs>>): Prisma__NuccTaxonomyClient<$Result.GetResult<Prisma.$NuccTaxonomyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first NuccTaxonomy that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NuccTaxonomyFindFirstArgs} args - Arguments to find a NuccTaxonomy
+     * @example
+     * // Get one NuccTaxonomy
+     * const nuccTaxonomy = await prisma.nuccTaxonomy.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends NuccTaxonomyFindFirstArgs>(args?: SelectSubset<T, NuccTaxonomyFindFirstArgs<ExtArgs>>): Prisma__NuccTaxonomyClient<$Result.GetResult<Prisma.$NuccTaxonomyPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first NuccTaxonomy that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NuccTaxonomyFindFirstOrThrowArgs} args - Arguments to find a NuccTaxonomy
+     * @example
+     * // Get one NuccTaxonomy
+     * const nuccTaxonomy = await prisma.nuccTaxonomy.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends NuccTaxonomyFindFirstOrThrowArgs>(args?: SelectSubset<T, NuccTaxonomyFindFirstOrThrowArgs<ExtArgs>>): Prisma__NuccTaxonomyClient<$Result.GetResult<Prisma.$NuccTaxonomyPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more NuccTaxonomies that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NuccTaxonomyFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all NuccTaxonomies
+     * const nuccTaxonomies = await prisma.nuccTaxonomy.findMany()
+     * 
+     * // Get first 10 NuccTaxonomies
+     * const nuccTaxonomies = await prisma.nuccTaxonomy.findMany({ take: 10 })
+     * 
+     * // Only select the `code`
+     * const nuccTaxonomyWithCodeOnly = await prisma.nuccTaxonomy.findMany({ select: { code: true } })
+     * 
+     */
+    findMany<T extends NuccTaxonomyFindManyArgs>(args?: SelectSubset<T, NuccTaxonomyFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NuccTaxonomyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a NuccTaxonomy.
+     * @param {NuccTaxonomyCreateArgs} args - Arguments to create a NuccTaxonomy.
+     * @example
+     * // Create one NuccTaxonomy
+     * const NuccTaxonomy = await prisma.nuccTaxonomy.create({
+     *   data: {
+     *     // ... data to create a NuccTaxonomy
+     *   }
+     * })
+     * 
+     */
+    create<T extends NuccTaxonomyCreateArgs>(args: SelectSubset<T, NuccTaxonomyCreateArgs<ExtArgs>>): Prisma__NuccTaxonomyClient<$Result.GetResult<Prisma.$NuccTaxonomyPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many NuccTaxonomies.
+     * @param {NuccTaxonomyCreateManyArgs} args - Arguments to create many NuccTaxonomies.
+     * @example
+     * // Create many NuccTaxonomies
+     * const nuccTaxonomy = await prisma.nuccTaxonomy.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends NuccTaxonomyCreateManyArgs>(args?: SelectSubset<T, NuccTaxonomyCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a NuccTaxonomy.
+     * @param {NuccTaxonomyDeleteArgs} args - Arguments to delete one NuccTaxonomy.
+     * @example
+     * // Delete one NuccTaxonomy
+     * const NuccTaxonomy = await prisma.nuccTaxonomy.delete({
+     *   where: {
+     *     // ... filter to delete one NuccTaxonomy
+     *   }
+     * })
+     * 
+     */
+    delete<T extends NuccTaxonomyDeleteArgs>(args: SelectSubset<T, NuccTaxonomyDeleteArgs<ExtArgs>>): Prisma__NuccTaxonomyClient<$Result.GetResult<Prisma.$NuccTaxonomyPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one NuccTaxonomy.
+     * @param {NuccTaxonomyUpdateArgs} args - Arguments to update one NuccTaxonomy.
+     * @example
+     * // Update one NuccTaxonomy
+     * const nuccTaxonomy = await prisma.nuccTaxonomy.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends NuccTaxonomyUpdateArgs>(args: SelectSubset<T, NuccTaxonomyUpdateArgs<ExtArgs>>): Prisma__NuccTaxonomyClient<$Result.GetResult<Prisma.$NuccTaxonomyPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more NuccTaxonomies.
+     * @param {NuccTaxonomyDeleteManyArgs} args - Arguments to filter NuccTaxonomies to delete.
+     * @example
+     * // Delete a few NuccTaxonomies
+     * const { count } = await prisma.nuccTaxonomy.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends NuccTaxonomyDeleteManyArgs>(args?: SelectSubset<T, NuccTaxonomyDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more NuccTaxonomies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NuccTaxonomyUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many NuccTaxonomies
+     * const nuccTaxonomy = await prisma.nuccTaxonomy.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends NuccTaxonomyUpdateManyArgs>(args: SelectSubset<T, NuccTaxonomyUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one NuccTaxonomy.
+     * @param {NuccTaxonomyUpsertArgs} args - Arguments to update or create a NuccTaxonomy.
+     * @example
+     * // Update or create a NuccTaxonomy
+     * const nuccTaxonomy = await prisma.nuccTaxonomy.upsert({
+     *   create: {
+     *     // ... data to create a NuccTaxonomy
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the NuccTaxonomy we want to update
+     *   }
+     * })
+     */
+    upsert<T extends NuccTaxonomyUpsertArgs>(args: SelectSubset<T, NuccTaxonomyUpsertArgs<ExtArgs>>): Prisma__NuccTaxonomyClient<$Result.GetResult<Prisma.$NuccTaxonomyPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of NuccTaxonomies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NuccTaxonomyCountArgs} args - Arguments to filter NuccTaxonomies to count.
+     * @example
+     * // Count the number of NuccTaxonomies
+     * const count = await prisma.nuccTaxonomy.count({
+     *   where: {
+     *     // ... the filter for the NuccTaxonomies we want to count
+     *   }
+     * })
+    **/
+    count<T extends NuccTaxonomyCountArgs>(
+      args?: Subset<T, NuccTaxonomyCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], NuccTaxonomyCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a NuccTaxonomy.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NuccTaxonomyAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends NuccTaxonomyAggregateArgs>(args: Subset<T, NuccTaxonomyAggregateArgs>): Prisma.PrismaPromise<GetNuccTaxonomyAggregateType<T>>
+
+    /**
+     * Group by NuccTaxonomy.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NuccTaxonomyGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends NuccTaxonomyGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: NuccTaxonomyGroupByArgs['orderBy'] }
+        : { orderBy?: NuccTaxonomyGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, NuccTaxonomyGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNuccTaxonomyGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the NuccTaxonomy model
+   */
+  readonly fields: NuccTaxonomyFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for NuccTaxonomy.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__NuccTaxonomyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the NuccTaxonomy model
+   */
+  interface NuccTaxonomyFieldRefs {
+    readonly code: FieldRef<"NuccTaxonomy", 'String'>
+    readonly grouping: FieldRef<"NuccTaxonomy", 'String'>
+    readonly classification: FieldRef<"NuccTaxonomy", 'String'>
+    readonly specialization: FieldRef<"NuccTaxonomy", 'String'>
+    readonly display: FieldRef<"NuccTaxonomy", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * NuccTaxonomy findUnique
+   */
+  export type NuccTaxonomyFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NuccTaxonomy
+     */
+    select?: NuccTaxonomySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NuccTaxonomy
+     */
+    omit?: NuccTaxonomyOmit<ExtArgs> | null
+    /**
+     * Filter, which NuccTaxonomy to fetch.
+     */
+    where: NuccTaxonomyWhereUniqueInput
+  }
+
+  /**
+   * NuccTaxonomy findUniqueOrThrow
+   */
+  export type NuccTaxonomyFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NuccTaxonomy
+     */
+    select?: NuccTaxonomySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NuccTaxonomy
+     */
+    omit?: NuccTaxonomyOmit<ExtArgs> | null
+    /**
+     * Filter, which NuccTaxonomy to fetch.
+     */
+    where: NuccTaxonomyWhereUniqueInput
+  }
+
+  /**
+   * NuccTaxonomy findFirst
+   */
+  export type NuccTaxonomyFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NuccTaxonomy
+     */
+    select?: NuccTaxonomySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NuccTaxonomy
+     */
+    omit?: NuccTaxonomyOmit<ExtArgs> | null
+    /**
+     * Filter, which NuccTaxonomy to fetch.
+     */
+    where?: NuccTaxonomyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NuccTaxonomies to fetch.
+     */
+    orderBy?: NuccTaxonomyOrderByWithRelationInput | NuccTaxonomyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NuccTaxonomies.
+     */
+    cursor?: NuccTaxonomyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NuccTaxonomies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NuccTaxonomies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NuccTaxonomies.
+     */
+    distinct?: NuccTaxonomyScalarFieldEnum | NuccTaxonomyScalarFieldEnum[]
+  }
+
+  /**
+   * NuccTaxonomy findFirstOrThrow
+   */
+  export type NuccTaxonomyFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NuccTaxonomy
+     */
+    select?: NuccTaxonomySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NuccTaxonomy
+     */
+    omit?: NuccTaxonomyOmit<ExtArgs> | null
+    /**
+     * Filter, which NuccTaxonomy to fetch.
+     */
+    where?: NuccTaxonomyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NuccTaxonomies to fetch.
+     */
+    orderBy?: NuccTaxonomyOrderByWithRelationInput | NuccTaxonomyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NuccTaxonomies.
+     */
+    cursor?: NuccTaxonomyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NuccTaxonomies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NuccTaxonomies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NuccTaxonomies.
+     */
+    distinct?: NuccTaxonomyScalarFieldEnum | NuccTaxonomyScalarFieldEnum[]
+  }
+
+  /**
+   * NuccTaxonomy findMany
+   */
+  export type NuccTaxonomyFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NuccTaxonomy
+     */
+    select?: NuccTaxonomySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NuccTaxonomy
+     */
+    omit?: NuccTaxonomyOmit<ExtArgs> | null
+    /**
+     * Filter, which NuccTaxonomies to fetch.
+     */
+    where?: NuccTaxonomyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NuccTaxonomies to fetch.
+     */
+    orderBy?: NuccTaxonomyOrderByWithRelationInput | NuccTaxonomyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing NuccTaxonomies.
+     */
+    cursor?: NuccTaxonomyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NuccTaxonomies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NuccTaxonomies.
+     */
+    skip?: number
+    distinct?: NuccTaxonomyScalarFieldEnum | NuccTaxonomyScalarFieldEnum[]
+  }
+
+  /**
+   * NuccTaxonomy create
+   */
+  export type NuccTaxonomyCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NuccTaxonomy
+     */
+    select?: NuccTaxonomySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NuccTaxonomy
+     */
+    omit?: NuccTaxonomyOmit<ExtArgs> | null
+    /**
+     * The data needed to create a NuccTaxonomy.
+     */
+    data: XOR<NuccTaxonomyCreateInput, NuccTaxonomyUncheckedCreateInput>
+  }
+
+  /**
+   * NuccTaxonomy createMany
+   */
+  export type NuccTaxonomyCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many NuccTaxonomies.
+     */
+    data: NuccTaxonomyCreateManyInput | NuccTaxonomyCreateManyInput[]
+  }
+
+  /**
+   * NuccTaxonomy update
+   */
+  export type NuccTaxonomyUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NuccTaxonomy
+     */
+    select?: NuccTaxonomySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NuccTaxonomy
+     */
+    omit?: NuccTaxonomyOmit<ExtArgs> | null
+    /**
+     * The data needed to update a NuccTaxonomy.
+     */
+    data: XOR<NuccTaxonomyUpdateInput, NuccTaxonomyUncheckedUpdateInput>
+    /**
+     * Choose, which NuccTaxonomy to update.
+     */
+    where: NuccTaxonomyWhereUniqueInput
+  }
+
+  /**
+   * NuccTaxonomy updateMany
+   */
+  export type NuccTaxonomyUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update NuccTaxonomies.
+     */
+    data: XOR<NuccTaxonomyUpdateManyMutationInput, NuccTaxonomyUncheckedUpdateManyInput>
+    /**
+     * Filter which NuccTaxonomies to update
+     */
+    where?: NuccTaxonomyWhereInput
+    /**
+     * Limit how many NuccTaxonomies to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * NuccTaxonomy upsert
+   */
+  export type NuccTaxonomyUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NuccTaxonomy
+     */
+    select?: NuccTaxonomySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NuccTaxonomy
+     */
+    omit?: NuccTaxonomyOmit<ExtArgs> | null
+    /**
+     * The filter to search for the NuccTaxonomy to update in case it exists.
+     */
+    where: NuccTaxonomyWhereUniqueInput
+    /**
+     * In case the NuccTaxonomy found by the `where` argument doesn't exist, create a new NuccTaxonomy with this data.
+     */
+    create: XOR<NuccTaxonomyCreateInput, NuccTaxonomyUncheckedCreateInput>
+    /**
+     * In case the NuccTaxonomy was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<NuccTaxonomyUpdateInput, NuccTaxonomyUncheckedUpdateInput>
+  }
+
+  /**
+   * NuccTaxonomy delete
+   */
+  export type NuccTaxonomyDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NuccTaxonomy
+     */
+    select?: NuccTaxonomySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NuccTaxonomy
+     */
+    omit?: NuccTaxonomyOmit<ExtArgs> | null
+    /**
+     * Filter which NuccTaxonomy to delete.
+     */
+    where: NuccTaxonomyWhereUniqueInput
+  }
+
+  /**
+   * NuccTaxonomy deleteMany
+   */
+  export type NuccTaxonomyDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NuccTaxonomies to delete
+     */
+    where?: NuccTaxonomyWhereInput
+    /**
+     * Limit how many NuccTaxonomies to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * NuccTaxonomy without action
+   */
+  export type NuccTaxonomyDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NuccTaxonomy
+     */
+    select?: NuccTaxonomySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NuccTaxonomy
+     */
+    omit?: NuccTaxonomyOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model NpiProvider
+   */
+
+  export type AggregateNpiProvider = {
+    _count: NpiProviderCountAggregateOutputType | null
+    _min: NpiProviderMinAggregateOutputType | null
+    _max: NpiProviderMaxAggregateOutputType | null
+  }
+
+  export type NpiProviderMinAggregateOutputType = {
+    npi: string | null
+    entityType: string | null
+    name: string | null
+    orgName: string | null
+    taxonomy: string | null
+    state: string | null
+    postalCode: string | null
+  }
+
+  export type NpiProviderMaxAggregateOutputType = {
+    npi: string | null
+    entityType: string | null
+    name: string | null
+    orgName: string | null
+    taxonomy: string | null
+    state: string | null
+    postalCode: string | null
+  }
+
+  export type NpiProviderCountAggregateOutputType = {
+    npi: number
+    entityType: number
+    name: number
+    orgName: number
+    taxonomy: number
+    state: number
+    postalCode: number
+    _all: number
+  }
+
+
+  export type NpiProviderMinAggregateInputType = {
+    npi?: true
+    entityType?: true
+    name?: true
+    orgName?: true
+    taxonomy?: true
+    state?: true
+    postalCode?: true
+  }
+
+  export type NpiProviderMaxAggregateInputType = {
+    npi?: true
+    entityType?: true
+    name?: true
+    orgName?: true
+    taxonomy?: true
+    state?: true
+    postalCode?: true
+  }
+
+  export type NpiProviderCountAggregateInputType = {
+    npi?: true
+    entityType?: true
+    name?: true
+    orgName?: true
+    taxonomy?: true
+    state?: true
+    postalCode?: true
+    _all?: true
+  }
+
+  export type NpiProviderAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NpiProvider to aggregate.
+     */
+    where?: NpiProviderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NpiProviders to fetch.
+     */
+    orderBy?: NpiProviderOrderByWithRelationInput | NpiProviderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: NpiProviderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NpiProviders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NpiProviders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned NpiProviders
+    **/
+    _count?: true | NpiProviderCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: NpiProviderMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: NpiProviderMaxAggregateInputType
+  }
+
+  export type GetNpiProviderAggregateType<T extends NpiProviderAggregateArgs> = {
+        [P in keyof T & keyof AggregateNpiProvider]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateNpiProvider[P]>
+      : GetScalarType<T[P], AggregateNpiProvider[P]>
+  }
+
+
+
+
+  export type NpiProviderGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NpiProviderWhereInput
+    orderBy?: NpiProviderOrderByWithAggregationInput | NpiProviderOrderByWithAggregationInput[]
+    by: NpiProviderScalarFieldEnum[] | NpiProviderScalarFieldEnum
+    having?: NpiProviderScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: NpiProviderCountAggregateInputType | true
+    _min?: NpiProviderMinAggregateInputType
+    _max?: NpiProviderMaxAggregateInputType
+  }
+
+  export type NpiProviderGroupByOutputType = {
+    npi: string
+    entityType: string | null
+    name: string | null
+    orgName: string | null
+    taxonomy: string | null
+    state: string | null
+    postalCode: string | null
+    _count: NpiProviderCountAggregateOutputType | null
+    _min: NpiProviderMinAggregateOutputType | null
+    _max: NpiProviderMaxAggregateOutputType | null
+  }
+
+  type GetNpiProviderGroupByPayload<T extends NpiProviderGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<NpiProviderGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof NpiProviderGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], NpiProviderGroupByOutputType[P]>
+            : GetScalarType<T[P], NpiProviderGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type NpiProviderSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    npi?: boolean
+    entityType?: boolean
+    name?: boolean
+    orgName?: boolean
+    taxonomy?: boolean
+    state?: boolean
+    postalCode?: boolean
+  }, ExtArgs["result"]["npiProvider"]>
+
+
+
+  export type NpiProviderSelectScalar = {
+    npi?: boolean
+    entityType?: boolean
+    name?: boolean
+    orgName?: boolean
+    taxonomy?: boolean
+    state?: boolean
+    postalCode?: boolean
+  }
+
+  export type NpiProviderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"npi" | "entityType" | "name" | "orgName" | "taxonomy" | "state" | "postalCode", ExtArgs["result"]["npiProvider"]>
+
+  export type $NpiProviderPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "NpiProvider"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      npi: string
+      entityType: string | null
+      name: string | null
+      orgName: string | null
+      taxonomy: string | null
+      state: string | null
+      postalCode: string | null
+    }, ExtArgs["result"]["npiProvider"]>
+    composites: {}
+  }
+
+  type NpiProviderGetPayload<S extends boolean | null | undefined | NpiProviderDefaultArgs> = $Result.GetResult<Prisma.$NpiProviderPayload, S>
+
+  type NpiProviderCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<NpiProviderFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: NpiProviderCountAggregateInputType | true
+    }
+
+  export interface NpiProviderDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['NpiProvider'], meta: { name: 'NpiProvider' } }
+    /**
+     * Find zero or one NpiProvider that matches the filter.
+     * @param {NpiProviderFindUniqueArgs} args - Arguments to find a NpiProvider
+     * @example
+     * // Get one NpiProvider
+     * const npiProvider = await prisma.npiProvider.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends NpiProviderFindUniqueArgs>(args: SelectSubset<T, NpiProviderFindUniqueArgs<ExtArgs>>): Prisma__NpiProviderClient<$Result.GetResult<Prisma.$NpiProviderPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one NpiProvider that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {NpiProviderFindUniqueOrThrowArgs} args - Arguments to find a NpiProvider
+     * @example
+     * // Get one NpiProvider
+     * const npiProvider = await prisma.npiProvider.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends NpiProviderFindUniqueOrThrowArgs>(args: SelectSubset<T, NpiProviderFindUniqueOrThrowArgs<ExtArgs>>): Prisma__NpiProviderClient<$Result.GetResult<Prisma.$NpiProviderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first NpiProvider that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NpiProviderFindFirstArgs} args - Arguments to find a NpiProvider
+     * @example
+     * // Get one NpiProvider
+     * const npiProvider = await prisma.npiProvider.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends NpiProviderFindFirstArgs>(args?: SelectSubset<T, NpiProviderFindFirstArgs<ExtArgs>>): Prisma__NpiProviderClient<$Result.GetResult<Prisma.$NpiProviderPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first NpiProvider that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NpiProviderFindFirstOrThrowArgs} args - Arguments to find a NpiProvider
+     * @example
+     * // Get one NpiProvider
+     * const npiProvider = await prisma.npiProvider.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends NpiProviderFindFirstOrThrowArgs>(args?: SelectSubset<T, NpiProviderFindFirstOrThrowArgs<ExtArgs>>): Prisma__NpiProviderClient<$Result.GetResult<Prisma.$NpiProviderPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more NpiProviders that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NpiProviderFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all NpiProviders
+     * const npiProviders = await prisma.npiProvider.findMany()
+     * 
+     * // Get first 10 NpiProviders
+     * const npiProviders = await prisma.npiProvider.findMany({ take: 10 })
+     * 
+     * // Only select the `npi`
+     * const npiProviderWithNpiOnly = await prisma.npiProvider.findMany({ select: { npi: true } })
+     * 
+     */
+    findMany<T extends NpiProviderFindManyArgs>(args?: SelectSubset<T, NpiProviderFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NpiProviderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a NpiProvider.
+     * @param {NpiProviderCreateArgs} args - Arguments to create a NpiProvider.
+     * @example
+     * // Create one NpiProvider
+     * const NpiProvider = await prisma.npiProvider.create({
+     *   data: {
+     *     // ... data to create a NpiProvider
+     *   }
+     * })
+     * 
+     */
+    create<T extends NpiProviderCreateArgs>(args: SelectSubset<T, NpiProviderCreateArgs<ExtArgs>>): Prisma__NpiProviderClient<$Result.GetResult<Prisma.$NpiProviderPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many NpiProviders.
+     * @param {NpiProviderCreateManyArgs} args - Arguments to create many NpiProviders.
+     * @example
+     * // Create many NpiProviders
+     * const npiProvider = await prisma.npiProvider.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends NpiProviderCreateManyArgs>(args?: SelectSubset<T, NpiProviderCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a NpiProvider.
+     * @param {NpiProviderDeleteArgs} args - Arguments to delete one NpiProvider.
+     * @example
+     * // Delete one NpiProvider
+     * const NpiProvider = await prisma.npiProvider.delete({
+     *   where: {
+     *     // ... filter to delete one NpiProvider
+     *   }
+     * })
+     * 
+     */
+    delete<T extends NpiProviderDeleteArgs>(args: SelectSubset<T, NpiProviderDeleteArgs<ExtArgs>>): Prisma__NpiProviderClient<$Result.GetResult<Prisma.$NpiProviderPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one NpiProvider.
+     * @param {NpiProviderUpdateArgs} args - Arguments to update one NpiProvider.
+     * @example
+     * // Update one NpiProvider
+     * const npiProvider = await prisma.npiProvider.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends NpiProviderUpdateArgs>(args: SelectSubset<T, NpiProviderUpdateArgs<ExtArgs>>): Prisma__NpiProviderClient<$Result.GetResult<Prisma.$NpiProviderPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more NpiProviders.
+     * @param {NpiProviderDeleteManyArgs} args - Arguments to filter NpiProviders to delete.
+     * @example
+     * // Delete a few NpiProviders
+     * const { count } = await prisma.npiProvider.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends NpiProviderDeleteManyArgs>(args?: SelectSubset<T, NpiProviderDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more NpiProviders.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NpiProviderUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many NpiProviders
+     * const npiProvider = await prisma.npiProvider.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends NpiProviderUpdateManyArgs>(args: SelectSubset<T, NpiProviderUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one NpiProvider.
+     * @param {NpiProviderUpsertArgs} args - Arguments to update or create a NpiProvider.
+     * @example
+     * // Update or create a NpiProvider
+     * const npiProvider = await prisma.npiProvider.upsert({
+     *   create: {
+     *     // ... data to create a NpiProvider
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the NpiProvider we want to update
+     *   }
+     * })
+     */
+    upsert<T extends NpiProviderUpsertArgs>(args: SelectSubset<T, NpiProviderUpsertArgs<ExtArgs>>): Prisma__NpiProviderClient<$Result.GetResult<Prisma.$NpiProviderPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of NpiProviders.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NpiProviderCountArgs} args - Arguments to filter NpiProviders to count.
+     * @example
+     * // Count the number of NpiProviders
+     * const count = await prisma.npiProvider.count({
+     *   where: {
+     *     // ... the filter for the NpiProviders we want to count
+     *   }
+     * })
+    **/
+    count<T extends NpiProviderCountArgs>(
+      args?: Subset<T, NpiProviderCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], NpiProviderCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a NpiProvider.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NpiProviderAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends NpiProviderAggregateArgs>(args: Subset<T, NpiProviderAggregateArgs>): Prisma.PrismaPromise<GetNpiProviderAggregateType<T>>
+
+    /**
+     * Group by NpiProvider.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NpiProviderGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends NpiProviderGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: NpiProviderGroupByArgs['orderBy'] }
+        : { orderBy?: NpiProviderGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, NpiProviderGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNpiProviderGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the NpiProvider model
+   */
+  readonly fields: NpiProviderFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for NpiProvider.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__NpiProviderClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the NpiProvider model
+   */
+  interface NpiProviderFieldRefs {
+    readonly npi: FieldRef<"NpiProvider", 'String'>
+    readonly entityType: FieldRef<"NpiProvider", 'String'>
+    readonly name: FieldRef<"NpiProvider", 'String'>
+    readonly orgName: FieldRef<"NpiProvider", 'String'>
+    readonly taxonomy: FieldRef<"NpiProvider", 'String'>
+    readonly state: FieldRef<"NpiProvider", 'String'>
+    readonly postalCode: FieldRef<"NpiProvider", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * NpiProvider findUnique
+   */
+  export type NpiProviderFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NpiProvider
+     */
+    select?: NpiProviderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NpiProvider
+     */
+    omit?: NpiProviderOmit<ExtArgs> | null
+    /**
+     * Filter, which NpiProvider to fetch.
+     */
+    where: NpiProviderWhereUniqueInput
+  }
+
+  /**
+   * NpiProvider findUniqueOrThrow
+   */
+  export type NpiProviderFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NpiProvider
+     */
+    select?: NpiProviderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NpiProvider
+     */
+    omit?: NpiProviderOmit<ExtArgs> | null
+    /**
+     * Filter, which NpiProvider to fetch.
+     */
+    where: NpiProviderWhereUniqueInput
+  }
+
+  /**
+   * NpiProvider findFirst
+   */
+  export type NpiProviderFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NpiProvider
+     */
+    select?: NpiProviderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NpiProvider
+     */
+    omit?: NpiProviderOmit<ExtArgs> | null
+    /**
+     * Filter, which NpiProvider to fetch.
+     */
+    where?: NpiProviderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NpiProviders to fetch.
+     */
+    orderBy?: NpiProviderOrderByWithRelationInput | NpiProviderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NpiProviders.
+     */
+    cursor?: NpiProviderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NpiProviders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NpiProviders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NpiProviders.
+     */
+    distinct?: NpiProviderScalarFieldEnum | NpiProviderScalarFieldEnum[]
+  }
+
+  /**
+   * NpiProvider findFirstOrThrow
+   */
+  export type NpiProviderFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NpiProvider
+     */
+    select?: NpiProviderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NpiProvider
+     */
+    omit?: NpiProviderOmit<ExtArgs> | null
+    /**
+     * Filter, which NpiProvider to fetch.
+     */
+    where?: NpiProviderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NpiProviders to fetch.
+     */
+    orderBy?: NpiProviderOrderByWithRelationInput | NpiProviderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NpiProviders.
+     */
+    cursor?: NpiProviderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NpiProviders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NpiProviders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NpiProviders.
+     */
+    distinct?: NpiProviderScalarFieldEnum | NpiProviderScalarFieldEnum[]
+  }
+
+  /**
+   * NpiProvider findMany
+   */
+  export type NpiProviderFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NpiProvider
+     */
+    select?: NpiProviderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NpiProvider
+     */
+    omit?: NpiProviderOmit<ExtArgs> | null
+    /**
+     * Filter, which NpiProviders to fetch.
+     */
+    where?: NpiProviderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NpiProviders to fetch.
+     */
+    orderBy?: NpiProviderOrderByWithRelationInput | NpiProviderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing NpiProviders.
+     */
+    cursor?: NpiProviderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NpiProviders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NpiProviders.
+     */
+    skip?: number
+    distinct?: NpiProviderScalarFieldEnum | NpiProviderScalarFieldEnum[]
+  }
+
+  /**
+   * NpiProvider create
+   */
+  export type NpiProviderCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NpiProvider
+     */
+    select?: NpiProviderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NpiProvider
+     */
+    omit?: NpiProviderOmit<ExtArgs> | null
+    /**
+     * The data needed to create a NpiProvider.
+     */
+    data: XOR<NpiProviderCreateInput, NpiProviderUncheckedCreateInput>
+  }
+
+  /**
+   * NpiProvider createMany
+   */
+  export type NpiProviderCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many NpiProviders.
+     */
+    data: NpiProviderCreateManyInput | NpiProviderCreateManyInput[]
+  }
+
+  /**
+   * NpiProvider update
+   */
+  export type NpiProviderUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NpiProvider
+     */
+    select?: NpiProviderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NpiProvider
+     */
+    omit?: NpiProviderOmit<ExtArgs> | null
+    /**
+     * The data needed to update a NpiProvider.
+     */
+    data: XOR<NpiProviderUpdateInput, NpiProviderUncheckedUpdateInput>
+    /**
+     * Choose, which NpiProvider to update.
+     */
+    where: NpiProviderWhereUniqueInput
+  }
+
+  /**
+   * NpiProvider updateMany
+   */
+  export type NpiProviderUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update NpiProviders.
+     */
+    data: XOR<NpiProviderUpdateManyMutationInput, NpiProviderUncheckedUpdateManyInput>
+    /**
+     * Filter which NpiProviders to update
+     */
+    where?: NpiProviderWhereInput
+    /**
+     * Limit how many NpiProviders to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * NpiProvider upsert
+   */
+  export type NpiProviderUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NpiProvider
+     */
+    select?: NpiProviderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NpiProvider
+     */
+    omit?: NpiProviderOmit<ExtArgs> | null
+    /**
+     * The filter to search for the NpiProvider to update in case it exists.
+     */
+    where: NpiProviderWhereUniqueInput
+    /**
+     * In case the NpiProvider found by the `where` argument doesn't exist, create a new NpiProvider with this data.
+     */
+    create: XOR<NpiProviderCreateInput, NpiProviderUncheckedCreateInput>
+    /**
+     * In case the NpiProvider was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<NpiProviderUpdateInput, NpiProviderUncheckedUpdateInput>
+  }
+
+  /**
+   * NpiProvider delete
+   */
+  export type NpiProviderDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NpiProvider
+     */
+    select?: NpiProviderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NpiProvider
+     */
+    omit?: NpiProviderOmit<ExtArgs> | null
+    /**
+     * Filter which NpiProvider to delete.
+     */
+    where: NpiProviderWhereUniqueInput
+  }
+
+  /**
+   * NpiProvider deleteMany
+   */
+  export type NpiProviderDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NpiProviders to delete
+     */
+    where?: NpiProviderWhereInput
+    /**
+     * Limit how many NpiProviders to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * NpiProvider without action
+   */
+  export type NpiProviderDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NpiProvider
+     */
+    select?: NpiProviderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NpiProvider
+     */
+    omit?: NpiProviderOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model EobLine
+   */
+
+  export type AggregateEobLine = {
+    _count: EobLineCountAggregateOutputType | null
+    _avg: EobLineAvgAggregateOutputType | null
+    _sum: EobLineSumAggregateOutputType | null
+    _min: EobLineMinAggregateOutputType | null
+    _max: EobLineMaxAggregateOutputType | null
+  }
+
+  export type EobLineAvgAggregateOutputType = {
+    lineNum: number | null
+    units: number | null
+    chargeAmt: Decimal | null
+    paidAmt: Decimal | null
+  }
+
+  export type EobLineSumAggregateOutputType = {
+    lineNum: number | null
+    units: number | null
+    chargeAmt: Decimal | null
+    paidAmt: Decimal | null
+  }
+
+  export type EobLineMinAggregateOutputType = {
+    id: string | null
+    claimId: string | null
+    lineNum: number | null
+    hcpcs: string | null
+    units: number | null
+    chargeAmt: Decimal | null
+    paidAmt: Decimal | null
+    drg: string | null
+    serviceFrom: Date | null
+    serviceTo: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EobLineMaxAggregateOutputType = {
+    id: string | null
+    claimId: string | null
+    lineNum: number | null
+    hcpcs: string | null
+    units: number | null
+    chargeAmt: Decimal | null
+    paidAmt: Decimal | null
+    drg: string | null
+    serviceFrom: Date | null
+    serviceTo: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EobLineCountAggregateOutputType = {
+    id: number
+    claimId: number
+    lineNum: number
+    hcpcs: number
+    units: number
+    chargeAmt: number
+    paidAmt: number
+    drg: number
+    serviceFrom: number
+    serviceTo: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type EobLineAvgAggregateInputType = {
+    lineNum?: true
+    units?: true
+    chargeAmt?: true
+    paidAmt?: true
+  }
+
+  export type EobLineSumAggregateInputType = {
+    lineNum?: true
+    units?: true
+    chargeAmt?: true
+    paidAmt?: true
+  }
+
+  export type EobLineMinAggregateInputType = {
+    id?: true
+    claimId?: true
+    lineNum?: true
+    hcpcs?: true
+    units?: true
+    chargeAmt?: true
+    paidAmt?: true
+    drg?: true
+    serviceFrom?: true
+    serviceTo?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EobLineMaxAggregateInputType = {
+    id?: true
+    claimId?: true
+    lineNum?: true
+    hcpcs?: true
+    units?: true
+    chargeAmt?: true
+    paidAmt?: true
+    drg?: true
+    serviceFrom?: true
+    serviceTo?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EobLineCountAggregateInputType = {
+    id?: true
+    claimId?: true
+    lineNum?: true
+    hcpcs?: true
+    units?: true
+    chargeAmt?: true
+    paidAmt?: true
+    drg?: true
+    serviceFrom?: true
+    serviceTo?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type EobLineAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EobLine to aggregate.
+     */
+    where?: EobLineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EobLines to fetch.
+     */
+    orderBy?: EobLineOrderByWithRelationInput | EobLineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EobLineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EobLines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EobLines.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned EobLines
+    **/
+    _count?: true | EobLineCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: EobLineAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: EobLineSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EobLineMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EobLineMaxAggregateInputType
+  }
+
+  export type GetEobLineAggregateType<T extends EobLineAggregateArgs> = {
+        [P in keyof T & keyof AggregateEobLine]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEobLine[P]>
+      : GetScalarType<T[P], AggregateEobLine[P]>
+  }
+
+
+
+
+  export type EobLineGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EobLineWhereInput
+    orderBy?: EobLineOrderByWithAggregationInput | EobLineOrderByWithAggregationInput[]
+    by: EobLineScalarFieldEnum[] | EobLineScalarFieldEnum
+    having?: EobLineScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EobLineCountAggregateInputType | true
+    _avg?: EobLineAvgAggregateInputType
+    _sum?: EobLineSumAggregateInputType
+    _min?: EobLineMinAggregateInputType
+    _max?: EobLineMaxAggregateInputType
+  }
+
+  export type EobLineGroupByOutputType = {
+    id: string
+    claimId: string
+    lineNum: number
+    hcpcs: string | null
+    units: number | null
+    chargeAmt: Decimal | null
+    paidAmt: Decimal | null
+    drg: string | null
+    serviceFrom: Date | null
+    serviceTo: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: EobLineCountAggregateOutputType | null
+    _avg: EobLineAvgAggregateOutputType | null
+    _sum: EobLineSumAggregateOutputType | null
+    _min: EobLineMinAggregateOutputType | null
+    _max: EobLineMaxAggregateOutputType | null
+  }
+
+  type GetEobLineGroupByPayload<T extends EobLineGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EobLineGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EobLineGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EobLineGroupByOutputType[P]>
+            : GetScalarType<T[P], EobLineGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EobLineSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    claimId?: boolean
+    lineNum?: boolean
+    hcpcs?: boolean
+    units?: boolean
+    chargeAmt?: boolean
+    paidAmt?: boolean
+    drg?: boolean
+    serviceFrom?: boolean
+    serviceTo?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    adjudications?: boolean | EobLine$adjudicationsArgs<ExtArgs>
+    _count?: boolean | EobLineCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["eobLine"]>
+
+
+
+  export type EobLineSelectScalar = {
+    id?: boolean
+    claimId?: boolean
+    lineNum?: boolean
+    hcpcs?: boolean
+    units?: boolean
+    chargeAmt?: boolean
+    paidAmt?: boolean
+    drg?: boolean
+    serviceFrom?: boolean
+    serviceTo?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type EobLineOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "claimId" | "lineNum" | "hcpcs" | "units" | "chargeAmt" | "paidAmt" | "drg" | "serviceFrom" | "serviceTo" | "createdAt" | "updatedAt", ExtArgs["result"]["eobLine"]>
+  export type EobLineInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    adjudications?: boolean | EobLine$adjudicationsArgs<ExtArgs>
+    _count?: boolean | EobLineCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $EobLinePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "EobLine"
+    objects: {
+      adjudications: Prisma.$EobAdjudicationPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      claimId: string
+      lineNum: number
+      hcpcs: string | null
+      units: number | null
+      chargeAmt: Prisma.Decimal | null
+      paidAmt: Prisma.Decimal | null
+      drg: string | null
+      serviceFrom: Date | null
+      serviceTo: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["eobLine"]>
+    composites: {}
+  }
+
+  type EobLineGetPayload<S extends boolean | null | undefined | EobLineDefaultArgs> = $Result.GetResult<Prisma.$EobLinePayload, S>
+
+  type EobLineCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EobLineFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EobLineCountAggregateInputType | true
+    }
+
+  export interface EobLineDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['EobLine'], meta: { name: 'EobLine' } }
+    /**
+     * Find zero or one EobLine that matches the filter.
+     * @param {EobLineFindUniqueArgs} args - Arguments to find a EobLine
+     * @example
+     * // Get one EobLine
+     * const eobLine = await prisma.eobLine.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EobLineFindUniqueArgs>(args: SelectSubset<T, EobLineFindUniqueArgs<ExtArgs>>): Prisma__EobLineClient<$Result.GetResult<Prisma.$EobLinePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one EobLine that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EobLineFindUniqueOrThrowArgs} args - Arguments to find a EobLine
+     * @example
+     * // Get one EobLine
+     * const eobLine = await prisma.eobLine.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EobLineFindUniqueOrThrowArgs>(args: SelectSubset<T, EobLineFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EobLineClient<$Result.GetResult<Prisma.$EobLinePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EobLine that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EobLineFindFirstArgs} args - Arguments to find a EobLine
+     * @example
+     * // Get one EobLine
+     * const eobLine = await prisma.eobLine.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EobLineFindFirstArgs>(args?: SelectSubset<T, EobLineFindFirstArgs<ExtArgs>>): Prisma__EobLineClient<$Result.GetResult<Prisma.$EobLinePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EobLine that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EobLineFindFirstOrThrowArgs} args - Arguments to find a EobLine
+     * @example
+     * // Get one EobLine
+     * const eobLine = await prisma.eobLine.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EobLineFindFirstOrThrowArgs>(args?: SelectSubset<T, EobLineFindFirstOrThrowArgs<ExtArgs>>): Prisma__EobLineClient<$Result.GetResult<Prisma.$EobLinePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more EobLines that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EobLineFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all EobLines
+     * const eobLines = await prisma.eobLine.findMany()
+     * 
+     * // Get first 10 EobLines
+     * const eobLines = await prisma.eobLine.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const eobLineWithIdOnly = await prisma.eobLine.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EobLineFindManyArgs>(args?: SelectSubset<T, EobLineFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EobLinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a EobLine.
+     * @param {EobLineCreateArgs} args - Arguments to create a EobLine.
+     * @example
+     * // Create one EobLine
+     * const EobLine = await prisma.eobLine.create({
+     *   data: {
+     *     // ... data to create a EobLine
+     *   }
+     * })
+     * 
+     */
+    create<T extends EobLineCreateArgs>(args: SelectSubset<T, EobLineCreateArgs<ExtArgs>>): Prisma__EobLineClient<$Result.GetResult<Prisma.$EobLinePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many EobLines.
+     * @param {EobLineCreateManyArgs} args - Arguments to create many EobLines.
+     * @example
+     * // Create many EobLines
+     * const eobLine = await prisma.eobLine.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EobLineCreateManyArgs>(args?: SelectSubset<T, EobLineCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a EobLine.
+     * @param {EobLineDeleteArgs} args - Arguments to delete one EobLine.
+     * @example
+     * // Delete one EobLine
+     * const EobLine = await prisma.eobLine.delete({
+     *   where: {
+     *     // ... filter to delete one EobLine
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EobLineDeleteArgs>(args: SelectSubset<T, EobLineDeleteArgs<ExtArgs>>): Prisma__EobLineClient<$Result.GetResult<Prisma.$EobLinePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one EobLine.
+     * @param {EobLineUpdateArgs} args - Arguments to update one EobLine.
+     * @example
+     * // Update one EobLine
+     * const eobLine = await prisma.eobLine.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EobLineUpdateArgs>(args: SelectSubset<T, EobLineUpdateArgs<ExtArgs>>): Prisma__EobLineClient<$Result.GetResult<Prisma.$EobLinePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more EobLines.
+     * @param {EobLineDeleteManyArgs} args - Arguments to filter EobLines to delete.
+     * @example
+     * // Delete a few EobLines
+     * const { count } = await prisma.eobLine.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EobLineDeleteManyArgs>(args?: SelectSubset<T, EobLineDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EobLines.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EobLineUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many EobLines
+     * const eobLine = await prisma.eobLine.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EobLineUpdateManyArgs>(args: SelectSubset<T, EobLineUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one EobLine.
+     * @param {EobLineUpsertArgs} args - Arguments to update or create a EobLine.
+     * @example
+     * // Update or create a EobLine
+     * const eobLine = await prisma.eobLine.upsert({
+     *   create: {
+     *     // ... data to create a EobLine
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the EobLine we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EobLineUpsertArgs>(args: SelectSubset<T, EobLineUpsertArgs<ExtArgs>>): Prisma__EobLineClient<$Result.GetResult<Prisma.$EobLinePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of EobLines.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EobLineCountArgs} args - Arguments to filter EobLines to count.
+     * @example
+     * // Count the number of EobLines
+     * const count = await prisma.eobLine.count({
+     *   where: {
+     *     // ... the filter for the EobLines we want to count
+     *   }
+     * })
+    **/
+    count<T extends EobLineCountArgs>(
+      args?: Subset<T, EobLineCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EobLineCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a EobLine.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EobLineAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EobLineAggregateArgs>(args: Subset<T, EobLineAggregateArgs>): Prisma.PrismaPromise<GetEobLineAggregateType<T>>
+
+    /**
+     * Group by EobLine.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EobLineGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EobLineGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EobLineGroupByArgs['orderBy'] }
+        : { orderBy?: EobLineGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EobLineGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEobLineGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the EobLine model
+   */
+  readonly fields: EobLineFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for EobLine.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EobLineClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    adjudications<T extends EobLine$adjudicationsArgs<ExtArgs> = {}>(args?: Subset<T, EobLine$adjudicationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EobAdjudicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the EobLine model
+   */
+  interface EobLineFieldRefs {
+    readonly id: FieldRef<"EobLine", 'String'>
+    readonly claimId: FieldRef<"EobLine", 'String'>
+    readonly lineNum: FieldRef<"EobLine", 'Int'>
+    readonly hcpcs: FieldRef<"EobLine", 'String'>
+    readonly units: FieldRef<"EobLine", 'Int'>
+    readonly chargeAmt: FieldRef<"EobLine", 'Decimal'>
+    readonly paidAmt: FieldRef<"EobLine", 'Decimal'>
+    readonly drg: FieldRef<"EobLine", 'String'>
+    readonly serviceFrom: FieldRef<"EobLine", 'DateTime'>
+    readonly serviceTo: FieldRef<"EobLine", 'DateTime'>
+    readonly createdAt: FieldRef<"EobLine", 'DateTime'>
+    readonly updatedAt: FieldRef<"EobLine", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * EobLine findUnique
+   */
+  export type EobLineFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EobLine
+     */
+    select?: EobLineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EobLine
+     */
+    omit?: EobLineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EobLineInclude<ExtArgs> | null
+    /**
+     * Filter, which EobLine to fetch.
+     */
+    where: EobLineWhereUniqueInput
+  }
+
+  /**
+   * EobLine findUniqueOrThrow
+   */
+  export type EobLineFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EobLine
+     */
+    select?: EobLineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EobLine
+     */
+    omit?: EobLineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EobLineInclude<ExtArgs> | null
+    /**
+     * Filter, which EobLine to fetch.
+     */
+    where: EobLineWhereUniqueInput
+  }
+
+  /**
+   * EobLine findFirst
+   */
+  export type EobLineFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EobLine
+     */
+    select?: EobLineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EobLine
+     */
+    omit?: EobLineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EobLineInclude<ExtArgs> | null
+    /**
+     * Filter, which EobLine to fetch.
+     */
+    where?: EobLineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EobLines to fetch.
+     */
+    orderBy?: EobLineOrderByWithRelationInput | EobLineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EobLines.
+     */
+    cursor?: EobLineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EobLines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EobLines.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EobLines.
+     */
+    distinct?: EobLineScalarFieldEnum | EobLineScalarFieldEnum[]
+  }
+
+  /**
+   * EobLine findFirstOrThrow
+   */
+  export type EobLineFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EobLine
+     */
+    select?: EobLineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EobLine
+     */
+    omit?: EobLineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EobLineInclude<ExtArgs> | null
+    /**
+     * Filter, which EobLine to fetch.
+     */
+    where?: EobLineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EobLines to fetch.
+     */
+    orderBy?: EobLineOrderByWithRelationInput | EobLineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EobLines.
+     */
+    cursor?: EobLineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EobLines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EobLines.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EobLines.
+     */
+    distinct?: EobLineScalarFieldEnum | EobLineScalarFieldEnum[]
+  }
+
+  /**
+   * EobLine findMany
+   */
+  export type EobLineFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EobLine
+     */
+    select?: EobLineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EobLine
+     */
+    omit?: EobLineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EobLineInclude<ExtArgs> | null
+    /**
+     * Filter, which EobLines to fetch.
+     */
+    where?: EobLineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EobLines to fetch.
+     */
+    orderBy?: EobLineOrderByWithRelationInput | EobLineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing EobLines.
+     */
+    cursor?: EobLineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EobLines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EobLines.
+     */
+    skip?: number
+    distinct?: EobLineScalarFieldEnum | EobLineScalarFieldEnum[]
+  }
+
+  /**
+   * EobLine create
+   */
+  export type EobLineCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EobLine
+     */
+    select?: EobLineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EobLine
+     */
+    omit?: EobLineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EobLineInclude<ExtArgs> | null
+    /**
+     * The data needed to create a EobLine.
+     */
+    data: XOR<EobLineCreateInput, EobLineUncheckedCreateInput>
+  }
+
+  /**
+   * EobLine createMany
+   */
+  export type EobLineCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many EobLines.
+     */
+    data: EobLineCreateManyInput | EobLineCreateManyInput[]
+  }
+
+  /**
+   * EobLine update
+   */
+  export type EobLineUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EobLine
+     */
+    select?: EobLineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EobLine
+     */
+    omit?: EobLineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EobLineInclude<ExtArgs> | null
+    /**
+     * The data needed to update a EobLine.
+     */
+    data: XOR<EobLineUpdateInput, EobLineUncheckedUpdateInput>
+    /**
+     * Choose, which EobLine to update.
+     */
+    where: EobLineWhereUniqueInput
+  }
+
+  /**
+   * EobLine updateMany
+   */
+  export type EobLineUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update EobLines.
+     */
+    data: XOR<EobLineUpdateManyMutationInput, EobLineUncheckedUpdateManyInput>
+    /**
+     * Filter which EobLines to update
+     */
+    where?: EobLineWhereInput
+    /**
+     * Limit how many EobLines to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * EobLine upsert
+   */
+  export type EobLineUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EobLine
+     */
+    select?: EobLineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EobLine
+     */
+    omit?: EobLineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EobLineInclude<ExtArgs> | null
+    /**
+     * The filter to search for the EobLine to update in case it exists.
+     */
+    where: EobLineWhereUniqueInput
+    /**
+     * In case the EobLine found by the `where` argument doesn't exist, create a new EobLine with this data.
+     */
+    create: XOR<EobLineCreateInput, EobLineUncheckedCreateInput>
+    /**
+     * In case the EobLine was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EobLineUpdateInput, EobLineUncheckedUpdateInput>
+  }
+
+  /**
+   * EobLine delete
+   */
+  export type EobLineDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EobLine
+     */
+    select?: EobLineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EobLine
+     */
+    omit?: EobLineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EobLineInclude<ExtArgs> | null
+    /**
+     * Filter which EobLine to delete.
+     */
+    where: EobLineWhereUniqueInput
+  }
+
+  /**
+   * EobLine deleteMany
+   */
+  export type EobLineDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EobLines to delete
+     */
+    where?: EobLineWhereInput
+    /**
+     * Limit how many EobLines to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * EobLine.adjudications
+   */
+  export type EobLine$adjudicationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EobAdjudication
+     */
+    select?: EobAdjudicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EobAdjudication
+     */
+    omit?: EobAdjudicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EobAdjudicationInclude<ExtArgs> | null
+    where?: EobAdjudicationWhereInput
+    orderBy?: EobAdjudicationOrderByWithRelationInput | EobAdjudicationOrderByWithRelationInput[]
+    cursor?: EobAdjudicationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EobAdjudicationScalarFieldEnum | EobAdjudicationScalarFieldEnum[]
+  }
+
+  /**
+   * EobLine without action
+   */
+  export type EobLineDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EobLine
+     */
+    select?: EobLineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EobLine
+     */
+    omit?: EobLineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EobLineInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model EobAdjudication
+   */
+
+  export type AggregateEobAdjudication = {
+    _count: EobAdjudicationCountAggregateOutputType | null
+    _avg: EobAdjudicationAvgAggregateOutputType | null
+    _sum: EobAdjudicationSumAggregateOutputType | null
+    _min: EobAdjudicationMinAggregateOutputType | null
+    _max: EobAdjudicationMaxAggregateOutputType | null
+  }
+
+  export type EobAdjudicationAvgAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type EobAdjudicationSumAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type EobAdjudicationMinAggregateOutputType = {
+    id: string | null
+    eobLineId: string | null
+    category: string | null
+    amount: Decimal | null
+    carc: string | null
+    rarc: string | null
+    reasonTxt: string | null
+  }
+
+  export type EobAdjudicationMaxAggregateOutputType = {
+    id: string | null
+    eobLineId: string | null
+    category: string | null
+    amount: Decimal | null
+    carc: string | null
+    rarc: string | null
+    reasonTxt: string | null
+  }
+
+  export type EobAdjudicationCountAggregateOutputType = {
+    id: number
+    eobLineId: number
+    category: number
+    amount: number
+    carc: number
+    rarc: number
+    reasonTxt: number
+    _all: number
+  }
+
+
+  export type EobAdjudicationAvgAggregateInputType = {
+    amount?: true
+  }
+
+  export type EobAdjudicationSumAggregateInputType = {
+    amount?: true
+  }
+
+  export type EobAdjudicationMinAggregateInputType = {
+    id?: true
+    eobLineId?: true
+    category?: true
+    amount?: true
+    carc?: true
+    rarc?: true
+    reasonTxt?: true
+  }
+
+  export type EobAdjudicationMaxAggregateInputType = {
+    id?: true
+    eobLineId?: true
+    category?: true
+    amount?: true
+    carc?: true
+    rarc?: true
+    reasonTxt?: true
+  }
+
+  export type EobAdjudicationCountAggregateInputType = {
+    id?: true
+    eobLineId?: true
+    category?: true
+    amount?: true
+    carc?: true
+    rarc?: true
+    reasonTxt?: true
+    _all?: true
+  }
+
+  export type EobAdjudicationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EobAdjudication to aggregate.
+     */
+    where?: EobAdjudicationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EobAdjudications to fetch.
+     */
+    orderBy?: EobAdjudicationOrderByWithRelationInput | EobAdjudicationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EobAdjudicationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EobAdjudications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EobAdjudications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned EobAdjudications
+    **/
+    _count?: true | EobAdjudicationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: EobAdjudicationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: EobAdjudicationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EobAdjudicationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EobAdjudicationMaxAggregateInputType
+  }
+
+  export type GetEobAdjudicationAggregateType<T extends EobAdjudicationAggregateArgs> = {
+        [P in keyof T & keyof AggregateEobAdjudication]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEobAdjudication[P]>
+      : GetScalarType<T[P], AggregateEobAdjudication[P]>
+  }
+
+
+
+
+  export type EobAdjudicationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EobAdjudicationWhereInput
+    orderBy?: EobAdjudicationOrderByWithAggregationInput | EobAdjudicationOrderByWithAggregationInput[]
+    by: EobAdjudicationScalarFieldEnum[] | EobAdjudicationScalarFieldEnum
+    having?: EobAdjudicationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EobAdjudicationCountAggregateInputType | true
+    _avg?: EobAdjudicationAvgAggregateInputType
+    _sum?: EobAdjudicationSumAggregateInputType
+    _min?: EobAdjudicationMinAggregateInputType
+    _max?: EobAdjudicationMaxAggregateInputType
+  }
+
+  export type EobAdjudicationGroupByOutputType = {
+    id: string
+    eobLineId: string
+    category: string | null
+    amount: Decimal | null
+    carc: string | null
+    rarc: string | null
+    reasonTxt: string | null
+    _count: EobAdjudicationCountAggregateOutputType | null
+    _avg: EobAdjudicationAvgAggregateOutputType | null
+    _sum: EobAdjudicationSumAggregateOutputType | null
+    _min: EobAdjudicationMinAggregateOutputType | null
+    _max: EobAdjudicationMaxAggregateOutputType | null
+  }
+
+  type GetEobAdjudicationGroupByPayload<T extends EobAdjudicationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EobAdjudicationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EobAdjudicationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EobAdjudicationGroupByOutputType[P]>
+            : GetScalarType<T[P], EobAdjudicationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EobAdjudicationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    eobLineId?: boolean
+    category?: boolean
+    amount?: boolean
+    carc?: boolean
+    rarc?: boolean
+    reasonTxt?: boolean
+    eobLine?: boolean | EobLineDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["eobAdjudication"]>
+
+
+
+  export type EobAdjudicationSelectScalar = {
+    id?: boolean
+    eobLineId?: boolean
+    category?: boolean
+    amount?: boolean
+    carc?: boolean
+    rarc?: boolean
+    reasonTxt?: boolean
+  }
+
+  export type EobAdjudicationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "eobLineId" | "category" | "amount" | "carc" | "rarc" | "reasonTxt", ExtArgs["result"]["eobAdjudication"]>
+  export type EobAdjudicationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    eobLine?: boolean | EobLineDefaultArgs<ExtArgs>
+  }
+
+  export type $EobAdjudicationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "EobAdjudication"
+    objects: {
+      eobLine: Prisma.$EobLinePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      eobLineId: string
+      category: string | null
+      amount: Prisma.Decimal | null
+      carc: string | null
+      rarc: string | null
+      reasonTxt: string | null
+    }, ExtArgs["result"]["eobAdjudication"]>
+    composites: {}
+  }
+
+  type EobAdjudicationGetPayload<S extends boolean | null | undefined | EobAdjudicationDefaultArgs> = $Result.GetResult<Prisma.$EobAdjudicationPayload, S>
+
+  type EobAdjudicationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EobAdjudicationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EobAdjudicationCountAggregateInputType | true
+    }
+
+  export interface EobAdjudicationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['EobAdjudication'], meta: { name: 'EobAdjudication' } }
+    /**
+     * Find zero or one EobAdjudication that matches the filter.
+     * @param {EobAdjudicationFindUniqueArgs} args - Arguments to find a EobAdjudication
+     * @example
+     * // Get one EobAdjudication
+     * const eobAdjudication = await prisma.eobAdjudication.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EobAdjudicationFindUniqueArgs>(args: SelectSubset<T, EobAdjudicationFindUniqueArgs<ExtArgs>>): Prisma__EobAdjudicationClient<$Result.GetResult<Prisma.$EobAdjudicationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one EobAdjudication that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EobAdjudicationFindUniqueOrThrowArgs} args - Arguments to find a EobAdjudication
+     * @example
+     * // Get one EobAdjudication
+     * const eobAdjudication = await prisma.eobAdjudication.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EobAdjudicationFindUniqueOrThrowArgs>(args: SelectSubset<T, EobAdjudicationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EobAdjudicationClient<$Result.GetResult<Prisma.$EobAdjudicationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EobAdjudication that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EobAdjudicationFindFirstArgs} args - Arguments to find a EobAdjudication
+     * @example
+     * // Get one EobAdjudication
+     * const eobAdjudication = await prisma.eobAdjudication.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EobAdjudicationFindFirstArgs>(args?: SelectSubset<T, EobAdjudicationFindFirstArgs<ExtArgs>>): Prisma__EobAdjudicationClient<$Result.GetResult<Prisma.$EobAdjudicationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EobAdjudication that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EobAdjudicationFindFirstOrThrowArgs} args - Arguments to find a EobAdjudication
+     * @example
+     * // Get one EobAdjudication
+     * const eobAdjudication = await prisma.eobAdjudication.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EobAdjudicationFindFirstOrThrowArgs>(args?: SelectSubset<T, EobAdjudicationFindFirstOrThrowArgs<ExtArgs>>): Prisma__EobAdjudicationClient<$Result.GetResult<Prisma.$EobAdjudicationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more EobAdjudications that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EobAdjudicationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all EobAdjudications
+     * const eobAdjudications = await prisma.eobAdjudication.findMany()
+     * 
+     * // Get first 10 EobAdjudications
+     * const eobAdjudications = await prisma.eobAdjudication.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const eobAdjudicationWithIdOnly = await prisma.eobAdjudication.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EobAdjudicationFindManyArgs>(args?: SelectSubset<T, EobAdjudicationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EobAdjudicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a EobAdjudication.
+     * @param {EobAdjudicationCreateArgs} args - Arguments to create a EobAdjudication.
+     * @example
+     * // Create one EobAdjudication
+     * const EobAdjudication = await prisma.eobAdjudication.create({
+     *   data: {
+     *     // ... data to create a EobAdjudication
+     *   }
+     * })
+     * 
+     */
+    create<T extends EobAdjudicationCreateArgs>(args: SelectSubset<T, EobAdjudicationCreateArgs<ExtArgs>>): Prisma__EobAdjudicationClient<$Result.GetResult<Prisma.$EobAdjudicationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many EobAdjudications.
+     * @param {EobAdjudicationCreateManyArgs} args - Arguments to create many EobAdjudications.
+     * @example
+     * // Create many EobAdjudications
+     * const eobAdjudication = await prisma.eobAdjudication.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EobAdjudicationCreateManyArgs>(args?: SelectSubset<T, EobAdjudicationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a EobAdjudication.
+     * @param {EobAdjudicationDeleteArgs} args - Arguments to delete one EobAdjudication.
+     * @example
+     * // Delete one EobAdjudication
+     * const EobAdjudication = await prisma.eobAdjudication.delete({
+     *   where: {
+     *     // ... filter to delete one EobAdjudication
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EobAdjudicationDeleteArgs>(args: SelectSubset<T, EobAdjudicationDeleteArgs<ExtArgs>>): Prisma__EobAdjudicationClient<$Result.GetResult<Prisma.$EobAdjudicationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one EobAdjudication.
+     * @param {EobAdjudicationUpdateArgs} args - Arguments to update one EobAdjudication.
+     * @example
+     * // Update one EobAdjudication
+     * const eobAdjudication = await prisma.eobAdjudication.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EobAdjudicationUpdateArgs>(args: SelectSubset<T, EobAdjudicationUpdateArgs<ExtArgs>>): Prisma__EobAdjudicationClient<$Result.GetResult<Prisma.$EobAdjudicationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more EobAdjudications.
+     * @param {EobAdjudicationDeleteManyArgs} args - Arguments to filter EobAdjudications to delete.
+     * @example
+     * // Delete a few EobAdjudications
+     * const { count } = await prisma.eobAdjudication.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EobAdjudicationDeleteManyArgs>(args?: SelectSubset<T, EobAdjudicationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EobAdjudications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EobAdjudicationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many EobAdjudications
+     * const eobAdjudication = await prisma.eobAdjudication.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EobAdjudicationUpdateManyArgs>(args: SelectSubset<T, EobAdjudicationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one EobAdjudication.
+     * @param {EobAdjudicationUpsertArgs} args - Arguments to update or create a EobAdjudication.
+     * @example
+     * // Update or create a EobAdjudication
+     * const eobAdjudication = await prisma.eobAdjudication.upsert({
+     *   create: {
+     *     // ... data to create a EobAdjudication
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the EobAdjudication we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EobAdjudicationUpsertArgs>(args: SelectSubset<T, EobAdjudicationUpsertArgs<ExtArgs>>): Prisma__EobAdjudicationClient<$Result.GetResult<Prisma.$EobAdjudicationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of EobAdjudications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EobAdjudicationCountArgs} args - Arguments to filter EobAdjudications to count.
+     * @example
+     * // Count the number of EobAdjudications
+     * const count = await prisma.eobAdjudication.count({
+     *   where: {
+     *     // ... the filter for the EobAdjudications we want to count
+     *   }
+     * })
+    **/
+    count<T extends EobAdjudicationCountArgs>(
+      args?: Subset<T, EobAdjudicationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EobAdjudicationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a EobAdjudication.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EobAdjudicationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EobAdjudicationAggregateArgs>(args: Subset<T, EobAdjudicationAggregateArgs>): Prisma.PrismaPromise<GetEobAdjudicationAggregateType<T>>
+
+    /**
+     * Group by EobAdjudication.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EobAdjudicationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EobAdjudicationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EobAdjudicationGroupByArgs['orderBy'] }
+        : { orderBy?: EobAdjudicationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EobAdjudicationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEobAdjudicationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the EobAdjudication model
+   */
+  readonly fields: EobAdjudicationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for EobAdjudication.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EobAdjudicationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    eobLine<T extends EobLineDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EobLineDefaultArgs<ExtArgs>>): Prisma__EobLineClient<$Result.GetResult<Prisma.$EobLinePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the EobAdjudication model
+   */
+  interface EobAdjudicationFieldRefs {
+    readonly id: FieldRef<"EobAdjudication", 'String'>
+    readonly eobLineId: FieldRef<"EobAdjudication", 'String'>
+    readonly category: FieldRef<"EobAdjudication", 'String'>
+    readonly amount: FieldRef<"EobAdjudication", 'Decimal'>
+    readonly carc: FieldRef<"EobAdjudication", 'String'>
+    readonly rarc: FieldRef<"EobAdjudication", 'String'>
+    readonly reasonTxt: FieldRef<"EobAdjudication", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * EobAdjudication findUnique
+   */
+  export type EobAdjudicationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EobAdjudication
+     */
+    select?: EobAdjudicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EobAdjudication
+     */
+    omit?: EobAdjudicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EobAdjudicationInclude<ExtArgs> | null
+    /**
+     * Filter, which EobAdjudication to fetch.
+     */
+    where: EobAdjudicationWhereUniqueInput
+  }
+
+  /**
+   * EobAdjudication findUniqueOrThrow
+   */
+  export type EobAdjudicationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EobAdjudication
+     */
+    select?: EobAdjudicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EobAdjudication
+     */
+    omit?: EobAdjudicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EobAdjudicationInclude<ExtArgs> | null
+    /**
+     * Filter, which EobAdjudication to fetch.
+     */
+    where: EobAdjudicationWhereUniqueInput
+  }
+
+  /**
+   * EobAdjudication findFirst
+   */
+  export type EobAdjudicationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EobAdjudication
+     */
+    select?: EobAdjudicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EobAdjudication
+     */
+    omit?: EobAdjudicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EobAdjudicationInclude<ExtArgs> | null
+    /**
+     * Filter, which EobAdjudication to fetch.
+     */
+    where?: EobAdjudicationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EobAdjudications to fetch.
+     */
+    orderBy?: EobAdjudicationOrderByWithRelationInput | EobAdjudicationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EobAdjudications.
+     */
+    cursor?: EobAdjudicationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EobAdjudications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EobAdjudications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EobAdjudications.
+     */
+    distinct?: EobAdjudicationScalarFieldEnum | EobAdjudicationScalarFieldEnum[]
+  }
+
+  /**
+   * EobAdjudication findFirstOrThrow
+   */
+  export type EobAdjudicationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EobAdjudication
+     */
+    select?: EobAdjudicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EobAdjudication
+     */
+    omit?: EobAdjudicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EobAdjudicationInclude<ExtArgs> | null
+    /**
+     * Filter, which EobAdjudication to fetch.
+     */
+    where?: EobAdjudicationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EobAdjudications to fetch.
+     */
+    orderBy?: EobAdjudicationOrderByWithRelationInput | EobAdjudicationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EobAdjudications.
+     */
+    cursor?: EobAdjudicationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EobAdjudications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EobAdjudications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EobAdjudications.
+     */
+    distinct?: EobAdjudicationScalarFieldEnum | EobAdjudicationScalarFieldEnum[]
+  }
+
+  /**
+   * EobAdjudication findMany
+   */
+  export type EobAdjudicationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EobAdjudication
+     */
+    select?: EobAdjudicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EobAdjudication
+     */
+    omit?: EobAdjudicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EobAdjudicationInclude<ExtArgs> | null
+    /**
+     * Filter, which EobAdjudications to fetch.
+     */
+    where?: EobAdjudicationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EobAdjudications to fetch.
+     */
+    orderBy?: EobAdjudicationOrderByWithRelationInput | EobAdjudicationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing EobAdjudications.
+     */
+    cursor?: EobAdjudicationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EobAdjudications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EobAdjudications.
+     */
+    skip?: number
+    distinct?: EobAdjudicationScalarFieldEnum | EobAdjudicationScalarFieldEnum[]
+  }
+
+  /**
+   * EobAdjudication create
+   */
+  export type EobAdjudicationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EobAdjudication
+     */
+    select?: EobAdjudicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EobAdjudication
+     */
+    omit?: EobAdjudicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EobAdjudicationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a EobAdjudication.
+     */
+    data: XOR<EobAdjudicationCreateInput, EobAdjudicationUncheckedCreateInput>
+  }
+
+  /**
+   * EobAdjudication createMany
+   */
+  export type EobAdjudicationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many EobAdjudications.
+     */
+    data: EobAdjudicationCreateManyInput | EobAdjudicationCreateManyInput[]
+  }
+
+  /**
+   * EobAdjudication update
+   */
+  export type EobAdjudicationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EobAdjudication
+     */
+    select?: EobAdjudicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EobAdjudication
+     */
+    omit?: EobAdjudicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EobAdjudicationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a EobAdjudication.
+     */
+    data: XOR<EobAdjudicationUpdateInput, EobAdjudicationUncheckedUpdateInput>
+    /**
+     * Choose, which EobAdjudication to update.
+     */
+    where: EobAdjudicationWhereUniqueInput
+  }
+
+  /**
+   * EobAdjudication updateMany
+   */
+  export type EobAdjudicationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update EobAdjudications.
+     */
+    data: XOR<EobAdjudicationUpdateManyMutationInput, EobAdjudicationUncheckedUpdateManyInput>
+    /**
+     * Filter which EobAdjudications to update
+     */
+    where?: EobAdjudicationWhereInput
+    /**
+     * Limit how many EobAdjudications to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * EobAdjudication upsert
+   */
+  export type EobAdjudicationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EobAdjudication
+     */
+    select?: EobAdjudicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EobAdjudication
+     */
+    omit?: EobAdjudicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EobAdjudicationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the EobAdjudication to update in case it exists.
+     */
+    where: EobAdjudicationWhereUniqueInput
+    /**
+     * In case the EobAdjudication found by the `where` argument doesn't exist, create a new EobAdjudication with this data.
+     */
+    create: XOR<EobAdjudicationCreateInput, EobAdjudicationUncheckedCreateInput>
+    /**
+     * In case the EobAdjudication was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EobAdjudicationUpdateInput, EobAdjudicationUncheckedUpdateInput>
+  }
+
+  /**
+   * EobAdjudication delete
+   */
+  export type EobAdjudicationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EobAdjudication
+     */
+    select?: EobAdjudicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EobAdjudication
+     */
+    omit?: EobAdjudicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EobAdjudicationInclude<ExtArgs> | null
+    /**
+     * Filter which EobAdjudication to delete.
+     */
+    where: EobAdjudicationWhereUniqueInput
+  }
+
+  /**
+   * EobAdjudication deleteMany
+   */
+  export type EobAdjudicationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EobAdjudications to delete
+     */
+    where?: EobAdjudicationWhereInput
+    /**
+     * Limit how many EobAdjudications to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * EobAdjudication without action
+   */
+  export type EobAdjudicationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EobAdjudication
+     */
+    select?: EobAdjudicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EobAdjudication
+     */
+    omit?: EobAdjudicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EobAdjudicationInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -12273,6 +24291,151 @@ export namespace Prisma {
   export type AnalyticsScalarFieldEnum = (typeof AnalyticsScalarFieldEnum)[keyof typeof AnalyticsScalarFieldEnum]
 
 
+  export const Icd10CmScalarFieldEnum: {
+    code: 'code',
+    title: 'title',
+    longDesc: 'longDesc',
+    effFrom: 'effFrom',
+    effTo: 'effTo'
+  };
+
+  export type Icd10CmScalarFieldEnum = (typeof Icd10CmScalarFieldEnum)[keyof typeof Icd10CmScalarFieldEnum]
+
+
+  export const Icd10PcsScalarFieldEnum: {
+    code: 'code',
+    title: 'title',
+    effFrom: 'effFrom',
+    effTo: 'effTo'
+  };
+
+  export type Icd10PcsScalarFieldEnum = (typeof Icd10PcsScalarFieldEnum)[keyof typeof Icd10PcsScalarFieldEnum]
+
+
+  export const MsDrgScalarFieldEnum: {
+    drg: 'drg',
+    desc: 'desc',
+    rw: 'rw',
+    gmlos: 'gmlos',
+    amlos: 'amlos',
+    transfer: 'transfer',
+    effFrom: 'effFrom',
+    effTo: 'effTo'
+  };
+
+  export type MsDrgScalarFieldEnum = (typeof MsDrgScalarFieldEnum)[keyof typeof MsDrgScalarFieldEnum]
+
+
+  export const HcpcsScalarFieldEnum: {
+    code: 'code',
+    short: 'short',
+    long: 'long',
+    status: 'status',
+    effFrom: 'effFrom',
+    effTo: 'effTo'
+  };
+
+  export type HcpcsScalarFieldEnum = (typeof HcpcsScalarFieldEnum)[keyof typeof HcpcsScalarFieldEnum]
+
+
+  export const NcciPtpScalarFieldEnum: {
+    id: 'id',
+    codeA: 'codeA',
+    codeB: 'codeB',
+    modInd: 'modInd',
+    effFrom: 'effFrom',
+    effTo: 'effTo'
+  };
+
+  export type NcciPtpScalarFieldEnum = (typeof NcciPtpScalarFieldEnum)[keyof typeof NcciPtpScalarFieldEnum]
+
+
+  export const NcciMueScalarFieldEnum: {
+    code: 'code',
+    effFrom: 'effFrom',
+    mue: 'mue',
+    effTo: 'effTo'
+  };
+
+  export type NcciMueScalarFieldEnum = (typeof NcciMueScalarFieldEnum)[keyof typeof NcciMueScalarFieldEnum]
+
+
+  export const CarcScalarFieldEnum: {
+    code: 'code',
+    grp: 'grp',
+    desc: 'desc',
+    effFrom: 'effFrom',
+    effTo: 'effTo'
+  };
+
+  export type CarcScalarFieldEnum = (typeof CarcScalarFieldEnum)[keyof typeof CarcScalarFieldEnum]
+
+
+  export const RarcScalarFieldEnum: {
+    code: 'code',
+    desc: 'desc',
+    effFrom: 'effFrom',
+    effTo: 'effTo'
+  };
+
+  export type RarcScalarFieldEnum = (typeof RarcScalarFieldEnum)[keyof typeof RarcScalarFieldEnum]
+
+
+  export const NuccTaxonomyScalarFieldEnum: {
+    code: 'code',
+    grouping: 'grouping',
+    classification: 'classification',
+    specialization: 'specialization',
+    display: 'display'
+  };
+
+  export type NuccTaxonomyScalarFieldEnum = (typeof NuccTaxonomyScalarFieldEnum)[keyof typeof NuccTaxonomyScalarFieldEnum]
+
+
+  export const NpiProviderScalarFieldEnum: {
+    npi: 'npi',
+    entityType: 'entityType',
+    name: 'name',
+    orgName: 'orgName',
+    taxonomy: 'taxonomy',
+    state: 'state',
+    postalCode: 'postalCode'
+  };
+
+  export type NpiProviderScalarFieldEnum = (typeof NpiProviderScalarFieldEnum)[keyof typeof NpiProviderScalarFieldEnum]
+
+
+  export const EobLineScalarFieldEnum: {
+    id: 'id',
+    claimId: 'claimId',
+    lineNum: 'lineNum',
+    hcpcs: 'hcpcs',
+    units: 'units',
+    chargeAmt: 'chargeAmt',
+    paidAmt: 'paidAmt',
+    drg: 'drg',
+    serviceFrom: 'serviceFrom',
+    serviceTo: 'serviceTo',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type EobLineScalarFieldEnum = (typeof EobLineScalarFieldEnum)[keyof typeof EobLineScalarFieldEnum]
+
+
+  export const EobAdjudicationScalarFieldEnum: {
+    id: 'id',
+    eobLineId: 'eobLineId',
+    category: 'category',
+    amount: 'amount',
+    carc: 'carc',
+    rarc: 'rarc',
+    reasonTxt: 'reasonTxt'
+  };
+
+  export type EobAdjudicationScalarFieldEnum = (typeof EobAdjudicationScalarFieldEnum)[keyof typeof EobAdjudicationScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -12326,6 +24489,13 @@ export namespace Prisma {
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'Decimal'
+   */
+  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
     
   /**
    * Deep Input Types
@@ -13169,6 +25339,712 @@ export namespace Prisma {
     userId?: StringNullableWithAggregatesFilter<"Analytics"> | string | null
     activityType?: StringNullableWithAggregatesFilter<"Analytics"> | string | null
     description?: StringNullableWithAggregatesFilter<"Analytics"> | string | null
+  }
+
+  export type Icd10CmWhereInput = {
+    AND?: Icd10CmWhereInput | Icd10CmWhereInput[]
+    OR?: Icd10CmWhereInput[]
+    NOT?: Icd10CmWhereInput | Icd10CmWhereInput[]
+    code?: StringFilter<"Icd10Cm"> | string
+    title?: StringNullableFilter<"Icd10Cm"> | string | null
+    longDesc?: StringNullableFilter<"Icd10Cm"> | string | null
+    effFrom?: DateTimeFilter<"Icd10Cm"> | Date | string
+    effTo?: DateTimeNullableFilter<"Icd10Cm"> | Date | string | null
+  }
+
+  export type Icd10CmOrderByWithRelationInput = {
+    code?: SortOrder
+    title?: SortOrderInput | SortOrder
+    longDesc?: SortOrderInput | SortOrder
+    effFrom?: SortOrder
+    effTo?: SortOrderInput | SortOrder
+  }
+
+  export type Icd10CmWhereUniqueInput = Prisma.AtLeast<{
+    code?: string
+    AND?: Icd10CmWhereInput | Icd10CmWhereInput[]
+    OR?: Icd10CmWhereInput[]
+    NOT?: Icd10CmWhereInput | Icd10CmWhereInput[]
+    title?: StringNullableFilter<"Icd10Cm"> | string | null
+    longDesc?: StringNullableFilter<"Icd10Cm"> | string | null
+    effFrom?: DateTimeFilter<"Icd10Cm"> | Date | string
+    effTo?: DateTimeNullableFilter<"Icd10Cm"> | Date | string | null
+  }, "code">
+
+  export type Icd10CmOrderByWithAggregationInput = {
+    code?: SortOrder
+    title?: SortOrderInput | SortOrder
+    longDesc?: SortOrderInput | SortOrder
+    effFrom?: SortOrder
+    effTo?: SortOrderInput | SortOrder
+    _count?: Icd10CmCountOrderByAggregateInput
+    _max?: Icd10CmMaxOrderByAggregateInput
+    _min?: Icd10CmMinOrderByAggregateInput
+  }
+
+  export type Icd10CmScalarWhereWithAggregatesInput = {
+    AND?: Icd10CmScalarWhereWithAggregatesInput | Icd10CmScalarWhereWithAggregatesInput[]
+    OR?: Icd10CmScalarWhereWithAggregatesInput[]
+    NOT?: Icd10CmScalarWhereWithAggregatesInput | Icd10CmScalarWhereWithAggregatesInput[]
+    code?: StringWithAggregatesFilter<"Icd10Cm"> | string
+    title?: StringNullableWithAggregatesFilter<"Icd10Cm"> | string | null
+    longDesc?: StringNullableWithAggregatesFilter<"Icd10Cm"> | string | null
+    effFrom?: DateTimeWithAggregatesFilter<"Icd10Cm"> | Date | string
+    effTo?: DateTimeNullableWithAggregatesFilter<"Icd10Cm"> | Date | string | null
+  }
+
+  export type Icd10PcsWhereInput = {
+    AND?: Icd10PcsWhereInput | Icd10PcsWhereInput[]
+    OR?: Icd10PcsWhereInput[]
+    NOT?: Icd10PcsWhereInput | Icd10PcsWhereInput[]
+    code?: StringFilter<"Icd10Pcs"> | string
+    title?: StringNullableFilter<"Icd10Pcs"> | string | null
+    effFrom?: DateTimeFilter<"Icd10Pcs"> | Date | string
+    effTo?: DateTimeNullableFilter<"Icd10Pcs"> | Date | string | null
+  }
+
+  export type Icd10PcsOrderByWithRelationInput = {
+    code?: SortOrder
+    title?: SortOrderInput | SortOrder
+    effFrom?: SortOrder
+    effTo?: SortOrderInput | SortOrder
+  }
+
+  export type Icd10PcsWhereUniqueInput = Prisma.AtLeast<{
+    code?: string
+    AND?: Icd10PcsWhereInput | Icd10PcsWhereInput[]
+    OR?: Icd10PcsWhereInput[]
+    NOT?: Icd10PcsWhereInput | Icd10PcsWhereInput[]
+    title?: StringNullableFilter<"Icd10Pcs"> | string | null
+    effFrom?: DateTimeFilter<"Icd10Pcs"> | Date | string
+    effTo?: DateTimeNullableFilter<"Icd10Pcs"> | Date | string | null
+  }, "code">
+
+  export type Icd10PcsOrderByWithAggregationInput = {
+    code?: SortOrder
+    title?: SortOrderInput | SortOrder
+    effFrom?: SortOrder
+    effTo?: SortOrderInput | SortOrder
+    _count?: Icd10PcsCountOrderByAggregateInput
+    _max?: Icd10PcsMaxOrderByAggregateInput
+    _min?: Icd10PcsMinOrderByAggregateInput
+  }
+
+  export type Icd10PcsScalarWhereWithAggregatesInput = {
+    AND?: Icd10PcsScalarWhereWithAggregatesInput | Icd10PcsScalarWhereWithAggregatesInput[]
+    OR?: Icd10PcsScalarWhereWithAggregatesInput[]
+    NOT?: Icd10PcsScalarWhereWithAggregatesInput | Icd10PcsScalarWhereWithAggregatesInput[]
+    code?: StringWithAggregatesFilter<"Icd10Pcs"> | string
+    title?: StringNullableWithAggregatesFilter<"Icd10Pcs"> | string | null
+    effFrom?: DateTimeWithAggregatesFilter<"Icd10Pcs"> | Date | string
+    effTo?: DateTimeNullableWithAggregatesFilter<"Icd10Pcs"> | Date | string | null
+  }
+
+  export type MsDrgWhereInput = {
+    AND?: MsDrgWhereInput | MsDrgWhereInput[]
+    OR?: MsDrgWhereInput[]
+    NOT?: MsDrgWhereInput | MsDrgWhereInput[]
+    drg?: StringFilter<"MsDrg"> | string
+    desc?: StringNullableFilter<"MsDrg"> | string | null
+    rw?: DecimalNullableFilter<"MsDrg"> | Decimal | DecimalJsLike | number | string | null
+    gmlos?: DecimalNullableFilter<"MsDrg"> | Decimal | DecimalJsLike | number | string | null
+    amlos?: DecimalNullableFilter<"MsDrg"> | Decimal | DecimalJsLike | number | string | null
+    transfer?: BoolNullableFilter<"MsDrg"> | boolean | null
+    effFrom?: DateTimeFilter<"MsDrg"> | Date | string
+    effTo?: DateTimeNullableFilter<"MsDrg"> | Date | string | null
+  }
+
+  export type MsDrgOrderByWithRelationInput = {
+    drg?: SortOrder
+    desc?: SortOrderInput | SortOrder
+    rw?: SortOrderInput | SortOrder
+    gmlos?: SortOrderInput | SortOrder
+    amlos?: SortOrderInput | SortOrder
+    transfer?: SortOrderInput | SortOrder
+    effFrom?: SortOrder
+    effTo?: SortOrderInput | SortOrder
+  }
+
+  export type MsDrgWhereUniqueInput = Prisma.AtLeast<{
+    drg?: string
+    AND?: MsDrgWhereInput | MsDrgWhereInput[]
+    OR?: MsDrgWhereInput[]
+    NOT?: MsDrgWhereInput | MsDrgWhereInput[]
+    desc?: StringNullableFilter<"MsDrg"> | string | null
+    rw?: DecimalNullableFilter<"MsDrg"> | Decimal | DecimalJsLike | number | string | null
+    gmlos?: DecimalNullableFilter<"MsDrg"> | Decimal | DecimalJsLike | number | string | null
+    amlos?: DecimalNullableFilter<"MsDrg"> | Decimal | DecimalJsLike | number | string | null
+    transfer?: BoolNullableFilter<"MsDrg"> | boolean | null
+    effFrom?: DateTimeFilter<"MsDrg"> | Date | string
+    effTo?: DateTimeNullableFilter<"MsDrg"> | Date | string | null
+  }, "drg">
+
+  export type MsDrgOrderByWithAggregationInput = {
+    drg?: SortOrder
+    desc?: SortOrderInput | SortOrder
+    rw?: SortOrderInput | SortOrder
+    gmlos?: SortOrderInput | SortOrder
+    amlos?: SortOrderInput | SortOrder
+    transfer?: SortOrderInput | SortOrder
+    effFrom?: SortOrder
+    effTo?: SortOrderInput | SortOrder
+    _count?: MsDrgCountOrderByAggregateInput
+    _avg?: MsDrgAvgOrderByAggregateInput
+    _max?: MsDrgMaxOrderByAggregateInput
+    _min?: MsDrgMinOrderByAggregateInput
+    _sum?: MsDrgSumOrderByAggregateInput
+  }
+
+  export type MsDrgScalarWhereWithAggregatesInput = {
+    AND?: MsDrgScalarWhereWithAggregatesInput | MsDrgScalarWhereWithAggregatesInput[]
+    OR?: MsDrgScalarWhereWithAggregatesInput[]
+    NOT?: MsDrgScalarWhereWithAggregatesInput | MsDrgScalarWhereWithAggregatesInput[]
+    drg?: StringWithAggregatesFilter<"MsDrg"> | string
+    desc?: StringNullableWithAggregatesFilter<"MsDrg"> | string | null
+    rw?: DecimalNullableWithAggregatesFilter<"MsDrg"> | Decimal | DecimalJsLike | number | string | null
+    gmlos?: DecimalNullableWithAggregatesFilter<"MsDrg"> | Decimal | DecimalJsLike | number | string | null
+    amlos?: DecimalNullableWithAggregatesFilter<"MsDrg"> | Decimal | DecimalJsLike | number | string | null
+    transfer?: BoolNullableWithAggregatesFilter<"MsDrg"> | boolean | null
+    effFrom?: DateTimeWithAggregatesFilter<"MsDrg"> | Date | string
+    effTo?: DateTimeNullableWithAggregatesFilter<"MsDrg"> | Date | string | null
+  }
+
+  export type HcpcsWhereInput = {
+    AND?: HcpcsWhereInput | HcpcsWhereInput[]
+    OR?: HcpcsWhereInput[]
+    NOT?: HcpcsWhereInput | HcpcsWhereInput[]
+    code?: StringFilter<"Hcpcs"> | string
+    short?: StringNullableFilter<"Hcpcs"> | string | null
+    long?: StringNullableFilter<"Hcpcs"> | string | null
+    status?: StringNullableFilter<"Hcpcs"> | string | null
+    effFrom?: DateTimeFilter<"Hcpcs"> | Date | string
+    effTo?: DateTimeNullableFilter<"Hcpcs"> | Date | string | null
+  }
+
+  export type HcpcsOrderByWithRelationInput = {
+    code?: SortOrder
+    short?: SortOrderInput | SortOrder
+    long?: SortOrderInput | SortOrder
+    status?: SortOrderInput | SortOrder
+    effFrom?: SortOrder
+    effTo?: SortOrderInput | SortOrder
+  }
+
+  export type HcpcsWhereUniqueInput = Prisma.AtLeast<{
+    code?: string
+    AND?: HcpcsWhereInput | HcpcsWhereInput[]
+    OR?: HcpcsWhereInput[]
+    NOT?: HcpcsWhereInput | HcpcsWhereInput[]
+    short?: StringNullableFilter<"Hcpcs"> | string | null
+    long?: StringNullableFilter<"Hcpcs"> | string | null
+    status?: StringNullableFilter<"Hcpcs"> | string | null
+    effFrom?: DateTimeFilter<"Hcpcs"> | Date | string
+    effTo?: DateTimeNullableFilter<"Hcpcs"> | Date | string | null
+  }, "code">
+
+  export type HcpcsOrderByWithAggregationInput = {
+    code?: SortOrder
+    short?: SortOrderInput | SortOrder
+    long?: SortOrderInput | SortOrder
+    status?: SortOrderInput | SortOrder
+    effFrom?: SortOrder
+    effTo?: SortOrderInput | SortOrder
+    _count?: HcpcsCountOrderByAggregateInput
+    _max?: HcpcsMaxOrderByAggregateInput
+    _min?: HcpcsMinOrderByAggregateInput
+  }
+
+  export type HcpcsScalarWhereWithAggregatesInput = {
+    AND?: HcpcsScalarWhereWithAggregatesInput | HcpcsScalarWhereWithAggregatesInput[]
+    OR?: HcpcsScalarWhereWithAggregatesInput[]
+    NOT?: HcpcsScalarWhereWithAggregatesInput | HcpcsScalarWhereWithAggregatesInput[]
+    code?: StringWithAggregatesFilter<"Hcpcs"> | string
+    short?: StringNullableWithAggregatesFilter<"Hcpcs"> | string | null
+    long?: StringNullableWithAggregatesFilter<"Hcpcs"> | string | null
+    status?: StringNullableWithAggregatesFilter<"Hcpcs"> | string | null
+    effFrom?: DateTimeWithAggregatesFilter<"Hcpcs"> | Date | string
+    effTo?: DateTimeNullableWithAggregatesFilter<"Hcpcs"> | Date | string | null
+  }
+
+  export type NcciPtpWhereInput = {
+    AND?: NcciPtpWhereInput | NcciPtpWhereInput[]
+    OR?: NcciPtpWhereInput[]
+    NOT?: NcciPtpWhereInput | NcciPtpWhereInput[]
+    id?: StringFilter<"NcciPtp"> | string
+    codeA?: StringFilter<"NcciPtp"> | string
+    codeB?: StringFilter<"NcciPtp"> | string
+    modInd?: StringFilter<"NcciPtp"> | string
+    effFrom?: DateTimeFilter<"NcciPtp"> | Date | string
+    effTo?: DateTimeNullableFilter<"NcciPtp"> | Date | string | null
+  }
+
+  export type NcciPtpOrderByWithRelationInput = {
+    id?: SortOrder
+    codeA?: SortOrder
+    codeB?: SortOrder
+    modInd?: SortOrder
+    effFrom?: SortOrder
+    effTo?: SortOrderInput | SortOrder
+  }
+
+  export type NcciPtpWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    codeA_codeB_effFrom?: NcciPtpCodeACodeBEffFromCompoundUniqueInput
+    AND?: NcciPtpWhereInput | NcciPtpWhereInput[]
+    OR?: NcciPtpWhereInput[]
+    NOT?: NcciPtpWhereInput | NcciPtpWhereInput[]
+    codeA?: StringFilter<"NcciPtp"> | string
+    codeB?: StringFilter<"NcciPtp"> | string
+    modInd?: StringFilter<"NcciPtp"> | string
+    effFrom?: DateTimeFilter<"NcciPtp"> | Date | string
+    effTo?: DateTimeNullableFilter<"NcciPtp"> | Date | string | null
+  }, "id" | "codeA_codeB_effFrom">
+
+  export type NcciPtpOrderByWithAggregationInput = {
+    id?: SortOrder
+    codeA?: SortOrder
+    codeB?: SortOrder
+    modInd?: SortOrder
+    effFrom?: SortOrder
+    effTo?: SortOrderInput | SortOrder
+    _count?: NcciPtpCountOrderByAggregateInput
+    _max?: NcciPtpMaxOrderByAggregateInput
+    _min?: NcciPtpMinOrderByAggregateInput
+  }
+
+  export type NcciPtpScalarWhereWithAggregatesInput = {
+    AND?: NcciPtpScalarWhereWithAggregatesInput | NcciPtpScalarWhereWithAggregatesInput[]
+    OR?: NcciPtpScalarWhereWithAggregatesInput[]
+    NOT?: NcciPtpScalarWhereWithAggregatesInput | NcciPtpScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"NcciPtp"> | string
+    codeA?: StringWithAggregatesFilter<"NcciPtp"> | string
+    codeB?: StringWithAggregatesFilter<"NcciPtp"> | string
+    modInd?: StringWithAggregatesFilter<"NcciPtp"> | string
+    effFrom?: DateTimeWithAggregatesFilter<"NcciPtp"> | Date | string
+    effTo?: DateTimeNullableWithAggregatesFilter<"NcciPtp"> | Date | string | null
+  }
+
+  export type NcciMueWhereInput = {
+    AND?: NcciMueWhereInput | NcciMueWhereInput[]
+    OR?: NcciMueWhereInput[]
+    NOT?: NcciMueWhereInput | NcciMueWhereInput[]
+    code?: StringFilter<"NcciMue"> | string
+    effFrom?: DateTimeFilter<"NcciMue"> | Date | string
+    mue?: IntFilter<"NcciMue"> | number
+    effTo?: DateTimeNullableFilter<"NcciMue"> | Date | string | null
+  }
+
+  export type NcciMueOrderByWithRelationInput = {
+    code?: SortOrder
+    effFrom?: SortOrder
+    mue?: SortOrder
+    effTo?: SortOrderInput | SortOrder
+  }
+
+  export type NcciMueWhereUniqueInput = Prisma.AtLeast<{
+    code_effFrom?: NcciMueCodeEffFromCompoundUniqueInput
+    AND?: NcciMueWhereInput | NcciMueWhereInput[]
+    OR?: NcciMueWhereInput[]
+    NOT?: NcciMueWhereInput | NcciMueWhereInput[]
+    code?: StringFilter<"NcciMue"> | string
+    effFrom?: DateTimeFilter<"NcciMue"> | Date | string
+    mue?: IntFilter<"NcciMue"> | number
+    effTo?: DateTimeNullableFilter<"NcciMue"> | Date | string | null
+  }, "code_effFrom">
+
+  export type NcciMueOrderByWithAggregationInput = {
+    code?: SortOrder
+    effFrom?: SortOrder
+    mue?: SortOrder
+    effTo?: SortOrderInput | SortOrder
+    _count?: NcciMueCountOrderByAggregateInput
+    _avg?: NcciMueAvgOrderByAggregateInput
+    _max?: NcciMueMaxOrderByAggregateInput
+    _min?: NcciMueMinOrderByAggregateInput
+    _sum?: NcciMueSumOrderByAggregateInput
+  }
+
+  export type NcciMueScalarWhereWithAggregatesInput = {
+    AND?: NcciMueScalarWhereWithAggregatesInput | NcciMueScalarWhereWithAggregatesInput[]
+    OR?: NcciMueScalarWhereWithAggregatesInput[]
+    NOT?: NcciMueScalarWhereWithAggregatesInput | NcciMueScalarWhereWithAggregatesInput[]
+    code?: StringWithAggregatesFilter<"NcciMue"> | string
+    effFrom?: DateTimeWithAggregatesFilter<"NcciMue"> | Date | string
+    mue?: IntWithAggregatesFilter<"NcciMue"> | number
+    effTo?: DateTimeNullableWithAggregatesFilter<"NcciMue"> | Date | string | null
+  }
+
+  export type CarcWhereInput = {
+    AND?: CarcWhereInput | CarcWhereInput[]
+    OR?: CarcWhereInput[]
+    NOT?: CarcWhereInput | CarcWhereInput[]
+    code?: StringFilter<"Carc"> | string
+    grp?: StringNullableFilter<"Carc"> | string | null
+    desc?: StringNullableFilter<"Carc"> | string | null
+    effFrom?: DateTimeNullableFilter<"Carc"> | Date | string | null
+    effTo?: DateTimeNullableFilter<"Carc"> | Date | string | null
+  }
+
+  export type CarcOrderByWithRelationInput = {
+    code?: SortOrder
+    grp?: SortOrderInput | SortOrder
+    desc?: SortOrderInput | SortOrder
+    effFrom?: SortOrderInput | SortOrder
+    effTo?: SortOrderInput | SortOrder
+  }
+
+  export type CarcWhereUniqueInput = Prisma.AtLeast<{
+    code?: string
+    AND?: CarcWhereInput | CarcWhereInput[]
+    OR?: CarcWhereInput[]
+    NOT?: CarcWhereInput | CarcWhereInput[]
+    grp?: StringNullableFilter<"Carc"> | string | null
+    desc?: StringNullableFilter<"Carc"> | string | null
+    effFrom?: DateTimeNullableFilter<"Carc"> | Date | string | null
+    effTo?: DateTimeNullableFilter<"Carc"> | Date | string | null
+  }, "code">
+
+  export type CarcOrderByWithAggregationInput = {
+    code?: SortOrder
+    grp?: SortOrderInput | SortOrder
+    desc?: SortOrderInput | SortOrder
+    effFrom?: SortOrderInput | SortOrder
+    effTo?: SortOrderInput | SortOrder
+    _count?: CarcCountOrderByAggregateInput
+    _max?: CarcMaxOrderByAggregateInput
+    _min?: CarcMinOrderByAggregateInput
+  }
+
+  export type CarcScalarWhereWithAggregatesInput = {
+    AND?: CarcScalarWhereWithAggregatesInput | CarcScalarWhereWithAggregatesInput[]
+    OR?: CarcScalarWhereWithAggregatesInput[]
+    NOT?: CarcScalarWhereWithAggregatesInput | CarcScalarWhereWithAggregatesInput[]
+    code?: StringWithAggregatesFilter<"Carc"> | string
+    grp?: StringNullableWithAggregatesFilter<"Carc"> | string | null
+    desc?: StringNullableWithAggregatesFilter<"Carc"> | string | null
+    effFrom?: DateTimeNullableWithAggregatesFilter<"Carc"> | Date | string | null
+    effTo?: DateTimeNullableWithAggregatesFilter<"Carc"> | Date | string | null
+  }
+
+  export type RarcWhereInput = {
+    AND?: RarcWhereInput | RarcWhereInput[]
+    OR?: RarcWhereInput[]
+    NOT?: RarcWhereInput | RarcWhereInput[]
+    code?: StringFilter<"Rarc"> | string
+    desc?: StringNullableFilter<"Rarc"> | string | null
+    effFrom?: DateTimeNullableFilter<"Rarc"> | Date | string | null
+    effTo?: DateTimeNullableFilter<"Rarc"> | Date | string | null
+  }
+
+  export type RarcOrderByWithRelationInput = {
+    code?: SortOrder
+    desc?: SortOrderInput | SortOrder
+    effFrom?: SortOrderInput | SortOrder
+    effTo?: SortOrderInput | SortOrder
+  }
+
+  export type RarcWhereUniqueInput = Prisma.AtLeast<{
+    code?: string
+    AND?: RarcWhereInput | RarcWhereInput[]
+    OR?: RarcWhereInput[]
+    NOT?: RarcWhereInput | RarcWhereInput[]
+    desc?: StringNullableFilter<"Rarc"> | string | null
+    effFrom?: DateTimeNullableFilter<"Rarc"> | Date | string | null
+    effTo?: DateTimeNullableFilter<"Rarc"> | Date | string | null
+  }, "code">
+
+  export type RarcOrderByWithAggregationInput = {
+    code?: SortOrder
+    desc?: SortOrderInput | SortOrder
+    effFrom?: SortOrderInput | SortOrder
+    effTo?: SortOrderInput | SortOrder
+    _count?: RarcCountOrderByAggregateInput
+    _max?: RarcMaxOrderByAggregateInput
+    _min?: RarcMinOrderByAggregateInput
+  }
+
+  export type RarcScalarWhereWithAggregatesInput = {
+    AND?: RarcScalarWhereWithAggregatesInput | RarcScalarWhereWithAggregatesInput[]
+    OR?: RarcScalarWhereWithAggregatesInput[]
+    NOT?: RarcScalarWhereWithAggregatesInput | RarcScalarWhereWithAggregatesInput[]
+    code?: StringWithAggregatesFilter<"Rarc"> | string
+    desc?: StringNullableWithAggregatesFilter<"Rarc"> | string | null
+    effFrom?: DateTimeNullableWithAggregatesFilter<"Rarc"> | Date | string | null
+    effTo?: DateTimeNullableWithAggregatesFilter<"Rarc"> | Date | string | null
+  }
+
+  export type NuccTaxonomyWhereInput = {
+    AND?: NuccTaxonomyWhereInput | NuccTaxonomyWhereInput[]
+    OR?: NuccTaxonomyWhereInput[]
+    NOT?: NuccTaxonomyWhereInput | NuccTaxonomyWhereInput[]
+    code?: StringFilter<"NuccTaxonomy"> | string
+    grouping?: StringNullableFilter<"NuccTaxonomy"> | string | null
+    classification?: StringNullableFilter<"NuccTaxonomy"> | string | null
+    specialization?: StringNullableFilter<"NuccTaxonomy"> | string | null
+    display?: StringNullableFilter<"NuccTaxonomy"> | string | null
+  }
+
+  export type NuccTaxonomyOrderByWithRelationInput = {
+    code?: SortOrder
+    grouping?: SortOrderInput | SortOrder
+    classification?: SortOrderInput | SortOrder
+    specialization?: SortOrderInput | SortOrder
+    display?: SortOrderInput | SortOrder
+  }
+
+  export type NuccTaxonomyWhereUniqueInput = Prisma.AtLeast<{
+    code?: string
+    AND?: NuccTaxonomyWhereInput | NuccTaxonomyWhereInput[]
+    OR?: NuccTaxonomyWhereInput[]
+    NOT?: NuccTaxonomyWhereInput | NuccTaxonomyWhereInput[]
+    grouping?: StringNullableFilter<"NuccTaxonomy"> | string | null
+    classification?: StringNullableFilter<"NuccTaxonomy"> | string | null
+    specialization?: StringNullableFilter<"NuccTaxonomy"> | string | null
+    display?: StringNullableFilter<"NuccTaxonomy"> | string | null
+  }, "code">
+
+  export type NuccTaxonomyOrderByWithAggregationInput = {
+    code?: SortOrder
+    grouping?: SortOrderInput | SortOrder
+    classification?: SortOrderInput | SortOrder
+    specialization?: SortOrderInput | SortOrder
+    display?: SortOrderInput | SortOrder
+    _count?: NuccTaxonomyCountOrderByAggregateInput
+    _max?: NuccTaxonomyMaxOrderByAggregateInput
+    _min?: NuccTaxonomyMinOrderByAggregateInput
+  }
+
+  export type NuccTaxonomyScalarWhereWithAggregatesInput = {
+    AND?: NuccTaxonomyScalarWhereWithAggregatesInput | NuccTaxonomyScalarWhereWithAggregatesInput[]
+    OR?: NuccTaxonomyScalarWhereWithAggregatesInput[]
+    NOT?: NuccTaxonomyScalarWhereWithAggregatesInput | NuccTaxonomyScalarWhereWithAggregatesInput[]
+    code?: StringWithAggregatesFilter<"NuccTaxonomy"> | string
+    grouping?: StringNullableWithAggregatesFilter<"NuccTaxonomy"> | string | null
+    classification?: StringNullableWithAggregatesFilter<"NuccTaxonomy"> | string | null
+    specialization?: StringNullableWithAggregatesFilter<"NuccTaxonomy"> | string | null
+    display?: StringNullableWithAggregatesFilter<"NuccTaxonomy"> | string | null
+  }
+
+  export type NpiProviderWhereInput = {
+    AND?: NpiProviderWhereInput | NpiProviderWhereInput[]
+    OR?: NpiProviderWhereInput[]
+    NOT?: NpiProviderWhereInput | NpiProviderWhereInput[]
+    npi?: StringFilter<"NpiProvider"> | string
+    entityType?: StringNullableFilter<"NpiProvider"> | string | null
+    name?: StringNullableFilter<"NpiProvider"> | string | null
+    orgName?: StringNullableFilter<"NpiProvider"> | string | null
+    taxonomy?: StringNullableFilter<"NpiProvider"> | string | null
+    state?: StringNullableFilter<"NpiProvider"> | string | null
+    postalCode?: StringNullableFilter<"NpiProvider"> | string | null
+  }
+
+  export type NpiProviderOrderByWithRelationInput = {
+    npi?: SortOrder
+    entityType?: SortOrderInput | SortOrder
+    name?: SortOrderInput | SortOrder
+    orgName?: SortOrderInput | SortOrder
+    taxonomy?: SortOrderInput | SortOrder
+    state?: SortOrderInput | SortOrder
+    postalCode?: SortOrderInput | SortOrder
+  }
+
+  export type NpiProviderWhereUniqueInput = Prisma.AtLeast<{
+    npi?: string
+    AND?: NpiProviderWhereInput | NpiProviderWhereInput[]
+    OR?: NpiProviderWhereInput[]
+    NOT?: NpiProviderWhereInput | NpiProviderWhereInput[]
+    entityType?: StringNullableFilter<"NpiProvider"> | string | null
+    name?: StringNullableFilter<"NpiProvider"> | string | null
+    orgName?: StringNullableFilter<"NpiProvider"> | string | null
+    taxonomy?: StringNullableFilter<"NpiProvider"> | string | null
+    state?: StringNullableFilter<"NpiProvider"> | string | null
+    postalCode?: StringNullableFilter<"NpiProvider"> | string | null
+  }, "npi">
+
+  export type NpiProviderOrderByWithAggregationInput = {
+    npi?: SortOrder
+    entityType?: SortOrderInput | SortOrder
+    name?: SortOrderInput | SortOrder
+    orgName?: SortOrderInput | SortOrder
+    taxonomy?: SortOrderInput | SortOrder
+    state?: SortOrderInput | SortOrder
+    postalCode?: SortOrderInput | SortOrder
+    _count?: NpiProviderCountOrderByAggregateInput
+    _max?: NpiProviderMaxOrderByAggregateInput
+    _min?: NpiProviderMinOrderByAggregateInput
+  }
+
+  export type NpiProviderScalarWhereWithAggregatesInput = {
+    AND?: NpiProviderScalarWhereWithAggregatesInput | NpiProviderScalarWhereWithAggregatesInput[]
+    OR?: NpiProviderScalarWhereWithAggregatesInput[]
+    NOT?: NpiProviderScalarWhereWithAggregatesInput | NpiProviderScalarWhereWithAggregatesInput[]
+    npi?: StringWithAggregatesFilter<"NpiProvider"> | string
+    entityType?: StringNullableWithAggregatesFilter<"NpiProvider"> | string | null
+    name?: StringNullableWithAggregatesFilter<"NpiProvider"> | string | null
+    orgName?: StringNullableWithAggregatesFilter<"NpiProvider"> | string | null
+    taxonomy?: StringNullableWithAggregatesFilter<"NpiProvider"> | string | null
+    state?: StringNullableWithAggregatesFilter<"NpiProvider"> | string | null
+    postalCode?: StringNullableWithAggregatesFilter<"NpiProvider"> | string | null
+  }
+
+  export type EobLineWhereInput = {
+    AND?: EobLineWhereInput | EobLineWhereInput[]
+    OR?: EobLineWhereInput[]
+    NOT?: EobLineWhereInput | EobLineWhereInput[]
+    id?: StringFilter<"EobLine"> | string
+    claimId?: StringFilter<"EobLine"> | string
+    lineNum?: IntFilter<"EobLine"> | number
+    hcpcs?: StringNullableFilter<"EobLine"> | string | null
+    units?: IntNullableFilter<"EobLine"> | number | null
+    chargeAmt?: DecimalNullableFilter<"EobLine"> | Decimal | DecimalJsLike | number | string | null
+    paidAmt?: DecimalNullableFilter<"EobLine"> | Decimal | DecimalJsLike | number | string | null
+    drg?: StringNullableFilter<"EobLine"> | string | null
+    serviceFrom?: DateTimeNullableFilter<"EobLine"> | Date | string | null
+    serviceTo?: DateTimeNullableFilter<"EobLine"> | Date | string | null
+    createdAt?: DateTimeFilter<"EobLine"> | Date | string
+    updatedAt?: DateTimeFilter<"EobLine"> | Date | string
+    adjudications?: EobAdjudicationListRelationFilter
+  }
+
+  export type EobLineOrderByWithRelationInput = {
+    id?: SortOrder
+    claimId?: SortOrder
+    lineNum?: SortOrder
+    hcpcs?: SortOrderInput | SortOrder
+    units?: SortOrderInput | SortOrder
+    chargeAmt?: SortOrderInput | SortOrder
+    paidAmt?: SortOrderInput | SortOrder
+    drg?: SortOrderInput | SortOrder
+    serviceFrom?: SortOrderInput | SortOrder
+    serviceTo?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    adjudications?: EobAdjudicationOrderByRelationAggregateInput
+  }
+
+  export type EobLineWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    claimId_lineNum?: EobLineClaimIdLineNumCompoundUniqueInput
+    AND?: EobLineWhereInput | EobLineWhereInput[]
+    OR?: EobLineWhereInput[]
+    NOT?: EobLineWhereInput | EobLineWhereInput[]
+    claimId?: StringFilter<"EobLine"> | string
+    lineNum?: IntFilter<"EobLine"> | number
+    hcpcs?: StringNullableFilter<"EobLine"> | string | null
+    units?: IntNullableFilter<"EobLine"> | number | null
+    chargeAmt?: DecimalNullableFilter<"EobLine"> | Decimal | DecimalJsLike | number | string | null
+    paidAmt?: DecimalNullableFilter<"EobLine"> | Decimal | DecimalJsLike | number | string | null
+    drg?: StringNullableFilter<"EobLine"> | string | null
+    serviceFrom?: DateTimeNullableFilter<"EobLine"> | Date | string | null
+    serviceTo?: DateTimeNullableFilter<"EobLine"> | Date | string | null
+    createdAt?: DateTimeFilter<"EobLine"> | Date | string
+    updatedAt?: DateTimeFilter<"EobLine"> | Date | string
+    adjudications?: EobAdjudicationListRelationFilter
+  }, "id" | "claimId_lineNum">
+
+  export type EobLineOrderByWithAggregationInput = {
+    id?: SortOrder
+    claimId?: SortOrder
+    lineNum?: SortOrder
+    hcpcs?: SortOrderInput | SortOrder
+    units?: SortOrderInput | SortOrder
+    chargeAmt?: SortOrderInput | SortOrder
+    paidAmt?: SortOrderInput | SortOrder
+    drg?: SortOrderInput | SortOrder
+    serviceFrom?: SortOrderInput | SortOrder
+    serviceTo?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: EobLineCountOrderByAggregateInput
+    _avg?: EobLineAvgOrderByAggregateInput
+    _max?: EobLineMaxOrderByAggregateInput
+    _min?: EobLineMinOrderByAggregateInput
+    _sum?: EobLineSumOrderByAggregateInput
+  }
+
+  export type EobLineScalarWhereWithAggregatesInput = {
+    AND?: EobLineScalarWhereWithAggregatesInput | EobLineScalarWhereWithAggregatesInput[]
+    OR?: EobLineScalarWhereWithAggregatesInput[]
+    NOT?: EobLineScalarWhereWithAggregatesInput | EobLineScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"EobLine"> | string
+    claimId?: StringWithAggregatesFilter<"EobLine"> | string
+    lineNum?: IntWithAggregatesFilter<"EobLine"> | number
+    hcpcs?: StringNullableWithAggregatesFilter<"EobLine"> | string | null
+    units?: IntNullableWithAggregatesFilter<"EobLine"> | number | null
+    chargeAmt?: DecimalNullableWithAggregatesFilter<"EobLine"> | Decimal | DecimalJsLike | number | string | null
+    paidAmt?: DecimalNullableWithAggregatesFilter<"EobLine"> | Decimal | DecimalJsLike | number | string | null
+    drg?: StringNullableWithAggregatesFilter<"EobLine"> | string | null
+    serviceFrom?: DateTimeNullableWithAggregatesFilter<"EobLine"> | Date | string | null
+    serviceTo?: DateTimeNullableWithAggregatesFilter<"EobLine"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"EobLine"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"EobLine"> | Date | string
+  }
+
+  export type EobAdjudicationWhereInput = {
+    AND?: EobAdjudicationWhereInput | EobAdjudicationWhereInput[]
+    OR?: EobAdjudicationWhereInput[]
+    NOT?: EobAdjudicationWhereInput | EobAdjudicationWhereInput[]
+    id?: StringFilter<"EobAdjudication"> | string
+    eobLineId?: StringFilter<"EobAdjudication"> | string
+    category?: StringNullableFilter<"EobAdjudication"> | string | null
+    amount?: DecimalNullableFilter<"EobAdjudication"> | Decimal | DecimalJsLike | number | string | null
+    carc?: StringNullableFilter<"EobAdjudication"> | string | null
+    rarc?: StringNullableFilter<"EobAdjudication"> | string | null
+    reasonTxt?: StringNullableFilter<"EobAdjudication"> | string | null
+    eobLine?: XOR<EobLineScalarRelationFilter, EobLineWhereInput>
+  }
+
+  export type EobAdjudicationOrderByWithRelationInput = {
+    id?: SortOrder
+    eobLineId?: SortOrder
+    category?: SortOrderInput | SortOrder
+    amount?: SortOrderInput | SortOrder
+    carc?: SortOrderInput | SortOrder
+    rarc?: SortOrderInput | SortOrder
+    reasonTxt?: SortOrderInput | SortOrder
+    eobLine?: EobLineOrderByWithRelationInput
+  }
+
+  export type EobAdjudicationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: EobAdjudicationWhereInput | EobAdjudicationWhereInput[]
+    OR?: EobAdjudicationWhereInput[]
+    NOT?: EobAdjudicationWhereInput | EobAdjudicationWhereInput[]
+    eobLineId?: StringFilter<"EobAdjudication"> | string
+    category?: StringNullableFilter<"EobAdjudication"> | string | null
+    amount?: DecimalNullableFilter<"EobAdjudication"> | Decimal | DecimalJsLike | number | string | null
+    carc?: StringNullableFilter<"EobAdjudication"> | string | null
+    rarc?: StringNullableFilter<"EobAdjudication"> | string | null
+    reasonTxt?: StringNullableFilter<"EobAdjudication"> | string | null
+    eobLine?: XOR<EobLineScalarRelationFilter, EobLineWhereInput>
+  }, "id">
+
+  export type EobAdjudicationOrderByWithAggregationInput = {
+    id?: SortOrder
+    eobLineId?: SortOrder
+    category?: SortOrderInput | SortOrder
+    amount?: SortOrderInput | SortOrder
+    carc?: SortOrderInput | SortOrder
+    rarc?: SortOrderInput | SortOrder
+    reasonTxt?: SortOrderInput | SortOrder
+    _count?: EobAdjudicationCountOrderByAggregateInput
+    _avg?: EobAdjudicationAvgOrderByAggregateInput
+    _max?: EobAdjudicationMaxOrderByAggregateInput
+    _min?: EobAdjudicationMinOrderByAggregateInput
+    _sum?: EobAdjudicationSumOrderByAggregateInput
+  }
+
+  export type EobAdjudicationScalarWhereWithAggregatesInput = {
+    AND?: EobAdjudicationScalarWhereWithAggregatesInput | EobAdjudicationScalarWhereWithAggregatesInput[]
+    OR?: EobAdjudicationScalarWhereWithAggregatesInput[]
+    NOT?: EobAdjudicationScalarWhereWithAggregatesInput | EobAdjudicationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"EobAdjudication"> | string
+    eobLineId?: StringWithAggregatesFilter<"EobAdjudication"> | string
+    category?: StringNullableWithAggregatesFilter<"EobAdjudication"> | string | null
+    amount?: DecimalNullableWithAggregatesFilter<"EobAdjudication"> | Decimal | DecimalJsLike | number | string | null
+    carc?: StringNullableWithAggregatesFilter<"EobAdjudication"> | string | null
+    rarc?: StringNullableWithAggregatesFilter<"EobAdjudication"> | string | null
+    reasonTxt?: StringNullableWithAggregatesFilter<"EobAdjudication"> | string | null
   }
 
   export type UserCreateInput = {
@@ -14115,6 +26991,772 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type Icd10CmCreateInput = {
+    code: string
+    title?: string | null
+    longDesc?: string | null
+    effFrom: Date | string
+    effTo?: Date | string | null
+  }
+
+  export type Icd10CmUncheckedCreateInput = {
+    code: string
+    title?: string | null
+    longDesc?: string | null
+    effFrom: Date | string
+    effTo?: Date | string | null
+  }
+
+  export type Icd10CmUpdateInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    longDesc?: NullableStringFieldUpdateOperationsInput | string | null
+    effFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type Icd10CmUncheckedUpdateInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    longDesc?: NullableStringFieldUpdateOperationsInput | string | null
+    effFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type Icd10CmCreateManyInput = {
+    code: string
+    title?: string | null
+    longDesc?: string | null
+    effFrom: Date | string
+    effTo?: Date | string | null
+  }
+
+  export type Icd10CmUpdateManyMutationInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    longDesc?: NullableStringFieldUpdateOperationsInput | string | null
+    effFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type Icd10CmUncheckedUpdateManyInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    longDesc?: NullableStringFieldUpdateOperationsInput | string | null
+    effFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type Icd10PcsCreateInput = {
+    code: string
+    title?: string | null
+    effFrom: Date | string
+    effTo?: Date | string | null
+  }
+
+  export type Icd10PcsUncheckedCreateInput = {
+    code: string
+    title?: string | null
+    effFrom: Date | string
+    effTo?: Date | string | null
+  }
+
+  export type Icd10PcsUpdateInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    effFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type Icd10PcsUncheckedUpdateInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    effFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type Icd10PcsCreateManyInput = {
+    code: string
+    title?: string | null
+    effFrom: Date | string
+    effTo?: Date | string | null
+  }
+
+  export type Icd10PcsUpdateManyMutationInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    effFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type Icd10PcsUncheckedUpdateManyInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    effFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type MsDrgCreateInput = {
+    drg: string
+    desc?: string | null
+    rw?: Decimal | DecimalJsLike | number | string | null
+    gmlos?: Decimal | DecimalJsLike | number | string | null
+    amlos?: Decimal | DecimalJsLike | number | string | null
+    transfer?: boolean | null
+    effFrom: Date | string
+    effTo?: Date | string | null
+  }
+
+  export type MsDrgUncheckedCreateInput = {
+    drg: string
+    desc?: string | null
+    rw?: Decimal | DecimalJsLike | number | string | null
+    gmlos?: Decimal | DecimalJsLike | number | string | null
+    amlos?: Decimal | DecimalJsLike | number | string | null
+    transfer?: boolean | null
+    effFrom: Date | string
+    effTo?: Date | string | null
+  }
+
+  export type MsDrgUpdateInput = {
+    drg?: StringFieldUpdateOperationsInput | string
+    desc?: NullableStringFieldUpdateOperationsInput | string | null
+    rw?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    gmlos?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    amlos?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    transfer?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    effFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type MsDrgUncheckedUpdateInput = {
+    drg?: StringFieldUpdateOperationsInput | string
+    desc?: NullableStringFieldUpdateOperationsInput | string | null
+    rw?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    gmlos?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    amlos?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    transfer?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    effFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type MsDrgCreateManyInput = {
+    drg: string
+    desc?: string | null
+    rw?: Decimal | DecimalJsLike | number | string | null
+    gmlos?: Decimal | DecimalJsLike | number | string | null
+    amlos?: Decimal | DecimalJsLike | number | string | null
+    transfer?: boolean | null
+    effFrom: Date | string
+    effTo?: Date | string | null
+  }
+
+  export type MsDrgUpdateManyMutationInput = {
+    drg?: StringFieldUpdateOperationsInput | string
+    desc?: NullableStringFieldUpdateOperationsInput | string | null
+    rw?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    gmlos?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    amlos?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    transfer?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    effFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type MsDrgUncheckedUpdateManyInput = {
+    drg?: StringFieldUpdateOperationsInput | string
+    desc?: NullableStringFieldUpdateOperationsInput | string | null
+    rw?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    gmlos?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    amlos?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    transfer?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    effFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type HcpcsCreateInput = {
+    code: string
+    short?: string | null
+    long?: string | null
+    status?: string | null
+    effFrom: Date | string
+    effTo?: Date | string | null
+  }
+
+  export type HcpcsUncheckedCreateInput = {
+    code: string
+    short?: string | null
+    long?: string | null
+    status?: string | null
+    effFrom: Date | string
+    effTo?: Date | string | null
+  }
+
+  export type HcpcsUpdateInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    short?: NullableStringFieldUpdateOperationsInput | string | null
+    long?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    effFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type HcpcsUncheckedUpdateInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    short?: NullableStringFieldUpdateOperationsInput | string | null
+    long?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    effFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type HcpcsCreateManyInput = {
+    code: string
+    short?: string | null
+    long?: string | null
+    status?: string | null
+    effFrom: Date | string
+    effTo?: Date | string | null
+  }
+
+  export type HcpcsUpdateManyMutationInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    short?: NullableStringFieldUpdateOperationsInput | string | null
+    long?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    effFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type HcpcsUncheckedUpdateManyInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    short?: NullableStringFieldUpdateOperationsInput | string | null
+    long?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    effFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type NcciPtpCreateInput = {
+    id?: string
+    codeA: string
+    codeB: string
+    modInd: string
+    effFrom: Date | string
+    effTo?: Date | string | null
+  }
+
+  export type NcciPtpUncheckedCreateInput = {
+    id?: string
+    codeA: string
+    codeB: string
+    modInd: string
+    effFrom: Date | string
+    effTo?: Date | string | null
+  }
+
+  export type NcciPtpUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codeA?: StringFieldUpdateOperationsInput | string
+    codeB?: StringFieldUpdateOperationsInput | string
+    modInd?: StringFieldUpdateOperationsInput | string
+    effFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type NcciPtpUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codeA?: StringFieldUpdateOperationsInput | string
+    codeB?: StringFieldUpdateOperationsInput | string
+    modInd?: StringFieldUpdateOperationsInput | string
+    effFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type NcciPtpCreateManyInput = {
+    id?: string
+    codeA: string
+    codeB: string
+    modInd: string
+    effFrom: Date | string
+    effTo?: Date | string | null
+  }
+
+  export type NcciPtpUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codeA?: StringFieldUpdateOperationsInput | string
+    codeB?: StringFieldUpdateOperationsInput | string
+    modInd?: StringFieldUpdateOperationsInput | string
+    effFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type NcciPtpUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codeA?: StringFieldUpdateOperationsInput | string
+    codeB?: StringFieldUpdateOperationsInput | string
+    modInd?: StringFieldUpdateOperationsInput | string
+    effFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type NcciMueCreateInput = {
+    code: string
+    effFrom: Date | string
+    mue: number
+    effTo?: Date | string | null
+  }
+
+  export type NcciMueUncheckedCreateInput = {
+    code: string
+    effFrom: Date | string
+    mue: number
+    effTo?: Date | string | null
+  }
+
+  export type NcciMueUpdateInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    effFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    mue?: IntFieldUpdateOperationsInput | number
+    effTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type NcciMueUncheckedUpdateInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    effFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    mue?: IntFieldUpdateOperationsInput | number
+    effTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type NcciMueCreateManyInput = {
+    code: string
+    effFrom: Date | string
+    mue: number
+    effTo?: Date | string | null
+  }
+
+  export type NcciMueUpdateManyMutationInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    effFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    mue?: IntFieldUpdateOperationsInput | number
+    effTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type NcciMueUncheckedUpdateManyInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    effFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    mue?: IntFieldUpdateOperationsInput | number
+    effTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type CarcCreateInput = {
+    code: string
+    grp?: string | null
+    desc?: string | null
+    effFrom?: Date | string | null
+    effTo?: Date | string | null
+  }
+
+  export type CarcUncheckedCreateInput = {
+    code: string
+    grp?: string | null
+    desc?: string | null
+    effFrom?: Date | string | null
+    effTo?: Date | string | null
+  }
+
+  export type CarcUpdateInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    grp?: NullableStringFieldUpdateOperationsInput | string | null
+    desc?: NullableStringFieldUpdateOperationsInput | string | null
+    effFrom?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    effTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type CarcUncheckedUpdateInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    grp?: NullableStringFieldUpdateOperationsInput | string | null
+    desc?: NullableStringFieldUpdateOperationsInput | string | null
+    effFrom?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    effTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type CarcCreateManyInput = {
+    code: string
+    grp?: string | null
+    desc?: string | null
+    effFrom?: Date | string | null
+    effTo?: Date | string | null
+  }
+
+  export type CarcUpdateManyMutationInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    grp?: NullableStringFieldUpdateOperationsInput | string | null
+    desc?: NullableStringFieldUpdateOperationsInput | string | null
+    effFrom?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    effTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type CarcUncheckedUpdateManyInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    grp?: NullableStringFieldUpdateOperationsInput | string | null
+    desc?: NullableStringFieldUpdateOperationsInput | string | null
+    effFrom?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    effTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type RarcCreateInput = {
+    code: string
+    desc?: string | null
+    effFrom?: Date | string | null
+    effTo?: Date | string | null
+  }
+
+  export type RarcUncheckedCreateInput = {
+    code: string
+    desc?: string | null
+    effFrom?: Date | string | null
+    effTo?: Date | string | null
+  }
+
+  export type RarcUpdateInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    desc?: NullableStringFieldUpdateOperationsInput | string | null
+    effFrom?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    effTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type RarcUncheckedUpdateInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    desc?: NullableStringFieldUpdateOperationsInput | string | null
+    effFrom?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    effTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type RarcCreateManyInput = {
+    code: string
+    desc?: string | null
+    effFrom?: Date | string | null
+    effTo?: Date | string | null
+  }
+
+  export type RarcUpdateManyMutationInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    desc?: NullableStringFieldUpdateOperationsInput | string | null
+    effFrom?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    effTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type RarcUncheckedUpdateManyInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    desc?: NullableStringFieldUpdateOperationsInput | string | null
+    effFrom?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    effTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type NuccTaxonomyCreateInput = {
+    code: string
+    grouping?: string | null
+    classification?: string | null
+    specialization?: string | null
+    display?: string | null
+  }
+
+  export type NuccTaxonomyUncheckedCreateInput = {
+    code: string
+    grouping?: string | null
+    classification?: string | null
+    specialization?: string | null
+    display?: string | null
+  }
+
+  export type NuccTaxonomyUpdateInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    grouping?: NullableStringFieldUpdateOperationsInput | string | null
+    classification?: NullableStringFieldUpdateOperationsInput | string | null
+    specialization?: NullableStringFieldUpdateOperationsInput | string | null
+    display?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type NuccTaxonomyUncheckedUpdateInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    grouping?: NullableStringFieldUpdateOperationsInput | string | null
+    classification?: NullableStringFieldUpdateOperationsInput | string | null
+    specialization?: NullableStringFieldUpdateOperationsInput | string | null
+    display?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type NuccTaxonomyCreateManyInput = {
+    code: string
+    grouping?: string | null
+    classification?: string | null
+    specialization?: string | null
+    display?: string | null
+  }
+
+  export type NuccTaxonomyUpdateManyMutationInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    grouping?: NullableStringFieldUpdateOperationsInput | string | null
+    classification?: NullableStringFieldUpdateOperationsInput | string | null
+    specialization?: NullableStringFieldUpdateOperationsInput | string | null
+    display?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type NuccTaxonomyUncheckedUpdateManyInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    grouping?: NullableStringFieldUpdateOperationsInput | string | null
+    classification?: NullableStringFieldUpdateOperationsInput | string | null
+    specialization?: NullableStringFieldUpdateOperationsInput | string | null
+    display?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type NpiProviderCreateInput = {
+    npi: string
+    entityType?: string | null
+    name?: string | null
+    orgName?: string | null
+    taxonomy?: string | null
+    state?: string | null
+    postalCode?: string | null
+  }
+
+  export type NpiProviderUncheckedCreateInput = {
+    npi: string
+    entityType?: string | null
+    name?: string | null
+    orgName?: string | null
+    taxonomy?: string | null
+    state?: string | null
+    postalCode?: string | null
+  }
+
+  export type NpiProviderUpdateInput = {
+    npi?: StringFieldUpdateOperationsInput | string
+    entityType?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    orgName?: NullableStringFieldUpdateOperationsInput | string | null
+    taxonomy?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type NpiProviderUncheckedUpdateInput = {
+    npi?: StringFieldUpdateOperationsInput | string
+    entityType?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    orgName?: NullableStringFieldUpdateOperationsInput | string | null
+    taxonomy?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type NpiProviderCreateManyInput = {
+    npi: string
+    entityType?: string | null
+    name?: string | null
+    orgName?: string | null
+    taxonomy?: string | null
+    state?: string | null
+    postalCode?: string | null
+  }
+
+  export type NpiProviderUpdateManyMutationInput = {
+    npi?: StringFieldUpdateOperationsInput | string
+    entityType?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    orgName?: NullableStringFieldUpdateOperationsInput | string | null
+    taxonomy?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type NpiProviderUncheckedUpdateManyInput = {
+    npi?: StringFieldUpdateOperationsInput | string
+    entityType?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    orgName?: NullableStringFieldUpdateOperationsInput | string | null
+    taxonomy?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type EobLineCreateInput = {
+    id?: string
+    claimId: string
+    lineNum: number
+    hcpcs?: string | null
+    units?: number | null
+    chargeAmt?: Decimal | DecimalJsLike | number | string | null
+    paidAmt?: Decimal | DecimalJsLike | number | string | null
+    drg?: string | null
+    serviceFrom?: Date | string | null
+    serviceTo?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    adjudications?: EobAdjudicationCreateNestedManyWithoutEobLineInput
+  }
+
+  export type EobLineUncheckedCreateInput = {
+    id?: string
+    claimId: string
+    lineNum: number
+    hcpcs?: string | null
+    units?: number | null
+    chargeAmt?: Decimal | DecimalJsLike | number | string | null
+    paidAmt?: Decimal | DecimalJsLike | number | string | null
+    drg?: string | null
+    serviceFrom?: Date | string | null
+    serviceTo?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    adjudications?: EobAdjudicationUncheckedCreateNestedManyWithoutEobLineInput
+  }
+
+  export type EobLineUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    claimId?: StringFieldUpdateOperationsInput | string
+    lineNum?: IntFieldUpdateOperationsInput | number
+    hcpcs?: NullableStringFieldUpdateOperationsInput | string | null
+    units?: NullableIntFieldUpdateOperationsInput | number | null
+    chargeAmt?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    paidAmt?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    drg?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceFrom?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    serviceTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    adjudications?: EobAdjudicationUpdateManyWithoutEobLineNestedInput
+  }
+
+  export type EobLineUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    claimId?: StringFieldUpdateOperationsInput | string
+    lineNum?: IntFieldUpdateOperationsInput | number
+    hcpcs?: NullableStringFieldUpdateOperationsInput | string | null
+    units?: NullableIntFieldUpdateOperationsInput | number | null
+    chargeAmt?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    paidAmt?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    drg?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceFrom?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    serviceTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    adjudications?: EobAdjudicationUncheckedUpdateManyWithoutEobLineNestedInput
+  }
+
+  export type EobLineCreateManyInput = {
+    id?: string
+    claimId: string
+    lineNum: number
+    hcpcs?: string | null
+    units?: number | null
+    chargeAmt?: Decimal | DecimalJsLike | number | string | null
+    paidAmt?: Decimal | DecimalJsLike | number | string | null
+    drg?: string | null
+    serviceFrom?: Date | string | null
+    serviceTo?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EobLineUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    claimId?: StringFieldUpdateOperationsInput | string
+    lineNum?: IntFieldUpdateOperationsInput | number
+    hcpcs?: NullableStringFieldUpdateOperationsInput | string | null
+    units?: NullableIntFieldUpdateOperationsInput | number | null
+    chargeAmt?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    paidAmt?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    drg?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceFrom?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    serviceTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EobLineUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    claimId?: StringFieldUpdateOperationsInput | string
+    lineNum?: IntFieldUpdateOperationsInput | number
+    hcpcs?: NullableStringFieldUpdateOperationsInput | string | null
+    units?: NullableIntFieldUpdateOperationsInput | number | null
+    chargeAmt?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    paidAmt?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    drg?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceFrom?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    serviceTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EobAdjudicationCreateInput = {
+    id?: string
+    category?: string | null
+    amount?: Decimal | DecimalJsLike | number | string | null
+    carc?: string | null
+    rarc?: string | null
+    reasonTxt?: string | null
+    eobLine: EobLineCreateNestedOneWithoutAdjudicationsInput
+  }
+
+  export type EobAdjudicationUncheckedCreateInput = {
+    id?: string
+    eobLineId: string
+    category?: string | null
+    amount?: Decimal | DecimalJsLike | number | string | null
+    carc?: string | null
+    rarc?: string | null
+    reasonTxt?: string | null
+  }
+
+  export type EobAdjudicationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    carc?: NullableStringFieldUpdateOperationsInput | string | null
+    rarc?: NullableStringFieldUpdateOperationsInput | string | null
+    reasonTxt?: NullableStringFieldUpdateOperationsInput | string | null
+    eobLine?: EobLineUpdateOneRequiredWithoutAdjudicationsNestedInput
+  }
+
+  export type EobAdjudicationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eobLineId?: StringFieldUpdateOperationsInput | string
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    carc?: NullableStringFieldUpdateOperationsInput | string | null
+    rarc?: NullableStringFieldUpdateOperationsInput | string | null
+    reasonTxt?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type EobAdjudicationCreateManyInput = {
+    id?: string
+    eobLineId: string
+    category?: string | null
+    amount?: Decimal | DecimalJsLike | number | string | null
+    carc?: string | null
+    rarc?: string | null
+    reasonTxt?: string | null
+  }
+
+  export type EobAdjudicationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    carc?: NullableStringFieldUpdateOperationsInput | string | null
+    rarc?: NullableStringFieldUpdateOperationsInput | string | null
+    reasonTxt?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type EobAdjudicationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eobLineId?: StringFieldUpdateOperationsInput | string
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    carc?: NullableStringFieldUpdateOperationsInput | string | null
+    rarc?: NullableStringFieldUpdateOperationsInput | string | null
+    reasonTxt?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[]
@@ -14858,6 +28500,473 @@ export namespace Prisma {
     value?: SortOrder
   }
 
+  export type Icd10CmCountOrderByAggregateInput = {
+    code?: SortOrder
+    title?: SortOrder
+    longDesc?: SortOrder
+    effFrom?: SortOrder
+    effTo?: SortOrder
+  }
+
+  export type Icd10CmMaxOrderByAggregateInput = {
+    code?: SortOrder
+    title?: SortOrder
+    longDesc?: SortOrder
+    effFrom?: SortOrder
+    effTo?: SortOrder
+  }
+
+  export type Icd10CmMinOrderByAggregateInput = {
+    code?: SortOrder
+    title?: SortOrder
+    longDesc?: SortOrder
+    effFrom?: SortOrder
+    effTo?: SortOrder
+  }
+
+  export type Icd10PcsCountOrderByAggregateInput = {
+    code?: SortOrder
+    title?: SortOrder
+    effFrom?: SortOrder
+    effTo?: SortOrder
+  }
+
+  export type Icd10PcsMaxOrderByAggregateInput = {
+    code?: SortOrder
+    title?: SortOrder
+    effFrom?: SortOrder
+    effTo?: SortOrder
+  }
+
+  export type Icd10PcsMinOrderByAggregateInput = {
+    code?: SortOrder
+    title?: SortOrder
+    effFrom?: SortOrder
+    effTo?: SortOrder
+  }
+
+  export type DecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type BoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
+  export type MsDrgCountOrderByAggregateInput = {
+    drg?: SortOrder
+    desc?: SortOrder
+    rw?: SortOrder
+    gmlos?: SortOrder
+    amlos?: SortOrder
+    transfer?: SortOrder
+    effFrom?: SortOrder
+    effTo?: SortOrder
+  }
+
+  export type MsDrgAvgOrderByAggregateInput = {
+    rw?: SortOrder
+    gmlos?: SortOrder
+    amlos?: SortOrder
+  }
+
+  export type MsDrgMaxOrderByAggregateInput = {
+    drg?: SortOrder
+    desc?: SortOrder
+    rw?: SortOrder
+    gmlos?: SortOrder
+    amlos?: SortOrder
+    transfer?: SortOrder
+    effFrom?: SortOrder
+    effTo?: SortOrder
+  }
+
+  export type MsDrgMinOrderByAggregateInput = {
+    drg?: SortOrder
+    desc?: SortOrder
+    rw?: SortOrder
+    gmlos?: SortOrder
+    amlos?: SortOrder
+    transfer?: SortOrder
+    effFrom?: SortOrder
+    effTo?: SortOrder
+  }
+
+  export type MsDrgSumOrderByAggregateInput = {
+    rw?: SortOrder
+    gmlos?: SortOrder
+    amlos?: SortOrder
+  }
+
+  export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+
+  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
+  export type HcpcsCountOrderByAggregateInput = {
+    code?: SortOrder
+    short?: SortOrder
+    long?: SortOrder
+    status?: SortOrder
+    effFrom?: SortOrder
+    effTo?: SortOrder
+  }
+
+  export type HcpcsMaxOrderByAggregateInput = {
+    code?: SortOrder
+    short?: SortOrder
+    long?: SortOrder
+    status?: SortOrder
+    effFrom?: SortOrder
+    effTo?: SortOrder
+  }
+
+  export type HcpcsMinOrderByAggregateInput = {
+    code?: SortOrder
+    short?: SortOrder
+    long?: SortOrder
+    status?: SortOrder
+    effFrom?: SortOrder
+    effTo?: SortOrder
+  }
+
+  export type NcciPtpCodeACodeBEffFromCompoundUniqueInput = {
+    codeA: string
+    codeB: string
+    effFrom: Date | string
+  }
+
+  export type NcciPtpCountOrderByAggregateInput = {
+    id?: SortOrder
+    codeA?: SortOrder
+    codeB?: SortOrder
+    modInd?: SortOrder
+    effFrom?: SortOrder
+    effTo?: SortOrder
+  }
+
+  export type NcciPtpMaxOrderByAggregateInput = {
+    id?: SortOrder
+    codeA?: SortOrder
+    codeB?: SortOrder
+    modInd?: SortOrder
+    effFrom?: SortOrder
+    effTo?: SortOrder
+  }
+
+  export type NcciPtpMinOrderByAggregateInput = {
+    id?: SortOrder
+    codeA?: SortOrder
+    codeB?: SortOrder
+    modInd?: SortOrder
+    effFrom?: SortOrder
+    effTo?: SortOrder
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type NcciMueCodeEffFromCompoundUniqueInput = {
+    code: string
+    effFrom: Date | string
+  }
+
+  export type NcciMueCountOrderByAggregateInput = {
+    code?: SortOrder
+    effFrom?: SortOrder
+    mue?: SortOrder
+    effTo?: SortOrder
+  }
+
+  export type NcciMueAvgOrderByAggregateInput = {
+    mue?: SortOrder
+  }
+
+  export type NcciMueMaxOrderByAggregateInput = {
+    code?: SortOrder
+    effFrom?: SortOrder
+    mue?: SortOrder
+    effTo?: SortOrder
+  }
+
+  export type NcciMueMinOrderByAggregateInput = {
+    code?: SortOrder
+    effFrom?: SortOrder
+    mue?: SortOrder
+    effTo?: SortOrder
+  }
+
+  export type NcciMueSumOrderByAggregateInput = {
+    mue?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type CarcCountOrderByAggregateInput = {
+    code?: SortOrder
+    grp?: SortOrder
+    desc?: SortOrder
+    effFrom?: SortOrder
+    effTo?: SortOrder
+  }
+
+  export type CarcMaxOrderByAggregateInput = {
+    code?: SortOrder
+    grp?: SortOrder
+    desc?: SortOrder
+    effFrom?: SortOrder
+    effTo?: SortOrder
+  }
+
+  export type CarcMinOrderByAggregateInput = {
+    code?: SortOrder
+    grp?: SortOrder
+    desc?: SortOrder
+    effFrom?: SortOrder
+    effTo?: SortOrder
+  }
+
+  export type RarcCountOrderByAggregateInput = {
+    code?: SortOrder
+    desc?: SortOrder
+    effFrom?: SortOrder
+    effTo?: SortOrder
+  }
+
+  export type RarcMaxOrderByAggregateInput = {
+    code?: SortOrder
+    desc?: SortOrder
+    effFrom?: SortOrder
+    effTo?: SortOrder
+  }
+
+  export type RarcMinOrderByAggregateInput = {
+    code?: SortOrder
+    desc?: SortOrder
+    effFrom?: SortOrder
+    effTo?: SortOrder
+  }
+
+  export type NuccTaxonomyCountOrderByAggregateInput = {
+    code?: SortOrder
+    grouping?: SortOrder
+    classification?: SortOrder
+    specialization?: SortOrder
+    display?: SortOrder
+  }
+
+  export type NuccTaxonomyMaxOrderByAggregateInput = {
+    code?: SortOrder
+    grouping?: SortOrder
+    classification?: SortOrder
+    specialization?: SortOrder
+    display?: SortOrder
+  }
+
+  export type NuccTaxonomyMinOrderByAggregateInput = {
+    code?: SortOrder
+    grouping?: SortOrder
+    classification?: SortOrder
+    specialization?: SortOrder
+    display?: SortOrder
+  }
+
+  export type NpiProviderCountOrderByAggregateInput = {
+    npi?: SortOrder
+    entityType?: SortOrder
+    name?: SortOrder
+    orgName?: SortOrder
+    taxonomy?: SortOrder
+    state?: SortOrder
+    postalCode?: SortOrder
+  }
+
+  export type NpiProviderMaxOrderByAggregateInput = {
+    npi?: SortOrder
+    entityType?: SortOrder
+    name?: SortOrder
+    orgName?: SortOrder
+    taxonomy?: SortOrder
+    state?: SortOrder
+    postalCode?: SortOrder
+  }
+
+  export type NpiProviderMinOrderByAggregateInput = {
+    npi?: SortOrder
+    entityType?: SortOrder
+    name?: SortOrder
+    orgName?: SortOrder
+    taxonomy?: SortOrder
+    state?: SortOrder
+    postalCode?: SortOrder
+  }
+
+  export type EobAdjudicationListRelationFilter = {
+    every?: EobAdjudicationWhereInput
+    some?: EobAdjudicationWhereInput
+    none?: EobAdjudicationWhereInput
+  }
+
+  export type EobAdjudicationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type EobLineClaimIdLineNumCompoundUniqueInput = {
+    claimId: string
+    lineNum: number
+  }
+
+  export type EobLineCountOrderByAggregateInput = {
+    id?: SortOrder
+    claimId?: SortOrder
+    lineNum?: SortOrder
+    hcpcs?: SortOrder
+    units?: SortOrder
+    chargeAmt?: SortOrder
+    paidAmt?: SortOrder
+    drg?: SortOrder
+    serviceFrom?: SortOrder
+    serviceTo?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EobLineAvgOrderByAggregateInput = {
+    lineNum?: SortOrder
+    units?: SortOrder
+    chargeAmt?: SortOrder
+    paidAmt?: SortOrder
+  }
+
+  export type EobLineMaxOrderByAggregateInput = {
+    id?: SortOrder
+    claimId?: SortOrder
+    lineNum?: SortOrder
+    hcpcs?: SortOrder
+    units?: SortOrder
+    chargeAmt?: SortOrder
+    paidAmt?: SortOrder
+    drg?: SortOrder
+    serviceFrom?: SortOrder
+    serviceTo?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EobLineMinOrderByAggregateInput = {
+    id?: SortOrder
+    claimId?: SortOrder
+    lineNum?: SortOrder
+    hcpcs?: SortOrder
+    units?: SortOrder
+    chargeAmt?: SortOrder
+    paidAmt?: SortOrder
+    drg?: SortOrder
+    serviceFrom?: SortOrder
+    serviceTo?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EobLineSumOrderByAggregateInput = {
+    lineNum?: SortOrder
+    units?: SortOrder
+    chargeAmt?: SortOrder
+    paidAmt?: SortOrder
+  }
+
+  export type EobLineScalarRelationFilter = {
+    is?: EobLineWhereInput
+    isNot?: EobLineWhereInput
+  }
+
+  export type EobAdjudicationCountOrderByAggregateInput = {
+    id?: SortOrder
+    eobLineId?: SortOrder
+    category?: SortOrder
+    amount?: SortOrder
+    carc?: SortOrder
+    rarc?: SortOrder
+    reasonTxt?: SortOrder
+  }
+
+  export type EobAdjudicationAvgOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type EobAdjudicationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    eobLineId?: SortOrder
+    category?: SortOrder
+    amount?: SortOrder
+    carc?: SortOrder
+    rarc?: SortOrder
+    reasonTxt?: SortOrder
+  }
+
+  export type EobAdjudicationMinOrderByAggregateInput = {
+    id?: SortOrder
+    eobLineId?: SortOrder
+    category?: SortOrder
+    amount?: SortOrder
+    carc?: SortOrder
+    rarc?: SortOrder
+    reasonTxt?: SortOrder
+  }
+
+  export type EobAdjudicationSumOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
   export type CaseCreateNestedManyWithoutAssignedUserInput = {
     create?: XOR<CaseCreateWithoutAssignedUserInput, CaseUncheckedCreateWithoutAssignedUserInput> | CaseCreateWithoutAssignedUserInput[] | CaseUncheckedCreateWithoutAssignedUserInput[]
     connectOrCreate?: CaseCreateOrConnectWithoutAssignedUserInput | CaseCreateOrConnectWithoutAssignedUserInput[]
@@ -15414,6 +29523,82 @@ export namespace Prisma {
     update?: XOR<XOR<CaseUpdateToOneWithWhereWithoutDenialsInput, CaseUpdateWithoutDenialsInput>, CaseUncheckedUpdateWithoutDenialsInput>
   }
 
+  export type NullableDecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string | null
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type NullableBoolFieldUpdateOperationsInput = {
+    set?: boolean | null
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type EobAdjudicationCreateNestedManyWithoutEobLineInput = {
+    create?: XOR<EobAdjudicationCreateWithoutEobLineInput, EobAdjudicationUncheckedCreateWithoutEobLineInput> | EobAdjudicationCreateWithoutEobLineInput[] | EobAdjudicationUncheckedCreateWithoutEobLineInput[]
+    connectOrCreate?: EobAdjudicationCreateOrConnectWithoutEobLineInput | EobAdjudicationCreateOrConnectWithoutEobLineInput[]
+    createMany?: EobAdjudicationCreateManyEobLineInputEnvelope
+    connect?: EobAdjudicationWhereUniqueInput | EobAdjudicationWhereUniqueInput[]
+  }
+
+  export type EobAdjudicationUncheckedCreateNestedManyWithoutEobLineInput = {
+    create?: XOR<EobAdjudicationCreateWithoutEobLineInput, EobAdjudicationUncheckedCreateWithoutEobLineInput> | EobAdjudicationCreateWithoutEobLineInput[] | EobAdjudicationUncheckedCreateWithoutEobLineInput[]
+    connectOrCreate?: EobAdjudicationCreateOrConnectWithoutEobLineInput | EobAdjudicationCreateOrConnectWithoutEobLineInput[]
+    createMany?: EobAdjudicationCreateManyEobLineInputEnvelope
+    connect?: EobAdjudicationWhereUniqueInput | EobAdjudicationWhereUniqueInput[]
+  }
+
+  export type EobAdjudicationUpdateManyWithoutEobLineNestedInput = {
+    create?: XOR<EobAdjudicationCreateWithoutEobLineInput, EobAdjudicationUncheckedCreateWithoutEobLineInput> | EobAdjudicationCreateWithoutEobLineInput[] | EobAdjudicationUncheckedCreateWithoutEobLineInput[]
+    connectOrCreate?: EobAdjudicationCreateOrConnectWithoutEobLineInput | EobAdjudicationCreateOrConnectWithoutEobLineInput[]
+    upsert?: EobAdjudicationUpsertWithWhereUniqueWithoutEobLineInput | EobAdjudicationUpsertWithWhereUniqueWithoutEobLineInput[]
+    createMany?: EobAdjudicationCreateManyEobLineInputEnvelope
+    set?: EobAdjudicationWhereUniqueInput | EobAdjudicationWhereUniqueInput[]
+    disconnect?: EobAdjudicationWhereUniqueInput | EobAdjudicationWhereUniqueInput[]
+    delete?: EobAdjudicationWhereUniqueInput | EobAdjudicationWhereUniqueInput[]
+    connect?: EobAdjudicationWhereUniqueInput | EobAdjudicationWhereUniqueInput[]
+    update?: EobAdjudicationUpdateWithWhereUniqueWithoutEobLineInput | EobAdjudicationUpdateWithWhereUniqueWithoutEobLineInput[]
+    updateMany?: EobAdjudicationUpdateManyWithWhereWithoutEobLineInput | EobAdjudicationUpdateManyWithWhereWithoutEobLineInput[]
+    deleteMany?: EobAdjudicationScalarWhereInput | EobAdjudicationScalarWhereInput[]
+  }
+
+  export type EobAdjudicationUncheckedUpdateManyWithoutEobLineNestedInput = {
+    create?: XOR<EobAdjudicationCreateWithoutEobLineInput, EobAdjudicationUncheckedCreateWithoutEobLineInput> | EobAdjudicationCreateWithoutEobLineInput[] | EobAdjudicationUncheckedCreateWithoutEobLineInput[]
+    connectOrCreate?: EobAdjudicationCreateOrConnectWithoutEobLineInput | EobAdjudicationCreateOrConnectWithoutEobLineInput[]
+    upsert?: EobAdjudicationUpsertWithWhereUniqueWithoutEobLineInput | EobAdjudicationUpsertWithWhereUniqueWithoutEobLineInput[]
+    createMany?: EobAdjudicationCreateManyEobLineInputEnvelope
+    set?: EobAdjudicationWhereUniqueInput | EobAdjudicationWhereUniqueInput[]
+    disconnect?: EobAdjudicationWhereUniqueInput | EobAdjudicationWhereUniqueInput[]
+    delete?: EobAdjudicationWhereUniqueInput | EobAdjudicationWhereUniqueInput[]
+    connect?: EobAdjudicationWhereUniqueInput | EobAdjudicationWhereUniqueInput[]
+    update?: EobAdjudicationUpdateWithWhereUniqueWithoutEobLineInput | EobAdjudicationUpdateWithWhereUniqueWithoutEobLineInput[]
+    updateMany?: EobAdjudicationUpdateManyWithWhereWithoutEobLineInput | EobAdjudicationUpdateManyWithWhereWithoutEobLineInput[]
+    deleteMany?: EobAdjudicationScalarWhereInput | EobAdjudicationScalarWhereInput[]
+  }
+
+  export type EobLineCreateNestedOneWithoutAdjudicationsInput = {
+    create?: XOR<EobLineCreateWithoutAdjudicationsInput, EobLineUncheckedCreateWithoutAdjudicationsInput>
+    connectOrCreate?: EobLineCreateOrConnectWithoutAdjudicationsInput
+    connect?: EobLineWhereUniqueInput
+  }
+
+  export type EobLineUpdateOneRequiredWithoutAdjudicationsNestedInput = {
+    create?: XOR<EobLineCreateWithoutAdjudicationsInput, EobLineUncheckedCreateWithoutAdjudicationsInput>
+    connectOrCreate?: EobLineCreateOrConnectWithoutAdjudicationsInput
+    upsert?: EobLineUpsertWithoutAdjudicationsInput
+    connect?: EobLineWhereUniqueInput
+    update?: XOR<XOR<EobLineUpdateToOneWithWhereWithoutAdjudicationsInput, EobLineUpdateWithoutAdjudicationsInput>, EobLineUncheckedUpdateWithoutAdjudicationsInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[]
@@ -15629,6 +29814,62 @@ export namespace Prisma {
     _sum?: NestedFloatFilter<$PrismaModel>
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type NestedDecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type NestedBoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
+  export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+
+  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type CaseCreateWithoutAssignedUserInput = {
@@ -16949,6 +31190,138 @@ export namespace Prisma {
     encounters?: EncounterUncheckedUpdateManyWithoutCaseNestedInput
   }
 
+  export type EobAdjudicationCreateWithoutEobLineInput = {
+    id?: string
+    category?: string | null
+    amount?: Decimal | DecimalJsLike | number | string | null
+    carc?: string | null
+    rarc?: string | null
+    reasonTxt?: string | null
+  }
+
+  export type EobAdjudicationUncheckedCreateWithoutEobLineInput = {
+    id?: string
+    category?: string | null
+    amount?: Decimal | DecimalJsLike | number | string | null
+    carc?: string | null
+    rarc?: string | null
+    reasonTxt?: string | null
+  }
+
+  export type EobAdjudicationCreateOrConnectWithoutEobLineInput = {
+    where: EobAdjudicationWhereUniqueInput
+    create: XOR<EobAdjudicationCreateWithoutEobLineInput, EobAdjudicationUncheckedCreateWithoutEobLineInput>
+  }
+
+  export type EobAdjudicationCreateManyEobLineInputEnvelope = {
+    data: EobAdjudicationCreateManyEobLineInput | EobAdjudicationCreateManyEobLineInput[]
+  }
+
+  export type EobAdjudicationUpsertWithWhereUniqueWithoutEobLineInput = {
+    where: EobAdjudicationWhereUniqueInput
+    update: XOR<EobAdjudicationUpdateWithoutEobLineInput, EobAdjudicationUncheckedUpdateWithoutEobLineInput>
+    create: XOR<EobAdjudicationCreateWithoutEobLineInput, EobAdjudicationUncheckedCreateWithoutEobLineInput>
+  }
+
+  export type EobAdjudicationUpdateWithWhereUniqueWithoutEobLineInput = {
+    where: EobAdjudicationWhereUniqueInput
+    data: XOR<EobAdjudicationUpdateWithoutEobLineInput, EobAdjudicationUncheckedUpdateWithoutEobLineInput>
+  }
+
+  export type EobAdjudicationUpdateManyWithWhereWithoutEobLineInput = {
+    where: EobAdjudicationScalarWhereInput
+    data: XOR<EobAdjudicationUpdateManyMutationInput, EobAdjudicationUncheckedUpdateManyWithoutEobLineInput>
+  }
+
+  export type EobAdjudicationScalarWhereInput = {
+    AND?: EobAdjudicationScalarWhereInput | EobAdjudicationScalarWhereInput[]
+    OR?: EobAdjudicationScalarWhereInput[]
+    NOT?: EobAdjudicationScalarWhereInput | EobAdjudicationScalarWhereInput[]
+    id?: StringFilter<"EobAdjudication"> | string
+    eobLineId?: StringFilter<"EobAdjudication"> | string
+    category?: StringNullableFilter<"EobAdjudication"> | string | null
+    amount?: DecimalNullableFilter<"EobAdjudication"> | Decimal | DecimalJsLike | number | string | null
+    carc?: StringNullableFilter<"EobAdjudication"> | string | null
+    rarc?: StringNullableFilter<"EobAdjudication"> | string | null
+    reasonTxt?: StringNullableFilter<"EobAdjudication"> | string | null
+  }
+
+  export type EobLineCreateWithoutAdjudicationsInput = {
+    id?: string
+    claimId: string
+    lineNum: number
+    hcpcs?: string | null
+    units?: number | null
+    chargeAmt?: Decimal | DecimalJsLike | number | string | null
+    paidAmt?: Decimal | DecimalJsLike | number | string | null
+    drg?: string | null
+    serviceFrom?: Date | string | null
+    serviceTo?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EobLineUncheckedCreateWithoutAdjudicationsInput = {
+    id?: string
+    claimId: string
+    lineNum: number
+    hcpcs?: string | null
+    units?: number | null
+    chargeAmt?: Decimal | DecimalJsLike | number | string | null
+    paidAmt?: Decimal | DecimalJsLike | number | string | null
+    drg?: string | null
+    serviceFrom?: Date | string | null
+    serviceTo?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EobLineCreateOrConnectWithoutAdjudicationsInput = {
+    where: EobLineWhereUniqueInput
+    create: XOR<EobLineCreateWithoutAdjudicationsInput, EobLineUncheckedCreateWithoutAdjudicationsInput>
+  }
+
+  export type EobLineUpsertWithoutAdjudicationsInput = {
+    update: XOR<EobLineUpdateWithoutAdjudicationsInput, EobLineUncheckedUpdateWithoutAdjudicationsInput>
+    create: XOR<EobLineCreateWithoutAdjudicationsInput, EobLineUncheckedCreateWithoutAdjudicationsInput>
+    where?: EobLineWhereInput
+  }
+
+  export type EobLineUpdateToOneWithWhereWithoutAdjudicationsInput = {
+    where?: EobLineWhereInput
+    data: XOR<EobLineUpdateWithoutAdjudicationsInput, EobLineUncheckedUpdateWithoutAdjudicationsInput>
+  }
+
+  export type EobLineUpdateWithoutAdjudicationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    claimId?: StringFieldUpdateOperationsInput | string
+    lineNum?: IntFieldUpdateOperationsInput | number
+    hcpcs?: NullableStringFieldUpdateOperationsInput | string | null
+    units?: NullableIntFieldUpdateOperationsInput | number | null
+    chargeAmt?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    paidAmt?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    drg?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceFrom?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    serviceTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EobLineUncheckedUpdateWithoutAdjudicationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    claimId?: StringFieldUpdateOperationsInput | string
+    lineNum?: IntFieldUpdateOperationsInput | number
+    hcpcs?: NullableStringFieldUpdateOperationsInput | string | null
+    units?: NullableIntFieldUpdateOperationsInput | number | null
+    chargeAmt?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    paidAmt?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    drg?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceFrom?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    serviceTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type CaseCreateManyAssignedUserInput = {
     id?: string
     title: string
@@ -17439,6 +31812,42 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     cptCode?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type EobAdjudicationCreateManyEobLineInput = {
+    id?: string
+    category?: string | null
+    amount?: Decimal | DecimalJsLike | number | string | null
+    carc?: string | null
+    rarc?: string | null
+    reasonTxt?: string | null
+  }
+
+  export type EobAdjudicationUpdateWithoutEobLineInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    carc?: NullableStringFieldUpdateOperationsInput | string | null
+    rarc?: NullableStringFieldUpdateOperationsInput | string | null
+    reasonTxt?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type EobAdjudicationUncheckedUpdateWithoutEobLineInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    carc?: NullableStringFieldUpdateOperationsInput | string | null
+    rarc?: NullableStringFieldUpdateOperationsInput | string | null
+    reasonTxt?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type EobAdjudicationUncheckedUpdateManyWithoutEobLineInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    carc?: NullableStringFieldUpdateOperationsInput | string | null
+    rarc?: NullableStringFieldUpdateOperationsInput | string | null
+    reasonTxt?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

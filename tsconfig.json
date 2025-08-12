@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "allowJs": false,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": false,
+    "typeRoots": ["./types", "./node_modules/@types"]
+  },
+  "include": [
+    "scripts/**/*.ts",
+    "types/**/*.d.ts",
+    "packages/**/src/**/*.ts"
+  ]
+}

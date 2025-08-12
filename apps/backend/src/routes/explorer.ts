@@ -26,6 +26,9 @@ router.get("/preview", async (req, res, next) => {
   try {
     const path = String(req.query.path || "");
     if (!path) return res.status(400).json({ error: "path required" });
+    if (!path.startsWith("silver/") && !path.startsWith("gold/")) {
+      return res.status(400).json({ error: "path must be under silver/ or gold/" });
+    }
 
     const accountName = process.env.AZURE_STORAGE_ACCOUNT!;
     const accountKey  = process.env.AZURE_STORAGE_KEY || "";
@@ -37,21 +40,31 @@ router.get("/preview", async (req, res, next) => {
       : new BlobServiceClient(`${blobBaseUrl}`, new DefaultAzureCredential());
     const bc = bsc.getContainerClient(container).getBlobClient(path);
 
-    const head = await bc.getProperties();
-    const ct = (head.contentType || "").toLowerCase();
-    const stream = await bc.download(0, 256 * 1024); // first 256KB
-    const buf = await streamToBuffer(stream.readableStreamBody);
+    // HEAD first; if this fails (e.g., directory/user has no access), return not previewable
+    let head; 
+    try {
+      head = await bc.getProperties();
+    } catch {
+      return res.json({ contentType: "application/octet-stream", sample: null });
+    }
 
-    // naive sniffer
-    if (ct.includes("json") || path.endsWith(".json") || path.endsWith(".ndjson")) {
-      const text = buf.toString("utf8").split("\n").slice(0, 200).join("\n");
-      return res.json({ contentType: "json", sample: text });
+    const ct = (head.contentType || "").toLowerCase();
+    const looksJson = ct.includes("json") || path.endsWith(".json") || path.endsWith(".ndjson");
+    const looksCsv = ct.includes("csv") || path.endsWith(".csv");
+    const length = Number(head.contentLength || 0);
+
+    if (!(looksJson || looksCsv) || length === 0) {
+      return res.json({ contentType: ct || "application/octet-stream", sample: null });
     }
-    if (ct.includes("csv") || path.endsWith(".csv")) {
+
+    try {
+      const stream = await bc.download(0, 256 * 1024); // first 256KB
+      const buf = await streamToBuffer(stream.readableStreamBody);
       const text = buf.toString("utf8").split("\n").slice(0, 200).join("\n");
-      return res.json({ contentType: "csv", sample: text });
+      return res.json({ contentType: looksCsv ? "csv" : "json", sample: text });
+    } catch {
+      return res.json({ contentType: ct || "application/octet-stream", sample: null });
     }
-    return res.json({ contentType: ct || "application/octet-stream", sample: null });
   } catch (e) { next(e as any); }
 });
 

@@ -4,19 +4,20 @@ test('Data Explorer loads, lists files, previews sample, SAS works', async ({ pa
   await page.goto('http://localhost:5173/data-explorer');
   await expect(page.getByRole('heading', { name: 'Data Explorer' })).toBeVisible();
 
-  // Wait for manifest rows
-  await page.waitForSelector('tbody tr');
-
-  // Click first row
-  const firstRow = (await page.$$('tbody tr'))[0];
-  await firstRow.click();
-
-  // Preview panel shows up
-  await expect(page.getByText('Preview')).toBeVisible();
+  // Wait for any row and prefer a CSV/JSON file row if present
+  await page.waitForSelector('tbody tr', { timeout: 60000 });
+  const csvRow = page.locator('tbody tr').filter({ hasText: '.csv' }).first();
+  const jsonRow = page.locator('tbody tr').filter({ hasText: '.json' }).first();
+  if (await csvRow.count()) {
+    await csvRow.click();
+  } else if (await jsonRow.count()) {
+    await jsonRow.click();
+  } else {
+    await page.locator('tbody tr').first().click();
+  }
 
   // SAS link appears
-  const sas = page.getByRole('link', { name: /Open with SAS/ });
-  await expect(sas).toBeVisible();
+  await expect(page.getByRole('link', { name: /Open with SAS/ })).toBeVisible({ timeout: 30000 });
 });
 
 

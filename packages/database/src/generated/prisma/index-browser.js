@@ -252,6 +252,115 @@ exports.Prisma.AnalyticsScalarFieldEnum = {
   description: 'description'
 };
 
+exports.Prisma.Icd10CmScalarFieldEnum = {
+  code: 'code',
+  title: 'title',
+  longDesc: 'longDesc',
+  effFrom: 'effFrom',
+  effTo: 'effTo'
+};
+
+exports.Prisma.Icd10PcsScalarFieldEnum = {
+  code: 'code',
+  title: 'title',
+  effFrom: 'effFrom',
+  effTo: 'effTo'
+};
+
+exports.Prisma.MsDrgScalarFieldEnum = {
+  drg: 'drg',
+  desc: 'desc',
+  rw: 'rw',
+  gmlos: 'gmlos',
+  amlos: 'amlos',
+  transfer: 'transfer',
+  effFrom: 'effFrom',
+  effTo: 'effTo'
+};
+
+exports.Prisma.HcpcsScalarFieldEnum = {
+  code: 'code',
+  short: 'short',
+  long: 'long',
+  status: 'status',
+  effFrom: 'effFrom',
+  effTo: 'effTo'
+};
+
+exports.Prisma.NcciPtpScalarFieldEnum = {
+  id: 'id',
+  codeA: 'codeA',
+  codeB: 'codeB',
+  modInd: 'modInd',
+  effFrom: 'effFrom',
+  effTo: 'effTo'
+};
+
+exports.Prisma.NcciMueScalarFieldEnum = {
+  code: 'code',
+  effFrom: 'effFrom',
+  mue: 'mue',
+  effTo: 'effTo'
+};
+
+exports.Prisma.CarcScalarFieldEnum = {
+  code: 'code',
+  grp: 'grp',
+  desc: 'desc',
+  effFrom: 'effFrom',
+  effTo: 'effTo'
+};
+
+exports.Prisma.RarcScalarFieldEnum = {
+  code: 'code',
+  desc: 'desc',
+  effFrom: 'effFrom',
+  effTo: 'effTo'
+};
+
+exports.Prisma.NuccTaxonomyScalarFieldEnum = {
+  code: 'code',
+  grouping: 'grouping',
+  classification: 'classification',
+  specialization: 'specialization',
+  display: 'display'
+};
+
+exports.Prisma.NpiProviderScalarFieldEnum = {
+  npi: 'npi',
+  entityType: 'entityType',
+  name: 'name',
+  orgName: 'orgName',
+  taxonomy: 'taxonomy',
+  state: 'state',
+  postalCode: 'postalCode'
+};
+
+exports.Prisma.EobLineScalarFieldEnum = {
+  id: 'id',
+  claimId: 'claimId',
+  lineNum: 'lineNum',
+  hcpcs: 'hcpcs',
+  units: 'units',
+  chargeAmt: 'chargeAmt',
+  paidAmt: 'paidAmt',
+  drg: 'drg',
+  serviceFrom: 'serviceFrom',
+  serviceTo: 'serviceTo',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.EobAdjudicationScalarFieldEnum = {
+  id: 'id',
+  eobLineId: 'eobLineId',
+  category: 'category',
+  amount: 'amount',
+  carc: 'carc',
+  rarc: 'rarc',
+  reasonTxt: 'reasonTxt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -273,7 +382,19 @@ exports.Prisma.ModelName = {
   Procedure: 'Procedure',
   PreBillAnalysis: 'PreBillAnalysis',
   Denial: 'Denial',
-  Analytics: 'Analytics'
+  Analytics: 'Analytics',
+  Icd10Cm: 'Icd10Cm',
+  Icd10Pcs: 'Icd10Pcs',
+  MsDrg: 'MsDrg',
+  Hcpcs: 'Hcpcs',
+  NcciPtp: 'NcciPtp',
+  NcciMue: 'NcciMue',
+  Carc: 'Carc',
+  Rarc: 'Rarc',
+  NuccTaxonomy: 'NuccTaxonomy',
+  NpiProvider: 'NpiProvider',
+  EobLine: 'EobLine',
+  EobAdjudication: 'EobAdjudication'
 };
 
 /**
