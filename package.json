@@ -20,6 +20,8 @@
     "populate-ai-search": "npx tsx scripts/run-ai-search-population.ts"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.10.2",
+    "@playwright/test": "^1.54.2",
     "@types/node": "^24.2.0",
     "tsx": "^4.20.3",
     "typescript": "^5.9.2"
