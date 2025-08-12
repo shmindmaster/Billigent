@@ -10,6 +10,10 @@ const prisma = new PrismaClient();
 // GET /api/cases - List cases with filtering and pagination
 router.get('/', async (req: Request, res: Response) => {
   try {
+    if (process.env.SAFE_MODE === 'true') {
+      const limitNum = parseInt(String((req.query?.limit as string) || '10'), 10);
+      return res.json({ cases: [], pagination: { page: 1, limit: limitNum, total: 0, pages: 0 } });
+    }
     const { 
       page = '1', 
       limit = '10', 

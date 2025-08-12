@@ -1621,15 +1621,15 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
-    queries: number
     assignedCases: number
     preBillAnalyses: number
+    queries: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    queries?: boolean | UserCountOutputTypeCountQueriesArgs
     assignedCases?: boolean | UserCountOutputTypeCountAssignedCasesArgs
     preBillAnalyses?: boolean | UserCountOutputTypeCountPreBillAnalysesArgs
+    queries?: boolean | UserCountOutputTypeCountQueriesArgs
   }
 
   // Custom InputTypes
@@ -1646,13 +1646,6 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountQueriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: QueryWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
   export type UserCountOutputTypeCountAssignedCasesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CaseWhereInput
   }
@@ -1664,19 +1657,26 @@ export namespace Prisma {
     where?: PreBillAnalysisWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountQueriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QueryWhereInput
+  }
+
 
   /**
    * Count Type CaseCountOutputType
    */
 
   export type CaseCountOutputType = {
-    encounters: number
     denials: number
+    encounters: number
   }
 
   export type CaseCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    encounters?: boolean | CaseCountOutputTypeCountEncountersArgs
     denials?: boolean | CaseCountOutputTypeCountDenialsArgs
+    encounters?: boolean | CaseCountOutputTypeCountEncountersArgs
   }
 
   // Custom InputTypes
@@ -1693,15 +1693,15 @@ export namespace Prisma {
   /**
    * CaseCountOutputType without action
    */
-  export type CaseCountOutputTypeCountEncountersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: EncounterWhereInput
+  export type CaseCountOutputTypeCountDenialsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DenialWhereInput
   }
 
   /**
    * CaseCountOutputType without action
    */
-  export type CaseCountOutputTypeCountDenialsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: DenialWhereInput
+  export type CaseCountOutputTypeCountEncountersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EncounterWhereInput
   }
 
 
@@ -1742,14 +1742,14 @@ export namespace Prisma {
 
   export type EncounterCountOutputType = {
     diagnoses: number
-    procedures: number
     preBillAnalyses: number
+    procedures: number
   }
 
   export type EncounterCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     diagnoses?: boolean | EncounterCountOutputTypeCountDiagnosesArgs
-    procedures?: boolean | EncounterCountOutputTypeCountProceduresArgs
     preBillAnalyses?: boolean | EncounterCountOutputTypeCountPreBillAnalysesArgs
+    procedures?: boolean | EncounterCountOutputTypeCountProceduresArgs
   }
 
   // Custom InputTypes
@@ -1773,15 +1773,15 @@ export namespace Prisma {
   /**
    * EncounterCountOutputType without action
    */
-  export type EncounterCountOutputTypeCountProceduresArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ProcedureWhereInput
+  export type EncounterCountOutputTypeCountPreBillAnalysesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PreBillAnalysisWhereInput
   }
 
   /**
    * EncounterCountOutputType without action
    */
-  export type EncounterCountOutputTypeCountPreBillAnalysesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PreBillAnalysisWhereInput
+  export type EncounterCountOutputTypeCountProceduresArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProcedureWhereInput
   }
 
 
@@ -1977,9 +1977,9 @@ export namespace Prisma {
     updatedAt?: boolean
     fullName?: boolean
     userRole?: boolean
-    queries?: boolean | User$queriesArgs<ExtArgs>
     assignedCases?: boolean | User$assignedCasesArgs<ExtArgs>
     preBillAnalyses?: boolean | User$preBillAnalysesArgs<ExtArgs>
+    queries?: boolean | User$queriesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1998,18 +1998,18 @@ export namespace Prisma {
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "role" | "createdAt" | "updatedAt" | "fullName" | "userRole", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    queries?: boolean | User$queriesArgs<ExtArgs>
     assignedCases?: boolean | User$assignedCasesArgs<ExtArgs>
     preBillAnalyses?: boolean | User$preBillAnalysesArgs<ExtArgs>
+    queries?: boolean | User$queriesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      queries: Prisma.$QueryPayload<ExtArgs>[]
       assignedCases: Prisma.$CasePayload<ExtArgs>[]
       preBillAnalyses: Prisma.$PreBillAnalysisPayload<ExtArgs>[]
+      queries: Prisma.$QueryPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2360,9 +2360,9 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    queries<T extends User$queriesArgs<ExtArgs> = {}>(args?: Subset<T, User$queriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QueryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     assignedCases<T extends User$assignedCasesArgs<ExtArgs> = {}>(args?: Subset<T, User$assignedCasesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     preBillAnalyses<T extends User$preBillAnalysesArgs<ExtArgs> = {}>(args?: Subset<T, User$preBillAnalysesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreBillAnalysisPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    queries<T extends User$queriesArgs<ExtArgs> = {}>(args?: Subset<T, User$queriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QueryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2742,30 +2742,6 @@ export namespace Prisma {
   }
 
   /**
-   * User.queries
-   */
-  export type User$queriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Query
-     */
-    select?: QuerySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Query
-     */
-    omit?: QueryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: QueryInclude<ExtArgs> | null
-    where?: QueryWhereInput
-    orderBy?: QueryOrderByWithRelationInput | QueryOrderByWithRelationInput[]
-    cursor?: QueryWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: QueryScalarFieldEnum | QueryScalarFieldEnum[]
-  }
-
-  /**
    * User.assignedCases
    */
   export type User$assignedCasesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2811,6 +2787,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PreBillAnalysisScalarFieldEnum | PreBillAnalysisScalarFieldEnum[]
+  }
+
+  /**
+   * User.queries
+   */
+  export type User$queriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Query
+     */
+    select?: QuerySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Query
+     */
+    omit?: QueryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QueryInclude<ExtArgs> | null
+    where?: QueryWhereInput
+    orderBy?: QueryOrderByWithRelationInput | QueryOrderByWithRelationInput[]
+    cursor?: QueryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: QueryScalarFieldEnum | QueryScalarFieldEnum[]
   }
 
   /**
@@ -4176,8 +4176,8 @@ export namespace Prisma {
     closeDate?: boolean
     facilityId?: boolean
     assignedUser?: boolean | Case$assignedUserArgs<ExtArgs>
-    encounters?: boolean | Case$encountersArgs<ExtArgs>
     denials?: boolean | Case$denialsArgs<ExtArgs>
+    encounters?: boolean | Case$encountersArgs<ExtArgs>
     _count?: boolean | CaseCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["case"]>
 
@@ -4210,8 +4210,8 @@ export namespace Prisma {
   export type CaseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "status" | "priority" | "assignedUserId" | "createdAt" | "updatedAt" | "patientFhirId" | "encounterFhirId" | "medicalRecordNumber" | "patientName" | "age" | "gender" | "admissionDate" | "dischargeDate" | "primaryDiagnosis" | "currentDRG" | "openDate" | "closeDate" | "facilityId", ExtArgs["result"]["case"]>
   export type CaseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     assignedUser?: boolean | Case$assignedUserArgs<ExtArgs>
-    encounters?: boolean | Case$encountersArgs<ExtArgs>
     denials?: boolean | Case$denialsArgs<ExtArgs>
+    encounters?: boolean | Case$encountersArgs<ExtArgs>
     _count?: boolean | CaseCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -4219,8 +4219,8 @@ export namespace Prisma {
     name: "Case"
     objects: {
       assignedUser: Prisma.$UserPayload<ExtArgs> | null
-      encounters: Prisma.$EncounterPayload<ExtArgs>[]
       denials: Prisma.$DenialPayload<ExtArgs>[]
+      encounters: Prisma.$EncounterPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4585,8 +4585,8 @@ export namespace Prisma {
   export interface Prisma__CaseClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     assignedUser<T extends Case$assignedUserArgs<ExtArgs> = {}>(args?: Subset<T, Case$assignedUserArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    encounters<T extends Case$encountersArgs<ExtArgs> = {}>(args?: Subset<T, Case$encountersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EncounterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     denials<T extends Case$denialsArgs<ExtArgs> = {}>(args?: Subset<T, Case$denialsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DenialPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    encounters<T extends Case$encountersArgs<ExtArgs> = {}>(args?: Subset<T, Case$encountersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EncounterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4998,30 +4998,6 @@ export namespace Prisma {
   }
 
   /**
-   * Case.encounters
-   */
-  export type Case$encountersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Encounter
-     */
-    select?: EncounterSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Encounter
-     */
-    omit?: EncounterOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EncounterInclude<ExtArgs> | null
-    where?: EncounterWhereInput
-    orderBy?: EncounterOrderByWithRelationInput | EncounterOrderByWithRelationInput[]
-    cursor?: EncounterWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: EncounterScalarFieldEnum | EncounterScalarFieldEnum[]
-  }
-
-  /**
    * Case.denials
    */
   export type Case$denialsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5043,6 +5019,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: DenialScalarFieldEnum | DenialScalarFieldEnum[]
+  }
+
+  /**
+   * Case.encounters
+   */
+  export type Case$encountersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Encounter
+     */
+    select?: EncounterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Encounter
+     */
+    omit?: EncounterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EncounterInclude<ExtArgs> | null
+    where?: EncounterWhereInput
+    orderBy?: EncounterOrderByWithRelationInput | EncounterOrderByWithRelationInput[]
+    cursor?: EncounterWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EncounterScalarFieldEnum | EncounterScalarFieldEnum[]
   }
 
   /**
@@ -6244,11 +6244,11 @@ export namespace Prisma {
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    patient?: boolean | PatientDefaultArgs<ExtArgs>
-    case?: boolean | Encounter$caseArgs<ExtArgs>
     diagnoses?: boolean | Encounter$diagnosesArgs<ExtArgs>
-    procedures?: boolean | Encounter$proceduresArgs<ExtArgs>
+    case?: boolean | Encounter$caseArgs<ExtArgs>
+    patient?: boolean | PatientDefaultArgs<ExtArgs>
     preBillAnalyses?: boolean | Encounter$preBillAnalysesArgs<ExtArgs>
+    procedures?: boolean | Encounter$proceduresArgs<ExtArgs>
     _count?: boolean | EncounterCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["encounter"]>
 
@@ -6269,22 +6269,22 @@ export namespace Prisma {
 
   export type EncounterOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "patientId" | "caseId" | "encounterId" | "chiefComplaint" | "admissionDate" | "dischargeDate" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["encounter"]>
   export type EncounterInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    patient?: boolean | PatientDefaultArgs<ExtArgs>
-    case?: boolean | Encounter$caseArgs<ExtArgs>
     diagnoses?: boolean | Encounter$diagnosesArgs<ExtArgs>
-    procedures?: boolean | Encounter$proceduresArgs<ExtArgs>
+    case?: boolean | Encounter$caseArgs<ExtArgs>
+    patient?: boolean | PatientDefaultArgs<ExtArgs>
     preBillAnalyses?: boolean | Encounter$preBillAnalysesArgs<ExtArgs>
+    procedures?: boolean | Encounter$proceduresArgs<ExtArgs>
     _count?: boolean | EncounterCountOutputTypeDefaultArgs<ExtArgs>
   }
 
   export type $EncounterPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Encounter"
     objects: {
-      patient: Prisma.$PatientPayload<ExtArgs>
-      case: Prisma.$CasePayload<ExtArgs> | null
       diagnoses: Prisma.$DiagnosisPayload<ExtArgs>[]
-      procedures: Prisma.$ProcedurePayload<ExtArgs>[]
+      case: Prisma.$CasePayload<ExtArgs> | null
+      patient: Prisma.$PatientPayload<ExtArgs>
       preBillAnalyses: Prisma.$PreBillAnalysisPayload<ExtArgs>[]
+      procedures: Prisma.$ProcedurePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6637,11 +6637,11 @@ export namespace Prisma {
    */
   export interface Prisma__EncounterClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    patient<T extends PatientDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PatientDefaultArgs<ExtArgs>>): Prisma__PatientClient<$Result.GetResult<Prisma.$PatientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    case<T extends Encounter$caseArgs<ExtArgs> = {}>(args?: Subset<T, Encounter$caseArgs<ExtArgs>>): Prisma__CaseClient<$Result.GetResult<Prisma.$CasePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     diagnoses<T extends Encounter$diagnosesArgs<ExtArgs> = {}>(args?: Subset<T, Encounter$diagnosesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiagnosisPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    procedures<T extends Encounter$proceduresArgs<ExtArgs> = {}>(args?: Subset<T, Encounter$proceduresArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProcedurePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    case<T extends Encounter$caseArgs<ExtArgs> = {}>(args?: Subset<T, Encounter$caseArgs<ExtArgs>>): Prisma__CaseClient<$Result.GetResult<Prisma.$CasePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    patient<T extends PatientDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PatientDefaultArgs<ExtArgs>>): Prisma__PatientClient<$Result.GetResult<Prisma.$PatientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     preBillAnalyses<T extends Encounter$preBillAnalysesArgs<ExtArgs> = {}>(args?: Subset<T, Encounter$preBillAnalysesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreBillAnalysisPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    procedures<T extends Encounter$proceduresArgs<ExtArgs> = {}>(args?: Subset<T, Encounter$proceduresArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProcedurePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7023,25 +7023,6 @@ export namespace Prisma {
   }
 
   /**
-   * Encounter.case
-   */
-  export type Encounter$caseArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Case
-     */
-    select?: CaseSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Case
-     */
-    omit?: CaseOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CaseInclude<ExtArgs> | null
-    where?: CaseWhereInput
-  }
-
-  /**
    * Encounter.diagnoses
    */
   export type Encounter$diagnosesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7066,27 +7047,22 @@ export namespace Prisma {
   }
 
   /**
-   * Encounter.procedures
+   * Encounter.case
    */
-  export type Encounter$proceduresArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Encounter$caseArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Procedure
+     * Select specific fields to fetch from the Case
      */
-    select?: ProcedureSelect<ExtArgs> | null
+    select?: CaseSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Procedure
+     * Omit specific fields from the Case
      */
-    omit?: ProcedureOmit<ExtArgs> | null
+    omit?: CaseOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ProcedureInclude<ExtArgs> | null
-    where?: ProcedureWhereInput
-    orderBy?: ProcedureOrderByWithRelationInput | ProcedureOrderByWithRelationInput[]
-    cursor?: ProcedureWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ProcedureScalarFieldEnum | ProcedureScalarFieldEnum[]
+    include?: CaseInclude<ExtArgs> | null
+    where?: CaseWhereInput
   }
 
   /**
@@ -7111,6 +7087,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PreBillAnalysisScalarFieldEnum | PreBillAnalysisScalarFieldEnum[]
+  }
+
+  /**
+   * Encounter.procedures
+   */
+  export type Encounter$proceduresArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Procedure
+     */
+    select?: ProcedureSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Procedure
+     */
+    omit?: ProcedureOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProcedureInclude<ExtArgs> | null
+    where?: ProcedureWhereInput
+    orderBy?: ProcedureOrderByWithRelationInput | ProcedureOrderByWithRelationInput[]
+    cursor?: ProcedureWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProcedureScalarFieldEnum | ProcedureScalarFieldEnum[]
   }
 
   /**
@@ -12344,9 +12344,9 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     fullName?: StringNullableFilter<"User"> | string | null
     userRole?: StringNullableFilter<"User"> | string | null
-    queries?: QueryListRelationFilter
     assignedCases?: CaseListRelationFilter
     preBillAnalyses?: PreBillAnalysisListRelationFilter
+    queries?: QueryListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -12358,9 +12358,9 @@ export namespace Prisma {
     updatedAt?: SortOrder
     fullName?: SortOrderInput | SortOrder
     userRole?: SortOrderInput | SortOrder
-    queries?: QueryOrderByRelationAggregateInput
     assignedCases?: CaseOrderByRelationAggregateInput
     preBillAnalyses?: PreBillAnalysisOrderByRelationAggregateInput
+    queries?: QueryOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -12375,9 +12375,9 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     fullName?: StringNullableFilter<"User"> | string | null
     userRole?: StringNullableFilter<"User"> | string | null
-    queries?: QueryListRelationFilter
     assignedCases?: CaseListRelationFilter
     preBillAnalyses?: PreBillAnalysisListRelationFilter
+    queries?: QueryListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -12516,8 +12516,8 @@ export namespace Prisma {
     closeDate?: DateTimeNullableFilter<"Case"> | Date | string | null
     facilityId?: StringNullableFilter<"Case"> | string | null
     assignedUser?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-    encounters?: EncounterListRelationFilter
     denials?: DenialListRelationFilter
+    encounters?: EncounterListRelationFilter
   }
 
   export type CaseOrderByWithRelationInput = {
@@ -12543,8 +12543,8 @@ export namespace Prisma {
     closeDate?: SortOrderInput | SortOrder
     facilityId?: SortOrderInput | SortOrder
     assignedUser?: UserOrderByWithRelationInput
-    encounters?: EncounterOrderByRelationAggregateInput
     denials?: DenialOrderByRelationAggregateInput
+    encounters?: EncounterOrderByRelationAggregateInput
   }
 
   export type CaseWhereUniqueInput = Prisma.AtLeast<{
@@ -12573,8 +12573,8 @@ export namespace Prisma {
     closeDate?: DateTimeNullableFilter<"Case"> | Date | string | null
     facilityId?: StringNullableFilter<"Case"> | string | null
     assignedUser?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-    encounters?: EncounterListRelationFilter
     denials?: DenialListRelationFilter
+    encounters?: EncounterListRelationFilter
   }, "id">
 
   export type CaseOrderByWithAggregationInput = {
@@ -12712,11 +12712,11 @@ export namespace Prisma {
     status?: StringFilter<"Encounter"> | string
     createdAt?: DateTimeFilter<"Encounter"> | Date | string
     updatedAt?: DateTimeFilter<"Encounter"> | Date | string
-    patient?: XOR<PatientScalarRelationFilter, PatientWhereInput>
-    case?: XOR<CaseNullableScalarRelationFilter, CaseWhereInput> | null
     diagnoses?: DiagnosisListRelationFilter
-    procedures?: ProcedureListRelationFilter
+    case?: XOR<CaseNullableScalarRelationFilter, CaseWhereInput> | null
+    patient?: XOR<PatientScalarRelationFilter, PatientWhereInput>
     preBillAnalyses?: PreBillAnalysisListRelationFilter
+    procedures?: ProcedureListRelationFilter
   }
 
   export type EncounterOrderByWithRelationInput = {
@@ -12730,11 +12730,11 @@ export namespace Prisma {
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    patient?: PatientOrderByWithRelationInput
-    case?: CaseOrderByWithRelationInput
     diagnoses?: DiagnosisOrderByRelationAggregateInput
-    procedures?: ProcedureOrderByRelationAggregateInput
+    case?: CaseOrderByWithRelationInput
+    patient?: PatientOrderByWithRelationInput
     preBillAnalyses?: PreBillAnalysisOrderByRelationAggregateInput
+    procedures?: ProcedureOrderByRelationAggregateInput
   }
 
   export type EncounterWhereUniqueInput = Prisma.AtLeast<{
@@ -12751,11 +12751,11 @@ export namespace Prisma {
     status?: StringFilter<"Encounter"> | string
     createdAt?: DateTimeFilter<"Encounter"> | Date | string
     updatedAt?: DateTimeFilter<"Encounter"> | Date | string
-    patient?: XOR<PatientScalarRelationFilter, PatientWhereInput>
-    case?: XOR<CaseNullableScalarRelationFilter, CaseWhereInput> | null
     diagnoses?: DiagnosisListRelationFilter
-    procedures?: ProcedureListRelationFilter
+    case?: XOR<CaseNullableScalarRelationFilter, CaseWhereInput> | null
+    patient?: XOR<PatientScalarRelationFilter, PatientWhereInput>
     preBillAnalyses?: PreBillAnalysisListRelationFilter
+    procedures?: ProcedureListRelationFilter
   }, "id" | "encounterId">
 
   export type EncounterOrderByWithAggregationInput = {
@@ -13180,9 +13180,9 @@ export namespace Prisma {
     updatedAt?: Date | string
     fullName?: string | null
     userRole?: string | null
-    queries?: QueryCreateNestedManyWithoutUserInput
     assignedCases?: CaseCreateNestedManyWithoutAssignedUserInput
     preBillAnalyses?: PreBillAnalysisCreateNestedManyWithoutUserInput
+    queries?: QueryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -13194,9 +13194,9 @@ export namespace Prisma {
     updatedAt?: Date | string
     fullName?: string | null
     userRole?: string | null
-    queries?: QueryUncheckedCreateNestedManyWithoutUserInput
     assignedCases?: CaseUncheckedCreateNestedManyWithoutAssignedUserInput
     preBillAnalyses?: PreBillAnalysisUncheckedCreateNestedManyWithoutUserInput
+    queries?: QueryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -13208,9 +13208,9 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     fullName?: NullableStringFieldUpdateOperationsInput | string | null
     userRole?: NullableStringFieldUpdateOperationsInput | string | null
-    queries?: QueryUpdateManyWithoutUserNestedInput
     assignedCases?: CaseUpdateManyWithoutAssignedUserNestedInput
     preBillAnalyses?: PreBillAnalysisUpdateManyWithoutUserNestedInput
+    queries?: QueryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -13222,9 +13222,9 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     fullName?: NullableStringFieldUpdateOperationsInput | string | null
     userRole?: NullableStringFieldUpdateOperationsInput | string | null
-    queries?: QueryUncheckedUpdateManyWithoutUserNestedInput
     assignedCases?: CaseUncheckedUpdateManyWithoutAssignedUserNestedInput
     preBillAnalyses?: PreBillAnalysisUncheckedUpdateManyWithoutUserNestedInput
+    queries?: QueryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -13372,8 +13372,8 @@ export namespace Prisma {
     closeDate?: Date | string | null
     facilityId?: string | null
     assignedUser?: UserCreateNestedOneWithoutAssignedCasesInput
-    encounters?: EncounterCreateNestedManyWithoutCaseInput
     denials?: DenialCreateNestedManyWithoutCaseInput
+    encounters?: EncounterCreateNestedManyWithoutCaseInput
   }
 
   export type CaseUncheckedCreateInput = {
@@ -13398,8 +13398,8 @@ export namespace Prisma {
     openDate?: Date | string | null
     closeDate?: Date | string | null
     facilityId?: string | null
-    encounters?: EncounterUncheckedCreateNestedManyWithoutCaseInput
     denials?: DenialUncheckedCreateNestedManyWithoutCaseInput
+    encounters?: EncounterUncheckedCreateNestedManyWithoutCaseInput
   }
 
   export type CaseUpdateInput = {
@@ -13424,8 +13424,8 @@ export namespace Prisma {
     closeDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     facilityId?: NullableStringFieldUpdateOperationsInput | string | null
     assignedUser?: UserUpdateOneWithoutAssignedCasesNestedInput
-    encounters?: EncounterUpdateManyWithoutCaseNestedInput
     denials?: DenialUpdateManyWithoutCaseNestedInput
+    encounters?: EncounterUpdateManyWithoutCaseNestedInput
   }
 
   export type CaseUncheckedUpdateInput = {
@@ -13450,8 +13450,8 @@ export namespace Prisma {
     openDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     closeDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     facilityId?: NullableStringFieldUpdateOperationsInput | string | null
-    encounters?: EncounterUncheckedUpdateManyWithoutCaseNestedInput
     denials?: DenialUncheckedUpdateManyWithoutCaseNestedInput
+    encounters?: EncounterUncheckedUpdateManyWithoutCaseNestedInput
   }
 
   export type CaseCreateManyInput = {
@@ -13608,11 +13608,11 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    patient: PatientCreateNestedOneWithoutEncountersInput
-    case?: CaseCreateNestedOneWithoutEncountersInput
     diagnoses?: DiagnosisCreateNestedManyWithoutEncounterInput
-    procedures?: ProcedureCreateNestedManyWithoutEncounterInput
+    case?: CaseCreateNestedOneWithoutEncountersInput
+    patient: PatientCreateNestedOneWithoutEncountersInput
     preBillAnalyses?: PreBillAnalysisCreateNestedManyWithoutEncounterInput
+    procedures?: ProcedureCreateNestedManyWithoutEncounterInput
   }
 
   export type EncounterUncheckedCreateInput = {
@@ -13627,8 +13627,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     diagnoses?: DiagnosisUncheckedCreateNestedManyWithoutEncounterInput
-    procedures?: ProcedureUncheckedCreateNestedManyWithoutEncounterInput
     preBillAnalyses?: PreBillAnalysisUncheckedCreateNestedManyWithoutEncounterInput
+    procedures?: ProcedureUncheckedCreateNestedManyWithoutEncounterInput
   }
 
   export type EncounterUpdateInput = {
@@ -13640,11 +13640,11 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    patient?: PatientUpdateOneRequiredWithoutEncountersNestedInput
-    case?: CaseUpdateOneWithoutEncountersNestedInput
     diagnoses?: DiagnosisUpdateManyWithoutEncounterNestedInput
-    procedures?: ProcedureUpdateManyWithoutEncounterNestedInput
+    case?: CaseUpdateOneWithoutEncountersNestedInput
+    patient?: PatientUpdateOneRequiredWithoutEncountersNestedInput
     preBillAnalyses?: PreBillAnalysisUpdateManyWithoutEncounterNestedInput
+    procedures?: ProcedureUpdateManyWithoutEncounterNestedInput
   }
 
   export type EncounterUncheckedUpdateInput = {
@@ -13659,8 +13659,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     diagnoses?: DiagnosisUncheckedUpdateManyWithoutEncounterNestedInput
-    procedures?: ProcedureUncheckedUpdateManyWithoutEncounterNestedInput
     preBillAnalyses?: PreBillAnalysisUncheckedUpdateManyWithoutEncounterNestedInput
+    procedures?: ProcedureUncheckedUpdateManyWithoutEncounterNestedInput
   }
 
   export type EncounterCreateManyInput = {
@@ -14154,12 +14154,6 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type QueryListRelationFilter = {
-    every?: QueryWhereInput
-    some?: QueryWhereInput
-    none?: QueryWhereInput
-  }
-
   export type CaseListRelationFilter = {
     every?: CaseWhereInput
     some?: CaseWhereInput
@@ -14172,13 +14166,15 @@ export namespace Prisma {
     none?: PreBillAnalysisWhereInput
   }
 
+  export type QueryListRelationFilter = {
+    every?: QueryWhereInput
+    some?: QueryWhereInput
+    none?: QueryWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
-  }
-
-  export type QueryOrderByRelationAggregateInput = {
-    _count?: SortOrder
   }
 
   export type CaseOrderByRelationAggregateInput = {
@@ -14186,6 +14182,10 @@ export namespace Prisma {
   }
 
   export type PreBillAnalysisOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type QueryOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -14376,23 +14376,23 @@ export namespace Prisma {
     isNot?: UserWhereInput | null
   }
 
-  export type EncounterListRelationFilter = {
-    every?: EncounterWhereInput
-    some?: EncounterWhereInput
-    none?: EncounterWhereInput
-  }
-
   export type DenialListRelationFilter = {
     every?: DenialWhereInput
     some?: DenialWhereInput
     none?: DenialWhereInput
   }
 
-  export type EncounterOrderByRelationAggregateInput = {
-    _count?: SortOrder
+  export type EncounterListRelationFilter = {
+    every?: EncounterWhereInput
+    some?: EncounterWhereInput
+    none?: EncounterWhereInput
   }
 
   export type DenialOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type EncounterOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -14536,9 +14536,10 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type PatientScalarRelationFilter = {
-    is?: PatientWhereInput
-    isNot?: PatientWhereInput
+  export type DiagnosisListRelationFilter = {
+    every?: DiagnosisWhereInput
+    some?: DiagnosisWhereInput
+    none?: DiagnosisWhereInput
   }
 
   export type CaseNullableScalarRelationFilter = {
@@ -14546,10 +14547,9 @@ export namespace Prisma {
     isNot?: CaseWhereInput | null
   }
 
-  export type DiagnosisListRelationFilter = {
-    every?: DiagnosisWhereInput
-    some?: DiagnosisWhereInput
-    none?: DiagnosisWhereInput
+  export type PatientScalarRelationFilter = {
+    is?: PatientWhereInput
+    isNot?: PatientWhereInput
   }
 
   export type ProcedureListRelationFilter = {
@@ -14858,13 +14858,6 @@ export namespace Prisma {
     value?: SortOrder
   }
 
-  export type QueryCreateNestedManyWithoutUserInput = {
-    create?: XOR<QueryCreateWithoutUserInput, QueryUncheckedCreateWithoutUserInput> | QueryCreateWithoutUserInput[] | QueryUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: QueryCreateOrConnectWithoutUserInput | QueryCreateOrConnectWithoutUserInput[]
-    createMany?: QueryCreateManyUserInputEnvelope
-    connect?: QueryWhereUniqueInput | QueryWhereUniqueInput[]
-  }
-
   export type CaseCreateNestedManyWithoutAssignedUserInput = {
     create?: XOR<CaseCreateWithoutAssignedUserInput, CaseUncheckedCreateWithoutAssignedUserInput> | CaseCreateWithoutAssignedUserInput[] | CaseUncheckedCreateWithoutAssignedUserInput[]
     connectOrCreate?: CaseCreateOrConnectWithoutAssignedUserInput | CaseCreateOrConnectWithoutAssignedUserInput[]
@@ -14879,7 +14872,7 @@ export namespace Prisma {
     connect?: PreBillAnalysisWhereUniqueInput | PreBillAnalysisWhereUniqueInput[]
   }
 
-  export type QueryUncheckedCreateNestedManyWithoutUserInput = {
+  export type QueryCreateNestedManyWithoutUserInput = {
     create?: XOR<QueryCreateWithoutUserInput, QueryUncheckedCreateWithoutUserInput> | QueryCreateWithoutUserInput[] | QueryUncheckedCreateWithoutUserInput[]
     connectOrCreate?: QueryCreateOrConnectWithoutUserInput | QueryCreateOrConnectWithoutUserInput[]
     createMany?: QueryCreateManyUserInputEnvelope
@@ -14900,6 +14893,13 @@ export namespace Prisma {
     connect?: PreBillAnalysisWhereUniqueInput | PreBillAnalysisWhereUniqueInput[]
   }
 
+  export type QueryUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<QueryCreateWithoutUserInput, QueryUncheckedCreateWithoutUserInput> | QueryCreateWithoutUserInput[] | QueryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: QueryCreateOrConnectWithoutUserInput | QueryCreateOrConnectWithoutUserInput[]
+    createMany?: QueryCreateManyUserInputEnvelope
+    connect?: QueryWhereUniqueInput | QueryWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -14910,20 +14910,6 @@ export namespace Prisma {
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
-  }
-
-  export type QueryUpdateManyWithoutUserNestedInput = {
-    create?: XOR<QueryCreateWithoutUserInput, QueryUncheckedCreateWithoutUserInput> | QueryCreateWithoutUserInput[] | QueryUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: QueryCreateOrConnectWithoutUserInput | QueryCreateOrConnectWithoutUserInput[]
-    upsert?: QueryUpsertWithWhereUniqueWithoutUserInput | QueryUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: QueryCreateManyUserInputEnvelope
-    set?: QueryWhereUniqueInput | QueryWhereUniqueInput[]
-    disconnect?: QueryWhereUniqueInput | QueryWhereUniqueInput[]
-    delete?: QueryWhereUniqueInput | QueryWhereUniqueInput[]
-    connect?: QueryWhereUniqueInput | QueryWhereUniqueInput[]
-    update?: QueryUpdateWithWhereUniqueWithoutUserInput | QueryUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: QueryUpdateManyWithWhereWithoutUserInput | QueryUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: QueryScalarWhereInput | QueryScalarWhereInput[]
   }
 
   export type CaseUpdateManyWithoutAssignedUserNestedInput = {
@@ -14954,7 +14940,7 @@ export namespace Prisma {
     deleteMany?: PreBillAnalysisScalarWhereInput | PreBillAnalysisScalarWhereInput[]
   }
 
-  export type QueryUncheckedUpdateManyWithoutUserNestedInput = {
+  export type QueryUpdateManyWithoutUserNestedInput = {
     create?: XOR<QueryCreateWithoutUserInput, QueryUncheckedCreateWithoutUserInput> | QueryCreateWithoutUserInput[] | QueryUncheckedCreateWithoutUserInput[]
     connectOrCreate?: QueryCreateOrConnectWithoutUserInput | QueryCreateOrConnectWithoutUserInput[]
     upsert?: QueryUpsertWithWhereUniqueWithoutUserInput | QueryUpsertWithWhereUniqueWithoutUserInput[]
@@ -14996,6 +14982,20 @@ export namespace Prisma {
     deleteMany?: PreBillAnalysisScalarWhereInput | PreBillAnalysisScalarWhereInput[]
   }
 
+  export type QueryUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<QueryCreateWithoutUserInput, QueryUncheckedCreateWithoutUserInput> | QueryCreateWithoutUserInput[] | QueryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: QueryCreateOrConnectWithoutUserInput | QueryCreateOrConnectWithoutUserInput[]
+    upsert?: QueryUpsertWithWhereUniqueWithoutUserInput | QueryUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: QueryCreateManyUserInputEnvelope
+    set?: QueryWhereUniqueInput | QueryWhereUniqueInput[]
+    disconnect?: QueryWhereUniqueInput | QueryWhereUniqueInput[]
+    delete?: QueryWhereUniqueInput | QueryWhereUniqueInput[]
+    connect?: QueryWhereUniqueInput | QueryWhereUniqueInput[]
+    update?: QueryUpdateWithWhereUniqueWithoutUserInput | QueryUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: QueryUpdateManyWithWhereWithoutUserInput | QueryUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: QueryScalarWhereInput | QueryScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutQueriesInput = {
     create?: XOR<UserCreateWithoutQueriesInput, UserUncheckedCreateWithoutQueriesInput>
     connectOrCreate?: UserCreateOrConnectWithoutQueriesInput
@@ -15024,13 +15024,6 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type EncounterCreateNestedManyWithoutCaseInput = {
-    create?: XOR<EncounterCreateWithoutCaseInput, EncounterUncheckedCreateWithoutCaseInput> | EncounterCreateWithoutCaseInput[] | EncounterUncheckedCreateWithoutCaseInput[]
-    connectOrCreate?: EncounterCreateOrConnectWithoutCaseInput | EncounterCreateOrConnectWithoutCaseInput[]
-    createMany?: EncounterCreateManyCaseInputEnvelope
-    connect?: EncounterWhereUniqueInput | EncounterWhereUniqueInput[]
-  }
-
   export type DenialCreateNestedManyWithoutCaseInput = {
     create?: XOR<DenialCreateWithoutCaseInput, DenialUncheckedCreateWithoutCaseInput> | DenialCreateWithoutCaseInput[] | DenialUncheckedCreateWithoutCaseInput[]
     connectOrCreate?: DenialCreateOrConnectWithoutCaseInput | DenialCreateOrConnectWithoutCaseInput[]
@@ -15038,7 +15031,7 @@ export namespace Prisma {
     connect?: DenialWhereUniqueInput | DenialWhereUniqueInput[]
   }
 
-  export type EncounterUncheckedCreateNestedManyWithoutCaseInput = {
+  export type EncounterCreateNestedManyWithoutCaseInput = {
     create?: XOR<EncounterCreateWithoutCaseInput, EncounterUncheckedCreateWithoutCaseInput> | EncounterCreateWithoutCaseInput[] | EncounterUncheckedCreateWithoutCaseInput[]
     connectOrCreate?: EncounterCreateOrConnectWithoutCaseInput | EncounterCreateOrConnectWithoutCaseInput[]
     createMany?: EncounterCreateManyCaseInputEnvelope
@@ -15050,6 +15043,13 @@ export namespace Prisma {
     connectOrCreate?: DenialCreateOrConnectWithoutCaseInput | DenialCreateOrConnectWithoutCaseInput[]
     createMany?: DenialCreateManyCaseInputEnvelope
     connect?: DenialWhereUniqueInput | DenialWhereUniqueInput[]
+  }
+
+  export type EncounterUncheckedCreateNestedManyWithoutCaseInput = {
+    create?: XOR<EncounterCreateWithoutCaseInput, EncounterUncheckedCreateWithoutCaseInput> | EncounterCreateWithoutCaseInput[] | EncounterUncheckedCreateWithoutCaseInput[]
+    connectOrCreate?: EncounterCreateOrConnectWithoutCaseInput | EncounterCreateOrConnectWithoutCaseInput[]
+    createMany?: EncounterCreateManyCaseInputEnvelope
+    connect?: EncounterWhereUniqueInput | EncounterWhereUniqueInput[]
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -15074,20 +15074,6 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAssignedCasesInput, UserUpdateWithoutAssignedCasesInput>, UserUncheckedUpdateWithoutAssignedCasesInput>
   }
 
-  export type EncounterUpdateManyWithoutCaseNestedInput = {
-    create?: XOR<EncounterCreateWithoutCaseInput, EncounterUncheckedCreateWithoutCaseInput> | EncounterCreateWithoutCaseInput[] | EncounterUncheckedCreateWithoutCaseInput[]
-    connectOrCreate?: EncounterCreateOrConnectWithoutCaseInput | EncounterCreateOrConnectWithoutCaseInput[]
-    upsert?: EncounterUpsertWithWhereUniqueWithoutCaseInput | EncounterUpsertWithWhereUniqueWithoutCaseInput[]
-    createMany?: EncounterCreateManyCaseInputEnvelope
-    set?: EncounterWhereUniqueInput | EncounterWhereUniqueInput[]
-    disconnect?: EncounterWhereUniqueInput | EncounterWhereUniqueInput[]
-    delete?: EncounterWhereUniqueInput | EncounterWhereUniqueInput[]
-    connect?: EncounterWhereUniqueInput | EncounterWhereUniqueInput[]
-    update?: EncounterUpdateWithWhereUniqueWithoutCaseInput | EncounterUpdateWithWhereUniqueWithoutCaseInput[]
-    updateMany?: EncounterUpdateManyWithWhereWithoutCaseInput | EncounterUpdateManyWithWhereWithoutCaseInput[]
-    deleteMany?: EncounterScalarWhereInput | EncounterScalarWhereInput[]
-  }
-
   export type DenialUpdateManyWithoutCaseNestedInput = {
     create?: XOR<DenialCreateWithoutCaseInput, DenialUncheckedCreateWithoutCaseInput> | DenialCreateWithoutCaseInput[] | DenialUncheckedCreateWithoutCaseInput[]
     connectOrCreate?: DenialCreateOrConnectWithoutCaseInput | DenialCreateOrConnectWithoutCaseInput[]
@@ -15102,7 +15088,7 @@ export namespace Prisma {
     deleteMany?: DenialScalarWhereInput | DenialScalarWhereInput[]
   }
 
-  export type EncounterUncheckedUpdateManyWithoutCaseNestedInput = {
+  export type EncounterUpdateManyWithoutCaseNestedInput = {
     create?: XOR<EncounterCreateWithoutCaseInput, EncounterUncheckedCreateWithoutCaseInput> | EncounterCreateWithoutCaseInput[] | EncounterUncheckedCreateWithoutCaseInput[]
     connectOrCreate?: EncounterCreateOrConnectWithoutCaseInput | EncounterCreateOrConnectWithoutCaseInput[]
     upsert?: EncounterUpsertWithWhereUniqueWithoutCaseInput | EncounterUpsertWithWhereUniqueWithoutCaseInput[]
@@ -15128,6 +15114,20 @@ export namespace Prisma {
     update?: DenialUpdateWithWhereUniqueWithoutCaseInput | DenialUpdateWithWhereUniqueWithoutCaseInput[]
     updateMany?: DenialUpdateManyWithWhereWithoutCaseInput | DenialUpdateManyWithWhereWithoutCaseInput[]
     deleteMany?: DenialScalarWhereInput | DenialScalarWhereInput[]
+  }
+
+  export type EncounterUncheckedUpdateManyWithoutCaseNestedInput = {
+    create?: XOR<EncounterCreateWithoutCaseInput, EncounterUncheckedCreateWithoutCaseInput> | EncounterCreateWithoutCaseInput[] | EncounterUncheckedCreateWithoutCaseInput[]
+    connectOrCreate?: EncounterCreateOrConnectWithoutCaseInput | EncounterCreateOrConnectWithoutCaseInput[]
+    upsert?: EncounterUpsertWithWhereUniqueWithoutCaseInput | EncounterUpsertWithWhereUniqueWithoutCaseInput[]
+    createMany?: EncounterCreateManyCaseInputEnvelope
+    set?: EncounterWhereUniqueInput | EncounterWhereUniqueInput[]
+    disconnect?: EncounterWhereUniqueInput | EncounterWhereUniqueInput[]
+    delete?: EncounterWhereUniqueInput | EncounterWhereUniqueInput[]
+    connect?: EncounterWhereUniqueInput | EncounterWhereUniqueInput[]
+    update?: EncounterUpdateWithWhereUniqueWithoutCaseInput | EncounterUpdateWithWhereUniqueWithoutCaseInput[]
+    updateMany?: EncounterUpdateManyWithWhereWithoutCaseInput | EncounterUpdateManyWithWhereWithoutCaseInput[]
+    deleteMany?: EncounterScalarWhereInput | EncounterScalarWhereInput[]
   }
 
   export type EncounterCreateNestedManyWithoutPatientInput = {
@@ -15172,10 +15172,11 @@ export namespace Prisma {
     deleteMany?: EncounterScalarWhereInput | EncounterScalarWhereInput[]
   }
 
-  export type PatientCreateNestedOneWithoutEncountersInput = {
-    create?: XOR<PatientCreateWithoutEncountersInput, PatientUncheckedCreateWithoutEncountersInput>
-    connectOrCreate?: PatientCreateOrConnectWithoutEncountersInput
-    connect?: PatientWhereUniqueInput
+  export type DiagnosisCreateNestedManyWithoutEncounterInput = {
+    create?: XOR<DiagnosisCreateWithoutEncounterInput, DiagnosisUncheckedCreateWithoutEncounterInput> | DiagnosisCreateWithoutEncounterInput[] | DiagnosisUncheckedCreateWithoutEncounterInput[]
+    connectOrCreate?: DiagnosisCreateOrConnectWithoutEncounterInput | DiagnosisCreateOrConnectWithoutEncounterInput[]
+    createMany?: DiagnosisCreateManyEncounterInputEnvelope
+    connect?: DiagnosisWhereUniqueInput | DiagnosisWhereUniqueInput[]
   }
 
   export type CaseCreateNestedOneWithoutEncountersInput = {
@@ -15184,18 +15185,10 @@ export namespace Prisma {
     connect?: CaseWhereUniqueInput
   }
 
-  export type DiagnosisCreateNestedManyWithoutEncounterInput = {
-    create?: XOR<DiagnosisCreateWithoutEncounterInput, DiagnosisUncheckedCreateWithoutEncounterInput> | DiagnosisCreateWithoutEncounterInput[] | DiagnosisUncheckedCreateWithoutEncounterInput[]
-    connectOrCreate?: DiagnosisCreateOrConnectWithoutEncounterInput | DiagnosisCreateOrConnectWithoutEncounterInput[]
-    createMany?: DiagnosisCreateManyEncounterInputEnvelope
-    connect?: DiagnosisWhereUniqueInput | DiagnosisWhereUniqueInput[]
-  }
-
-  export type ProcedureCreateNestedManyWithoutEncounterInput = {
-    create?: XOR<ProcedureCreateWithoutEncounterInput, ProcedureUncheckedCreateWithoutEncounterInput> | ProcedureCreateWithoutEncounterInput[] | ProcedureUncheckedCreateWithoutEncounterInput[]
-    connectOrCreate?: ProcedureCreateOrConnectWithoutEncounterInput | ProcedureCreateOrConnectWithoutEncounterInput[]
-    createMany?: ProcedureCreateManyEncounterInputEnvelope
-    connect?: ProcedureWhereUniqueInput | ProcedureWhereUniqueInput[]
+  export type PatientCreateNestedOneWithoutEncountersInput = {
+    create?: XOR<PatientCreateWithoutEncountersInput, PatientUncheckedCreateWithoutEncountersInput>
+    connectOrCreate?: PatientCreateOrConnectWithoutEncountersInput
+    connect?: PatientWhereUniqueInput
   }
 
   export type PreBillAnalysisCreateNestedManyWithoutEncounterInput = {
@@ -15205,18 +15198,18 @@ export namespace Prisma {
     connect?: PreBillAnalysisWhereUniqueInput | PreBillAnalysisWhereUniqueInput[]
   }
 
+  export type ProcedureCreateNestedManyWithoutEncounterInput = {
+    create?: XOR<ProcedureCreateWithoutEncounterInput, ProcedureUncheckedCreateWithoutEncounterInput> | ProcedureCreateWithoutEncounterInput[] | ProcedureUncheckedCreateWithoutEncounterInput[]
+    connectOrCreate?: ProcedureCreateOrConnectWithoutEncounterInput | ProcedureCreateOrConnectWithoutEncounterInput[]
+    createMany?: ProcedureCreateManyEncounterInputEnvelope
+    connect?: ProcedureWhereUniqueInput | ProcedureWhereUniqueInput[]
+  }
+
   export type DiagnosisUncheckedCreateNestedManyWithoutEncounterInput = {
     create?: XOR<DiagnosisCreateWithoutEncounterInput, DiagnosisUncheckedCreateWithoutEncounterInput> | DiagnosisCreateWithoutEncounterInput[] | DiagnosisUncheckedCreateWithoutEncounterInput[]
     connectOrCreate?: DiagnosisCreateOrConnectWithoutEncounterInput | DiagnosisCreateOrConnectWithoutEncounterInput[]
     createMany?: DiagnosisCreateManyEncounterInputEnvelope
     connect?: DiagnosisWhereUniqueInput | DiagnosisWhereUniqueInput[]
-  }
-
-  export type ProcedureUncheckedCreateNestedManyWithoutEncounterInput = {
-    create?: XOR<ProcedureCreateWithoutEncounterInput, ProcedureUncheckedCreateWithoutEncounterInput> | ProcedureCreateWithoutEncounterInput[] | ProcedureUncheckedCreateWithoutEncounterInput[]
-    connectOrCreate?: ProcedureCreateOrConnectWithoutEncounterInput | ProcedureCreateOrConnectWithoutEncounterInput[]
-    createMany?: ProcedureCreateManyEncounterInputEnvelope
-    connect?: ProcedureWhereUniqueInput | ProcedureWhereUniqueInput[]
   }
 
   export type PreBillAnalysisUncheckedCreateNestedManyWithoutEncounterInput = {
@@ -15226,22 +15219,11 @@ export namespace Prisma {
     connect?: PreBillAnalysisWhereUniqueInput | PreBillAnalysisWhereUniqueInput[]
   }
 
-  export type PatientUpdateOneRequiredWithoutEncountersNestedInput = {
-    create?: XOR<PatientCreateWithoutEncountersInput, PatientUncheckedCreateWithoutEncountersInput>
-    connectOrCreate?: PatientCreateOrConnectWithoutEncountersInput
-    upsert?: PatientUpsertWithoutEncountersInput
-    connect?: PatientWhereUniqueInput
-    update?: XOR<XOR<PatientUpdateToOneWithWhereWithoutEncountersInput, PatientUpdateWithoutEncountersInput>, PatientUncheckedUpdateWithoutEncountersInput>
-  }
-
-  export type CaseUpdateOneWithoutEncountersNestedInput = {
-    create?: XOR<CaseCreateWithoutEncountersInput, CaseUncheckedCreateWithoutEncountersInput>
-    connectOrCreate?: CaseCreateOrConnectWithoutEncountersInput
-    upsert?: CaseUpsertWithoutEncountersInput
-    disconnect?: CaseWhereInput | boolean
-    delete?: CaseWhereInput | boolean
-    connect?: CaseWhereUniqueInput
-    update?: XOR<XOR<CaseUpdateToOneWithWhereWithoutEncountersInput, CaseUpdateWithoutEncountersInput>, CaseUncheckedUpdateWithoutEncountersInput>
+  export type ProcedureUncheckedCreateNestedManyWithoutEncounterInput = {
+    create?: XOR<ProcedureCreateWithoutEncounterInput, ProcedureUncheckedCreateWithoutEncounterInput> | ProcedureCreateWithoutEncounterInput[] | ProcedureUncheckedCreateWithoutEncounterInput[]
+    connectOrCreate?: ProcedureCreateOrConnectWithoutEncounterInput | ProcedureCreateOrConnectWithoutEncounterInput[]
+    createMany?: ProcedureCreateManyEncounterInputEnvelope
+    connect?: ProcedureWhereUniqueInput | ProcedureWhereUniqueInput[]
   }
 
   export type DiagnosisUpdateManyWithoutEncounterNestedInput = {
@@ -15258,18 +15240,22 @@ export namespace Prisma {
     deleteMany?: DiagnosisScalarWhereInput | DiagnosisScalarWhereInput[]
   }
 
-  export type ProcedureUpdateManyWithoutEncounterNestedInput = {
-    create?: XOR<ProcedureCreateWithoutEncounterInput, ProcedureUncheckedCreateWithoutEncounterInput> | ProcedureCreateWithoutEncounterInput[] | ProcedureUncheckedCreateWithoutEncounterInput[]
-    connectOrCreate?: ProcedureCreateOrConnectWithoutEncounterInput | ProcedureCreateOrConnectWithoutEncounterInput[]
-    upsert?: ProcedureUpsertWithWhereUniqueWithoutEncounterInput | ProcedureUpsertWithWhereUniqueWithoutEncounterInput[]
-    createMany?: ProcedureCreateManyEncounterInputEnvelope
-    set?: ProcedureWhereUniqueInput | ProcedureWhereUniqueInput[]
-    disconnect?: ProcedureWhereUniqueInput | ProcedureWhereUniqueInput[]
-    delete?: ProcedureWhereUniqueInput | ProcedureWhereUniqueInput[]
-    connect?: ProcedureWhereUniqueInput | ProcedureWhereUniqueInput[]
-    update?: ProcedureUpdateWithWhereUniqueWithoutEncounterInput | ProcedureUpdateWithWhereUniqueWithoutEncounterInput[]
-    updateMany?: ProcedureUpdateManyWithWhereWithoutEncounterInput | ProcedureUpdateManyWithWhereWithoutEncounterInput[]
-    deleteMany?: ProcedureScalarWhereInput | ProcedureScalarWhereInput[]
+  export type CaseUpdateOneWithoutEncountersNestedInput = {
+    create?: XOR<CaseCreateWithoutEncountersInput, CaseUncheckedCreateWithoutEncountersInput>
+    connectOrCreate?: CaseCreateOrConnectWithoutEncountersInput
+    upsert?: CaseUpsertWithoutEncountersInput
+    disconnect?: CaseWhereInput | boolean
+    delete?: CaseWhereInput | boolean
+    connect?: CaseWhereUniqueInput
+    update?: XOR<XOR<CaseUpdateToOneWithWhereWithoutEncountersInput, CaseUpdateWithoutEncountersInput>, CaseUncheckedUpdateWithoutEncountersInput>
+  }
+
+  export type PatientUpdateOneRequiredWithoutEncountersNestedInput = {
+    create?: XOR<PatientCreateWithoutEncountersInput, PatientUncheckedCreateWithoutEncountersInput>
+    connectOrCreate?: PatientCreateOrConnectWithoutEncountersInput
+    upsert?: PatientUpsertWithoutEncountersInput
+    connect?: PatientWhereUniqueInput
+    update?: XOR<XOR<PatientUpdateToOneWithWhereWithoutEncountersInput, PatientUpdateWithoutEncountersInput>, PatientUncheckedUpdateWithoutEncountersInput>
   }
 
   export type PreBillAnalysisUpdateManyWithoutEncounterNestedInput = {
@@ -15286,6 +15272,20 @@ export namespace Prisma {
     deleteMany?: PreBillAnalysisScalarWhereInput | PreBillAnalysisScalarWhereInput[]
   }
 
+  export type ProcedureUpdateManyWithoutEncounterNestedInput = {
+    create?: XOR<ProcedureCreateWithoutEncounterInput, ProcedureUncheckedCreateWithoutEncounterInput> | ProcedureCreateWithoutEncounterInput[] | ProcedureUncheckedCreateWithoutEncounterInput[]
+    connectOrCreate?: ProcedureCreateOrConnectWithoutEncounterInput | ProcedureCreateOrConnectWithoutEncounterInput[]
+    upsert?: ProcedureUpsertWithWhereUniqueWithoutEncounterInput | ProcedureUpsertWithWhereUniqueWithoutEncounterInput[]
+    createMany?: ProcedureCreateManyEncounterInputEnvelope
+    set?: ProcedureWhereUniqueInput | ProcedureWhereUniqueInput[]
+    disconnect?: ProcedureWhereUniqueInput | ProcedureWhereUniqueInput[]
+    delete?: ProcedureWhereUniqueInput | ProcedureWhereUniqueInput[]
+    connect?: ProcedureWhereUniqueInput | ProcedureWhereUniqueInput[]
+    update?: ProcedureUpdateWithWhereUniqueWithoutEncounterInput | ProcedureUpdateWithWhereUniqueWithoutEncounterInput[]
+    updateMany?: ProcedureUpdateManyWithWhereWithoutEncounterInput | ProcedureUpdateManyWithWhereWithoutEncounterInput[]
+    deleteMany?: ProcedureScalarWhereInput | ProcedureScalarWhereInput[]
+  }
+
   export type DiagnosisUncheckedUpdateManyWithoutEncounterNestedInput = {
     create?: XOR<DiagnosisCreateWithoutEncounterInput, DiagnosisUncheckedCreateWithoutEncounterInput> | DiagnosisCreateWithoutEncounterInput[] | DiagnosisUncheckedCreateWithoutEncounterInput[]
     connectOrCreate?: DiagnosisCreateOrConnectWithoutEncounterInput | DiagnosisCreateOrConnectWithoutEncounterInput[]
@@ -15300,20 +15300,6 @@ export namespace Prisma {
     deleteMany?: DiagnosisScalarWhereInput | DiagnosisScalarWhereInput[]
   }
 
-  export type ProcedureUncheckedUpdateManyWithoutEncounterNestedInput = {
-    create?: XOR<ProcedureCreateWithoutEncounterInput, ProcedureUncheckedCreateWithoutEncounterInput> | ProcedureCreateWithoutEncounterInput[] | ProcedureUncheckedCreateWithoutEncounterInput[]
-    connectOrCreate?: ProcedureCreateOrConnectWithoutEncounterInput | ProcedureCreateOrConnectWithoutEncounterInput[]
-    upsert?: ProcedureUpsertWithWhereUniqueWithoutEncounterInput | ProcedureUpsertWithWhereUniqueWithoutEncounterInput[]
-    createMany?: ProcedureCreateManyEncounterInputEnvelope
-    set?: ProcedureWhereUniqueInput | ProcedureWhereUniqueInput[]
-    disconnect?: ProcedureWhereUniqueInput | ProcedureWhereUniqueInput[]
-    delete?: ProcedureWhereUniqueInput | ProcedureWhereUniqueInput[]
-    connect?: ProcedureWhereUniqueInput | ProcedureWhereUniqueInput[]
-    update?: ProcedureUpdateWithWhereUniqueWithoutEncounterInput | ProcedureUpdateWithWhereUniqueWithoutEncounterInput[]
-    updateMany?: ProcedureUpdateManyWithWhereWithoutEncounterInput | ProcedureUpdateManyWithWhereWithoutEncounterInput[]
-    deleteMany?: ProcedureScalarWhereInput | ProcedureScalarWhereInput[]
-  }
-
   export type PreBillAnalysisUncheckedUpdateManyWithoutEncounterNestedInput = {
     create?: XOR<PreBillAnalysisCreateWithoutEncounterInput, PreBillAnalysisUncheckedCreateWithoutEncounterInput> | PreBillAnalysisCreateWithoutEncounterInput[] | PreBillAnalysisUncheckedCreateWithoutEncounterInput[]
     connectOrCreate?: PreBillAnalysisCreateOrConnectWithoutEncounterInput | PreBillAnalysisCreateOrConnectWithoutEncounterInput[]
@@ -15326,6 +15312,20 @@ export namespace Prisma {
     update?: PreBillAnalysisUpdateWithWhereUniqueWithoutEncounterInput | PreBillAnalysisUpdateWithWhereUniqueWithoutEncounterInput[]
     updateMany?: PreBillAnalysisUpdateManyWithWhereWithoutEncounterInput | PreBillAnalysisUpdateManyWithWhereWithoutEncounterInput[]
     deleteMany?: PreBillAnalysisScalarWhereInput | PreBillAnalysisScalarWhereInput[]
+  }
+
+  export type ProcedureUncheckedUpdateManyWithoutEncounterNestedInput = {
+    create?: XOR<ProcedureCreateWithoutEncounterInput, ProcedureUncheckedCreateWithoutEncounterInput> | ProcedureCreateWithoutEncounterInput[] | ProcedureUncheckedCreateWithoutEncounterInput[]
+    connectOrCreate?: ProcedureCreateOrConnectWithoutEncounterInput | ProcedureCreateOrConnectWithoutEncounterInput[]
+    upsert?: ProcedureUpsertWithWhereUniqueWithoutEncounterInput | ProcedureUpsertWithWhereUniqueWithoutEncounterInput[]
+    createMany?: ProcedureCreateManyEncounterInputEnvelope
+    set?: ProcedureWhereUniqueInput | ProcedureWhereUniqueInput[]
+    disconnect?: ProcedureWhereUniqueInput | ProcedureWhereUniqueInput[]
+    delete?: ProcedureWhereUniqueInput | ProcedureWhereUniqueInput[]
+    connect?: ProcedureWhereUniqueInput | ProcedureWhereUniqueInput[]
+    update?: ProcedureUpdateWithWhereUniqueWithoutEncounterInput | ProcedureUpdateWithWhereUniqueWithoutEncounterInput[]
+    updateMany?: ProcedureUpdateManyWithWhereWithoutEncounterInput | ProcedureUpdateManyWithWhereWithoutEncounterInput[]
+    deleteMany?: ProcedureScalarWhereInput | ProcedureScalarWhereInput[]
   }
 
   export type EncounterCreateNestedOneWithoutDiagnosesInput = {
@@ -15631,39 +15631,6 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
-  export type QueryCreateWithoutUserInput = {
-    id?: string
-    question: string
-    answer?: string | null
-    confidence?: number | null
-    sources?: string | null
-    status?: string
-    context?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type QueryUncheckedCreateWithoutUserInput = {
-    id?: string
-    question: string
-    answer?: string | null
-    confidence?: number | null
-    sources?: string | null
-    status?: string
-    context?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type QueryCreateOrConnectWithoutUserInput = {
-    where: QueryWhereUniqueInput
-    create: XOR<QueryCreateWithoutUserInput, QueryUncheckedCreateWithoutUserInput>
-  }
-
-  export type QueryCreateManyUserInputEnvelope = {
-    data: QueryCreateManyUserInput | QueryCreateManyUserInput[]
-  }
-
   export type CaseCreateWithoutAssignedUserInput = {
     id?: string
     title: string
@@ -15685,8 +15652,8 @@ export namespace Prisma {
     openDate?: Date | string | null
     closeDate?: Date | string | null
     facilityId?: string | null
-    encounters?: EncounterCreateNestedManyWithoutCaseInput
     denials?: DenialCreateNestedManyWithoutCaseInput
+    encounters?: EncounterCreateNestedManyWithoutCaseInput
   }
 
   export type CaseUncheckedCreateWithoutAssignedUserInput = {
@@ -15710,8 +15677,8 @@ export namespace Prisma {
     openDate?: Date | string | null
     closeDate?: Date | string | null
     facilityId?: string | null
-    encounters?: EncounterUncheckedCreateNestedManyWithoutCaseInput
     denials?: DenialUncheckedCreateNestedManyWithoutCaseInput
+    encounters?: EncounterUncheckedCreateNestedManyWithoutCaseInput
   }
 
   export type CaseCreateOrConnectWithoutAssignedUserInput = {
@@ -15764,36 +15731,37 @@ export namespace Prisma {
     data: PreBillAnalysisCreateManyUserInput | PreBillAnalysisCreateManyUserInput[]
   }
 
-  export type QueryUpsertWithWhereUniqueWithoutUserInput = {
+  export type QueryCreateWithoutUserInput = {
+    id?: string
+    question: string
+    answer?: string | null
+    confidence?: number | null
+    sources?: string | null
+    status?: string
+    context?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type QueryUncheckedCreateWithoutUserInput = {
+    id?: string
+    question: string
+    answer?: string | null
+    confidence?: number | null
+    sources?: string | null
+    status?: string
+    context?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type QueryCreateOrConnectWithoutUserInput = {
     where: QueryWhereUniqueInput
-    update: XOR<QueryUpdateWithoutUserInput, QueryUncheckedUpdateWithoutUserInput>
     create: XOR<QueryCreateWithoutUserInput, QueryUncheckedCreateWithoutUserInput>
   }
 
-  export type QueryUpdateWithWhereUniqueWithoutUserInput = {
-    where: QueryWhereUniqueInput
-    data: XOR<QueryUpdateWithoutUserInput, QueryUncheckedUpdateWithoutUserInput>
-  }
-
-  export type QueryUpdateManyWithWhereWithoutUserInput = {
-    where: QueryScalarWhereInput
-    data: XOR<QueryUpdateManyMutationInput, QueryUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type QueryScalarWhereInput = {
-    AND?: QueryScalarWhereInput | QueryScalarWhereInput[]
-    OR?: QueryScalarWhereInput[]
-    NOT?: QueryScalarWhereInput | QueryScalarWhereInput[]
-    id?: StringFilter<"Query"> | string
-    question?: StringFilter<"Query"> | string
-    answer?: StringNullableFilter<"Query"> | string | null
-    confidence?: FloatNullableFilter<"Query"> | number | null
-    sources?: StringNullableFilter<"Query"> | string | null
-    status?: StringFilter<"Query"> | string
-    context?: StringNullableFilter<"Query"> | string | null
-    userId?: StringFilter<"Query"> | string
-    createdAt?: DateTimeFilter<"Query"> | Date | string
-    updatedAt?: DateTimeFilter<"Query"> | Date | string
+  export type QueryCreateManyUserInputEnvelope = {
+    data: QueryCreateManyUserInput | QueryCreateManyUserInput[]
   }
 
   export type CaseUpsertWithWhereUniqueWithoutAssignedUserInput = {
@@ -15875,6 +15843,38 @@ export namespace Prisma {
     embedding?: StringNullableFilter<"PreBillAnalysis"> | string | null
   }
 
+  export type QueryUpsertWithWhereUniqueWithoutUserInput = {
+    where: QueryWhereUniqueInput
+    update: XOR<QueryUpdateWithoutUserInput, QueryUncheckedUpdateWithoutUserInput>
+    create: XOR<QueryCreateWithoutUserInput, QueryUncheckedCreateWithoutUserInput>
+  }
+
+  export type QueryUpdateWithWhereUniqueWithoutUserInput = {
+    where: QueryWhereUniqueInput
+    data: XOR<QueryUpdateWithoutUserInput, QueryUncheckedUpdateWithoutUserInput>
+  }
+
+  export type QueryUpdateManyWithWhereWithoutUserInput = {
+    where: QueryScalarWhereInput
+    data: XOR<QueryUpdateManyMutationInput, QueryUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type QueryScalarWhereInput = {
+    AND?: QueryScalarWhereInput | QueryScalarWhereInput[]
+    OR?: QueryScalarWhereInput[]
+    NOT?: QueryScalarWhereInput | QueryScalarWhereInput[]
+    id?: StringFilter<"Query"> | string
+    question?: StringFilter<"Query"> | string
+    answer?: StringNullableFilter<"Query"> | string | null
+    confidence?: FloatNullableFilter<"Query"> | number | null
+    sources?: StringNullableFilter<"Query"> | string | null
+    status?: StringFilter<"Query"> | string
+    context?: StringNullableFilter<"Query"> | string | null
+    userId?: StringFilter<"Query"> | string
+    createdAt?: DateTimeFilter<"Query"> | Date | string
+    updatedAt?: DateTimeFilter<"Query"> | Date | string
+  }
+
   export type UserCreateWithoutQueriesInput = {
     id?: string
     name: string
@@ -15952,8 +15952,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     fullName?: string | null
     userRole?: string | null
-    queries?: QueryCreateNestedManyWithoutUserInput
     preBillAnalyses?: PreBillAnalysisCreateNestedManyWithoutUserInput
+    queries?: QueryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAssignedCasesInput = {
@@ -15965,52 +15965,13 @@ export namespace Prisma {
     updatedAt?: Date | string
     fullName?: string | null
     userRole?: string | null
-    queries?: QueryUncheckedCreateNestedManyWithoutUserInput
     preBillAnalyses?: PreBillAnalysisUncheckedCreateNestedManyWithoutUserInput
+    queries?: QueryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAssignedCasesInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutAssignedCasesInput, UserUncheckedCreateWithoutAssignedCasesInput>
-  }
-
-  export type EncounterCreateWithoutCaseInput = {
-    id?: string
-    encounterId: string
-    chiefComplaint?: string | null
-    admissionDate?: Date | string | null
-    dischargeDate?: Date | string | null
-    status?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    patient: PatientCreateNestedOneWithoutEncountersInput
-    diagnoses?: DiagnosisCreateNestedManyWithoutEncounterInput
-    procedures?: ProcedureCreateNestedManyWithoutEncounterInput
-    preBillAnalyses?: PreBillAnalysisCreateNestedManyWithoutEncounterInput
-  }
-
-  export type EncounterUncheckedCreateWithoutCaseInput = {
-    id?: string
-    patientId: string
-    encounterId: string
-    chiefComplaint?: string | null
-    admissionDate?: Date | string | null
-    dischargeDate?: Date | string | null
-    status?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    diagnoses?: DiagnosisUncheckedCreateNestedManyWithoutEncounterInput
-    procedures?: ProcedureUncheckedCreateNestedManyWithoutEncounterInput
-    preBillAnalyses?: PreBillAnalysisUncheckedCreateNestedManyWithoutEncounterInput
-  }
-
-  export type EncounterCreateOrConnectWithoutCaseInput = {
-    where: EncounterWhereUniqueInput
-    create: XOR<EncounterCreateWithoutCaseInput, EncounterUncheckedCreateWithoutCaseInput>
-  }
-
-  export type EncounterCreateManyCaseInputEnvelope = {
-    data: EncounterCreateManyCaseInput | EncounterCreateManyCaseInput[]
   }
 
   export type DenialCreateWithoutCaseInput = {
@@ -16052,6 +16013,45 @@ export namespace Prisma {
     data: DenialCreateManyCaseInput | DenialCreateManyCaseInput[]
   }
 
+  export type EncounterCreateWithoutCaseInput = {
+    id?: string
+    encounterId: string
+    chiefComplaint?: string | null
+    admissionDate?: Date | string | null
+    dischargeDate?: Date | string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    diagnoses?: DiagnosisCreateNestedManyWithoutEncounterInput
+    patient: PatientCreateNestedOneWithoutEncountersInput
+    preBillAnalyses?: PreBillAnalysisCreateNestedManyWithoutEncounterInput
+    procedures?: ProcedureCreateNestedManyWithoutEncounterInput
+  }
+
+  export type EncounterUncheckedCreateWithoutCaseInput = {
+    id?: string
+    patientId: string
+    encounterId: string
+    chiefComplaint?: string | null
+    admissionDate?: Date | string | null
+    dischargeDate?: Date | string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    diagnoses?: DiagnosisUncheckedCreateNestedManyWithoutEncounterInput
+    preBillAnalyses?: PreBillAnalysisUncheckedCreateNestedManyWithoutEncounterInput
+    procedures?: ProcedureUncheckedCreateNestedManyWithoutEncounterInput
+  }
+
+  export type EncounterCreateOrConnectWithoutCaseInput = {
+    where: EncounterWhereUniqueInput
+    create: XOR<EncounterCreateWithoutCaseInput, EncounterUncheckedCreateWithoutCaseInput>
+  }
+
+  export type EncounterCreateManyCaseInputEnvelope = {
+    data: EncounterCreateManyCaseInput | EncounterCreateManyCaseInput[]
+  }
+
   export type UserUpsertWithoutAssignedCasesInput = {
     update: XOR<UserUpdateWithoutAssignedCasesInput, UserUncheckedUpdateWithoutAssignedCasesInput>
     create: XOR<UserCreateWithoutAssignedCasesInput, UserUncheckedCreateWithoutAssignedCasesInput>
@@ -16072,8 +16072,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     fullName?: NullableStringFieldUpdateOperationsInput | string | null
     userRole?: NullableStringFieldUpdateOperationsInput | string | null
-    queries?: QueryUpdateManyWithoutUserNestedInput
     preBillAnalyses?: PreBillAnalysisUpdateManyWithoutUserNestedInput
+    queries?: QueryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedCasesInput = {
@@ -16085,40 +16085,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     fullName?: NullableStringFieldUpdateOperationsInput | string | null
     userRole?: NullableStringFieldUpdateOperationsInput | string | null
-    queries?: QueryUncheckedUpdateManyWithoutUserNestedInput
     preBillAnalyses?: PreBillAnalysisUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type EncounterUpsertWithWhereUniqueWithoutCaseInput = {
-    where: EncounterWhereUniqueInput
-    update: XOR<EncounterUpdateWithoutCaseInput, EncounterUncheckedUpdateWithoutCaseInput>
-    create: XOR<EncounterCreateWithoutCaseInput, EncounterUncheckedCreateWithoutCaseInput>
-  }
-
-  export type EncounterUpdateWithWhereUniqueWithoutCaseInput = {
-    where: EncounterWhereUniqueInput
-    data: XOR<EncounterUpdateWithoutCaseInput, EncounterUncheckedUpdateWithoutCaseInput>
-  }
-
-  export type EncounterUpdateManyWithWhereWithoutCaseInput = {
-    where: EncounterScalarWhereInput
-    data: XOR<EncounterUpdateManyMutationInput, EncounterUncheckedUpdateManyWithoutCaseInput>
-  }
-
-  export type EncounterScalarWhereInput = {
-    AND?: EncounterScalarWhereInput | EncounterScalarWhereInput[]
-    OR?: EncounterScalarWhereInput[]
-    NOT?: EncounterScalarWhereInput | EncounterScalarWhereInput[]
-    id?: StringFilter<"Encounter"> | string
-    patientId?: StringFilter<"Encounter"> | string
-    caseId?: StringNullableFilter<"Encounter"> | string | null
-    encounterId?: StringFilter<"Encounter"> | string
-    chiefComplaint?: StringNullableFilter<"Encounter"> | string | null
-    admissionDate?: DateTimeNullableFilter<"Encounter"> | Date | string | null
-    dischargeDate?: DateTimeNullableFilter<"Encounter"> | Date | string | null
-    status?: StringFilter<"Encounter"> | string
-    createdAt?: DateTimeFilter<"Encounter"> | Date | string
-    updatedAt?: DateTimeFilter<"Encounter"> | Date | string
+    queries?: QueryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type DenialUpsertWithWhereUniqueWithoutCaseInput = {
@@ -16156,6 +16124,38 @@ export namespace Prisma {
     claimFhirId?: StringNullableFilter<"Denial"> | string | null
   }
 
+  export type EncounterUpsertWithWhereUniqueWithoutCaseInput = {
+    where: EncounterWhereUniqueInput
+    update: XOR<EncounterUpdateWithoutCaseInput, EncounterUncheckedUpdateWithoutCaseInput>
+    create: XOR<EncounterCreateWithoutCaseInput, EncounterUncheckedCreateWithoutCaseInput>
+  }
+
+  export type EncounterUpdateWithWhereUniqueWithoutCaseInput = {
+    where: EncounterWhereUniqueInput
+    data: XOR<EncounterUpdateWithoutCaseInput, EncounterUncheckedUpdateWithoutCaseInput>
+  }
+
+  export type EncounterUpdateManyWithWhereWithoutCaseInput = {
+    where: EncounterScalarWhereInput
+    data: XOR<EncounterUpdateManyMutationInput, EncounterUncheckedUpdateManyWithoutCaseInput>
+  }
+
+  export type EncounterScalarWhereInput = {
+    AND?: EncounterScalarWhereInput | EncounterScalarWhereInput[]
+    OR?: EncounterScalarWhereInput[]
+    NOT?: EncounterScalarWhereInput | EncounterScalarWhereInput[]
+    id?: StringFilter<"Encounter"> | string
+    patientId?: StringFilter<"Encounter"> | string
+    caseId?: StringNullableFilter<"Encounter"> | string | null
+    encounterId?: StringFilter<"Encounter"> | string
+    chiefComplaint?: StringNullableFilter<"Encounter"> | string | null
+    admissionDate?: DateTimeNullableFilter<"Encounter"> | Date | string | null
+    dischargeDate?: DateTimeNullableFilter<"Encounter"> | Date | string | null
+    status?: StringFilter<"Encounter"> | string
+    createdAt?: DateTimeFilter<"Encounter"> | Date | string
+    updatedAt?: DateTimeFilter<"Encounter"> | Date | string
+  }
+
   export type EncounterCreateWithoutPatientInput = {
     id?: string
     encounterId: string
@@ -16165,10 +16165,10 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    case?: CaseCreateNestedOneWithoutEncountersInput
     diagnoses?: DiagnosisCreateNestedManyWithoutEncounterInput
-    procedures?: ProcedureCreateNestedManyWithoutEncounterInput
+    case?: CaseCreateNestedOneWithoutEncountersInput
     preBillAnalyses?: PreBillAnalysisCreateNestedManyWithoutEncounterInput
+    procedures?: ProcedureCreateNestedManyWithoutEncounterInput
   }
 
   export type EncounterUncheckedCreateWithoutPatientInput = {
@@ -16182,8 +16182,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     diagnoses?: DiagnosisUncheckedCreateNestedManyWithoutEncounterInput
-    procedures?: ProcedureUncheckedCreateNestedManyWithoutEncounterInput
     preBillAnalyses?: PreBillAnalysisUncheckedCreateNestedManyWithoutEncounterInput
+    procedures?: ProcedureUncheckedCreateNestedManyWithoutEncounterInput
   }
 
   export type EncounterCreateOrConnectWithoutPatientInput = {
@@ -16211,29 +16211,27 @@ export namespace Prisma {
     data: XOR<EncounterUpdateManyMutationInput, EncounterUncheckedUpdateManyWithoutPatientInput>
   }
 
-  export type PatientCreateWithoutEncountersInput = {
+  export type DiagnosisCreateWithoutEncounterInput = {
     id?: string
-    name: string
-    mrn: string
-    dob?: Date | string | null
-    gender?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    icdCode: string
+    description: string
+    isPrimary?: boolean
   }
 
-  export type PatientUncheckedCreateWithoutEncountersInput = {
+  export type DiagnosisUncheckedCreateWithoutEncounterInput = {
     id?: string
-    name: string
-    mrn: string
-    dob?: Date | string | null
-    gender?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    icdCode: string
+    description: string
+    isPrimary?: boolean
   }
 
-  export type PatientCreateOrConnectWithoutEncountersInput = {
-    where: PatientWhereUniqueInput
-    create: XOR<PatientCreateWithoutEncountersInput, PatientUncheckedCreateWithoutEncountersInput>
+  export type DiagnosisCreateOrConnectWithoutEncounterInput = {
+    where: DiagnosisWhereUniqueInput
+    create: XOR<DiagnosisCreateWithoutEncounterInput, DiagnosisUncheckedCreateWithoutEncounterInput>
+  }
+
+  export type DiagnosisCreateManyEncounterInputEnvelope = {
+    data: DiagnosisCreateManyEncounterInput | DiagnosisCreateManyEncounterInput[]
   }
 
   export type CaseCreateWithoutEncountersInput = {
@@ -16291,48 +16289,29 @@ export namespace Prisma {
     create: XOR<CaseCreateWithoutEncountersInput, CaseUncheckedCreateWithoutEncountersInput>
   }
 
-  export type DiagnosisCreateWithoutEncounterInput = {
+  export type PatientCreateWithoutEncountersInput = {
     id?: string
-    icdCode: string
-    description: string
-    isPrimary?: boolean
+    name: string
+    mrn: string
+    dob?: Date | string | null
+    gender?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type DiagnosisUncheckedCreateWithoutEncounterInput = {
+  export type PatientUncheckedCreateWithoutEncountersInput = {
     id?: string
-    icdCode: string
-    description: string
-    isPrimary?: boolean
+    name: string
+    mrn: string
+    dob?: Date | string | null
+    gender?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type DiagnosisCreateOrConnectWithoutEncounterInput = {
-    where: DiagnosisWhereUniqueInput
-    create: XOR<DiagnosisCreateWithoutEncounterInput, DiagnosisUncheckedCreateWithoutEncounterInput>
-  }
-
-  export type DiagnosisCreateManyEncounterInputEnvelope = {
-    data: DiagnosisCreateManyEncounterInput | DiagnosisCreateManyEncounterInput[]
-  }
-
-  export type ProcedureCreateWithoutEncounterInput = {
-    id?: string
-    cptCode: string
-    description: string
-  }
-
-  export type ProcedureUncheckedCreateWithoutEncounterInput = {
-    id?: string
-    cptCode: string
-    description: string
-  }
-
-  export type ProcedureCreateOrConnectWithoutEncounterInput = {
-    where: ProcedureWhereUniqueInput
-    create: XOR<ProcedureCreateWithoutEncounterInput, ProcedureUncheckedCreateWithoutEncounterInput>
-  }
-
-  export type ProcedureCreateManyEncounterInputEnvelope = {
-    data: ProcedureCreateManyEncounterInput | ProcedureCreateManyEncounterInput[]
+  export type PatientCreateOrConnectWithoutEncountersInput = {
+    where: PatientWhereUniqueInput
+    create: XOR<PatientCreateWithoutEncountersInput, PatientUncheckedCreateWithoutEncountersInput>
   }
 
   export type PreBillAnalysisCreateWithoutEncounterInput = {
@@ -16376,35 +16355,52 @@ export namespace Prisma {
     data: PreBillAnalysisCreateManyEncounterInput | PreBillAnalysisCreateManyEncounterInput[]
   }
 
-  export type PatientUpsertWithoutEncountersInput = {
-    update: XOR<PatientUpdateWithoutEncountersInput, PatientUncheckedUpdateWithoutEncountersInput>
-    create: XOR<PatientCreateWithoutEncountersInput, PatientUncheckedCreateWithoutEncountersInput>
-    where?: PatientWhereInput
+  export type ProcedureCreateWithoutEncounterInput = {
+    id?: string
+    cptCode: string
+    description: string
   }
 
-  export type PatientUpdateToOneWithWhereWithoutEncountersInput = {
-    where?: PatientWhereInput
-    data: XOR<PatientUpdateWithoutEncountersInput, PatientUncheckedUpdateWithoutEncountersInput>
+  export type ProcedureUncheckedCreateWithoutEncounterInput = {
+    id?: string
+    cptCode: string
+    description: string
   }
 
-  export type PatientUpdateWithoutEncountersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    mrn?: StringFieldUpdateOperationsInput | string
-    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    gender?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type ProcedureCreateOrConnectWithoutEncounterInput = {
+    where: ProcedureWhereUniqueInput
+    create: XOR<ProcedureCreateWithoutEncounterInput, ProcedureUncheckedCreateWithoutEncounterInput>
   }
 
-  export type PatientUncheckedUpdateWithoutEncountersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    mrn?: StringFieldUpdateOperationsInput | string
-    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    gender?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type ProcedureCreateManyEncounterInputEnvelope = {
+    data: ProcedureCreateManyEncounterInput | ProcedureCreateManyEncounterInput[]
+  }
+
+  export type DiagnosisUpsertWithWhereUniqueWithoutEncounterInput = {
+    where: DiagnosisWhereUniqueInput
+    update: XOR<DiagnosisUpdateWithoutEncounterInput, DiagnosisUncheckedUpdateWithoutEncounterInput>
+    create: XOR<DiagnosisCreateWithoutEncounterInput, DiagnosisUncheckedCreateWithoutEncounterInput>
+  }
+
+  export type DiagnosisUpdateWithWhereUniqueWithoutEncounterInput = {
+    where: DiagnosisWhereUniqueInput
+    data: XOR<DiagnosisUpdateWithoutEncounterInput, DiagnosisUncheckedUpdateWithoutEncounterInput>
+  }
+
+  export type DiagnosisUpdateManyWithWhereWithoutEncounterInput = {
+    where: DiagnosisScalarWhereInput
+    data: XOR<DiagnosisUpdateManyMutationInput, DiagnosisUncheckedUpdateManyWithoutEncounterInput>
+  }
+
+  export type DiagnosisScalarWhereInput = {
+    AND?: DiagnosisScalarWhereInput | DiagnosisScalarWhereInput[]
+    OR?: DiagnosisScalarWhereInput[]
+    NOT?: DiagnosisScalarWhereInput | DiagnosisScalarWhereInput[]
+    id?: StringFilter<"Diagnosis"> | string
+    encounterId?: StringFilter<"Diagnosis"> | string
+    icdCode?: StringFilter<"Diagnosis"> | string
+    description?: StringFilter<"Diagnosis"> | string
+    isPrimary?: BoolFilter<"Diagnosis"> | boolean
   }
 
   export type CaseUpsertWithoutEncountersInput = {
@@ -16468,31 +16464,51 @@ export namespace Prisma {
     denials?: DenialUncheckedUpdateManyWithoutCaseNestedInput
   }
 
-  export type DiagnosisUpsertWithWhereUniqueWithoutEncounterInput = {
-    where: DiagnosisWhereUniqueInput
-    update: XOR<DiagnosisUpdateWithoutEncounterInput, DiagnosisUncheckedUpdateWithoutEncounterInput>
-    create: XOR<DiagnosisCreateWithoutEncounterInput, DiagnosisUncheckedCreateWithoutEncounterInput>
+  export type PatientUpsertWithoutEncountersInput = {
+    update: XOR<PatientUpdateWithoutEncountersInput, PatientUncheckedUpdateWithoutEncountersInput>
+    create: XOR<PatientCreateWithoutEncountersInput, PatientUncheckedCreateWithoutEncountersInput>
+    where?: PatientWhereInput
   }
 
-  export type DiagnosisUpdateWithWhereUniqueWithoutEncounterInput = {
-    where: DiagnosisWhereUniqueInput
-    data: XOR<DiagnosisUpdateWithoutEncounterInput, DiagnosisUncheckedUpdateWithoutEncounterInput>
+  export type PatientUpdateToOneWithWhereWithoutEncountersInput = {
+    where?: PatientWhereInput
+    data: XOR<PatientUpdateWithoutEncountersInput, PatientUncheckedUpdateWithoutEncountersInput>
   }
 
-  export type DiagnosisUpdateManyWithWhereWithoutEncounterInput = {
-    where: DiagnosisScalarWhereInput
-    data: XOR<DiagnosisUpdateManyMutationInput, DiagnosisUncheckedUpdateManyWithoutEncounterInput>
+  export type PatientUpdateWithoutEncountersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    mrn?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type DiagnosisScalarWhereInput = {
-    AND?: DiagnosisScalarWhereInput | DiagnosisScalarWhereInput[]
-    OR?: DiagnosisScalarWhereInput[]
-    NOT?: DiagnosisScalarWhereInput | DiagnosisScalarWhereInput[]
-    id?: StringFilter<"Diagnosis"> | string
-    encounterId?: StringFilter<"Diagnosis"> | string
-    icdCode?: StringFilter<"Diagnosis"> | string
-    description?: StringFilter<"Diagnosis"> | string
-    isPrimary?: BoolFilter<"Diagnosis"> | boolean
+  export type PatientUncheckedUpdateWithoutEncountersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    mrn?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PreBillAnalysisUpsertWithWhereUniqueWithoutEncounterInput = {
+    where: PreBillAnalysisWhereUniqueInput
+    update: XOR<PreBillAnalysisUpdateWithoutEncounterInput, PreBillAnalysisUncheckedUpdateWithoutEncounterInput>
+    create: XOR<PreBillAnalysisCreateWithoutEncounterInput, PreBillAnalysisUncheckedCreateWithoutEncounterInput>
+  }
+
+  export type PreBillAnalysisUpdateWithWhereUniqueWithoutEncounterInput = {
+    where: PreBillAnalysisWhereUniqueInput
+    data: XOR<PreBillAnalysisUpdateWithoutEncounterInput, PreBillAnalysisUncheckedUpdateWithoutEncounterInput>
+  }
+
+  export type PreBillAnalysisUpdateManyWithWhereWithoutEncounterInput = {
+    where: PreBillAnalysisScalarWhereInput
+    data: XOR<PreBillAnalysisUpdateManyMutationInput, PreBillAnalysisUncheckedUpdateManyWithoutEncounterInput>
   }
 
   export type ProcedureUpsertWithWhereUniqueWithoutEncounterInput = {
@@ -16521,22 +16537,6 @@ export namespace Prisma {
     description?: StringFilter<"Procedure"> | string
   }
 
-  export type PreBillAnalysisUpsertWithWhereUniqueWithoutEncounterInput = {
-    where: PreBillAnalysisWhereUniqueInput
-    update: XOR<PreBillAnalysisUpdateWithoutEncounterInput, PreBillAnalysisUncheckedUpdateWithoutEncounterInput>
-    create: XOR<PreBillAnalysisCreateWithoutEncounterInput, PreBillAnalysisUncheckedCreateWithoutEncounterInput>
-  }
-
-  export type PreBillAnalysisUpdateWithWhereUniqueWithoutEncounterInput = {
-    where: PreBillAnalysisWhereUniqueInput
-    data: XOR<PreBillAnalysisUpdateWithoutEncounterInput, PreBillAnalysisUncheckedUpdateWithoutEncounterInput>
-  }
-
-  export type PreBillAnalysisUpdateManyWithWhereWithoutEncounterInput = {
-    where: PreBillAnalysisScalarWhereInput
-    data: XOR<PreBillAnalysisUpdateManyMutationInput, PreBillAnalysisUncheckedUpdateManyWithoutEncounterInput>
-  }
-
   export type EncounterCreateWithoutDiagnosesInput = {
     id?: string
     encounterId: string
@@ -16546,10 +16546,10 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    patient: PatientCreateNestedOneWithoutEncountersInput
     case?: CaseCreateNestedOneWithoutEncountersInput
-    procedures?: ProcedureCreateNestedManyWithoutEncounterInput
+    patient: PatientCreateNestedOneWithoutEncountersInput
     preBillAnalyses?: PreBillAnalysisCreateNestedManyWithoutEncounterInput
+    procedures?: ProcedureCreateNestedManyWithoutEncounterInput
   }
 
   export type EncounterUncheckedCreateWithoutDiagnosesInput = {
@@ -16563,8 +16563,8 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    procedures?: ProcedureUncheckedCreateNestedManyWithoutEncounterInput
     preBillAnalyses?: PreBillAnalysisUncheckedCreateNestedManyWithoutEncounterInput
+    procedures?: ProcedureUncheckedCreateNestedManyWithoutEncounterInput
   }
 
   export type EncounterCreateOrConnectWithoutDiagnosesInput = {
@@ -16592,10 +16592,10 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    patient?: PatientUpdateOneRequiredWithoutEncountersNestedInput
     case?: CaseUpdateOneWithoutEncountersNestedInput
-    procedures?: ProcedureUpdateManyWithoutEncounterNestedInput
+    patient?: PatientUpdateOneRequiredWithoutEncountersNestedInput
     preBillAnalyses?: PreBillAnalysisUpdateManyWithoutEncounterNestedInput
+    procedures?: ProcedureUpdateManyWithoutEncounterNestedInput
   }
 
   export type EncounterUncheckedUpdateWithoutDiagnosesInput = {
@@ -16609,8 +16609,8 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    procedures?: ProcedureUncheckedUpdateManyWithoutEncounterNestedInput
     preBillAnalyses?: PreBillAnalysisUncheckedUpdateManyWithoutEncounterNestedInput
+    procedures?: ProcedureUncheckedUpdateManyWithoutEncounterNestedInput
   }
 
   export type EncounterCreateWithoutProceduresInput = {
@@ -16622,9 +16622,9 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    patient: PatientCreateNestedOneWithoutEncountersInput
-    case?: CaseCreateNestedOneWithoutEncountersInput
     diagnoses?: DiagnosisCreateNestedManyWithoutEncounterInput
+    case?: CaseCreateNestedOneWithoutEncountersInput
+    patient: PatientCreateNestedOneWithoutEncountersInput
     preBillAnalyses?: PreBillAnalysisCreateNestedManyWithoutEncounterInput
   }
 
@@ -16668,9 +16668,9 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    patient?: PatientUpdateOneRequiredWithoutEncountersNestedInput
-    case?: CaseUpdateOneWithoutEncountersNestedInput
     diagnoses?: DiagnosisUpdateManyWithoutEncounterNestedInput
+    case?: CaseUpdateOneWithoutEncountersNestedInput
+    patient?: PatientUpdateOneRequiredWithoutEncountersNestedInput
     preBillAnalyses?: PreBillAnalysisUpdateManyWithoutEncounterNestedInput
   }
 
@@ -16698,9 +16698,9 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    patient: PatientCreateNestedOneWithoutEncountersInput
-    case?: CaseCreateNestedOneWithoutEncountersInput
     diagnoses?: DiagnosisCreateNestedManyWithoutEncounterInput
+    case?: CaseCreateNestedOneWithoutEncountersInput
+    patient: PatientCreateNestedOneWithoutEncountersInput
     procedures?: ProcedureCreateNestedManyWithoutEncounterInput
   }
 
@@ -16733,8 +16733,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     fullName?: string | null
     userRole?: string | null
-    queries?: QueryCreateNestedManyWithoutUserInput
     assignedCases?: CaseCreateNestedManyWithoutAssignedUserInput
+    queries?: QueryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPreBillAnalysesInput = {
@@ -16746,8 +16746,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     fullName?: string | null
     userRole?: string | null
-    queries?: QueryUncheckedCreateNestedManyWithoutUserInput
     assignedCases?: CaseUncheckedCreateNestedManyWithoutAssignedUserInput
+    queries?: QueryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPreBillAnalysesInput = {
@@ -16775,9 +16775,9 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    patient?: PatientUpdateOneRequiredWithoutEncountersNestedInput
-    case?: CaseUpdateOneWithoutEncountersNestedInput
     diagnoses?: DiagnosisUpdateManyWithoutEncounterNestedInput
+    case?: CaseUpdateOneWithoutEncountersNestedInput
+    patient?: PatientUpdateOneRequiredWithoutEncountersNestedInput
     procedures?: ProcedureUpdateManyWithoutEncounterNestedInput
   }
 
@@ -16816,8 +16816,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     fullName?: NullableStringFieldUpdateOperationsInput | string | null
     userRole?: NullableStringFieldUpdateOperationsInput | string | null
-    queries?: QueryUpdateManyWithoutUserNestedInput
     assignedCases?: CaseUpdateManyWithoutAssignedUserNestedInput
+    queries?: QueryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPreBillAnalysesInput = {
@@ -16829,8 +16829,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     fullName?: NullableStringFieldUpdateOperationsInput | string | null
     userRole?: NullableStringFieldUpdateOperationsInput | string | null
-    queries?: QueryUncheckedUpdateManyWithoutUserNestedInput
     assignedCases?: CaseUncheckedUpdateManyWithoutAssignedUserNestedInput
+    queries?: QueryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CaseCreateWithoutDenialsInput = {
@@ -16949,18 +16949,6 @@ export namespace Prisma {
     encounters?: EncounterUncheckedUpdateManyWithoutCaseNestedInput
   }
 
-  export type QueryCreateManyUserInput = {
-    id?: string
-    question: string
-    answer?: string | null
-    confidence?: number | null
-    sources?: string | null
-    status?: string
-    context?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
   export type CaseCreateManyAssignedUserInput = {
     id?: string
     title: string
@@ -17000,40 +16988,16 @@ export namespace Prisma {
     embedding?: string | null
   }
 
-  export type QueryUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    question?: StringFieldUpdateOperationsInput | string
-    answer?: NullableStringFieldUpdateOperationsInput | string | null
-    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    sources?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    context?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type QueryUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    question?: StringFieldUpdateOperationsInput | string
-    answer?: NullableStringFieldUpdateOperationsInput | string | null
-    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    sources?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    context?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type QueryUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    question?: StringFieldUpdateOperationsInput | string
-    answer?: NullableStringFieldUpdateOperationsInput | string | null
-    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    sources?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    context?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type QueryCreateManyUserInput = {
+    id?: string
+    question: string
+    answer?: string | null
+    confidence?: number | null
+    sources?: string | null
+    status?: string
+    context?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type CaseUpdateWithoutAssignedUserInput = {
@@ -17057,8 +17021,8 @@ export namespace Prisma {
     openDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     closeDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     facilityId?: NullableStringFieldUpdateOperationsInput | string | null
-    encounters?: EncounterUpdateManyWithoutCaseNestedInput
     denials?: DenialUpdateManyWithoutCaseNestedInput
+    encounters?: EncounterUpdateManyWithoutCaseNestedInput
   }
 
   export type CaseUncheckedUpdateWithoutAssignedUserInput = {
@@ -17082,8 +17046,8 @@ export namespace Prisma {
     openDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     closeDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     facilityId?: NullableStringFieldUpdateOperationsInput | string | null
-    encounters?: EncounterUncheckedUpdateManyWithoutCaseNestedInput
     denials?: DenialUncheckedUpdateManyWithoutCaseNestedInput
+    encounters?: EncounterUncheckedUpdateManyWithoutCaseNestedInput
   }
 
   export type CaseUncheckedUpdateManyWithoutAssignedUserInput = {
@@ -17157,16 +17121,40 @@ export namespace Prisma {
     embedding?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type EncounterCreateManyCaseInput = {
-    id?: string
-    patientId: string
-    encounterId: string
-    chiefComplaint?: string | null
-    admissionDate?: Date | string | null
-    dischargeDate?: Date | string | null
-    status?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
+  export type QueryUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    question?: StringFieldUpdateOperationsInput | string
+    answer?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    sources?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    context?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QueryUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    question?: StringFieldUpdateOperationsInput | string
+    answer?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    sources?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    context?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QueryUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    question?: StringFieldUpdateOperationsInput | string
+    answer?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    sources?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    context?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type DenialCreateManyCaseInput = {
@@ -17184,46 +17172,16 @@ export namespace Prisma {
     claimFhirId?: string | null
   }
 
-  export type EncounterUpdateWithoutCaseInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    encounterId?: StringFieldUpdateOperationsInput | string
-    chiefComplaint?: NullableStringFieldUpdateOperationsInput | string | null
-    admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dischargeDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    patient?: PatientUpdateOneRequiredWithoutEncountersNestedInput
-    diagnoses?: DiagnosisUpdateManyWithoutEncounterNestedInput
-    procedures?: ProcedureUpdateManyWithoutEncounterNestedInput
-    preBillAnalyses?: PreBillAnalysisUpdateManyWithoutEncounterNestedInput
-  }
-
-  export type EncounterUncheckedUpdateWithoutCaseInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    patientId?: StringFieldUpdateOperationsInput | string
-    encounterId?: StringFieldUpdateOperationsInput | string
-    chiefComplaint?: NullableStringFieldUpdateOperationsInput | string | null
-    admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dischargeDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    diagnoses?: DiagnosisUncheckedUpdateManyWithoutEncounterNestedInput
-    procedures?: ProcedureUncheckedUpdateManyWithoutEncounterNestedInput
-    preBillAnalyses?: PreBillAnalysisUncheckedUpdateManyWithoutEncounterNestedInput
-  }
-
-  export type EncounterUncheckedUpdateManyWithoutCaseInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    patientId?: StringFieldUpdateOperationsInput | string
-    encounterId?: StringFieldUpdateOperationsInput | string
-    chiefComplaint?: NullableStringFieldUpdateOperationsInput | string | null
-    admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    dischargeDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type EncounterCreateManyCaseInput = {
+    id?: string
+    patientId: string
+    encounterId: string
+    chiefComplaint?: string | null
+    admissionDate?: Date | string | null
+    dischargeDate?: Date | string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type DenialUpdateWithoutCaseInput = {
@@ -17271,6 +17229,48 @@ export namespace Prisma {
     claimFhirId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type EncounterUpdateWithoutCaseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    encounterId?: StringFieldUpdateOperationsInput | string
+    chiefComplaint?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dischargeDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    diagnoses?: DiagnosisUpdateManyWithoutEncounterNestedInput
+    patient?: PatientUpdateOneRequiredWithoutEncountersNestedInput
+    preBillAnalyses?: PreBillAnalysisUpdateManyWithoutEncounterNestedInput
+    procedures?: ProcedureUpdateManyWithoutEncounterNestedInput
+  }
+
+  export type EncounterUncheckedUpdateWithoutCaseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patientId?: StringFieldUpdateOperationsInput | string
+    encounterId?: StringFieldUpdateOperationsInput | string
+    chiefComplaint?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dischargeDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    diagnoses?: DiagnosisUncheckedUpdateManyWithoutEncounterNestedInput
+    preBillAnalyses?: PreBillAnalysisUncheckedUpdateManyWithoutEncounterNestedInput
+    procedures?: ProcedureUncheckedUpdateManyWithoutEncounterNestedInput
+  }
+
+  export type EncounterUncheckedUpdateManyWithoutCaseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patientId?: StringFieldUpdateOperationsInput | string
+    encounterId?: StringFieldUpdateOperationsInput | string
+    chiefComplaint?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dischargeDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type EncounterCreateManyPatientInput = {
     id?: string
     caseId?: string | null
@@ -17292,10 +17292,10 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    case?: CaseUpdateOneWithoutEncountersNestedInput
     diagnoses?: DiagnosisUpdateManyWithoutEncounterNestedInput
-    procedures?: ProcedureUpdateManyWithoutEncounterNestedInput
+    case?: CaseUpdateOneWithoutEncountersNestedInput
     preBillAnalyses?: PreBillAnalysisUpdateManyWithoutEncounterNestedInput
+    procedures?: ProcedureUpdateManyWithoutEncounterNestedInput
   }
 
   export type EncounterUncheckedUpdateWithoutPatientInput = {
@@ -17309,8 +17309,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     diagnoses?: DiagnosisUncheckedUpdateManyWithoutEncounterNestedInput
-    procedures?: ProcedureUncheckedUpdateManyWithoutEncounterNestedInput
     preBillAnalyses?: PreBillAnalysisUncheckedUpdateManyWithoutEncounterNestedInput
+    procedures?: ProcedureUncheckedUpdateManyWithoutEncounterNestedInput
   }
 
   export type EncounterUncheckedUpdateManyWithoutPatientInput = {
@@ -17332,12 +17332,6 @@ export namespace Prisma {
     isPrimary?: boolean
   }
 
-  export type ProcedureCreateManyEncounterInput = {
-    id?: string
-    cptCode: string
-    description: string
-  }
-
   export type PreBillAnalysisCreateManyEncounterInput = {
     id?: string
     confidence: number
@@ -17352,6 +17346,12 @@ export namespace Prisma {
     description?: string | null
     evidenceId?: string | null
     embedding?: string | null
+  }
+
+  export type ProcedureCreateManyEncounterInput = {
+    id?: string
+    cptCode: string
+    description: string
   }
 
   export type DiagnosisUpdateWithoutEncounterInput = {
@@ -17373,24 +17373,6 @@ export namespace Prisma {
     icdCode?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     isPrimary?: BoolFieldUpdateOperationsInput | boolean
-  }
-
-  export type ProcedureUpdateWithoutEncounterInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    cptCode?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type ProcedureUncheckedUpdateWithoutEncounterInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    cptCode?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type ProcedureUncheckedUpdateManyWithoutEncounterInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    cptCode?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
   }
 
   export type PreBillAnalysisUpdateWithoutEncounterInput = {
@@ -17439,6 +17421,24 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     evidenceId?: NullableStringFieldUpdateOperationsInput | string | null
     embedding?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ProcedureUpdateWithoutEncounterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    cptCode?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ProcedureUncheckedUpdateWithoutEncounterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    cptCode?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ProcedureUncheckedUpdateManyWithoutEncounterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    cptCode?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
   }
 
 

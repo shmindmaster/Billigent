@@ -19,7 +19,6 @@ build/
 .parcel-cache
 .next
 .nuxt
-public
 .cache/
 .rpt2_cache/
 .rts2_cache_cjs/
@@ -143,8 +142,9 @@ host.json
 .github/chatmodes/
 .github/instructions/
 .github/prompts/
-# ⚠️ Keep workflows tracked
-# .github/workflows/
+.github\chatmodes
+.github\instructions
+.github\prompts
 
 # -------------------------
 # 13. Prisma & Generated Clients

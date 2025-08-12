@@ -40,12 +40,12 @@ export class ResponsesAPIService {
       ...config
     };
 
-    // Validate required configuration
-    if (!this.config.endpoint) {
-      throw new Error('AZURE_OPENAI_ENDPOINT environment variable is required');
-    }
-    if (!this.config.apiKey) {
-      throw new Error('AZURE_OPENAI_API_KEY environment variable is required');
+    // Validate required configuration (soft fail in dev)
+    if (!this.config.endpoint || !this.config.apiKey) {
+      console.warn('[ResponsesAPIService] Disabled: missing Azure OpenAI env vars');
+      // @ts-expect-error lazy init when available
+      this.client = undefined;
+      return;
     }
 
     // Initialize OpenAI client with Azure endpoint
@@ -77,6 +77,7 @@ export class ResponsesAPIService {
       ];
 
       // Use Azure OpenAI chat completions
+      if (!this.client) throw new Error('Responses API disabled');
       const response = await this.client.chat.completions.create({
         model: this.config.deployment, // This will be ignored but required by the API
         messages,

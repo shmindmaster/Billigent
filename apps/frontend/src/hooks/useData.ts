@@ -33,9 +33,14 @@ export function useCases(params?: { page?: number; limit?: number; status?: stri
   return useQuery<{ cases: DbCase[]; pagination: { page: number; limit: number; total: number; pages: number } }>({
     queryKey: ['cases', params || {}],
     queryFn: async () => {
-      const res = await api.get('/api/cases', { params });
-      return res.data;
+      try {
+        const res = await api.get('/api/cases', { params });
+        return res.data;
+      } catch {
+        return { cases: [], pagination: { page: 1, limit: Number(params?.limit || 10), total: 0, pages: 0 } };
+      }
     },
+    retry: 0,
   });
 }
 
@@ -120,14 +125,17 @@ export function useDenials(params?: { page?: number; limit?: number; status?: st
 }
 
 export function useAnalyticsData() {
-  // Placeholder endpoint if/when analytics API exists
+  // Use backend analytics dashboard endpoint; degrade gracefully on failure
   return useQuery<DashboardStats>({
     queryKey: ['analytics'],
     queryFn: async () => {
-      const res = await api.get('/api/analytics');
-      return res.data;
+      try {
+        const res = await api.get('/api/analytics/dashboard');
+        return res.data as DashboardStats;
+      } catch {
+        return {} as DashboardStats; // safe fallback for UI
+      }
     },
-    // Allow page to render even if not implemented yet
     retry: 0,
   });
 }

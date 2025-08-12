@@ -35,6 +35,8 @@ try { requestLogger = require('./middleware/requestLogger').requestLogger; } cat
 
 // Load environment variables
 dotenv.config();
+// Load local overrides if present (SAFE_MODE, local secrets)
+dotenv.config({ path: '.env.local' });
 
 const app: express.Application = express();
 const port = process.env.PORT || 3001;

@@ -16,6 +16,14 @@ const prisma = new PrismaClient();
 // GET /api/analytics/dashboard - Get dashboard statistics
 router.get('/dashboard', async (req: Request, res: Response) => {
   try {
+    if (process.env.SAFE_MODE === 'true') {
+      return res.json({
+        cases: { total: 0, active: 0, completed: 0, completionRate: 0 },
+        denials: { total: 0, active: 0, totalDeniedAmount: 0 },
+        queries: { total: 0, pending: 0, responseRate: 0 },
+        financialImpact: { totalPotential: 0, totalDenied: 0 }
+      });
+    }
     const [
       totalCases,
       activeCases,

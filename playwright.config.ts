@@ -42,7 +42,7 @@ export default defineConfig({
   // Global settings
   use: {
     // Base URL for testing
-    baseURL: process.env.PLAYWRIGHT_TEST_BASE_URL || 'http://localhost:3000',
+    baseURL: process.env.PLAYWRIGHT_TEST_BASE_URL || 'http://localhost:5173',
     
     // Screenshots and videos
     screenshot: 'only-on-failure',
@@ -131,7 +131,7 @@ export default defineConfig({
   // Local dev server
   webServer: process.env.CI ? undefined : {
     command: 'pnpm run dev',
-    url: 'http://localhost:3000',
+    url: 'http://localhost:5173',
     reuseExistingServer: !process.env.CI,
     timeout: 120000,
     env: {

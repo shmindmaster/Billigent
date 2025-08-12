@@ -28,10 +28,11 @@ export interface RAGResponse {
 }
 
 export class RAGService {
-  private searchClient: SearchClient<any>;
-  private searchIndexClient: SearchIndexClient;
-  private openaiClient: OpenAI;
+  private searchClient: SearchClient<any> | undefined;
+  private searchIndexClient: SearchIndexClient | undefined;
+  private openaiClient: OpenAI | undefined;
   private config: RAGConfig;
+  private disabled = false;
 
   constructor(config?: Partial<RAGConfig>) {
     this.config = {
@@ -45,18 +46,11 @@ export class RAGService {
       ...config
     };
 
-    // Validate required configuration
-    if (!this.config.searchEndpoint) {
-      throw new Error('AZURE_SEARCH_ENDPOINT environment variable is required');
-    }
-    if (!this.config.searchApiKey) {
-      throw new Error('AZURE_SEARCH_API_KEY environment variable is required');
-    }
-    if (!this.config.openaiEndpoint) {
-      throw new Error('AZURE_OPENAI_ENDPOINT environment variable is required');
-    }
-    if (!this.config.openaiApiKey) {
-      throw new Error('AZURE_OPENAI_API_KEY environment variable is required');
+    // Validate required configuration, but don't crash server if missing
+    if (!this.config.searchEndpoint || !this.config.searchApiKey || !this.config.openaiEndpoint || !this.config.openaiApiKey) {
+      console.warn('[RAGService] Disabled: missing Azure Search/OpenAI env vars');
+      this.disabled = true;
+      return;
     }
 
     const searchCredential = new AzureKeyCredential(this.config.searchApiKey);
@@ -81,6 +75,7 @@ export class RAGService {
   }
 
   async generateEmbedding(text: string): Promise<number[]> {
+    if (this.disabled || !this.openaiClient) throw new Error('RAG disabled');
     try {
       const response = await this.openaiClient.embeddings.create({
         model: this.config.embeddingModel,
@@ -94,6 +89,7 @@ export class RAGService {
   }
 
   async ensureIndexExists(): Promise<void> {
+    if (this.disabled || !this.searchIndexClient) return;
     try {
       // Check if index exists
       await this.searchIndexClient.getIndex(this.config.searchIndexName);
@@ -186,6 +182,7 @@ export class RAGService {
       
       const embedding = await this.generateEmbedding(query);
       
+      if (this.disabled || !this.searchClient) return [];
       const searchResults = await this.searchClient.search(query, {
         vectorSearchOptions: {
           queries: [{
@@ -243,6 +240,7 @@ Instructions:
 
 Clinical Response:`;
 
+      if (this.disabled || !this.openaiClient) return 'RAG disabled';
       const response = await this.openaiClient.chat.completions.create({
         model: this.config.chatModel,
         messages: [{ role: 'user', content: prompt }],

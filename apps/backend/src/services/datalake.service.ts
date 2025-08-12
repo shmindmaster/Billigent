@@ -21,7 +21,11 @@ export async function getClinicalEvidence(encounterFhirId: string): Promise<Fhir
   const fileSystemName = process.env.AZURE_STORAGE_FILESYSTEM || 'data';
   const baseDir = process.env.AZURE_STORAGE_FHIR_DIR || 'silver/fhir';
 
-  const accountKey = getEnv('AZURE_STORAGE_KEY');
+  const accountKey = process.env.AZURE_STORAGE_KEY || '';
+  if (!accountKey) {
+    console.warn('[DataLakeService] Disabled: missing AZURE_STORAGE_KEY');
+    return [];
+  }
   const credential = new StorageSharedKeyCredential(accountName, accountKey);
   const dfsEndpoint = `https://${accountName}.dfs.core.windows.net`;
   const serviceClient = new DataLakeServiceClient(dfsEndpoint, credential);

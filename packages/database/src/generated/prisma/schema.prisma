@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/prisma"
@@ -12,20 +9,17 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  name      String
-  email     String   @unique
-  role      String   @default("user")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // CDI-specific fields for healthcare workflows
-  fullName String?
-  userRole String?
-
-  queries         Query[]
+  id              String            @id @default(uuid())
+  name            String
+  email           String            @unique
+  role            String            @default("user")
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  fullName        String?
+  userRole        String?
   assignedCases   Case[]
   preBillAnalyses PreBillAnalysis[]
+  queries         Query[]
 
   @@map("users")
 }
@@ -35,29 +29,26 @@ model Query {
   question   String
   answer     String?
   confidence Float?
-  sources    String? // JSON as string for SQL Server
+  sources    String?
   status     String   @default("pending")
-  context    String? // JSON as string for SQL Server
+  context    String?
   userId     String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-
-  user User @relation(fields: [userId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
 
   @@map("queries")
 }
 
 model Case {
-  id             String   @id @default(uuid())
-  title          String
-  description    String?
-  status         String   @default("open")
-  priority       String   @default("medium")
-  assignedUserId String?
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-
-  // CDI-specific fields for healthcare workflows
+  id                  String      @id @default(uuid())
+  title               String
+  description         String?
+  status              String      @default("open")
+  priority            String      @default("medium")
+  assignedUserId      String?
+  createdAt           DateTime    @default(now())
+  updatedAt           DateTime    @updatedAt
   patientFhirId       String?
   encounterFhirId     String?
   medicalRecordNumber String?
@@ -71,126 +62,113 @@ model Case {
   openDate            DateTime?
   closeDate           DateTime?
   facilityId          String?
-
-  assignedUser User?       @relation(fields: [assignedUserId], references: [id])
-  encounters   Encounter[]
-  denials      Denial[]
+  assignedUser        User?       @relation(fields: [assignedUserId], references: [id])
+  denials             Denial[]
+  encounters          Encounter[]
 
   @@map("cases")
 }
 
 model Patient {
-  id        String    @id @default(uuid())
-  name      String
-  mrn       String    @unique
-  dob       DateTime?
-  gender    String?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-
+  id         String      @id @default(uuid())
+  name       String
+  mrn        String      @unique
+  dob        DateTime?
+  gender     String?
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
   encounters Encounter[]
 
   @@map("patients")
 }
 
 model Encounter {
-  id             String    @id @default(uuid())
-  patientId      String
-  caseId         String?
-  encounterId    String    @unique
-  chiefComplaint String?
-  admissionDate  DateTime?
-  dischargeDate  DateTime?
-  status         String    @default("active")
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
-
-  patient         Patient           @relation(fields: [patientId], references: [id])
-  case            Case?             @relation(fields: [caseId], references: [id])
+  id              String            @id @default(uuid())
+  patientId       String
+  caseId          String?
+  encounterId     String            @unique
+  chiefComplaint  String?
+  admissionDate   DateTime?
+  dischargeDate   DateTime?
+  status          String            @default("active")
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
   diagnoses       Diagnosis[]
-  procedures      Procedure[]
+  case            Case?             @relation(fields: [caseId], references: [id])
+  patient         Patient           @relation(fields: [patientId], references: [id])
   preBillAnalyses PreBillAnalysis[]
+  procedures      Procedure[]
 
   @@map("encounters")
 }
 
 model Diagnosis {
-  id          String  @id @default(uuid())
+  id          String    @id @default(uuid())
   encounterId String
   icdCode     String
   description String
-  isPrimary   Boolean @default(false)
-
-  encounter Encounter @relation(fields: [encounterId], references: [id])
+  isPrimary   Boolean   @default(false)
+  encounter   Encounter @relation(fields: [encounterId], references: [id])
 
   @@map("diagnoses")
 }
 
 model Procedure {
-  id          String @id @default(uuid())
+  id          String    @id @default(uuid())
   encounterId String
   cptCode     String
   description String
-
-  encounter Encounter @relation(fields: [encounterId], references: [id])
+  encounter   Encounter @relation(fields: [encounterId], references: [id])
 
   @@map("procedures")
 }
 
 model PreBillAnalysis {
-  id              String   @id @default(uuid())
-  encounterId     String
-  confidence      Float
-  recommendations String // JSON as string for SQL Server
-  riskFactors     String? // Comma-separated string for SQL Server
-  notes           String?
-  status          String   @default("pending")
-  userId          String?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  // CDI-specific fields
+  id                       String    @id @default(uuid())
+  encounterId              String
+  confidence               Float
+  recommendations          String    @db.NVarChar(Max)
+  riskFactors              String?   @db.NVarChar(Max)
+  notes                    String?   @db.NVarChar(Max)
+  status                   String    @default("pending")
+  userId                   String?
+  createdAt                DateTime  @default(now())
+  updatedAt                DateTime  @updatedAt
   potentialFinancialImpact Float?
-  description              String?
-  evidenceId               String? @unique
-  embedding                String? // Vector embedding as string
-
-  encounter Encounter @relation(fields: [encounterId], references: [id])
-  user      User?     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  description              String?   @db.NVarChar(Max)
+  evidenceId               String?   @unique
+  embedding                String?   @db.NVarChar(Max)
+  encounter                Encounter @relation(fields: [encounterId], references: [id])
+  user                     User?     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@map("pre_bill_analyses")
 }
 
 model Denial {
-  id           String    @id @default(uuid())
-  caseId       String?
-  denialReason String
-  amount       Float
-  status       String    @default("pending")
-  appealDate   DateTime?
-  resolution   String?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-
-  // CDI-specific fields for denials management
+  id                String    @id @default(uuid())
+  caseId            String?
+  denialReason      String
+  amount            Float
+  status            String    @default("pending")
+  appealDate        DateTime?
+  resolution        String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
   denialReasonCode  String?
   deniedAmount      Float?
   appealLetterDraft String?
   claimFhirId       String?
-
-  case Case? @relation(fields: [caseId], references: [id])
+  case              Case?     @relation(fields: [caseId], references: [id])
 
   @@map("denials")
 }
 
 model Analytics {
-  id        String   @id @default(uuid())
-  metric    String
-  value     Float
-  dimension String?
-  timestamp DateTime @default(now())
-
-  // CDI-specific analytics fields
+  id           String   @id @default(uuid())
+  metric       String
+  value        Float
+  dimension    String?
+  timestamp    DateTime @default(now())
   caseId       String?
   userId       String?
   activityType String?
