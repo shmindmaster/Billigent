@@ -31,9 +31,7 @@ const SILVER_PREFIX = process.env.ADLS_PREFIX_SILVER || "silver";
 const KEYVAULT_URL = process.env.KEYVAULT_URL; // e.g., https://<vault-name>.vault.azure.net/
 const SQL_SECRET_NAME = process.env.SQL_SECRET_NAME; // e.g., "DATABASE_URL"
 
-const db = new PrismaClient({
-  log: process.env.NODE_ENV === "development" ? ["query", "info", "warn", "error"] : ["error"],
-});
+let db: PrismaClient;
 
 function getCredential() {
   // Prefer DefaultAzureCredential (works for local dev + MSI in cloud)
@@ -595,6 +593,10 @@ async function loadDataset({ name, blobPath, selectSql, upsert }: { name: string
 async function main() {
   console.log(`RUN_ID=${RUN_ID}`);
   await hydrateDatabaseUrlFromKeyVault();
+  // Now that DATABASE_URL is hydrated, create Prisma client
+  db = new PrismaClient({
+    log: process.env.NODE_ENV === "development" ? ["query", "info", "warn", "error"] : ["error"],
+  });
   await ensureOpsTables();
 
   // Discover datasets to load
