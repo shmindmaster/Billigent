@@ -12,7 +12,6 @@
  * - Gold Layer analytics patterns
  */
 
-import { OpenAIClient, AzureKeyCredential as OpenAIKeyCredential } from '@azure/openai';
 import {
     AzureKeyCredential,
     SearchClient,
@@ -22,6 +21,7 @@ import {
 } from '@azure/search-documents';
 import { BlobServiceClient, StorageSharedKeyCredential } from '@azure/storage-blob';
 import { config } from 'dotenv';
+import OpenAI from 'openai';
 import * as winston from 'winston';
 
 config();
@@ -59,7 +59,7 @@ interface ClinicalDocument {
 class AISearchPopulator {
   private searchIndexClient: SearchIndexClient;
   private searchClient: SearchClient<ClinicalDocument>;
-  private openaiClient: OpenAIClient;
+  private openaiClient: OpenAI;
   private blobServiceClient: BlobServiceClient;
   private indexName: string;
 
@@ -95,11 +95,12 @@ class AISearchPopulator {
     );
 
     // Initialize OpenAI client for embeddings
-    const openaiCredential = new OpenAIKeyCredential(process.env.AZURE_OPENAI_API_KEY!);
-    this.openaiClient = new OpenAIClient(
-      process.env.AZURE_OPENAI_ENDPOINT!,
-      openaiCredential
-    );
+    // Initialize OpenAI client
+    this.openaiClient = new OpenAI({
+      apiKey: process.env.AZURE_OPENAI_API_KEY!,
+      baseURL: `${process.env.AZURE_OPENAI_ENDPOINT}/openai/deployments/text-embedding-3-large`,
+      defaultQuery: { 'api-version': '2024-08-01-preview' },
+    });
 
     // Initialize Azure Storage client
     const storageCredential = new StorageSharedKeyCredential(
@@ -356,10 +357,10 @@ class AISearchPopulator {
       const batch = documents.slice(i, i + batchSize);
       const promises = batch.map(async (doc) => {
         try {
-          const embeddingResponse = await this.openaiClient.getEmbeddings(
-            process.env.AZURE_OPENAI_EMBED_MODEL || 'text-embedding-3-small',
-            [doc.content]
-          );
+          const embeddingResponse = await this.openaiClient.embeddings.create({
+            model: process.env.AZURE_OPENAI_EMBED_MODEL || 'text-embedding-3-small',
+            input: doc.content
+          });
 
           doc.contentVector = embeddingResponse.data[0].embedding;
           logger.debug(`Generated embedding for document: ${doc.id}`);

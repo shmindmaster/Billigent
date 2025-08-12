@@ -1,6 +1,6 @@
-import { OpenAIClient, AzureKeyCredential as OpenAIKeyCredential } from '@azure/openai';
 import { AzureKeyCredential, SearchClient, SearchIndexClient } from '@azure/search-documents';
 import { config } from 'dotenv';
+import OpenAI from 'openai';
 
 config();
 
@@ -30,7 +30,7 @@ export interface RAGResponse {
 export class RAGService {
   private searchClient: SearchClient<any>;
   private searchIndexClient: SearchIndexClient;
-  private openaiClient: OpenAIClient;
+  private openaiClient: OpenAI;
   private config: RAGConfig;
 
   constructor(config?: Partial<RAGConfig>) {
@@ -72,18 +72,20 @@ export class RAGService {
       searchCredential
     );
 
-    this.openaiClient = new OpenAIClient(
-      this.config.openaiEndpoint,
-      new OpenAIKeyCredential(this.config.openaiApiKey)
-    );
+    // Initialize OpenAI client for Azure
+    this.openaiClient = new OpenAI({
+      apiKey: this.config.openaiApiKey,
+      baseURL: `${this.config.openaiEndpoint}/openai/deployments/${this.config.embeddingModel}`,
+      defaultQuery: { 'api-version': '2024-08-01-preview' },
+    });
   }
 
   async generateEmbedding(text: string): Promise<number[]> {
     try {
-      const response = await this.openaiClient.getEmbeddings(
-        this.config.embeddingModel,
-        [text]
-      );
+      const response = await this.openaiClient.embeddings.create({
+        model: this.config.embeddingModel,
+        input: text
+      });
       return response.data[0].embedding;
     } catch (error) {
       console.error('Error generating embedding:', error);
@@ -241,17 +243,15 @@ Instructions:
 
 Clinical Response:`;
 
-      const response = await this.openaiClient.getChatCompletions(
-        this.config.chatModel,
-        [{ role: 'user', content: prompt }],
-        {
-          maxTokens: 800,
-          temperature: 0.2, // Lower temperature for medical accuracy
-          topP: 0.9,
-          frequencyPenalty: 0,
-          presencePenalty: 0
-        }
-      );
+      const response = await this.openaiClient.chat.completions.create({
+        model: this.config.chatModel,
+        messages: [{ role: 'user', content: prompt }],
+        max_tokens: 800,
+        temperature: 0.2, // Lower temperature for medical accuracy
+        top_p: 0.9,
+        frequency_penalty: 0,
+        presence_penalty: 0
+      });
 
       return response.choices[0]?.message?.content || 'Unable to generate response based on available clinical context';
     } catch (error) {

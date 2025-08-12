@@ -1,5 +1,5 @@
-import { AzureKeyCredential, OpenAIClient } from '@azure/openai';
 import { config } from 'dotenv';
+import OpenAI from 'openai';
 
 config();
 
@@ -29,7 +29,7 @@ export interface ConversationContext {
 
 export class ResponsesAPIService {
   private config: ResponsesAPIConfig;
-  private client: OpenAIClient;
+  private client: OpenAI;
 
   constructor(config?: Partial<ResponsesAPIConfig>) {
     this.config = {
@@ -48,13 +48,15 @@ export class ResponsesAPIService {
       throw new Error('AZURE_OPENAI_API_KEY environment variable is required');
     }
 
-    this.client = new OpenAIClient(
-      this.config.endpoint,
-      new AzureKeyCredential(this.config.apiKey),
-      {
-        apiVersion: '2024-12-01-preview' // Use latest API version for Responses API
-      }
-    );
+    // Initialize OpenAI client with Azure endpoint
+    this.client = new OpenAI({
+      apiKey: this.config.apiKey,
+      baseURL: `${this.config.endpoint}/openai/deployments/${this.config.deployment}`,
+      defaultQuery: { 'api-version': '2024-08-01-preview' },
+      defaultHeaders: {
+        'Content-Type': 'application/json',
+      },
+    });
   }
 
   async submitQuery(query: string, context?: ConversationContext): Promise<ResponsesAPIResponse> {
@@ -74,23 +76,16 @@ export class ResponsesAPIService {
         }
       ];
 
-      // Use Azure OpenAI Responses API for stateful conversations
-      const response = await this.client.getChatCompletions(
-        this.config.deployment,
+      // Use Azure OpenAI chat completions
+      const response = await this.client.chat.completions.create({
+        model: this.config.deployment, // This will be ignored but required by the API
         messages,
-        {
-          maxTokens: 1000,
-          temperature: 0.3,
-          topP: 0.9,
-          frequencyPenalty: 0,
-          presencePenalty: 0,
-          // Enable stateful conversation tracking if previous response exists
-          ...(context?.previousResponseId && { 
-            // This will be supported when Azure fully rolls out Responses API
-            // previousResponseId: context.previousResponseId 
-          })
-        }
-      );
+        max_tokens: 1000,
+        temperature: 0.3,
+        top_p: 0.9,
+        frequency_penalty: 0,
+        presence_penalty: 0,
+      });
 
       const responseId = crypto.randomUUID();
       const result = response.choices[0]?.message?.content || 'No response generated';
