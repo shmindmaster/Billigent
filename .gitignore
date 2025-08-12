@@ -1,107 +1,119 @@
-# Dependencies
+# -------------------------
+# 1. Dependencies
+# -------------------------
 node_modules/
 .pnp
 .pnp.js
+**/node_modules/
+**/.pnp
+**/.pnp.js
 
-# Production builds
+# -------------------------
+# 2. Build Outputs
+# -------------------------
 dist/
 build/
+.out
+.storybook-out
+.cache
+.parcel-cache
+.next
+.nuxt
+public
+.cache/
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+**/dist/
+**/build/
+**/.next/
+**/.nuxt/
+**/.cache/
 
-# Environment variables - specific exclusions
+# -------------------------
+# 3. Environment Variables
+# -------------------------
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
-# Track .env and .env.example with placeholder values
-# But exclude any .env.local files with actual secrets
+**/.env.local
+**/.env.development.local
+**/.env.test.local
+**/.env.production.local
+prisma/.env
+prisma/.env.local
+**/prisma/.env
+**/prisma/.env.local
 
-# Logs
+# -------------------------
+# 4. Logs & Debug Files
+# -------------------------
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+*.log
+**/*.log
 
-# Runtime data
+# -------------------------
+# 5. Runtime Data & Locks
+# -------------------------
 pids
 *.pid
 *.seed
 *.pid.lock
+**/*.pid
+**/*.seed
+**/*.pid.lock
 
-# Coverage directory used by tools like istanbul
+# -------------------------
+# 6. Test & Coverage Reports
+# -------------------------
 coverage/
 *.lcov
-
-# nyc test coverage
 .nyc_output
+test-results/
+playwright-report/
+test-output/
+**/coverage/
+**/test-results/
+**/playwright-report/
+**/test-output/
 
-# ESLint cache
+# -------------------------
+# 7. Caches
+# -------------------------
 .eslintcache
-
-# Microbundle cache
-.rpt2_cache/
-.rts2_cache_cjs/
-.rts2_cache_es/
-.rts2_cache_umd/
-
-# Optional npm cache directory
-.npm
-
-# Optional eslint cache
-.eslintcache
-
-# Optional stylelint cache
 .stylelintcache
-
-# Microbundle cache
-.rpt2_cache/
-.rts2_cache_cjs/
-.rts2_cache_es/
-.rts2_cache_umd/
-
-# Optional REPL history
-.node_repl_history
-
-# Output of 'npm pack'
-*.tgz
-
-# Yarn Integrity file
+.npm
 .yarn-integrity
+.node_repl_history
+**/.eslintcache
+**/.stylelintcache
+**/.npm
+**/.yarn-integrity
+**/.node_repl_history
 
-# parcel-bundler cache (https://parceljs.org/)
-.cache
-.parcel-cache
-
-# Next.js build output
-.next
-
-# Nuxt.js build / generate output
-.nuxt
-dist
-
-# Gatsby files
-.cache/
-public
-
-# Storybook build outputs
-.out
-.storybook-out
-
-# Temporary folders
-tmp/
-temp/
-
-# Editor directories and files
+# -------------------------
+# 8. Editors & IDEs
+# -------------------------
 .vscode/*
 !.vscode/extensions.json
-.idea
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+**/.vscode/*
+**/.idea/
 
-# OS generated files
+# -------------------------
+# 9. OS Files
+# -------------------------
 .DS_Store
 .DS_Store?
 ._*
@@ -109,39 +121,67 @@ temp/
 .Trashes
 ehthumbs.db
 Thumbs.db
+**/.DS_Store
+**/Thumbs.db
 
-# Azure Functions
+# -------------------------
+# 10. Azure
+# -------------------------
 local.settings.json
 host.json
-.vscode/
-
-# Prisma - exclude actual environment files with secrets
-# But allow .env files with placeholder values
-.env.local
-prisma/.env.local
-
-# TypeScript
-*.tsbuildinfo
-
-# Database
-*.db
-*.sqlite
-
-# Test files
-test-results/
-playwright-report/
-test-output/
-
-# Azure
 .azure/
+**/.azure/
 
-# Docker
+# -------------------------
+# 11. Docker
+# -------------------------
 .dockerignore
 
-# GitHub configuration (ignore specific subdirectories)
+# -------------------------
+# 12. GitHub Config (optional)
+# -------------------------
 .github/chatmodes/
 .github/instructions/
 .github/prompts/
-.github/workflows/
-# But track the main copilot instructions file
-!.github/copilot-instructions.md
+# ⚠️ Keep workflows tracked
+# .github/workflows/
+
+# -------------------------
+# 13. Prisma & Generated Clients
+# -------------------------
+# Auto-generated Prisma client (ANYWHERE in repo)
+**/.prisma/**
+**/prisma/generated/**
+**/generated/prisma/**
+**/generated/**/prisma/**
+**/prisma-client/**
+**/client.d.ts
+**/client.js
+**/client.mjs
+**/index.d.ts
+**/index.js
+**/query_engine*.node
+**/wasm.js
+**/wasm.d.ts
+
+# -------------------------
+# 14. TypeScript
+# -------------------------
+*.tsbuildinfo
+**/*.tsbuildinfo
+
+# -------------------------
+# 15. Databases
+# -------------------------
+*.db
+*.sqlite
+**/*.db
+**/*.sqlite
+
+# -------------------------
+# 16. Temporary Folders
+# -------------------------
+tmp/
+temp/
+**/tmp/
+**/temp/

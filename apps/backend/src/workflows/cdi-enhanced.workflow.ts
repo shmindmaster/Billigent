@@ -161,7 +161,7 @@ export async function performEnhancedCDIAnalysis(
     };
 
     // Step 9: Store results in database
-    await persistCDIAnalysis(result);
+    await persistCDIAnalysis(result, encounter);
     
     logger.info('CDI analysis completed successfully', {
       encounterId,
@@ -296,7 +296,7 @@ export async function generateCDIManagementReport(
 
 async function getEncounterWithClinicalData(encounterId: string) {
   const encounter = await prisma.encounter.findUnique({
-    where: { id: encounterId },
+    where: { encounterId: encounterId },
     include: {
       patient: true,
       diagnoses: true,
@@ -501,11 +501,11 @@ function calculateTimeline(encounter: any) {
   };
 }
 
-async function persistCDIAnalysis(result: CDIAnalysisResult): Promise<void> {
+async function persistCDIAnalysis(result: CDIAnalysisResult, encounter: any): Promise<void> {
   // Store the analysis result in the database
   await prisma.preBillAnalysis.create({
     data: {
-      encounterId: result.encounterId,
+      encounterId: encounter.id, // Use the encounter's UUID id, not the encounterId string
       confidence: result.confidence,
       recommendations: JSON.stringify(result.recommendations),
       riskFactors: result.clinicalEvidence.missing.join(', '),

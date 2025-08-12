@@ -35,7 +35,7 @@ export class ResponsesAPIService {
     this.config = {
       endpoint: process.env.AZURE_OPENAI_ENDPOINT || config?.endpoint || '',
       apiKey: process.env.AZURE_OPENAI_API_KEY || config?.apiKey || '',
-      deployment: process.env.AZURE_OPENAI_MODEL_DEPLOYMENT || 'gpt-4o',
+      deployment: process.env.AZURE_OPENAI_MODEL_DEPLOYMENT || 'gpt-5-mini',
       timeout: 60000,
       ...config
     };

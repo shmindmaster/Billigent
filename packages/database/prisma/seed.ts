@@ -70,6 +70,18 @@ async function main() {
     }
   });
 
+  // Create demo encounter for testing CDI analysis
+  const demoEncounter = await prisma.encounter.create({
+    data: {
+      encounterId: 'demo-encounter-001',
+      patientId: patient2.id,
+      caseId: case1.id,
+      chiefComplaint: 'Abdominal pain with nausea and vomiting',
+      admissionDate: new Date('2024-02-20'),
+      status: 'active'
+    }
+  });
+
   // Create sample diagnoses
   await prisma.diagnosis.create({
     data: {
@@ -80,12 +92,40 @@ async function main() {
     }
   });
 
+  // Create demo encounter diagnoses
+  await prisma.diagnosis.create({
+    data: {
+      encounterId: demoEncounter.id,
+      icdCode: 'K59.00',
+      description: 'Constipation, unspecified',
+      isPrimary: true
+    }
+  });
+
+  await prisma.diagnosis.create({
+    data: {
+      encounterId: demoEncounter.id,
+      icdCode: 'R11.10',
+      description: 'Vomiting, unspecified',
+      isPrimary: false
+    }
+  });
+
   // Create sample procedures
   await prisma.procedure.create({
     data: {
       encounterId: encounter1.id,
       cptCode: '93458',
       description: 'Catheter placement in coronary artery(s) for coronary angiography'
+    }
+  });
+
+  // Create demo encounter procedures
+  await prisma.procedure.create({
+    data: {
+      encounterId: demoEncounter.id,
+      cptCode: '43235',
+      description: 'Esophagogastroduodenoscopy, flexible, transoral; diagnostic'
     }
   });
 

@@ -23,6 +23,7 @@ import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Spinner } from './Spinner';
+import api from '../../services/api.service';
 
 // Types for enhanced CDI analysis
 interface CDIAnalysisResult {
@@ -120,29 +121,20 @@ export function EnhancedCDIAnalysis({ encounterId, onAnalysisComplete }: Enhance
     setError(null);
 
     try {
-      const response = await fetch(`/api/cdi/analyze/${targetEncounterId}`, {
-        method: 'POST',
+      const response = await api.post(`/api/cdi/analyze/${targetEncounterId}`, {
+        includeFinancialAnalysis: true,
+        generateQueries: true
+      }, {
         headers: {
-          'Content-Type': 'application/json',
           'X-User-Id': 'demo-user' // In production, this would come from auth context
-        },
-        body: JSON.stringify({
-          includeFinancialAnalysis: true,
-          generateQueries: true
-        })
+        }
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || `Analysis failed: ${response.status}`);
-      }
+      setAnalysis(response.data.data);
+      onAnalysisComplete?.(response.data.data);
 
-      const result = await response.json();
-      setAnalysis(result.data);
-      onAnalysisComplete?.(result.data);
-
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Analysis failed');
+    } catch (err: any) {
+      setError(err.response?.data?.message || err.message || 'Analysis failed');
     } finally {
       setIsAnalyzing(false);
     }
@@ -155,41 +147,31 @@ export function EnhancedCDIAnalysis({ encounterId, onAnalysisComplete }: Enhance
     setIsAskingQuestion(true);
 
     try {
-      const response = await fetch(`/api/cdi/question/${analysis.conversationId}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-User-Id': 'demo-user'
-        },
-        body: JSON.stringify({
-          question: question.trim(),
-          context: {
-            analysisId: analysis.analysisId,
-            clinicalContext: {
-              priority: analysis.priority,
-              financialImpact: analysis.financialImpact.potentialIncrease
-            }
+      const response = await api.post(`/api/cdi/question/${analysis.conversationId}`, {
+        question: question.trim(),
+        context: {
+          analysisId: analysis.analysisId,
+          clinicalContext: {
+            priority: analysis.priority,
+            financialImpact: analysis.financialImpact.potentialIncrease
           }
-        })
+        }
+      }, {
+        headers: {
+          'X-User-Id': 'demo-user'
+        }
       });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Question failed');
-      }
-
-      const result = await response.json();
       
       setConversationHistory(prev => [...prev, {
         question: question.trim(),
-        answer: result.data.answer,
+        answer: response.data.data.answer,
         timestamp: new Date().toISOString()
       }]);
       
       setQuestion('');
 
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Question failed');
+    } catch (err: any) {
+      setError(err.response?.data?.message || err.message || 'Question failed');
     } finally {
       setIsAskingQuestion(false);
     }

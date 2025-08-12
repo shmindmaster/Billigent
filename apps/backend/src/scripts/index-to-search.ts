@@ -59,7 +59,7 @@ class FHIRIndexer {
 
     this.openaiClient = new OpenAI({
       apiKey: process.env.AZURE_OPENAI_API_KEY,
-      baseURL: `https://billigent-dev-openai-eus2.openai.azure.com/openai/deployments/text-embedding-ada-002`,
+      baseURL: `${process.env.AZURE_OPENAI_ENDPOINT}/openai/deployments/${process.env.AZURE_OPENAI_EMBEDDING_MODEL || 'text-embedding-3-large'}`,
       defaultQuery: { 'api-version': '2024-06-01' }
     });
   }
@@ -191,7 +191,7 @@ class FHIRIndexer {
   private async generateEmbedding(text: string): Promise<number[]> {
     try {
       const response = await this.openaiClient.embeddings.create({
-        model: 'text-embedding-ada-002',
+        model: process.env.AZURE_OPENAI_EMBEDDING_MODEL || 'text-embedding-3-large',
         input: text.slice(0, 8000) // Limit text length
       });
       

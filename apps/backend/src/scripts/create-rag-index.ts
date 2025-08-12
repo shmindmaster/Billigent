@@ -3,7 +3,7 @@
 /**
  * Create RAG Vector Index for Medical Reasoning Dataset
  * - Downloads medical reasoning data from Azure Data Lake
- * - Generates embeddings with Azure OpenAI (text-embedding-3-small)
+ * - Generates embeddings with Azure OpenAI (text-embedding-3-large)
  * - Creates comprehensive search index with vector search and semantic search
  * - Uploads documents to Azure AI Search with categorization and validation
  */
@@ -33,7 +33,7 @@ class RAGIndexer {
   private readonly indexName = 'hf-ehr-index';
   private readonly container = 'bronze';
   private readonly directory = 'huggingface';
-  private readonly embeddingDim = 1536; // text-embedding-3-small
+  private readonly embeddingDim = 3072; // text-embedding-3-large
 
   constructor() {
     const credential = new DefaultAzureCredential();
@@ -136,7 +136,7 @@ class RAGIndexer {
         let vectors: number[][] = [];
         try {
           const emb = await this.openaiClient.embeddings.create({
-            model: 'text-embedding-3-small',
+            model: process.env.AZURE_OPENAI_EMBEDDING_MODEL || 'text-embedding-3-large',
             input: inputs,
           });
           vectors = emb.data.map((d) => d.embedding as unknown as number[]);

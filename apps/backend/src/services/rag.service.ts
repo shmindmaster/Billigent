@@ -40,8 +40,8 @@ export class RAGService {
       searchIndexName: process.env.AZURE_SEARCH_INDEX_NAME || 'billigent-clinical-knowledge',
       openaiEndpoint: process.env.AZURE_OPENAI_ENDPOINT || config?.openaiEndpoint || '',
       openaiApiKey: process.env.AZURE_OPENAI_API_KEY || config?.openaiApiKey || '',
-      embeddingModel: process.env.AZURE_OPENAI_EMBEDDING_MODEL || 'text-embedding-3-small',
-      chatModel: process.env.AZURE_OPENAI_MODEL || 'gpt-4o',
+      embeddingModel: process.env.AZURE_OPENAI_EMBEDDING_MODEL || 'text-embedding-3-large',
+      chatModel: process.env.AZURE_OPENAI_MODEL || 'gpt-5-mini',
       ...config
     };
 

@@ -16,7 +16,7 @@ export async function generateEmbedding(text: string): Promise<number[]> {
   if (!endpoint) {
     const base = (process.env.AZURE_OPENAI_ENDPOINT || '').replace(/\/$/, '');
     const ver = process.env.AZURE_OPENAI_API_VERSION || '2025-04-01-preview';
-    const model = process.env.AZURE_OPENAI_EMBED_MODEL || 'text-embedding-3-small';
+    const model = process.env.AZURE_OPENAI_EMBED_MODEL || 'text-embedding-3-large';
     if (base) endpoint = `${base}/openai/deployments/${encodeURIComponent(model)}/embeddings?api-version=${encodeURIComponent(ver)}`;
   }
   if (!apiKey) apiKey = process.env.AZURE_OPENAI_API_KEY;

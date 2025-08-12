@@ -98,7 +98,7 @@ class AISearchPopulator {
     // Initialize OpenAI client
     this.openaiClient = new OpenAI({
       apiKey: process.env.AZURE_OPENAI_API_KEY!,
-      baseURL: `${process.env.AZURE_OPENAI_ENDPOINT}/openai/deployments/text-embedding-3-large`,
+      baseURL: `${process.env.AZURE_OPENAI_ENDPOINT}/openai/deployments/${process.env.AZURE_OPENAI_EMBEDDING_MODEL || 'text-embedding-3-large'}`,
       defaultQuery: { 'api-version': '2024-08-01-preview' },
     });
 
