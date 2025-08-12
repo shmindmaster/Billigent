@@ -19,7 +19,8 @@
     "db:seed": "pnpm --filter @billigent/database db:seed",
     "populate-ai-search": "npx tsx scripts/run-ai-search-population.ts",
     "preseed:working": "pnpm --filter @billigent/database db:generate",
-    "seed:working": "tsx scripts/seed-working-sets.ts"
+    "seed:working": "tsx scripts/seed-working-sets.ts",
+    "convert:parquet": "tsx scripts/convert-to-parquet.ts"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.2",

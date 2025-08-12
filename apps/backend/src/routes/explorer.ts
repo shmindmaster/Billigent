@@ -1,20 +1,24 @@
 import { Router } from "express";
 import { listSilverGold, sasForPath } from "../services/datalake-explorer.service";
-import { BlobServiceClient } from "@azure/storage-blob";
+import { BlobServiceClient, StorageSharedKeyCredential } from "@azure/storage-blob";
+import { DefaultAzureCredential } from "@azure/identity";
 
 const router = Router();
 
 // GET /api/explorer/manifest
 router.get("/manifest", async (_req, res, next) => {
-  try { res.json(await listSilverGold()); } catch (e) { next(e); }
+  try { res.json(await listSilverGold()); } catch (e) { next(e as any); }
 });
 
 // GET /api/explorer/file?path=<blob-path-relative-to-container>
-router.get("/file", (req, res) => {
-  const path = String(req.query.path || "");
-  if (!path || (!path.startsWith("silver/") && !path.startsWith("gold/")))
-    return res.status(400).json({ error: "path must be under silver/ or gold/" });
-  return res.json({ url: sasForPath(path), ttlSeconds: 300 });
+router.get("/file", async (req, res, next) => {
+  try {
+    const path = String(req.query.path || "");
+    if (!path || (!path.startsWith("silver/") && !path.startsWith("gold/")))
+      return res.status(400).json({ error: "path must be under silver/ or gold/" });
+    const url = await sasForPath(path);
+    return res.json({ url, ttlSeconds: 300 });
+  } catch (e) { next(e as any); }
 });
 
 // (Optional) GET /api/explorer/preview?path=... → small sample for CSV/JSON/NDJSON
@@ -24,12 +28,13 @@ router.get("/preview", async (req, res, next) => {
     if (!path) return res.status(400).json({ error: "path required" });
 
     const accountName = process.env.AZURE_STORAGE_ACCOUNT!;
-    const accountKey  = process.env.AZURE_STORAGE_KEY!;
+    const accountKey  = process.env.AZURE_STORAGE_KEY || "";
     const container   = process.env.AZURE_STORAGE_FILESYSTEM || "data";
 
-    const bsc = BlobServiceClient.fromConnectionString(
-      `DefaultEndpointsProtocol=https;AccountName=${accountName};AccountKey=${accountKey};EndpointSuffix=core.windows.net`
-    );
+    const blobBaseUrl = `https://${accountName}.blob.core.windows.net`;
+    const bsc = accountKey
+      ? new BlobServiceClient(`${blobBaseUrl}`, new StorageSharedKeyCredential(accountName, accountKey))
+      : new BlobServiceClient(`${blobBaseUrl}`, new DefaultAzureCredential());
     const bc = bsc.getContainerClient(container).getBlobClient(path);
 
     const head = await bc.getProperties();
@@ -47,7 +52,7 @@ router.get("/preview", async (req, res, next) => {
       return res.json({ contentType: "csv", sample: text });
     }
     return res.json({ contentType: ct || "application/octet-stream", sample: null });
-  } catch (e) { next(e); }
+  } catch (e) { next(e as any); }
 });
 
 function streamToBuffer(s: NodeJS.ReadableStream | null): Promise<Buffer> {
