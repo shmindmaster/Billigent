@@ -9,6 +9,7 @@ import caseRoutes from './routes/cases';
 import denialRoutes from './routes/denials';
 import queryRoutes from './routes/queries';
 import userRoutes from './routes/users';
+import explorerRoutes from './routes/explorer';
 
 // CDI routes - import only if available
 let cdiRoutes: any;
@@ -65,6 +66,7 @@ app.use('/api/queries', queryRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/denials', denialRoutes);
 app.use('/api/analytics', analyticsRoutes);
+app.use('/api/explorer', explorerRoutes);
 if (cdiRoutes) {
   app.use('/api/cdi', cdiRoutes);
 }

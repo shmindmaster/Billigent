@@ -110,6 +110,7 @@ model Diagnosis {
   isPrimary   Boolean   @default(false)
   encounter   Encounter @relation(fields: [encounterId], references: [id])
 
+  @@index([icdCode])
   @@map("diagnoses")
 }
 
@@ -120,6 +121,7 @@ model Procedure {
   description String
   encounter   Encounter @relation(fields: [encounterId], references: [id])
 
+  @@index([cptCode])
   @@map("procedures")
 }
 
@@ -175,4 +177,142 @@ model Analytics {
   description  String?
 
   @@map("analytics")
+}
+
+/// ---------- Lookup vocab (current snapshots only) ----------
+model Icd10Cm {
+  code     String   @id
+  title    String?
+  longDesc String?
+  effFrom  DateTime
+  effTo    DateTime?
+  @@map("lkp_icd10cm")
+  @@index([title])
+}
+
+model Icd10Pcs {
+  code    String  @id
+  title   String?
+  effFrom DateTime
+  effTo   DateTime?
+  @@map("lkp_icd10pcs")
+}
+
+model MsDrg {
+  drg      String   @id
+  desc     String?
+  rw       Decimal? @db.Decimal(9, 4)
+  gmlos    Decimal? @db.Decimal(6, 2)
+  amlos    Decimal? @db.Decimal(6, 2)
+  transfer Boolean?
+  effFrom  DateTime
+  effTo    DateTime?
+  @@map("lkp_msdrg")
+  @@index([rw, gmlos, amlos])
+}
+
+model Hcpcs {
+  code    String  @id
+  short   String?
+  long    String?
+  status  String?
+  effFrom DateTime
+  effTo   DateTime?
+  @@map("lkp_hcpcs")
+  @@index([status])
+}
+
+model NcciPtp {
+  id      String  @id @default(uuid())
+  codeA   String
+  codeB   String
+  modInd  String
+  effFrom DateTime
+  effTo   DateTime?
+  @@unique([codeA, codeB, effFrom])
+  @@map("lkp_ncci_ptp")
+  @@index([codeA, codeB])
+}
+
+model NcciMue {
+  code    String
+  effFrom DateTime
+  mue     Int
+  effTo   DateTime?
+  @@id([code, effFrom])
+  @@map("lkp_ncci_mue")
+}
+
+model Carc {
+  code    String @id
+  grp     String?
+  desc    String?
+  effFrom DateTime?
+  effTo   DateTime?
+  @@map("lkp_carc")
+}
+
+model Rarc {
+  code    String @id
+  desc    String?
+  effFrom DateTime?
+  effTo   DateTime?
+  @@map("lkp_rarc")
+}
+
+/// ---------- Provider taxonomy (light) ----------
+model NuccTaxonomy {
+  code           String @id
+  grouping       String?
+  classification String?
+  specialization String?
+  display        String?
+  @@map("lkp_nucc_taxonomy")
+  @@index([grouping, classification, specialization])
+}
+
+/// Minimal NPI subset (tiny; weekly delta only if needed)
+model NpiProvider {
+  npi        String @id
+  entityType String?
+  name       String?
+  orgName    String?
+  taxonomy   String?
+  state      String?
+  postalCode String?
+  @@map("lkp_npi_provider")
+  @@index([taxonomy, state])
+}
+
+/// ---------- Denial/EOB working facts ----------
+model EobLine {
+  id           String   @id @default(uuid())
+  claimId      String
+  lineNum      Int
+  hcpcs        String?
+  units        Int?
+  chargeAmt    Decimal? @db.Decimal(12, 2)
+  paidAmt      Decimal? @db.Decimal(12, 2)
+  drg          String?
+  serviceFrom  DateTime?
+  serviceTo    DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  adjudications EobAdjudication[]
+  @@map("fact_eob_line")
+  @@unique([claimId, lineNum])
+  @@index([hcpcs, drg])
+}
+
+model EobAdjudication {
+  id        String   @id @default(uuid())
+  eobLineId String
+  category  String?
+  amount    Decimal? @db.Decimal(12, 2)
+  carc      String?
+  rarc      String?
+  reasonTxt String?
+  eobLine   EobLine  @relation(fields: [eobLineId], references: [id])
+  @@map("fact_eob_adj")
+  @@index([carc, rarc])
 }

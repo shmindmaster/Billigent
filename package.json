@@ -17,7 +17,9 @@
     "db:push": "pnpm --filter @billigent/database db:push",
     "db:migrate": "pnpm --filter @billigent/database db:migrate",
     "db:seed": "pnpm --filter @billigent/database db:seed",
-    "populate-ai-search": "npx tsx scripts/run-ai-search-population.ts"
+    "populate-ai-search": "npx tsx scripts/run-ai-search-population.ts",
+    "preseed:working": "pnpm --filter @billigent/database db:generate",
+    "seed:working": "tsx scripts/seed-working-sets.ts"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.2",
@@ -25,6 +27,14 @@
     "@types/node": "^24.2.0",
     "tsx": "^4.20.3",
     "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "@azure/identity": "^4.5.0",
+    "@azure/keyvault-secrets": "^4.9.0",
+    "@azure/storage-blob": "^12.24.0",
+    "duckdb": "^1.1.1",
+    "p-limit": "^6.2.0",
+    "uuid": "^10.0.0"
   },
   "engines": {
     "node": ">=22.0.0",

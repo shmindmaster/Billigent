@@ -16,6 +16,7 @@ const DenialsManagement = lazy(() => import('./pages/DenialsManagement'));
 const PreBillReview = lazy(() => import('./pages/PreBillReview'));
 const QueryManagement = lazy(() => import('./pages/QueryManagement'));
 const Settings = lazy(() => import('./pages/Settings'));
+  const DataExplorer = lazy(() => import('./pages/DataExplorer'));
 
 // Loading fallback component
 const PageLoading = () => (
@@ -77,6 +78,11 @@ function App() {
                   <Route path="settings" element={
                     <Suspense fallback={<PageLoading />}>
                       <Settings />
+                    </Suspense>
+                  } />
+                  <Route path="data-explorer" element={
+                    <Suspense fallback={<PageLoading />}>
+                      <DataExplorer />
                     </Suspense>
                   } />
                   <Route path="*" element={<div className="p-8"><h1 className="text-2xl font-semibold">Page not found</h1><p className="text-muted-foreground mt-2">The page you are looking for doesn’t exist.</p></div>} />

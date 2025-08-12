@@ -3,6 +3,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import {
     BarChart3,
     Briefcase,
+    Database,
     FileText,
     LayoutDashboard,
     LogOut,
@@ -68,6 +69,12 @@ const Layout: React.FC = () => {
       path: '/analytics',
       icon: BarChart3,
       description: 'Historical reporting and trends'
+    },
+    {
+      name: 'Data Explorer',
+      path: '/data-explorer',
+      icon: Database,
+      description: 'Browse silver/gold datasets'
     },
     {
       name: 'Settings',
