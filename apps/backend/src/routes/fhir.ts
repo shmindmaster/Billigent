@@ -135,9 +135,7 @@ router.post("/ingest/validate", async (req, res) => {
   const { fileSystemName, path } = req.body || {};
 
   try {
-    // This would validate FHIR data structure without ingesting
-    // For now, we'll return a mock validation result
-
+    // TODO: Implement real validation logic. For now, return structural placeholder (not mock data) without synthetic resources.
     const validationResult = {
       valid: true,
       fileCount: 0,
@@ -188,28 +186,21 @@ router.get("/resources/:resourceType", async (req, res) => {
   const { patientId, encounterId, limit = 100, offset = 0 } = req.query;
 
   try {
-    // This would query the indexed FHIR resources
-    // For now, we'll return a mock response
-
-    const mockResources = [
-      {
-        id: `${resourceType}/mock-1`,
-        resourceType,
-        patientId: patientId || "patient-1",
-        encounterId: encounterId || "encounter-1",
-        content: `Mock ${resourceType} content`,
-        timestamp: new Date().toISOString(),
-        source: "fhir-ingestion",
-      },
-    ];
+    const FhirResourceService = (await import('../services/fhirResource.service')).default;
+    const { items, total } = await FhirResourceService.listByType(resourceType, {
+      patientId: patientId as string | undefined,
+      encounterId: encounterId as string | undefined,
+      limit: parseInt(limit as string),
+      offset: parseInt(offset as string)
+    });
 
     return res.json({
       success: true,
-      resources: mockResources,
+      resources: items.map(r => ({ id: r.id, resourceType: r.resourceType, createdAt: r.createdAt, patientId: r.patientId, encounterId: r.encounterId, json: r.json })),
       pagination: {
         limit: parseInt(limit as string),
         offset: parseInt(offset as string),
-        total: mockResources.length,
+        total,
       },
     });
   } catch (error) {
@@ -232,42 +223,21 @@ router.get("/patients/:patientId/resources", async (req, res) => {
   const { resourceType, limit = 100, offset = 0 } = req.query;
 
   try {
-    // This would query all resources for a specific patient
-    // For now, we'll return a mock response
-
-    const mockResources = [
-      {
-        id: `Patient/${patientId}`,
-        resourceType: "Patient",
-        patientId,
-        content: `Patient ${patientId} information`,
-        timestamp: new Date().toISOString(),
-        source: "fhir-ingestion",
-      },
-      {
-        id: `Encounter/encounter-1`,
-        resourceType: "Encounter",
-        patientId,
-        encounterId: "encounter-1",
-        content: `Encounter for patient ${patientId}`,
-        timestamp: new Date().toISOString(),
-        source: "fhir-ingestion",
-      },
-    ];
-
-    // Filter by resource type if specified
-    const filteredResources = resourceType
-      ? mockResources.filter((r) => r.resourceType === resourceType)
-      : mockResources;
+    const FhirResourceService = (await import('../services/fhirResource.service')).default;
+    const { items, total } = await FhirResourceService.listByPatient(patientId, {
+      resourceType: resourceType as string | undefined,
+      limit: parseInt(limit as string),
+      offset: parseInt(offset as string)
+    });
 
     return res.json({
       success: true,
       patientId,
-      resources: filteredResources,
+      resources: items.map(r => ({ id: r.id, resourceType: r.resourceType, createdAt: r.createdAt, patientId: r.patientId, encounterId: r.encounterId, json: r.json })),
       pagination: {
         limit: parseInt(limit as string),
         offset: parseInt(offset as string),
-        total: filteredResources.length,
+        total,
       },
     });
   } catch (error) {
@@ -314,6 +284,23 @@ router.get("/health", async (_req, res) => {
       service: "fhir-ingestion",
       error: error instanceof Error ? error.message : "Unknown error",
     });
+  }
+});
+
+/**
+ * POST /api/fhir/resources/:resourceType
+ * Create (persist) a raw FHIR resource
+ */
+router.post('/resources/:resourceType', async (req, res) => {
+  const { resourceType } = req.params;
+  const payload = req.body;
+  try {
+    const FhirResourceService = (await import('../services/fhirResource.service')).default;
+    const created = await FhirResourceService.upsert({ resourceType, resource: payload });
+    return res.status(201).json({ success: true, id: created.id });
+  } catch (error) {
+    console.error('Failed to persist FHIR resource:', error);
+    return res.status(400).json({ success: false, error: error instanceof Error ? error.message : 'Unknown error' });
   }
 });
 

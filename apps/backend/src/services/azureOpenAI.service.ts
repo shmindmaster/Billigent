@@ -62,34 +62,7 @@ export class AzureOpenAIService {
       process.env.AZURE_OPENAI_EMBEDDING_DEPLOYMENT || "text-embedding-3-small";
 
     if (!endpoint || !apiKey) {
-      // In test / local dev without config, provide a lightweight mock client
-      // so importing this module does not throw and downstream code can fallback.
-      // This keeps tests hermetic without needing real Azure env vars.
-      this.openai = {
-        chat: {
-          completions: {
-            create: async () => ({
-              choices: [
-                {
-                  message: {
-                    content:
-                      "NARRATIVE: Mock appeal draft generated.\nFACT CITATIONS:\nCODING JUSTIFICATION:\nRISK FLAGS:\nCONFIDENCE: 0.7",
-                  },
-                },
-              ],
-              usage: { total_tokens: 10 },
-            }),
-          },
-        },
-        embeddings: {
-          create: async () => ({
-            data: [{ embedding: new Array(5).fill(0.01) }],
-          }),
-        },
-      } as any;
-      this.modelName = "mock-model";
-      this.embeddingModel = "mock-embed";
-      return;
+      throw new Error("Azure OpenAI configuration missing: set AZURE_OPENAI_ENDPOINT and AZURE_OPENAI_API_KEY in dev environment");
     }
 
     this.openai = new OpenAI({

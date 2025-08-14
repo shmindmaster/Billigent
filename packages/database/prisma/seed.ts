@@ -2,7 +2,7 @@ import { PrismaClient } from '../src/generated/prisma';
 
 const prisma = new PrismaClient();
 
-async function main() {
+export async function runFullSeed() {
   // Users (idempotent via email)
   const adminUser = await prisma.user.upsert({
     where: { email: 'admin@billigent.com' },
@@ -225,11 +225,15 @@ async function main() {
   console.log('Seed data ensured successfully (including denials).');
 }
 
-main()
-  .catch((e) => {
+// If executed directly (pnpm prisma db seed), run the full seed
+if (require.main === module) {
+  runFullSeed()
+    .catch((e) => {
     console.error(e);
     process.exit(1);
   })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+    .finally(async () => {
+      await prisma.$disconnect();
+    });
+}
+

@@ -1,0 +1,453 @@
+[
+  {
+    "id": "TC001",
+    "title": "User Authentication Success",
+    "description": "Verify that users can successfully authenticate using OAuth 2.0 with Microsoft Entra ID with valid credentials and multi-factor authentication.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the login page."
+      },
+      {
+        "type": "action",
+        "description": "Enter valid user credentials."
+      },
+      {
+        "type": "action",
+        "description": "Complete multi-factor authentication."
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify that the user is redirected to the main dashboard."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify user session is established and role-based access controls are applied."
+      }
+    ]
+  },
+  {
+    "id": "TC002",
+    "title": "User Authentication Failure with Invalid Credentials",
+    "description": "Verify that the system denies access for invalid OAuth login attempts and shows appropriate error messages.",
+    "category": "error handling",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the login page."
+      },
+      {
+        "type": "action",
+        "description": "Enter invalid user credentials."
+      },
+      {
+        "type": "action",
+        "description": "Attempt to login."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an error message is displayed indicating login failure."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify no session is created and access is denied."
+      }
+    ]
+  },
+  {
+    "id": "TC003",
+    "title": "Pre-Bill CDI Review Queue Prioritization",
+    "description": "Verify that cases in the Pre-Bill CDI Review queue are prioritized correctly based on financial and clinical impact scores.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Authenticate as CDI specialist and navigate to Pre-Bill Review page."
+      },
+      {
+        "type": "action",
+        "description": "Load the prioritized cases queue."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify cases are sorted by combined financial impact and risk stratification scores."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify prioritization matches expected results from sample dataset."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the queue updates correctly after user feedback or case updates."
+      }
+    ]
+  },
+  {
+    "id": "TC004",
+    "title": "Denial Letter PDF Upload and OCR Processing",
+    "description": "Verify that uploaded denial letter PDFs are processed asynchronously with accurate OCR extraction of CARC/RARC codes and denial reasons (>95% accuracy).",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Authenticate user and navigate to denial letter upload."
+      },
+      {
+        "type": "action",
+        "description": "Upload a valid denial letter PDF file."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify file upload is accepted and processing starts asynchronously."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify user receives notification upon processing completion."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify extracted CARC/RARC codes and denial reasons match expected values with >95% accuracy."
+      }
+    ]
+  },
+  {
+    "id": "TC005",
+    "title": "Automated Appeal Letter Generation with Evidence Citation",
+    "description": "Verify AI-generated automated appeal letters synthesize clinical data and regulatory citations with traceable provenance and pass expert validation.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to a denial case requiring appeal."
+      },
+      {
+        "type": "action",
+        "description": "Trigger automated appeal letter generation."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify generated appeal letter includes appropriate clinical evidence and regulatory citations."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify evidence provenance links to source documents clearly."
+      },
+      {
+        "type": "assertion",
+        "description": "Validate the appeal letter passes human expert review according to internal criteria."
+      }
+    ]
+  },
+  {
+    "id": "TC006",
+    "title": "Real-time KPI Monitoring Dashboard Refresh and Performance",
+    "description": "Verify that the KPI dashboard updates data within 24 hours and UI queries respond within 2 seconds at 95th percentile under expected load.",
+    "category": "performance",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Log in and navigate to the KPI Monitoring Dashboard."
+      },
+      {
+        "type": "action",
+        "description": "Trigger data refresh or wait for scheduled update."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify dashboard displays denial rates, CDI quality scores, appeals success rates, and revenue metrics."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify data shown is not older than 24 hours."
+      },
+      {
+        "type": "action",
+        "description": "Perform multiple KPI queries and drill-down on visualizations."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify UI query response times are under 2 seconds at 95th percentile."
+      }
+    ]
+  },
+  {
+    "id": "TC007",
+    "title": "Natural Language Query Interface Compliance and Accuracy",
+    "description": "Verify the AI-powered natural language query interface accepts valid plain English queries, responds contextually, and enforces non-leading template compliance including HIPAA audit and unique query IDs.",
+    "category": "security",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the Natural Language Query interface."
+      },
+      {
+        "type": "action",
+        "description": "Submit a valid clinical data query in plain English."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify relevant and contextual AI response is returned."
+      },
+      {
+        "type": "action",
+        "description": "Attempt to submit a leading or non-compliant query template."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the interface rejects the query and provides an explanatory message."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify each query is assigned a unique identifier and audit log entry compliant with HIPAA §164.312."
+      }
+    ]
+  },
+  {
+    "id": "TC008",
+    "title": "Appeal Tracking and Management Dashboard Functionality",
+    "description": "Verify that managers can track appeal lifecycle statuses, manage deadlines, and view success analytics with accurate drill-down and charting capabilities.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Log in as manager and navigate to Appeal Tracking dashboard."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify appeal statuses (e.g., Draft, Submitted, Approved, Denied) are displayed accurately."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify deadline alerts and warnings appear for pending appeals."
+      },
+      {
+        "type": "action",
+        "description": "Use interactive charts to drill down into appeal success analytics."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify data is consistent with back-end records."
+      }
+    ]
+  },
+  {
+    "id": "TC009",
+    "title": "Case Management Workflow for Creation, Review, and Submission",
+    "description": "Verify users can create new cases, review AI-assisted documentation recommendations, and submit cases for appeals processing following defined workflows.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to Case Management page."
+      },
+      {
+        "type": "action",
+        "description": "Create a new case with required data."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify case creation succeeds and appears in case list."
+      },
+      {
+        "type": "action",
+        "description": "Open case for review and view AI-generated documentation improvement recommendations."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify recommendations are relevant and actionable."
+      },
+      {
+        "type": "action",
+        "description": "Submit the case for appeals processing."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify submission status updates accordingly."
+      }
+    ]
+  },
+  {
+    "id": "TC010",
+    "title": "System Uptime and Database Health Monitoring",
+    "description": "Verify system health monitoring dashboards report real-time status maintaining 99.9% uptime SLA and database connection health indicators are accurate and timely.",
+    "category": "performance",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Simulate normal system operation and monitor health dashboard."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify database connection status shows healthy."
+      },
+      {
+        "type": "action",
+        "description": "Simulate database connectivity issues and verify health dashboard updates accordingly."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify alerts or notifications are triggered for degraded health."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify system uptime metrics meet 99.9% SLA under load of 1000 concurrent users."
+      }
+    ]
+  },
+  {
+    "id": "TC011",
+    "title": "Role-Based Access Control Enforcement",
+    "description": "Verify that role-based access controls restrict access to sensitive features and data based on user roles and that unauthorized actions are blocked and logged.",
+    "category": "security",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login as different user roles (e.g., Specialist, Manager, Admin)."
+      },
+      {
+        "type": "action",
+        "description": "Attempt to access features outside assigned role permissions."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify access is denied and appropriate error or redirect occurs."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify audit logs capture the attempted unauthorized access attempts."
+      }
+    ]
+  },
+  {
+    "id": "TC012",
+    "title": "Asynchronous AI Denial Analysis Notification and Workflow",
+    "description": "Verify that denial letters uploaded are processed asynchronously and users are notified upon completion with analysis results accessible via UI.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Upload denial letter PDF."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify asynchronous processing is started and UI shows in-progress status."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify system sends a notification when analysis completes."
+      },
+      {
+        "type": "action",
+        "description": "Open processed denial analysis results."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify denial reason extraction and root cause classification are displayed."
+      }
+    ]
+  },
+  {
+    "id": "TC013",
+    "title": "Conversational AI Assistant Case Discussion and Recommendations",
+    "description": "Verify the conversational AI assistant supports case discussions providing evidence-based recommendations and document templates within the case review interface.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Open a case in review mode."
+      },
+      {
+        "type": "action",
+        "description": "Invoke the conversational AI assistant."
+      },
+      {
+        "type": "action",
+        "description": "Ask for documentation improvement recommendations."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify AI assistant provides relevant evidence-based recommendations."
+      },
+      {
+        "type": "action",
+        "description": "Request document templates from the assistant."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify templates are generated and usable."
+      }
+    ]
+  },
+  {
+    "id": "TC014",
+    "title": "Database Query and Indexing Integrity with Azure Search",
+    "description": "Verify Azure Search integration correctly indexes clinical and denial data and that search queries return accurate and relevant results in the Data Explorer.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to Data Explorer."
+      },
+      {
+        "type": "action",
+        "description": "Execute multiple search queries against clinical and denial data."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify search results are relevant, complete, and ranked correctly."
+      },
+      {
+        "type": "action",
+        "description": "Update clinical data entries and trigger re-indexing."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify updates reflect promptly in search results."
+      }
+    ]
+  },
+  {
+    "id": "TC015",
+    "title": "System Security Penetration Test and Audit Log Verification",
+    "description": "Conduct comprehensive security penetration testing covering authentication, role-based access, data encryption, audit logging, and HIPAA compliance, verifying no security breaches or non-compliance issues.",
+    "category": "security",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Perform penetration testing on authentication mechanisms, including multi-factor authentication."
+      },
+      {
+        "type": "action",
+        "description": "Test access to unauthorized resources across different roles."
+      },
+      {
+        "type": "action",
+        "description": "Verify audit logs capture all data access and modification activities."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm no vulnerabilities or misconfigurations violating HIPAA §164.312 are present."
+      }
+    ]
+  }
+]

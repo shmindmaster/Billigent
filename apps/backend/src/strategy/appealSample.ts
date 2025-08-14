@@ -1,6 +1,6 @@
 /**
- * Sample appeal draft generator aligned with appeals-drafting-spec.
- * Returns deterministic mock output for demonstration & testing.
+ * Legacy sample appeal draft generator (retained for potential testing).
+ * NOTE: Real appeal drafting now required; remove references in runtime routes.
  */
 import { EvidenceBundle } from './evidenceGraph';
 

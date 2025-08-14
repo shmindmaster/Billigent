@@ -87,3 +87,34 @@ Tasks:
 | G | In Progress | Added benchmark placeholder stubs to corpus.jsonl (13 entries) |
 | H | Pending | Deferred |
 
+### Execution Update (Auto Seeding Integration)
+- Added exported `runFullSeed` function to `packages/database/prisma/seed.ts` for programmatic invocation.
+- Wrapped original CLI execution logic with conditional `require.main === module`.
+- Modified `ensureSeeded.ts` to dynamically import and run full seed when baseline tables are empty.
+- Rationale: Eliminates manual step, guarantees real data presence replacing former mock dependency without adding startup overhead when data already exists.
+- Next: Create initial Prisma migration (`pnpm -F @billigent/database run db:migrate --name init`) and add startup check for pending migrations (deferred to next action set).
+
+
+
+### Execution Update (Prisma Schema Normalization & Migration Attempt)
+- Added local `.env` with placeholder SQL Server `DATABASE_URL`.
+- Replaced unsupported `Json` fields (SQL Server connector) with `String @db.NVarChar(Max)` storing serialized JSON.
+- Removed Prisma enums (SQL Server connector lacks enum support) and converted to `String` columns with documented allowed values (application-level constraint pending).
+- Added reverse relations: `Patient.fhirResources`, `Encounter.fhirResources`.
+- Broke cyclic cascade path by setting `onDelete`/`onUpdate: NoAction` on `FhirResource.patient` & `FhirResource.encounter` relations.
+- Re-ran validation: prior JSON/enum errors resolved; now blocked by connectivity (P1001 cannot reach `localhost:1433`).
+- No migration generated yet (empty `prisma/migrations`). Prisma requires live connection even with `--create-only` for SQL Server to introspect / confirm shadow DB.
+
+Blocking Issue:
+- SQL Server instance not running or not reachable at `localhost:1433`.
+
+Proposed Unblock Options:
+1. Start local SQL Server container:
+   `docker run -e ACCEPT_EULA=Y -e MSSQL_SA_PASSWORD=YourStrong!Passw0rd -p 1433:1433 mcr.microsoft.com/mssql/server:2022-latest`
+2. Or provision Azure SQL and update `DATABASE_URL` (ensure firewall rules allow local dev IP).
+3. After DB reachable: rerun `pnpm -F @billigent/database prisma migrate dev --name init --create-only` then plain `pnpm -F @billigent/database prisma migrate deploy` (for ci) or `dev` (local) and start backend to trigger seeding.
+
+Next Planned Steps:
+- Bring up database & generate migration
+- Implement migration drift readiness check
+- Proceed to search index provisioning and readiness integration

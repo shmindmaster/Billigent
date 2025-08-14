@@ -15,12 +15,16 @@ test.describe('Smoke: Dashboard and Cases', () => {
     // Header welcome - derives from AuthContext default user
     await expect(page.getByRole('heading', { name: /welcome, jennifer smith/i })).toBeVisible();
 
-    // Stats grid tiles (labels) - scope inside grid container to avoid strict duplicates
-    const statsGrid = page.locator('div').filter({ has: page.getByText('Net Revenue Identified') });
-    await expect(statsGrid.getByText('Net Revenue Identified')).toBeVisible();
-    await expect(statsGrid.getByText('Appeal Overturn Rate')).toBeVisible();
-    await expect(statsGrid.getByText('Query Agreement Rate')).toBeVisible();
-    await expect(statsGrid.getByText('Avg Processing Time')).toBeVisible();
+    // Stats grid KPI headings - target by role to avoid strict text duplicates (span vs heading)
+    const statsGrid = page.locator('div').filter({ has: page.getByRole('heading', { name: 'Net Revenue Identified' }) });
+    for (const label of [
+      'Net Revenue Identified',
+      'Appeal Overturn Rate',
+      'Query Agreement Rate',
+      'Avg Processing Time'
+    ]) {
+      await expect(statsGrid.getByRole('heading', { name: label })).toBeVisible();
+    }
 
     // Work queue cards
     await expect(page.getByText('New Pre-Bill Cases')).toBeVisible();

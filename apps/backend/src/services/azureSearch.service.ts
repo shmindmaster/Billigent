@@ -70,12 +70,7 @@ export class AzureSearchService {
     this.useManagedIdentity = !this.apiKey;
 
     if (!this.endpoint) {
-      // Provide mock search client for test environments without Azure config
-      this.searchClient = {} as any;
-      this.indexName = "mock-index";
-      this.endpoint = "mock-endpoint";
-      // Short-circuit further initialization
-      return;
+      throw new Error("Azure Search endpoint not configured: set AZURE_SEARCH_ENDPOINT");
     }
 
     if (!this.apiKey && !this.useManagedIdentity) {
@@ -110,16 +105,7 @@ export class AzureSearchService {
   ): Promise<HybridSearchResult> {
     const startTime = Date.now();
 
-    // Mock mode: return deterministic empty result
-    if (!(this as any).searchClient?.search) {
-      return {
-        results: [],
-        totalCount: 0,
-        searchTime: Date.now() - startTime,
-        queryType: query.vector ? "hybrid" : "keyword",
-        metadata: { modelUsed: "mock-search", tokensProcessed: 0 },
-      };
-    }
+
 
     try {
       // Build search options

@@ -70,14 +70,15 @@ model Case {
 }
 
 model Patient {
-  id         String      @id @default(uuid())
-  name       String
-  mrn        String      @unique
-  dob        DateTime?
-  gender     String?
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  encounters Encounter[]
+  id            String        @id @default(uuid())
+  name          String
+  mrn           String        @unique
+  dob           DateTime?
+  gender        String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  encounters    Encounter[]
+  fhirResources FhirResource[]
 
   @@map("patients")
 }
@@ -98,6 +99,7 @@ model Encounter {
   patient         Patient           @relation(fields: [patientId], references: [id])
   preBillAnalyses PreBillAnalysis[]
   procedures      Procedure[]
+  fhirResources   FhirResource[]
 
   @@map("encounters")
 }
@@ -163,6 +165,23 @@ model Denial {
   case              Case?     @relation(fields: [caseId], references: [id])
 
   @@map("denials")
+}
+
+model FhirResource {
+  id           String   @id @default(uuid())
+  resourceType String
+  patientId    String?
+  encounterId  String?
+  json         String   @db.NVarChar(Max)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  patient      Patient?   @relation(fields: [patientId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  encounter    Encounter? @relation(fields: [encounterId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([resourceType])
+  @@index([patientId])
+  @@index([encounterId])
+  @@map("fhir_resources")
 }
 
 model Analytics {
@@ -302,6 +321,105 @@ model EobLine {
   @@map("fact_eob_line")
   @@unique([claimId, lineNum])
   @@index([hcpcs, drg])
+}
+
+/// Physician Query Governance Models (initial scaffold)
+/// Compliant physician query workflow separate from generic NLQ `Query`.
+/// (Previous feature flag gating removed; always active.)
+model QueryTemplate {
+  id                  String   @id @default(uuid())
+  code                String   @unique
+  title               String
+  bodyMarkup          String
+  guidance            String?
+  clinicalIndicators  String?   @db.NVarChar(Max) // was Json? (unsupported on SQL Server) serialized JSON text
+  version             Int      @default(1)
+  active              Boolean  @default(true)
+  nonLeadingValidated Boolean @default(false)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  physicianQueries    PhysicianQuery[]
+}
+
+// Enums converted to lookup strings due to SQL Server provider limitations (no native enum support)
+// PhysicianQueryStatus values stored as string with constrained set enforced application-side
+// (Optionally create separate lookup tables later.)
+// Original enum values: DRAFT, SENT, RESPONDED, CLARIFICATION_REQUESTED, ESCALATED, CLOSED, WITHDRAWN, CANCELED
+
+// PhysicianResponseType enum removed; store as string (AGREE, DISAGREE, PROVIDE_ADDITIONAL_INFO, DECLINE)
+
+// PhysicianQueryEventType enum removed; store as string (CREATED, TEMPLATE_APPLIED, SENT, REMINDER_SENT, RESPONDED, CLARIFICATION_REQUESTED, ESCALATED, CLOSED, WITHDRAWN, STATUS_CHANGED, SLA_BREACH)
+
+// EvidenceSourceType enum removed; store as string (NOTE, LAB_RESULT, IMAGING_REPORT, CLAIM, OTHER)
+
+model PhysicianQuery {
+  id                   String   @id @default(uuid())
+  templateId           String
+  template             QueryTemplate @relation(fields: [templateId], references: [id])
+  templateVersion      Int
+  templateSnapshot     String   @db.NVarChar(Max) // was Json
+  caseId               String?
+  encounterId          String?
+  createdById          String
+  assignedPhysicianId  String
+  status               String   @default("DRAFT") // was enum PhysicianQueryStatus
+  statusUpdatedAt      DateTime @default(now())
+  draft                Boolean  @default(true)
+  freeTextSupplement   String?
+  sentAt               DateTime?
+  respondedAt          DateTime?
+  closedAt             DateTime?
+  escalationLevel      Int      @default(0)
+  slaDueAt             DateTime?
+  closureReason        String?
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  responses            PhysicianQueryResponse[]
+  auditEvents          PhysicianQueryAuditEvent[]
+  evidence             EvidenceReference[]
+  @@index([assignedPhysicianId, status])
+  @@index([slaDueAt])
+}
+
+/// Physician query governance models adjusted: enums removed (string columns) and JSON fields serialized as NVARCHAR(MAX)
+model PhysicianQueryResponse {
+  id               String   @id @default(uuid())
+  physicianQueryId String
+  physicianQuery   PhysicianQuery @relation(fields: [physicianQueryId], references: [id])
+  responderId      String
+  responseType     String  // was enum PhysicianResponseType
+  responseText     String?
+  createdAt        DateTime @default(now())
+}
+
+model PhysicianQueryAuditEvent {
+  id               String   @id @default(uuid())
+  physicianQueryId String
+  physicianQuery   PhysicianQuery @relation(fields: [physicianQueryId], references: [id])
+  eventType        String   // was enum PhysicianQueryEventType
+  actorUserId      String
+  previousStatus   String?  // was PhysicianQueryStatus
+  newStatus        String?  // was PhysicianQueryStatus
+  metadata         String?  @db.NVarChar(Max) // was Json?
+  sequence         Int
+  hash             String
+  prevHash         String?
+  createdAt        DateTime @default(now())
+  @@index([physicianQueryId, sequence])
+}
+
+model EvidenceReference {
+  id               String   @id @default(uuid())
+  physicianQueryId String
+  physicianQuery   PhysicianQuery @relation(fields: [physicianQueryId], references: [id])
+  sourceType       String  // was enum EvidenceSourceType
+  sourceId         String?
+  hash             String
+  locator          String?
+  snippet          String?
+  metadata         String? @db.NVarChar(Max) // was Json?
+  createdAt        DateTime @default(now())
+  @@index([physicianQueryId])
 }
 
 model EobAdjudication {

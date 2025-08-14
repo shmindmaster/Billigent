@@ -4,7 +4,7 @@
  */
 import { Router, type Request, type Response } from "express";
 import { evidenceGraph } from "../strategy/evidenceGraph";
-import { buildAppealDraft } from "../strategy/appealSample";
+// import { buildAppealDraft } from "../strategy/appealSample"; // legacy mock removed
 import {
   buildAttribution,
   validateAttribution,
@@ -152,8 +152,8 @@ router.get(
           "Azure OpenAI failed, falling back to mock draft:",
           aiError
         );
-        // Fallback to mock draft if AI service fails
-        aiAppealDraft = buildAppealDraft(bundle);
+        // Fallback removed per directive: propagate error instead of returning mock
+        throw new Error("AI appeal draft generation failed and mock fallback disabled");
       }
 
       // Build attribution
