@@ -78,45 +78,66 @@ export const FilterControls: React.FC<FilterControlsProps> = ({
 
           {/* Filters */}
           <div className="flex flex-wrap gap-3 lg:flex-1">
-            {filters.map((filter) => (
-              <div key={filter.key} className="flex items-center gap-2">
-                <Filter className="h-4 w-4 text-gray-400" />
-                <label className={`text-sm font-medium ${
-                  theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-                }`}>
-                  {filter.label}:
-                </label>
-                <select
-                  value={filter.value}
-                  onChange={(e) => filter.onChange(e.target.value)}
-                  className={`border rounded-lg px-3 py-2 text-sm focus:border-blue-500 focus:ring-blue-500 ${selectClass}`}
-                >
-                  {filter.options.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            ))}
+            {filters.map((filter) => {
+              const selectId = `filter-${filter.key}`;
+              return (
+                <div key={filter.key} className="flex items-center gap-2">
+                  <Filter className="h-4 w-4 text-gray-400" aria-hidden="true" />
+                  <label
+                    htmlFor={selectId}
+                    className={`text-sm font-medium ${
+                      theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                    }`}
+                  >
+                    {filter.label}
+                  </label>
+                  <select
+                    id={selectId}
+                    aria-label={filter.label}
+                    value={filter.value}
+                    onChange={(e) => filter.onChange(e.target.value)}
+                    className={`border rounded-lg px-3 py-2 text-sm focus:border-blue-500 focus:ring-blue-500 ${selectClass}`}
+                  >
+                    {filter.options.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              );
+            })}
 
             {/* Date Range */}
-            {dateRange && (
-              <div className="flex items-center gap-2">
-                <Calendar className="h-4 w-4 text-gray-400" />
-                <select
-                  value={dateRange.value}
-                  onChange={(e) => dateRange.onChange(e.target.value)}
-                  className={`border rounded-lg px-3 py-2 text-sm focus:border-blue-500 focus:ring-blue-500 ${selectClass}`}
-                >
-                  {dateRange.options.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            )}
+            {dateRange && (() => {
+              const dateRangeId = 'filter-date-range';
+              return (
+                <div className="flex items-center gap-2">
+                  <Calendar className="h-4 w-4 text-gray-400" aria-hidden="true" />
+                  <label
+                    htmlFor={dateRangeId}
+                    className={`text-sm font-medium ${
+                      theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                    }`}
+                  >
+                    Date Range
+                  </label>
+                  <select
+                    id={dateRangeId}
+                    aria-label="Date Range"
+                    value={dateRange.value}
+                    onChange={(e) => dateRange.onChange(e.target.value)}
+                    className={`border rounded-lg px-3 py-2 text-sm focus:border-blue-500 focus:ring-blue-500 ${selectClass}`}
+                  >
+                    {dateRange.options.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              );
+            })()}
           </div>
 
           {/* Actions and Clear */}

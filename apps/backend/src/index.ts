@@ -7,6 +7,9 @@ dotenv.config();
 initSentry();
 
 const app: express.Express = express();
+// Enable CORS for local dev
+import cors from 'cors';
+app.use(cors({ origin: 'http://localhost:5173', credentials: false }));
 // Attach Sentry handlers if client present (single module instance via ./sentry export)
 if (Sentry.getCurrentHub().getClient()) {
   app.use(Sentry.Handlers.requestHandler());

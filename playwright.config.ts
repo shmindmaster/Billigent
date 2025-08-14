@@ -14,7 +14,9 @@ export default defineConfig({
   workers: process.env.CI ? 4 : undefined,
   timeout: 60_000,
   expect: { timeout: 15_000 },
-  reporter: [ ['list'], ['html', { outputFolder: 'test-results/html-report', open: 'never' }] ],
+  // Adjusted HTML reporter output to avoid clashing with test-results root directory cleanup
+  reporter: [ ['list'], ['html', { outputFolder: 'playwright-report', open: 'never' }] ],
+  outputDir: 'test-results/artifacts',
   use: {
     baseURL,
     trace: 'on-first-retry',

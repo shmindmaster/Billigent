@@ -187,3 +187,6 @@ temp/
 **/temp/
 
 .playwright-mcp/
+# Added by AI: ignore generic env files repo-wide
+.env
+**/.env
