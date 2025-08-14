@@ -13,8 +13,10 @@
     "adls:plan": "tsx scripts/adls-ops.ts move-plan",
     "adls:copy": "tsx scripts/adls-ops.ts copy-verify",
     "citations:normalize": "tsx scripts/normalize-citations.ts",
-  "test": "pnpm build && node scripts/run-tests.js",
-  "test:ci": "pnpm citations:normalize && pnpm test"
+    "test": "pnpm build && node scripts/run-tests.js",
+    "test:ci": "pnpm citations:normalize && pnpm test",
+    "migrate": "pnpm -F @billigent/database prisma migrate deploy",
+    "seed": "pnpm -F @billigent/database prisma db seed"
   },
   "dependencies": {
     "@azure/identity": "^4.11.1",
@@ -33,7 +35,10 @@
     "pdf-parse": "^1.1.1",
     "winston": "^3.17.0",
     "zod": "^3.25.76",
-    "csv-stringify": "^6.5.2"
+    "csv-stringify": "^6.5.2",
+    "@sentry/node": "^8.30.0",
+    "@sentry/profiling-node": "^8.30.0",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
@@ -46,6 +51,7 @@
     "tsx": "^4.20.3",
     "typescript": "^5.9.2",
     "supertest": "^7.1.1",
-    "@types/supertest": "^2.0.16"
+    "@types/supertest": "^2.0.16",
+    "@types/uuid": "^9.0.7"
   }
 }

@@ -1,14 +1,21 @@
 {
-  "name": "@billigent/backend",
+  "name": "billigent-monorepo",
+  "private": true,
   "version": "1.0.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "description": "Billigent Backend API Server",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "tsx src/index.ts",
-    "build": "tsc",
-    "start": "node dist/index.js",
-    "lint": "eslint src --ext .ts,.tsx",
+    "dev": "pnpm --filter frontend dev & pnpm --filter @billigent/backend dev",
+    "build": "pnpm -r build",
+    "start": "pnpm --filter @billigent/backend start",
+    "lint": "pnpm -r lint",
     "clean": "rimraf dist",
+    "test:e2e": "playwright test",
+    "test:e2e:ci": "playwright test --reporter=list,html --config=playwright.config.ts",
     "adls:inventory": "tsx scripts/adls-ops.ts inventory",
     "adls:plan": "tsx scripts/adls-ops.ts move-plan",
     "adls:copy": "tsx scripts/adls-ops.ts copy-verify"
@@ -33,6 +40,7 @@
     "csv-stringify": "^6.5.2"
   },
   "devDependencies": {
+    "@playwright/test": "^1.54.2",
     "@types/cors": "^2.8.19",
     "@types/express": "^4.17.21",
     "@types/node": "^20.19.10",

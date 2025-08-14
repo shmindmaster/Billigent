@@ -178,7 +178,51 @@ async function main() {
     });
   }
 
-  console.log('Seed data ensured successfully.');
+  // ----------------------------------
+  // Denials seed (only if not already) to support baseline metrics
+  // We'll create a small distribution across reasons and statuses.
+  const existingDenials = await prisma.denial.count();
+  if (existingDenials === 0) {
+    const denialReasons = [
+      { reason: 'Missing documentation', code: 'MD01' },
+      { reason: 'Incorrect coding', code: 'IC10' },
+      { reason: 'Medical necessity', code: 'MN05' },
+      { reason: 'Late filing', code: 'LF02' },
+    ];
+    const statuses = ['pending', 'appealed', 'resolved'];
+
+    for (let i = 0; i < 12; i++) {
+      const r = denialReasons[i % denialReasons.length];
+      const status = statuses[i % statuses.length];
+      const amount = 100 + (i * 37) % 450; // varied amount 100-549
+      await prisma.denial.create({
+        data: {
+          caseId: case1.id,
+            denialReason: r.reason,
+            amount,
+            status,
+            denialReasonCode: r.code,
+            deniedAmount: status === 'resolved' ? amount * 0.4 : undefined,
+            appealDate: status !== 'pending' ? new Date(Date.now() - (i + 3) * 86400000) : undefined,
+            resolution: status === 'resolved' ? 'Approved partial payment' : undefined,
+        }
+      });
+    }
+  }
+
+  // Basic analytics events for baseline testing (idempotent simplistic)
+  const existingAnalytics = await prisma.analytics.count();
+  if (existingAnalytics === 0) {
+    await prisma.analytics.createMany({
+      data: [
+        { metric: 'denials.total', value: 12 },
+        { metric: 'denials.amount.total', value: 12 * 300 },
+        { metric: 'denials.appealed', value: 4 },
+      ]
+    });
+  }
+
+  console.log('Seed data ensured successfully (including denials).');
 }
 
 main()
