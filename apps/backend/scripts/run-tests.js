@@ -1,17 +1,20 @@
 // Simple test runner to execute compiled test files without tsx/esbuild
 // Assumes `pnpm build` has just emitted dist/ directory.
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
-const distTestsDir = path.join(__dirname, '..', 'dist', 'tests');
+const distTestsDir = path.join(__dirname, "..", "dist", "tests");
 if (!fs.existsSync(distTestsDir)) {
-  console.error('dist/tests directory not found. Did the build include test sources?');
+  console.error(
+    "dist/tests directory not found. Did the build include test sources?"
+  );
   process.exit(1);
 }
 
-const testFiles = fs.readdirSync(distTestsDir)
-  .filter(f => f.endsWith('.test.js'))
-  .map(f => path.join(distTestsDir, f));
+const testFiles = fs
+  .readdirSync(distTestsDir)
+  .filter((f) => f.endsWith(".test.js"))
+  .map((f) => path.join(distTestsDir, f));
 
 let passed = 0;
 let failed = 0;

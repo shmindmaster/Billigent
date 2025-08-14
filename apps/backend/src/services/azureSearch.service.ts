@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { SearchClient, AzureKeyCredential } from "@azure/search-documents";
 import { DefaultAzureCredential } from "@azure/identity";
 

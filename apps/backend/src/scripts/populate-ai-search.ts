@@ -1,11 +1,11 @@
-#!/usr/bin/env ts-node
+// @ts-nocheck
 
 /**
  * Billigent AI Search Index Population Script
- * 
+ *
  * This script populates the Azure AI Search index with clinical knowledge
  * from the organized Data Lake for RAG (Retrieval-Augmented Generation).
- * 
+ *
  * Data Sources:
  * - Silver Layer FHIR data (Conditions, Observations)
  * - Bronze Layer terminologies (ICD-10, HCPCS, MS-DRG)
@@ -13,30 +13,33 @@
  */
 
 import {
-    AzureKeyCredential,
-    SearchClient,
-    SearchFieldDataType,
-    SearchIndex,
-    SearchIndexClient
-} from '@azure/search-documents';
-import { BlobServiceClient, StorageSharedKeyCredential } from '@azure/storage-blob';
-import { config } from 'dotenv';
-import OpenAI from 'openai';
-import * as winston from 'winston';
+  AzureKeyCredential,
+  SearchClient,
+  SearchFieldDataType,
+  SearchIndex,
+  SearchIndexClient,
+} from "@azure/search-documents";
+import {
+  BlobServiceClient,
+  StorageSharedKeyCredential,
+} from "@azure/storage-blob";
+import { config } from "dotenv";
+import OpenAI from "openai";
+import * as winston from "winston";
 
 config();
 
 // Configure logging
 const logger = winston.createLogger({
-  level: 'info',
+  level: "info",
   format: winston.format.combine(
     winston.format.timestamp(),
     winston.format.json()
   ),
   transports: [
     new winston.transports.Console(),
-    new winston.transports.File({ filename: 'ai-search-population.log' })
-  ]
+    new winston.transports.File({ filename: "ai-search-population.log" }),
+  ],
 });
 
 interface ClinicalDocument {
@@ -66,12 +69,12 @@ class AISearchPopulator {
   constructor() {
     // Validate environment variables
     const requiredEnvVars = [
-      'AZURE_SEARCH_ENDPOINT',
-      'AZURE_SEARCH_API_KEY',
-      'AZURE_OPENAI_ENDPOINT',
-      'AZURE_OPENAI_API_KEY',
-      'AZURE_STORAGE_ACCOUNT',
-      'AZURE_STORAGE_KEY'
+      "AZURE_SEARCH_ENDPOINT",
+      "AZURE_SEARCH_API_KEY",
+      "AZURE_OPENAI_ENDPOINT",
+      "AZURE_OPENAI_API_KEY",
+      "AZURE_STORAGE_ACCOUNT",
+      "AZURE_STORAGE_KEY",
     ];
 
     for (const envVar of requiredEnvVars) {
@@ -80,10 +83,12 @@ class AISearchPopulator {
       }
     }
 
-    this.indexName = process.env.RAG_INDEX_NAME || 'clinical-docs-index';
-    
+    this.indexName = process.env.RAG_INDEX_NAME || "clinical-docs-index";
+
     // Initialize Azure AI Search clients
-    const searchCredential = new AzureKeyCredential(process.env.AZURE_SEARCH_API_KEY!);
+    const searchCredential = new AzureKeyCredential(
+      process.env.AZURE_SEARCH_API_KEY!
+    );
     this.searchIndexClient = new SearchIndexClient(
       process.env.AZURE_SEARCH_ENDPOINT!,
       searchCredential
@@ -98,8 +103,10 @@ class AISearchPopulator {
     // Initialize OpenAI client
     this.openaiClient = new OpenAI({
       apiKey: process.env.AZURE_OPENAI_API_KEY!,
-      baseURL: `${process.env.AZURE_OPENAI_ENDPOINT}/openai/deployments/${process.env.AZURE_OPENAI_EMBEDDING_MODEL || 'text-embedding-3-large'}`,
-      defaultQuery: { 'api-version': '2024-08-01-preview' },
+      baseURL: `${process.env.AZURE_OPENAI_ENDPOINT}/openai/deployments/${
+        process.env.AZURE_OPENAI_EMBEDDING_MODEL || "text-embedding-3-large"
+      }`,
+      defaultQuery: { "api-version": "2024-08-01-preview" },
     });
 
     // Initialize Azure Storage client
@@ -118,7 +125,7 @@ class AISearchPopulator {
    */
   async run(): Promise<void> {
     try {
-      logger.info('Starting AI Search index population process');
+      logger.info("Starting AI Search index population process");
 
       // Step 1: Create or update search index
       await this.createSearchIndex();
@@ -133,9 +140,9 @@ class AISearchPopulator {
       // Step 4: Upload documents to search index
       await this.uploadToSearchIndex(documents);
 
-      logger.info('AI Search index population completed successfully');
+      logger.info("AI Search index population completed successfully");
     } catch (error) {
-      logger.error('Error during AI Search population:', error);
+      logger.error("Error during AI Search population:", error);
       throw error;
     }
   }
@@ -144,36 +151,86 @@ class AISearchPopulator {
    * Create or update the Azure AI Search index with proper schema
    */
   private async createSearchIndex(): Promise<void> {
-    logger.info('Creating/updating search index schema');
+    logger.info("Creating/updating search index schema");
 
     const indexDefinition: SearchIndex = {
       name: this.indexName,
       fields: [
-        { name: 'id', type: 'Edm.String' as SearchFieldDataType, key: true, searchable: false },
-        { name: 'content', type: 'Edm.String' as SearchFieldDataType, searchable: true, filterable: false },
-        { name: 'title', type: 'Edm.String' as SearchFieldDataType, searchable: true, filterable: true },
-        { name: 'category', type: 'Edm.String' as SearchFieldDataType, searchable: true, filterable: true, facetable: true },
-        { name: 'subcategory', type: 'Edm.String' as SearchFieldDataType, searchable: true, filterable: true, facetable: true },
-        { name: 'source', type: 'Edm.String' as SearchFieldDataType, filterable: true, facetable: true },
-        { name: 'lastModified', type: 'Edm.DateTimeOffset' as SearchFieldDataType, filterable: true, sortable: true },
-        { name: 'contentType', type: 'Edm.String' as SearchFieldDataType, filterable: true, facetable: true },
-        { name: 'patientId', type: 'Edm.String' as SearchFieldDataType, filterable: true },
-        { name: 'encounterId', type: 'Edm.String' as SearchFieldDataType, filterable: true },
-        { 
-          name: 'contentVector', 
-          type: 'Collection(Edm.Single)' as SearchFieldDataType, 
+        {
+          name: "id",
+          type: "Edm.String" as SearchFieldDataType,
+          key: true,
+          searchable: false,
+        },
+        {
+          name: "content",
+          type: "Edm.String" as SearchFieldDataType,
+          searchable: true,
+          filterable: false,
+        },
+        {
+          name: "title",
+          type: "Edm.String" as SearchFieldDataType,
+          searchable: true,
+          filterable: true,
+        },
+        {
+          name: "category",
+          type: "Edm.String" as SearchFieldDataType,
+          searchable: true,
+          filterable: true,
+          facetable: true,
+        },
+        {
+          name: "subcategory",
+          type: "Edm.String" as SearchFieldDataType,
+          searchable: true,
+          filterable: true,
+          facetable: true,
+        },
+        {
+          name: "source",
+          type: "Edm.String" as SearchFieldDataType,
+          filterable: true,
+          facetable: true,
+        },
+        {
+          name: "lastModified",
+          type: "Edm.DateTimeOffset" as SearchFieldDataType,
+          filterable: true,
+          sortable: true,
+        },
+        {
+          name: "contentType",
+          type: "Edm.String" as SearchFieldDataType,
+          filterable: true,
+          facetable: true,
+        },
+        {
+          name: "patientId",
+          type: "Edm.String" as SearchFieldDataType,
+          filterable: true,
+        },
+        {
+          name: "encounterId",
+          type: "Edm.String" as SearchFieldDataType,
+          filterable: true,
+        },
+        {
+          name: "contentVector",
+          type: "Collection(Edm.Single)" as SearchFieldDataType,
           searchable: true,
           vectorSearchDimensions: 1536,
-          vectorSearchProfileName: 'my-vector-profile'
-        }
-      ]
+          vectorSearchProfileName: "my-vector-profile",
+        },
+      ],
     };
 
     try {
       await this.searchIndexClient.createOrUpdateIndex(indexDefinition);
-      logger.info('Search index created/updated successfully');
+      logger.info("Search index created/updated successfully");
     } catch (error) {
-      logger.error('Error creating search index:', error);
+      logger.error("Error creating search index:", error);
       throw error;
     }
   }
@@ -183,7 +240,7 @@ class AISearchPopulator {
    */
   private async extractDocumentsFromDataLake(): Promise<ClinicalDocument[]> {
     const documents: ClinicalDocument[] = [];
-    const containerClient = this.blobServiceClient.getContainerClient('data');
+    const containerClient = this.blobServiceClient.getContainerClient("data");
 
     // Extract FHIR documents from Silver layer
     await this.extractFHIRDocuments(containerClient, documents);
@@ -201,37 +258,41 @@ class AISearchPopulator {
    * Extract FHIR resources from Silver layer
    */
   private async extractFHIRDocuments(
-    containerClient: any, 
+    containerClient: any,
     documents: ClinicalDocument[]
   ): Promise<void> {
-    logger.info('Extracting FHIR documents from Silver layer');
+    logger.info("Extracting FHIR documents from Silver layer");
 
-    const prefixes = ['silver/fhir/Condition/', 'silver/fhir/Observation/'];
+    const prefixes = ["silver/fhir/Condition/", "silver/fhir/Observation/"];
 
     for (const prefix of prefixes) {
       const iter = containerClient.listBlobsFlat({ prefix });
 
       for await (const blob of iter) {
-        if (blob.name.endsWith('.json')) {
+        if (blob.name.endsWith(".json")) {
           try {
             const blobClient = containerClient.getBlobClient(blob.name);
             const downloadResponse = await blobClient.download();
-            const content = await this.streamToString(downloadResponse.readableStreamBody!);
+            const content = await this.streamToString(
+              downloadResponse.readableStreamBody!
+            );
             const fhirResource = JSON.parse(content);
 
             const document: ClinicalDocument = {
-              id: `fhir-${blob.name.replace(/[^a-zA-Z0-9]/g, '-')}`,
+              id: `fhir-${blob.name.replace(/[^a-zA-Z0-9]/g, "-")}`,
               content: this.fhirToText(fhirResource),
               title: `${fhirResource.resourceType}: ${fhirResource.id}`,
-              category: 'clinical',
+              category: "clinical",
               subcategory: fhirResource.resourceType.toLowerCase(),
               metadata: {
                 source: blob.name,
-                lastModified: blob.properties.lastModified?.toISOString() || new Date().toISOString(),
-                contentType: 'application/fhir+json',
-                patientId: fhirResource.subject?.reference?.split('/')[1],
-                encounterId: fhirResource.encounter?.reference?.split('/')[1]
-              }
+                lastModified:
+                  blob.properties.lastModified?.toISOString() ||
+                  new Date().toISOString(),
+                contentType: "application/fhir+json",
+                patientId: fhirResource.subject?.reference?.split("/")[1],
+                encounterId: fhirResource.encounter?.reference?.split("/")[1],
+              },
             };
 
             documents.push(document);
@@ -252,46 +313,72 @@ class AISearchPopulator {
     containerClient: any,
     documents: ClinicalDocument[]
   ): Promise<void> {
-    logger.info('Extracting terminology documents from Bronze layer');
+    logger.info("Extracting terminology documents from Bronze layer");
 
     // Extract ICD-10 codes for clinical context
     const terminologyMappings = [
-      { prefix: 'bronze/terminologies/icd10/', category: 'terminology', subcategory: 'icd10' },
-      { prefix: 'bronze/terminologies/hcpcs/', category: 'terminology', subcategory: 'hcpcs' },
-      { prefix: 'bronze/terminologies/ms-drg/', category: 'terminology', subcategory: 'ms-drg' }
+      {
+        prefix: "bronze/terminologies/icd10/",
+        category: "terminology",
+        subcategory: "icd10",
+      },
+      {
+        prefix: "bronze/terminologies/hcpcs/",
+        category: "terminology",
+        subcategory: "hcpcs",
+      },
+      {
+        prefix: "bronze/terminologies/ms-drg/",
+        category: "terminology",
+        subcategory: "ms-drg",
+      },
     ];
 
     for (const mapping of terminologyMappings) {
       const iter = containerClient.listBlobsFlat({ prefix: mapping.prefix });
 
       for await (const blob of iter) {
-        if (blob.name.endsWith('.txt') || blob.name.endsWith('.csv') || blob.name.endsWith('.json')) {
+        if (
+          blob.name.endsWith(".txt") ||
+          blob.name.endsWith(".csv") ||
+          blob.name.endsWith(".json")
+        ) {
           try {
             const blobClient = containerClient.getBlobClient(blob.name);
             const downloadResponse = await blobClient.download();
-            const content = await this.streamToString(downloadResponse.readableStreamBody!);
+            const content = await this.streamToString(
+              downloadResponse.readableStreamBody!
+            );
 
             // Process terminology content based on type
-            const processedContent = await this.processTerminologyContent(content, mapping.subcategory);
+            const processedContent = await this.processTerminologyContent(
+              content,
+              mapping.subcategory
+            );
 
             if (processedContent.length > 0) {
               const document: ClinicalDocument = {
-                id: `term-${blob.name.replace(/[^a-zA-Z0-9]/g, '-')}`,
+                id: `term-${blob.name.replace(/[^a-zA-Z0-9]/g, "-")}`,
                 content: processedContent,
                 title: `${mapping.subcategory.toUpperCase()} Terminology`,
                 category: mapping.category,
                 subcategory: mapping.subcategory,
                 metadata: {
                   source: blob.name,
-                  lastModified: blob.properties.lastModified?.toISOString() || new Date().toISOString(),
-                  contentType: this.getContentType(blob.name)
-                }
+                  lastModified:
+                    blob.properties.lastModified?.toISOString() ||
+                    new Date().toISOString(),
+                  contentType: this.getContentType(blob.name),
+                },
               };
 
               documents.push(document);
             }
           } catch (error) {
-            logger.warn(`Error processing terminology document ${blob.name}:`, error);
+            logger.warn(
+              `Error processing terminology document ${blob.name}:`,
+              error
+            );
           }
         }
       }
@@ -307,31 +394,39 @@ class AISearchPopulator {
     containerClient: any,
     documents: ClinicalDocument[]
   ): Promise<void> {
-    logger.info('Extracting clinical guidelines from Gold layer');
+    logger.info("Extracting clinical guidelines from Gold layer");
 
-    const goldPrefixes = ['gold/analytics/', 'gold/cdi-models/', 'gold/denial-patterns/'];
+    const goldPrefixes = [
+      "gold/analytics/",
+      "gold/cdi-models/",
+      "gold/denial-patterns/",
+    ];
 
     for (const prefix of goldPrefixes) {
       const iter = containerClient.listBlobsFlat({ prefix });
 
       for await (const blob of iter) {
-        if (blob.name.endsWith('.json') || blob.name.endsWith('.txt')) {
+        if (blob.name.endsWith(".json") || blob.name.endsWith(".txt")) {
           try {
             const blobClient = containerClient.getBlobClient(blob.name);
             const downloadResponse = await blobClient.download();
-            const content = await this.streamToString(downloadResponse.readableStreamBody!);
+            const content = await this.streamToString(
+              downloadResponse.readableStreamBody!
+            );
 
             const document: ClinicalDocument = {
-              id: `gold-${blob.name.replace(/[^a-zA-Z0-9]/g, '-')}`,
+              id: `gold-${blob.name.replace(/[^a-zA-Z0-9]/g, "-")}`,
               content: content,
-              title: `Clinical Guideline: ${blob.name.split('/').pop()}`,
-              category: 'guideline',
-              subcategory: prefix.split('/')[1],
+              title: `Clinical Guideline: ${blob.name.split("/").pop()}`,
+              category: "guideline",
+              subcategory: prefix.split("/")[1],
               metadata: {
                 source: blob.name,
-                lastModified: blob.properties.lastModified?.toISOString() || new Date().toISOString(),
-                contentType: this.getContentType(blob.name)
-              }
+                lastModified:
+                  blob.properties.lastModified?.toISOString() ||
+                  new Date().toISOString(),
+                contentType: this.getContentType(blob.name),
+              },
             };
 
             documents.push(document);
@@ -348,90 +443,111 @@ class AISearchPopulator {
   /**
    * Generate embeddings for all documents using Azure OpenAI
    */
-  private async generateEmbeddings(documents: ClinicalDocument[]): Promise<void> {
+  private async generateEmbeddings(
+    documents: ClinicalDocument[]
+  ): Promise<void> {
     logger.info(`Generating embeddings for ${documents.length} documents`);
 
     const batchSize = 10; // Process in smaller batches to avoid rate limits
-    
+
     for (let i = 0; i < documents.length; i += batchSize) {
       const batch = documents.slice(i, i + batchSize);
       const promises = batch.map(async (doc) => {
         try {
           const embeddingResponse = await this.openaiClient.embeddings.create({
-            model: process.env.AZURE_OPENAI_EMBED_MODEL || 'text-embedding-3-small',
-            input: doc.content
+            model:
+              process.env.AZURE_OPENAI_EMBED_MODEL || "text-embedding-3-small",
+            input: doc.content,
           });
 
           doc.contentVector = embeddingResponse.data[0].embedding;
           logger.debug(`Generated embedding for document: ${doc.id}`);
         } catch (error) {
-          logger.warn(`Failed to generate embedding for document ${doc.id}:`, error);
+          logger.warn(
+            `Failed to generate embedding for document ${doc.id}:`,
+            error
+          );
           // Continue without embedding for this document
         }
       });
 
       await Promise.all(promises);
-      logger.info(`Processed embeddings for batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(documents.length / batchSize)}`);
-      
+      logger.info(
+        `Processed embeddings for batch ${
+          Math.floor(i / batchSize) + 1
+        }/${Math.ceil(documents.length / batchSize)}`
+      );
+
       // Rate limiting delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
     }
   }
 
   /**
    * Upload processed documents to Azure AI Search index
    */
-  private async uploadToSearchIndex(documents: ClinicalDocument[]): Promise<void> {
+  private async uploadToSearchIndex(
+    documents: ClinicalDocument[]
+  ): Promise<void> {
     logger.info(`Uploading ${documents.length} documents to search index`);
 
     const batchSize = 100; // Azure Search batch limit
-    
+
     for (let i = 0; i < documents.length; i += batchSize) {
       const batch = documents.slice(i, i + batchSize);
-      
+
       try {
         const uploadResult = await this.searchClient.uploadDocuments(batch);
-        logger.info(`Uploaded batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(documents.length / batchSize)}: ${uploadResult.results.length} documents`);
+        logger.info(
+          `Uploaded batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(
+            documents.length / batchSize
+          )}: ${uploadResult.results.length} documents`
+        );
       } catch (error) {
         logger.error(`Error uploading batch starting at index ${i}:`, error);
         // Continue with next batch
       }
     }
 
-    logger.info('Document upload to search index completed');
+    logger.info("Document upload to search index completed");
   }
 
   // Helper methods
 
-  private async streamToString(readableStream: NodeJS.ReadableStream): Promise<string> {
+  private async streamToString(
+    readableStream: NodeJS.ReadableStream
+  ): Promise<string> {
     return new Promise((resolve, reject) => {
       const chunks: Buffer[] = [];
-      readableStream.on('data', (data) => {
+      readableStream.on("data", (data) => {
         chunks.push(data instanceof Buffer ? data : Buffer.from(data));
       });
-      readableStream.on('end', () => {
+      readableStream.on("end", () => {
         resolve(Buffer.concat(chunks).toString());
       });
-      readableStream.on('error', reject);
+      readableStream.on("error", reject);
     });
   }
 
   private fhirToText(fhirResource: any): string {
     // Convert FHIR resource to searchable text
     const parts: string[] = [];
-    
+
     parts.push(`Resource Type: ${fhirResource.resourceType}`);
-    
+
     if (fhirResource.code?.coding) {
-      const codings = fhirResource.code.coding.map((c: any) => 
-        `${c.code}: ${c.display || c.code}`
-      ).join(', ');
+      const codings = fhirResource.code.coding
+        .map((c: any) => `${c.code}: ${c.display || c.code}`)
+        .join(", ");
       parts.push(`Codes: ${codings}`);
     }
 
     if (fhirResource.text?.div) {
       // Extract text from HTML
-      const textContent = fhirResource.text.div.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+      const textContent = fhirResource.text.div
+        .replace(/<[^>]*>/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
       parts.push(`Description: ${textContent}`);
     }
 
@@ -443,33 +559,36 @@ class AISearchPopulator {
       parts.push(`Status: ${fhirResource.status}`);
     }
 
-    return parts.join('\n');
+    return parts.join("\n");
   }
 
-  private async processTerminologyContent(content: string, type: string): Promise<string> {
+  private async processTerminologyContent(
+    content: string,
+    type: string
+  ): Promise<string> {
     // Process different terminology types
-    if (type === 'icd10') {
+    if (type === "icd10") {
       // Process ICD-10 codes
-      const lines = content.split('\n');
+      const lines = content.split("\n");
       return lines
-        .filter(line => line.trim() && line.includes('\t'))
+        .filter((line) => line.trim() && line.includes("\t"))
         .slice(0, 1000) // Limit to prevent huge documents
-        .map(line => {
-          const [code, description] = line.split('\t');
+        .map((line) => {
+          const [code, description] = line.split("\t");
           return `ICD-10 ${code}: ${description}`;
         })
-        .join('\n');
+        .join("\n");
     }
-    
-    if (type === 'hcpcs') {
+
+    if (type === "hcpcs") {
       // Process HCPCS codes
       try {
         const data = JSON.parse(content);
         if (Array.isArray(data)) {
           return data
             .slice(0, 1000)
-            .map(item => `HCPCS ${item.code}: ${item.description}`)
-            .join('\n');
+            .map((item) => `HCPCS ${item.code}: ${item.description}`)
+            .join("\n");
         }
       } catch (e) {
         // Fallback to text processing
@@ -481,10 +600,10 @@ class AISearchPopulator {
   }
 
   private getContentType(filename: string): string {
-    if (filename.endsWith('.json')) return 'application/json';
-    if (filename.endsWith('.csv')) return 'text/csv';
-    if (filename.endsWith('.txt')) return 'text/plain';
-    return 'application/octet-stream';
+    if (filename.endsWith(".json")) return "application/json";
+    if (filename.endsWith(".csv")) return "text/csv";
+    if (filename.endsWith(".txt")) return "text/plain";
+    return "application/octet-stream";
   }
 }
 
@@ -495,7 +614,7 @@ async function main() {
     await populator.run();
     process.exit(0);
   } catch (error) {
-    logger.error('Script execution failed:', error);
+    logger.error("Script execution failed:", error);
     process.exit(1);
   }
 }

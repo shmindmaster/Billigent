@@ -1,0 +1,6 @@
+{"source":"CMS FY2025 IPPS Final Rule","url":"https://www.cms.gov/medicare/acute-inpatient-pps/fy-2025-ipps-final-rule-home-page","category":"CMS IPPS Regulatory","notes":"Inpatient Prospective Payment System final rule"}
+{"source":"ICD-10-CM Official Guidelines (2025)","url":"https://www.cdc.gov/nchs/icd/icd-10-cm.htm","category":"ICD Coding Guidelines","notes":"Official coding guidelines"}
+{"source":"Denials (Primary) Root Cause Report","url":"https://internal.example.org/denials/primary-root-cause","category":"Denials (Primary)","notes":"Internal analysis primary"}
+{"source":"FHIR R4 Specification (Index)","url":"https://hl7.org/fhir/R4/index.html","category":"FHIR Standard","notes":"FHIR base spec"}
+{"source":"Duplicate Sample Source","url":"https://dup.example.org/page1","category":"Secondary Commentary","notes":"First instance"}
+{"source":"Duplicate Sample Source","url":"https://dup.example.org/page1","category":"Secondary Commentary","notes":"Duplicate should flag"}

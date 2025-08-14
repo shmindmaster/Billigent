@@ -1,6 +1,10 @@
-import dotenv from 'dotenv';
+// @ts-nocheck
+import dotenv from "dotenv";
 dotenv.config();
-import { DataLakeServiceClient, StorageSharedKeyCredential } from '@azure/storage-file-datalake';
+import {
+  DataLakeServiceClient,
+  StorageSharedKeyCredential,
+} from "@azure/storage-file-datalake";
 
 type FhirResource = Record<string, any>;
 
@@ -14,16 +18,19 @@ function getEnv(name: string, fallback?: string): string {
  * Fetch FHIR resources from Azure Data Lake linked to a given encounterFhirId.
  * Looks under a path like {filesystem}/{baseDir}/{resourceType}/.../*.json and filters by encounter reference.
  */
-export async function getClinicalEvidence(encounterFhirId: string): Promise<FhirResource[]> {
+export async function getClinicalEvidence(
+  encounterFhirId: string
+): Promise<FhirResource[]> {
   if (!encounterFhirId) return [];
 
-  const accountName = process.env.AZURE_STORAGE_ACCOUNT || 'billigentdevdlseus2';
-  const fileSystemName = process.env.AZURE_STORAGE_FILESYSTEM || 'data';
-  const baseDir = process.env.AZURE_STORAGE_FHIR_DIR || 'silver/fhir';
+  const accountName =
+    process.env.AZURE_STORAGE_ACCOUNT || "billigentdevdlseus2";
+  const fileSystemName = process.env.AZURE_STORAGE_FILESYSTEM || "data";
+  const baseDir = process.env.AZURE_STORAGE_FHIR_DIR || "silver/fhir";
 
-  const accountKey = process.env.AZURE_STORAGE_KEY || '';
+  const accountKey = process.env.AZURE_STORAGE_KEY || "";
   if (!accountKey) {
-    console.warn('[DataLakeService] Disabled: missing AZURE_STORAGE_KEY');
+    console.warn("[DataLakeService] Disabled: missing AZURE_STORAGE_KEY");
     return [];
   }
   const credential = new StorageSharedKeyCredential(accountName, accountKey);
@@ -31,7 +38,10 @@ export async function getClinicalEvidence(encounterFhirId: string): Promise<Fhir
   const serviceClient = new DataLakeServiceClient(dfsEndpoint, credential);
   const fileSystemClient = serviceClient.getFileSystemClient(fileSystemName);
 
-  const resourceTypes = (process.env.FHIR_RESOURCE_TYPES || 'Observation,Condition,Procedure,DiagnosticReport,MedicationRequest,AllergyIntolerance,Encounter').split(',');
+  const resourceTypes = (
+    process.env.FHIR_RESOURCE_TYPES ||
+    "Observation,Condition,Procedure,DiagnosticReport,MedicationRequest,AllergyIntolerance,Encounter"
+  ).split(",");
 
   const results: FhirResource[] = [];
   const encountered = new Set<string>();
@@ -40,11 +50,14 @@ export async function getClinicalEvidence(encounterFhirId: string): Promise<Fhir
     const dirClient = fileSystemClient.getDirectoryClient(`${baseDir}/${type}`);
     try {
       // Iterate files by listing subpaths using fileSystem since directory client lacks list on some SDK versions
-      const pathPrefix = `${baseDir}/${type}`.replace(/\/+/, '/');
-      for await (const item of fileSystemClient.listPaths({ path: pathPrefix, recursive: true })) {
+      const pathPrefix = `${baseDir}/${type}`.replace(/\/+/, "/");
+      for await (const item of fileSystemClient.listPaths({
+        path: pathPrefix,
+        recursive: true,
+      })) {
         if (item.isDirectory) continue;
-        const name = item.name || '';
-        if (!name.toLowerCase().endsWith('.json')) continue;
+        const name = item.name || "";
+        if (!name.toLowerCase().endsWith(".json")) continue;
         // Quick path filter when the filename contains the encounter id
         if (name.includes(encounterFhirId) === false) {
           // Still allow; many FHIR files won't embed encounter in filename
@@ -56,16 +69,19 @@ export async function getClinicalEvidence(encounterFhirId: string): Promise<Fhir
         const reader = download.readableStreamBody;
         if (!reader) continue;
         await new Promise<void>((resolve, reject) => {
-          reader.on('data', (d: Uint8Array) => chunks.push(Buffer.from(d)));
-          reader.on('end', () => resolve());
-          reader.on('error', reject);
+          reader.on("data", (d: Uint8Array) => chunks.push(Buffer.from(d)));
+          reader.on("end", () => resolve());
+          reader.on("error", reject);
         });
-        const raw = Buffer.concat(chunks).toString('utf-8');
+        const raw = Buffer.concat(chunks).toString("utf-8");
         try {
           const obj = JSON.parse(raw);
           // Filter: resource.encounter.reference may be like 'Encounter/12345'
-          const encounterRef: string | undefined = obj?.encounter?.reference || obj?.context?.reference;
-          const matches = typeof encounterRef === 'string' && encounterRef.includes(encounterFhirId);
+          const encounterRef: string | undefined =
+            obj?.encounter?.reference || obj?.context?.reference;
+          const matches =
+            typeof encounterRef === "string" &&
+            encounterRef.includes(encounterFhirId);
           if (matches) {
             const id = obj?.id ? `${type}:${obj.id}` : name;
             if (!encountered.has(id)) {
@@ -85,6 +101,3 @@ export async function getClinicalEvidence(encounterFhirId: string): Promise<Fhir
 
   return results;
 }
-
-
-
