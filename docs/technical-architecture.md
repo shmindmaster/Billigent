@@ -866,3 +866,23 @@ interface TechnicalGovernance {
 **Next Review**: September 10, 2025  
 **Owner**: Engineering Team  
 **Stakeholders**: DevOps, Security, Compliance, Product Management
+
+
+---
+
+## References
+
+Primary standards and platform documentation referenced by this architecture. See docs/research/corpus.jsonl for the curated corpus with notes.
+
+- CDC/NCHS — ICD-10-CM Files: https://www.cdc.gov/nchs/icd/icd-10-cm/files.html
+- CMS — ICD-10 Landing (CM/PCS): https://www.cms.gov/medicare/coding-billing/icd-10-codes
+- CMS — 2025 ICD-10-PCS Coding Guidelines (PDF): https://www.cms.gov/files/document/2025-official-icd-10-pcs-coding-guidelines.pdf
+- CMS — FY2025 ICD-10-CM Coding Guidelines (PDF): https://www.cms.gov/files/document/fy-2025-icd-10-cm-coding-guidelines.pdf
+- CMS — MS‑DRG Classifications & Software: https://www.cms.gov/medicare/payment/prospective-payment-systems/acute-inpatient-pps/ms-drg-classifications-and-software
+- CMS — NCCI PTP & MUE: https://www.cms.gov/medicare/coding-billing/national-correct-coding-initiative-ncci-edits/medicare-ncci-procedure-procedure-ptp-edits | https://www.cms.gov/medicare/coding-billing/national-correct-coding-initiative-ncci-edits/medicare-ncci-medically-unlikely-edits
+- X12 — CARC/RARC: https://x12.org/codes/claim-adjustment-reason-codes | https://x12.org/codes/remittance-advice-remark-codes
+- HL7 — FHIR Bulk Data Access IG: https://hl7.org/fhir/uv/bulkdata/
+- CARIN — C4BB IG & EOB Profiles: https://build.fhir.org/ig/HL7/carin-bb/index.html
+- Azure AI Search — Hybrid & Vector: https://learn.microsoft.com/en-us/azure/search/hybrid-search-overview | https://learn.microsoft.com/en-us/azure/search/vector-search-overview
+- Azure AI Search — Hybrid Query How‑To & RRF: https://learn.microsoft.com/en-us/azure/search/hybrid-search-how-to-query | https://learn.microsoft.com/en-us/azure/search/hybrid-search-ranking
+- Azure OpenAI — Responses API & Embeddings: https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/responses | https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/embeddings

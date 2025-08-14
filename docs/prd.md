@@ -232,3 +232,31 @@ To empower healthcare organizations to achieve clinical documentation excellence
 
 ## Feature Roadmap
 
+
+
+---
+
+## References
+
+Authoritative standards and platform documentation that ground this PRD. See also docs/research/corpus.jsonl for the complete, versioned corpus.
+
+- CDC/NCHS — ICD-10-CM Files: https://www.cdc.gov/nchs/icd/icd-10-cm/files.html
+- CDC/NCHS — ICD-10-CM Index/Browser: https://www.cdc.gov/nchs/icd/icd-10-cm/index.html
+- NCHS — ICD-10-CM Browser (multi-year): https://icd10cmtool.cdc.gov/
+- CMS — ICD-10 Landing (CM/PCS current-year files): https://www.cms.gov/medicare/coding-billing/icd-10-codes
+- CMS — 2025 Official ICD-10-PCS Coding Guidelines (PDF): https://www.cms.gov/files/document/2025-official-icd-10-pcs-coding-guidelines.pdf
+- CMS — FY2025 ICD-10-CM Coding Guidelines (PDF): https://www.cms.gov/files/document/fy-2025-icd-10-cm-coding-guidelines.pdf
+- CMS — MS‑DRG Classifications & Software (manuals, version tables): https://www.cms.gov/medicare/payment/prospective-payment-systems/acute-inpatient-pps/ms-drg-classifications-and-software
+- CMS — NCCI PTP Edits (quarterly): https://www.cms.gov/medicare/coding-billing/national-correct-coding-initiative-ncci-edits/medicare-ncci-procedure-procedure-ptp-edits
+- CMS — NCCI MUEs (policy, downloads): https://www.cms.gov/medicare/coding-billing/national-correct-coding-initiative-ncci-edits/medicare-ncci-medically-unlikely-edits
+- X12 — Claim Adjustment Reason Codes (CARC): https://x12.org/codes/claim-adjustment-reason-codes
+- X12 — Remittance Advice Remark Codes (RARC): https://x12.org/codes/remittance-advice-remark-codes
+- HL7 — FHIR Bulk Data Access IG: https://hl7.org/fhir/uv/bulkdata/
+- CARIN — C4BB IG (Index): https://build.fhir.org/ig/HL7/carin-bb/index.html
+- CARIN — C4BB EOB Profiles (examples include Inpatient, Pharmacy, Professional/NonClinician): https://build.fhir.org/ig/HL7/carin-bb/StructureDefinition-C4BB-ExplanationOfBenefit.html
+- Azure AI Search — Hybrid Search Overview: https://learn.microsoft.com/en-us/azure/search/hybrid-search-overview
+- Azure AI Search — Hybrid Query How‑To: https://learn.microsoft.com/en-us/azure/search/hybrid-search-how-to-query
+- Azure AI Search — Vector Search Overview: https://learn.microsoft.com/en-us/azure/search/vector-search-overview
+- Azure AI Search — Hybrid Ranking (RRF): https://learn.microsoft.com/en-us/azure/search/hybrid-search-ranking
+- Azure OpenAI — Responses API (how‑to): https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/responses
+- Azure OpenAI — Embeddings (how‑to): https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/embeddings
