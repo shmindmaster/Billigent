@@ -16,21 +16,7 @@ import {
   CheckCircle,
   XCircle
 } from 'lucide-react';
-
-interface CitationAnalytics {
-  total: number;
-  byAuthorityTier: Record<string, number>;
-  byCategory: Record<string, number>;
-  withIssues: number;
-}
-
-interface QualityMetrics {
-  overallAuthorityScore: number;
-  regulatoryComplianceScore: number;
-  evidenceDiversityScore: number;
-  sourceRecencyScore: number;
-  confidenceLevel: 'high' | 'medium' | 'low';
-}
+import citationService, { CitationAnalytics, CitationHealth } from '../../services/citationService';
 
 interface CitationAnalyticsCardProps {
   className?: string;
@@ -38,69 +24,31 @@ interface CitationAnalyticsCardProps {
 
 const CitationAnalyticsCard: React.FC<CitationAnalyticsCardProps> = ({ className }) => {
   const [analytics, setAnalytics] = useState<CitationAnalytics | null>(null);
-  const [qualityMetrics, setQualityMetrics] = useState<QualityMetrics | null>(null);
+  const [health, setHealth] = useState<CitationHealth | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetchCitationAnalytics();
+    fetchCitationData();
   }, []);
 
-  const fetchCitationAnalytics = async () => {
+  const fetchCitationData = async () => {
     try {
       setLoading(true);
-      // In a real implementation, this would call your backend API
-      // For now, we'll use mock data that matches the backend structure
-      const mockAnalytics: CitationAnalytics = {
-        total: 48,
-        byAuthorityTier: {
-          regulatory: 15,
-          standards: 12,
-          primary: 8,
-          secondary: 7,
-          tertiary: 4,
-          competitive: 2
-        },
-        byCategory: {
-          icd_10_cm: 8,
-          icd_10_pcs: 4,
-          ms_drg: 3,
-          hl7_fhir: 6,
-          denials_primary: 5,
-          azure_ai_search: 4,
-          competitive_intelligence: 2,
-          hipaa_technical_safeguards: 1,
-          cms_cmi: 1,
-          claims_operating_rules_denials_context: 1,
-          claim_integrity_kpis_hfma: 1,
-          revenue_cycle_kpis_hfma_map_keys: 1,
-          denials_current_year_gated_summary: 1,
-          denials_secondary_commentary: 1,
-          claim_integrity_kpis_summary: 1,
-          competitive_intelligence_cdi_platform: 1,
-          competitive_intelligence_predictive_cdi: 1,
-          competitive_intelligence_denials: 1,
-          competitive_intelligence_revenue_intelligence: 1,
-          competitive_intelligence_appeals_services: 1,
-          competitive_intelligence_complex_claims: 1,
-          competitive_intelligence_cdi_workflow: 1
-        },
-        withIssues: 3
-      };
-
-      const mockQualityMetrics: QualityMetrics = {
-        overallAuthorityScore: 0.78,
-        regulatoryComplianceScore: 0.85,
-        evidenceDiversityScore: 0.92,
-        sourceRecencyScore: 0.88,
-        confidenceLevel: 'high'
-      };
-
-      setAnalytics(mockAnalytics);
-      setQualityMetrics(mockQualityMetrics);
+      setError(null);
+      
+      // Fetch both analytics and health data
+      const [analyticsData, healthData] = await Promise.all([
+        citationService.getAnalytics(),
+        citationService.getHealth()
+      ]);
+      
+      setAnalytics(analyticsData);
+      setHealth(healthData);
     } catch (err) {
-      setError('Failed to fetch citation analytics');
-      console.error('Error fetching citation analytics:', err);
+      const errorMessage = err instanceof Error ? err.message : 'Failed to fetch citation data';
+      setError(errorMessage);
+      console.error('Error fetching citation data:', err);
     } finally {
       setLoading(false);
     }
@@ -140,6 +88,15 @@ const CitationAnalyticsCard: React.FC<CitationAnalyticsCardProps> = ({ className
     }
   };
 
+  const getStatusColor = (status: string) => {
+    const colors: Record<string, string> = {
+      healthy: 'bg-green-100 text-green-800 border-green-200',
+      degraded: 'bg-yellow-100 text-yellow-800 border-yellow-200',
+      unhealthy: 'bg-red-100 text-red-800 border-red-200'
+    };
+    return colors[status] || 'bg-gray-100 text-gray-800 border-gray-200';
+  };
+
   if (loading) {
     return (
       <Card className={className}>
@@ -162,7 +119,7 @@ const CitationAnalyticsCard: React.FC<CitationAnalyticsCardProps> = ({ className
             <AlertTriangle className="w-8 h-8 mx-auto mb-2" />
             <p>{error}</p>
             <Button 
-              onClick={fetchCitationAnalytics} 
+              onClick={fetchCitationData} 
               variant="outline" 
               className="mt-2"
             >
@@ -174,7 +131,7 @@ const CitationAnalyticsCard: React.FC<CitationAnalyticsCardProps> = ({ className
     );
   }
 
-  if (!analytics || !qualityMetrics) {
+  if (!analytics || !health) {
     return null;
   }
 
@@ -185,6 +142,14 @@ const CitationAnalyticsCard: React.FC<CitationAnalyticsCardProps> = ({ className
           <BookOpen className="w-5 h-5" />
           Citation Analytics Dashboard
         </CardTitle>
+        <div className="flex items-center gap-2">
+          <Badge className={getStatusColor(health.status)}>
+            {health.status.charAt(0).toUpperCase() + health.status.slice(1)}
+          </Badge>
+          <span className="text-sm text-gray-600">
+            Last updated: {new Date(health.timestamp).toLocaleTimeString()}
+          </span>
+        </div>
       </CardHeader>
       <CardContent>
         <Tabs defaultValue="overview" className="w-full">
@@ -198,12 +163,12 @@ const CitationAnalyticsCard: React.FC<CitationAnalyticsCardProps> = ({ className
           <TabsContent value="overview" className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="text-center p-4 border rounded-lg">
-                <div className="text-2xl font-bold text-blue-600">{analytics.total}</div>
+                <div className="text-2xl font-bold text-blue-600">{analytics.overview.total}</div>
                 <div className="text-sm text-gray-600">Total Citations</div>
               </div>
               <div className="text-center p-4 border rounded-lg">
                 <div className="text-2xl font-bold text-green-600">
-                  {((analytics.total - analytics.withIssues) / analytics.total * 100).toFixed(1)}%
+                  {analytics.overview.qualityScore.toFixed(1)}%
                 </div>
                 <div className="text-sm text-gray-600">Quality Score</div>
               </div>
@@ -212,17 +177,17 @@ const CitationAnalyticsCard: React.FC<CitationAnalyticsCardProps> = ({ className
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">Citations with Issues</span>
-                <Badge variant={analytics.withIssues > 0 ? "destructive" : "default"}>
-                  {analytics.withIssues}
+                <Badge variant={analytics.overview.withIssues > 0 ? "destructive" : "default"}>
+                  {analytics.overview.withIssues}
                 </Badge>
               </div>
               
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">Overall Confidence</span>
                 <div className="flex items-center gap-2">
-                  {getConfidenceIcon(qualityMetrics.confidenceLevel)}
-                  <span className={`font-medium ${getConfidenceColor(qualityMetrics.confidenceLevel)}`}>
-                    {qualityMetrics.confidenceLevel.charAt(0).toUpperCase() + qualityMetrics.confidenceLevel.slice(1)}
+                  {getConfidenceIcon(analytics.qualityMetrics.confidenceLevel)}
+                  <span className={`font-medium ${getConfidenceColor(analytics.qualityMetrics.confidenceLevel)}`}>
+                    {analytics.qualityMetrics.confidenceLevel.charAt(0).toUpperCase() + analytics.qualityMetrics.confidenceLevel.slice(1)}
                   </span>
                 </div>
               </div>
@@ -231,7 +196,7 @@ const CitationAnalyticsCard: React.FC<CitationAnalyticsCardProps> = ({ className
 
           <TabsContent value="authority" className="space-y-4">
             <div className="space-y-4">
-              {Object.entries(analytics.byAuthorityTier).map(([tier, count]) => (
+              {Object.entries(analytics.authorityDistribution).map(([tier, count]) => (
                 <div key={tier} className="space-y-2">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
@@ -241,10 +206,10 @@ const CitationAnalyticsCard: React.FC<CitationAnalyticsCardProps> = ({ className
                       <span className="text-sm font-medium">{count}</span>
                     </div>
                     <span className="text-sm text-gray-600">
-                      {((count / analytics.total) * 100).toFixed(1)}%
+                      {((count / analytics.overview.total) * 100).toFixed(1)}%
                     </span>
                   </div>
-                  <Progress value={(count / analytics.total) * 100} className="h-2" />
+                  <Progress value={(count / analytics.overview.total) * 100} className="h-2" />
                 </div>
               ))}
             </div>
@@ -252,14 +217,28 @@ const CitationAnalyticsCard: React.FC<CitationAnalyticsCardProps> = ({ className
 
           <TabsContent value="categories" className="space-y-4">
             <div className="max-h-64 overflow-y-auto space-y-2">
-              {Object.entries(analytics.byCategory)
-                .sort(([, a], [, b]) => b - a)
-                .map(([category, count]) => (
-                  <div key={category} className="flex items-center justify-between p-2 border rounded">
-                    <span className="text-sm font-medium">
-                      {category.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
-                    </span>
-                    <Badge variant="secondary">{count}</Badge>
+              {analytics.categoryDetails
+                .sort((a, b) => b.count - a.count)
+                .map((category) => (
+                  <div key={category.category} className="flex items-center justify-between p-2 border rounded">
+                    <div className="flex-1">
+                      <span className="text-sm font-medium">
+                        {category.category.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                      </span>
+                      <div className="flex gap-1 mt-1">
+                        {category.authorityTiers.map(tier => (
+                          <Badge key={tier} variant="outline" className="text-xs">
+                            {tier}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <Badge variant="secondary">{category.count}</Badge>
+                      <div className="text-xs text-gray-600 mt-1">
+                        {category.percentage.toFixed(1)}%
+                      </div>
+                    </div>
                   </div>
                 ))}
             </div>
@@ -271,40 +250,40 @@ const CitationAnalyticsCard: React.FC<CitationAnalyticsCardProps> = ({ className
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">Overall Authority Score</span>
                   <span className="text-sm font-medium">
-                    {(qualityMetrics.overallAuthorityScore * 100).toFixed(1)}%
+                    {(analytics.qualityMetrics.overallAuthorityScore * 100).toFixed(1)}%
                   </span>
                 </div>
-                <Progress value={qualityMetrics.overallAuthorityScore * 100} className="h-2" />
+                <Progress value={analytics.qualityMetrics.overallAuthorityScore * 100} className="h-2" />
               </div>
 
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">Regulatory Compliance</span>
                   <span className="text-sm font-medium">
-                    {(qualityMetrics.regulatoryComplianceScore * 100).toFixed(1)}%
+                    {(analytics.qualityMetrics.regulatoryComplianceScore * 100).toFixed(1)}%
                   </span>
                 </div>
-                <Progress value={qualityMetrics.regulatoryComplianceScore * 100} className="h-2" />
+                <Progress value={analytics.qualityMetrics.regulatoryComplianceScore * 100} className="h-2" />
               </div>
 
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">Evidence Diversity</span>
                   <span className="text-sm font-medium">
-                    {(qualityMetrics.evidenceDiversityScore * 100).toFixed(1)}%
+                    {(analytics.qualityMetrics.evidenceDiversityScore * 100).toFixed(1)}%
                   </span>
                 </div>
-                <Progress value={qualityMetrics.evidenceDiversityScore * 100} className="h-2" />
+                <Progress value={analytics.qualityMetrics.evidenceDiversityScore * 100} className="h-2" />
               </div>
 
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">Source Recency</span>
                   <span className="text-sm font-medium">
-                    {(qualityMetrics.sourceRecencyScore * 100).toFixed(1)}%
+                    {(analytics.qualityMetrics.sourceRecencyScore * 100).toFixed(1)}%
                   </span>
                 </div>
-                <Progress value={qualityMetrics.sourceRecencyScore * 100} className="h-2" />
+                <Progress value={analytics.qualityMetrics.sourceRecencyScore * 100} className="h-2" />
               </div>
             </div>
 
@@ -323,7 +302,7 @@ const CitationAnalyticsCard: React.FC<CitationAnalyticsCardProps> = ({ className
         <div className="mt-6 pt-4 border-t">
           <div className="flex items-center justify-between text-sm text-gray-600">
             <span>Last updated: {new Date().toLocaleDateString()}</span>
-            <Button variant="outline" size="sm" onClick={fetchCitationAnalytics}>
+            <Button variant="outline" size="sm" onClick={fetchCitationData}>
               <TrendingUp className="w-4 h-4 mr-2" />
               Refresh
             </Button>

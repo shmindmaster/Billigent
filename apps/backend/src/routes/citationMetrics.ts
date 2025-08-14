@@ -6,7 +6,7 @@ import {
   type NormalizedCitation,
   type AuthorityTier,
 } from "../strategy/citations";
-import { evidenceGraph } from "../strategy/evidenceGraph";
+// import { evidenceGraph } from "../strategy/evidenceGraph";
 
 const router: ExpressRouter = Router();
 

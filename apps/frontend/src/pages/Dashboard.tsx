@@ -13,6 +13,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // Import KPI monitoring component
 import { KPIMonitoringCard } from '@/components/kpi/KPIMonitoringCard';
+// Import Citation Analytics component
+import CitationAnalyticsCard from '@/components/shared/CitationAnalyticsCard';
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -302,6 +304,14 @@ const Dashboard: React.FC = () => {
               // In a real app, this would trigger notifications, dashboard updates, etc.
             }}
           />
+        </div>
+
+        {/* Citation Analytics Section */}
+        <div className="space-y-4">
+          <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+            Citation Analytics
+          </h3>
+          <CitationAnalyticsCard />
         </div>
       </div>
 

@@ -236,6 +236,13 @@ export async function normalizeCorpusFile(
     out.write(JSON.stringify(norm) + "\n");
     normalized++;
   }
-  out.end();
+  // Ensure the write stream flushes completely before returning so that
+  // subsequent loaders (e.g., tests calling loadNormalizedCitations) read the
+  // full file instead of a partially written first line. Not awaiting the
+  // 'finish' event was causing intermittent truncated loads (e.g., count=1).
+  await new Promise<void>((resolve, reject) => {
+    out.on("error", reject);
+    out.end(() => resolve());
+  });
   return { total, normalized, withIssues, byTier };
 }

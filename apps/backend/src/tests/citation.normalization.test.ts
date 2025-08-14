@@ -47,7 +47,6 @@ const outPath = fs.existsSync(rootCorpusPath)
     return;
   }
   const stats = await normalizeCorpusFile(corpusPath, outPath);
-  console.log("DEBUG normalization stats", stats);
   assert(stats.normalized > 0, "Should normalize at least one entry");
   invalidateCitationCache();
   const normalized = loadNormalizedCitations();
@@ -61,6 +60,12 @@ const outPath = fs.existsSync(rootCorpusPath)
   assert(
     tierSet.has("regulatory") || tierSet.has("standards"),
     "Expected at least one authoritative tier (regulatory/standards)"
+  );
+  // If using the rich root corpus expect a substantial count; otherwise ensure local baseline (>=5)
+  const expectedMin = fs.existsSync(rootCorpusPath) ? 40 : 5;
+  assert(
+    normalized.length >= expectedMin,
+    `Expected at least ${expectedMin} normalized citations (got ${normalized.length})`
   );
   console.log("Citation normalization test passed", {
     count: normalized.length,

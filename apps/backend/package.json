@@ -13,7 +13,8 @@
     "adls:plan": "tsx scripts/adls-ops.ts move-plan",
     "adls:copy": "tsx scripts/adls-ops.ts copy-verify",
     "citations:normalize": "tsx scripts/normalize-citations.ts",
-  "test": "pnpm build && node scripts/run-tests.js"
+  "test": "pnpm build && node scripts/run-tests.js",
+  "test:ci": "pnpm citations:normalize && pnpm test"
   },
   "dependencies": {
     "@azure/identity": "^4.11.1",
