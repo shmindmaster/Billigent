@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Billigent Competitive Feature Matrix",
+  "version": "0.1",
+  "generated_at": "2025-08-14T00:00:00Z",
+  "description": "Structured extraction of competitor capability coverage with evidence provenance. Status legend: native, partial, roadmap, absent, service_led, ambiguous.",
+  "vendors": [
+    {"id": "nuance", "display_name": "Nuance", "segment": "Ambient CDI / Physician Workflow"},
+    {"id": "3m", "display_name": "3M", "segment": "Unified CDI + CAC"},
+    {"id": "iodine", "display_name": "Iodine", "segment": "Predictive CDI"},
+    {"id": "optum", "display_name": "Optum", "segment": "Denial Lifecycle"},
+    {"id": "finthrive", "display_name": "FinThrive", "segment": "Denial Prevention"},
+    {"id": "cloudmed", "display_name": "Cloudmed (R1)", "segment": "Revenue Intelligence"},
+    {"id": "corro", "display_name": "CorroHealth", "segment": "Coding / Appeals Services"},
+    {"id": "revecore", "display_name": "Revecore", "segment": "Complex Claims"},
+    {"id": "dolbey", "display_name": "Dolbey", "segment": "CDI Workflow & CAC"},
+    {"id": "billigent", "display_name": "Billigent (Target)", "segment": "Unified CDI + Denial Automation"}
+  ],
+  "capabilities": [
+    {"id": "ambient_doc", "name": "Ambient Documentation", "definition": "Automatic clinical note capture & structured insertion."},
+    {"id": "predictive_cdi", "name": "Predictive CDI Signals", "definition": "ML predicting undocumented conditions / specificity needs."},
+    {"id": "realtime_prebill", "name": "Real-Time Pre-Bill Risk Scoring", "definition": "Latency <2s risk scoring on inbound encounters."},
+    {"id": "auto_appeal", "name": "Automated Appeal Drafting", "definition": "LLM-generated appeal letters with evidence cites."},
+    {"id": "evidence_bundle", "name": "Evidence Bundle Generation", "definition": "Deterministic set of clinical facts + codes + regs with hash."},
+    {"id": "explain_checksum", "name": "Explainability Checksum", "definition": "Attribution packet with hash-based integrity verification."},
+    {"id": "denial_root_analytics", "name": "Denial Root Cause Analytics", "definition": "Classification & trend analytics for denial reasons."},
+    {"id": "kpi_action_rules", "name": "KPI→Action Rules DSL", "definition": "Declarative rules emitting operational events from KPI deltas."},
+    {"id": "appeal_feedback_loop", "name": "Appeals Outcome Feedback Loop", "definition": "Closed loop learning from appeal outcomes."}
+  ],
+  "matrix": [
+    {"vendor": "nuance", "capability": "ambient_doc", "status": "native", "sources": ["^nuance"], "confidence": 0.9},
+    {"vendor": "3m", "capability": "ambient_doc", "status": "partial", "sources": ["^3m"], "confidence": 0.6},
+    {"vendor": "iodine", "capability": "predictive_cdi", "status": "native", "sources": ["^iodine"], "confidence": 0.85},
+    {"vendor": "3m", "capability": "predictive_cdi", "status": "partial", "sources": ["^3m"], "confidence": 0.6},
+    {"vendor": "nuance", "capability": "predictive_cdi", "status": "partial", "sources": ["^nuance"], "confidence": 0.4},
+    {"vendor": "optum", "capability": "denial_root_analytics", "status": "native", "sources": ["^optum"], "confidence": 0.8},
+    {"vendor": "finthrive", "capability": "denial_root_analytics", "status": "native", "sources": ["^finthrive"], "confidence": 0.75},
+    {"vendor": "cloudmed", "capability": "denial_root_analytics", "status": "native", "sources": ["^cloudmed"], "confidence": 0.7},
+    {"vendor": "corro", "capability": "auto_appeal", "status": "service_led", "sources": ["^corro"], "confidence": 0.5},
+    {"vendor": "revecore", "capability": "auto_appeal", "status": "service_led", "sources": ["^revecore"], "confidence": 0.5},
+    {"vendor": "dolbey", "capability": "predictive_cdi", "status": "partial", "sources": ["^dolbey"], "confidence": 0.5},
+    {"vendor": "billigent", "capability": "ambient_doc", "status": "partner", "sources": [], "confidence": 0.3, "note": "Planned partner integration"},
+    {"vendor": "billigent", "capability": "predictive_cdi", "status": "roadmap", "sources": [], "confidence": 0.4},
+    {"vendor": "billigent", "capability": "realtime_prebill", "status": "roadmap", "sources": [], "confidence": 0.4},
+    {"vendor": "billigent", "capability": "auto_appeal", "status": "roadmap", "sources": [], "confidence": 0.5},
+    {"vendor": "billigent", "capability": "evidence_bundle", "status": "roadmap", "sources": [], "confidence": 0.6},
+    {"vendor": "billigent", "capability": "explain_checksum", "status": "roadmap", "sources": [], "confidence": 0.6},
+    {"vendor": "billigent", "capability": "denial_root_analytics", "status": "roadmap", "sources": [], "confidence": 0.5},
+    {"vendor": "billigent", "capability": "kpi_action_rules", "status": "roadmap", "sources": [], "confidence": 0.55},
+    {"vendor": "billigent", "capability": "appeal_feedback_loop", "status": "roadmap", "sources": [], "confidence": 0.5}
+  ],
+  "status_enum": ["native", "partial", "roadmap", "absent", "service_led", "ambiguous", "partner"],
+  "confidence_scale": "0-1 where 1 = independently corroborated, authoritative primary sources",
+  "notes": [
+    "Confidence scores will be recomputed after quantitative adoption/pricing data ingestion.",
+    "Partner status denotes intentional reliance on external best-of-breed capability instead of internal build." 
+  ]
+}

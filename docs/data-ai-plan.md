@@ -1,6 +1,6 @@
-# Billigent Data & AI Strategy Plan — v2.2 (Execution-Grade)
+# Billigent Data & AI Strategy Plan — v2.3 (Strategic Alignment)
 
-**Date:** 12-Aug-2025
+**Date:** 14-Aug-2025
 **Owner:** Data & AI Team
 **Status:** Active Implementation
 
@@ -8,13 +8,17 @@
 
 ## 1) Purpose & Outcomes
 
-**Purpose:** Stand up a defensible, high-accuracy CDI platform on Azure with a lean but authoritative lakehouse, small SQL “working sets,” and RAG/LLM services that deliver:
+**Purpose:** Stand up a defensible, high-accuracy CDI platform on Azure with a lean but authoritative lakehouse, small SQL "working sets," and RAG/LLM services that deliver:
 
-- **Pre-bill**: <2s rule checks (ICD-10, MS-DRG, NCCI, MPFS/OPPS sanity).
-- **Physician queries**: targeted, evidence-grounded prompts against structured FHIR + notes.
+- **Pre-bill**: <2s rule checks (ICD-10, MS-DRG, NCCI, MPFS/OPPS sanity) with real-time risk scoring tied to KPI triggers.
+- **Physician queries**: targeted, evidence-grounded prompts against structured FHIR + notes with explainable attribution checksums.
 - **Denial analytics**: EOB semantics mapped to CARC/RARC; payer-style simulation until real claims arrive.
+- **Evidence Graph Provenance**: Hash-based bundle for each draft ensuring immutable audit trace.
+- **KPI→Action Rules DSL**: Event-driven operational triggers for real-time intervention.
 
-**North-star outcomes (12 months):** 40% CDI score lift, 50% reduction in preventable denials, 95%+ data quality, 85%+ recommendation accuracy.
+**North-star outcomes (12 months):** 40% CDI score lift, 20-30% reduction in preventable denials, 95%+ data quality, 85%+ recommendation accuracy, >90% rule latency <5s.
+
+**Strategic Alignment:** Supports Billigent's wedge of unifying evidence graph provenance, LLM‑assisted drafting, explainable attribution, and KPI→action rules into a single closed feedback loop.
 
 ---
 
@@ -334,3 +338,42 @@ Grounding references for datasets, rulebooks, interoperability, and Azure servic
 - Azure AI Search — Hybrid & Vector Search: https://learn.microsoft.com/en-us/azure/search/hybrid-search-overview | https://learn.microsoft.com/en-us/azure/search/vector-search-overview
 - Azure AI Search — Hybrid Query & RRF: https://learn.microsoft.com/en-us/azure/search/hybrid-search-how-to-query | https://learn.microsoft.com/en-us/azure/search/hybrid-search-ranking
 - Azure OpenAI — Responses API & Embeddings: https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/responses | https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/embeddings
+
+---
+## 11) Quality Gates (Release Readiness Criteria) — v0.1
+Each gate must pass before promoting a feature from staging → production. Failing any gate blocks release until remediated. Metrics logged in Observability stack (App Insights + custom tables) and summarized on internal readiness dashboard.
+
+| Gate | Dimension | Criterion | Metric / Threshold | Measurement Method | Evidence / Source Refs | Status Field |
+|------|-----------|----------|--------------------|--------------------|------------------------|--------------|
+| DATA-Q1 | Data Quality | Referential integrity for silver snapshots | 100% valid foreign key joins (no orphan codes) | QA job join audit | QA reports (§5) | pass/fail |
+| DATA-Q2 | Data Freshness | Core terminologies current | All active code sets <= 7 days lag from official publish | Provenance manifests | Source publish cadences | pass/fail |
+| DATA-Q3 | PII/PHI Guard | No PHI in non‑authorized tiers pre-DUA | 0 detected PHI tokens in synthetic-only mode | De-ID scanner logs | HIPAA §164.312 | pass/fail |
+| MODEL-Q1 | Recommendation Accuracy | CDI suggestion precision | ≥0.85 precision on validation set | Offline eval suite | Internal labeled set (pending) | value/pass |
+| MODEL-Q2 | Hallucination Control | Unsupported citation rate | ≤2% hallucinated cites in spot audit | Sampled inference audit | RAG logs | value/pass |
+| MODEL-Q3 | Drift Monitoring | Embedding centroid shift | <5% cosine shift MoM | Vector stats job | Embedding monitoring SOP | value/pass |
+| XAI-Q1 | Attribution Integrity | Hash verification success | 100% checksum match | Attribution validator | explainability module | pass/fail |
+| XAI-Q2 | Citation Coverage | Claims with ≥1 authoritative cite | ≥98% for production prompts | Prompt eval harness | Source list (§References) | value/pass |
+| SEC-Q1 | Secrets Management | No plaintext secrets in code | 0 policy violations | Code scan (git hooks) | OWASP A02 | pass/fail |
+| SEC-Q2 | Vulnerability Scan | Critical vulns remediated | 0 Critical / 0 High open >7 days | Dependency scanner | OWASP A06 | pass/fail |
+| SEC-Q3 | Audit Logging | Protected events captured | 100% create/update/delete events logged | Log sampling | HIPAA §164.312(b) | pass/fail |
+| A11Y-Q1 | Keyboard Navigation | All interactive elements tab-order correct | 0 blocking keyboard traps | Automated + manual audit | WCAG 2.2 | pass/fail |
+| A11Y-Q2 | Contrast Ratios | Text contrast compliant | 100% tested text ≥4.5:1 | Axe CI + manual | WCAG 1.4.* | pass/fail |
+| PERF-Q1 | API Latency | Evidence bundle build time | P95 < 1500ms | Load test + APM | SLO doc | value/pass |
+| PERF-Q2 | UI Interactivity | Dashboard Time-to-Interactive | < 2s P95 on reference dataset | Web vitals capture | PRD §5.3 | value/pass |
+| OBS-Q1 | Trace Coverage | Distributed trace sampling | ≥95% of strategy API calls traced | OpenTelemetry metrics | Observability SOP | value/pass |
+| OBS-Q2 | Error Budget | SLO adherence | Error budget burn <30% rolling 30d | SLO calculator | SLO sheet | value/pass |
+
+### 11.1 Escalation & Waivers
+- Waiver requires: documented rationale, risk assessment, compensating control, expiration date ≤ one release cycle.
+- Automatic Slack alert if any gate flips from pass→fail post-release (regression).
+
+### 11.2 Automation Backlog
+| ID | Gate Dependency | Automation Task | Priority | Notes |
+|----|-----------------|-----------------|----------|-------|
+| QA-A1 | DATA-Q1 | Automate FK join audit diff report | High | Diff vs prior run |
+| MODEL-A1 | MODEL-Q1 | Establish labeled validation subset | High | Blocks precision metric |
+| SEC-A1 | SEC-Q1 | Pre-commit secret scan hook | Medium | Leverage gitleaks |
+| XAI-A1 | XAI-Q2 | Add citation coverage analyzer | Medium | Parse attribution packets |
+| OBS-A1 | OBS-Q1 | Auto-insert trace IDs in strategy route | Medium | Middleware |
+
+---

@@ -1,7 +1,7 @@
 # **Billigent Product Requirements Document (PRD)**
 
-**Version:** 1.2  
-**Date:** August 10, 2025  
+**Version:** 1.3  
+**Date:** August 14, 2025  
 **Product:** Billigent Clinical Intelligence Platform  
 **Status:** Active Development  
 **Owner:** Product Management
@@ -11,6 +11,8 @@
 ## **1. Executive Summary**
 
 Billigent is an enterprise-ready, Azure-native clinical intelligence cockpit designed to revolutionize healthcare revenue cycle management through AI-powered insights and automation.[^12][^11] The platform addresses three critical challenges: **preventing claim denials** before they happen,[^1][^3] **perfecting clinical documentation (CDI)** in real-time,[^15][^6] and **accelerating the appeals process** from days to minutes.[^3][^7] This document serves as the single source of truth for the product's vision, features, and requirements.
+
+**Strategic Positioning:** Billigent unifies evidence graph provenance, LLM‑assisted drafting, explainable attribution, and KPI→action rules into a single closed feedback loop, providing traceable evidence bundle hashing and attribution checksums out of the box.
 
 ---
 
@@ -26,12 +28,12 @@ To empower healthcare organizations to achieve clinical documentation excellence
 
 ### **2.3 Business Objectives**
 
-| Primary Goal                      | Key Result (Year 1 Target)                                         |
-| :-------------------------------- | :----------------------------------------------------------------- |
-| **Reduce Claim Denial Rates**     | ↓ 50% through proactive pre-bill analysis                          |
-| **Improve CDI Quality Scores**    | ↑ 40% via intelligent documentation recommendations                |
-| **Accelerate Appeals Processing** | ↓ 75% in time-to-appeal through automated evidence generation      |
-| **Enhance Revenue Capture**       | Identify and capture previously missed documentation opportunities |
+| Primary Goal                      | Key Result (Year 1 Target)                                         | Strategic Alignment |
+| :-------------------------------- | :----------------------------------------------------------------- | :------------------ |
+| **Reduce Claim Denial Rates**     | ↓ 20-30% through proactive pre-bill analysis                       | NPDA North Star     |
+| **Improve CDI Quality Scores**    | ↑ 40% via intelligent documentation recommendations                  | CMI Optimization    |
+| **Accelerate Appeals Processing** | ↓ 50-75% in time-to-appeal through automated evidence generation    | Cash Flow Acceleration |
+| **Enhance Revenue Capture**       | Identify and capture previously missed documentation opportunities   | CC/MCC Uplift       |
 
 ### **2.4 Engineering Success Metrics (DORA)**
 
@@ -44,28 +46,31 @@ To empower healthcare organizations to achieve clinical documentation excellence
 
 ## **3. Target Users & Personas**
 
-### **3.1 Primary Users**
+### **3.1 Primary Users (ICPs)**
 
-#### **1. Chris, the CDI Specialist**
-
+#### **1. Chris, the CDI Specialist (Academic Medical Centers)**
 - **Role**: Clinical Documentation Improvement specialist responsible for reviewing patient charts for accuracy and completeness.
-- **Pain Points**: Time-consuming manual review processes, difficulty spotting subtle documentation gaps, pressure to improve coding accuracy.
+- **Pain Points**: Time-consuming manual review processes, difficulty spotting subtle documentation gaps, pressure to improve coding accuracy and CMI optimization.
 - **Goals**: Quickly identify high-impact improvement opportunities, ensure coding is defensible and accurate, and optimize the hospital's Case Mix Index (CMI).
-- **Billigent's Goal for Chris**: **Focus his expertise.** Billigent surfaces the highest-impact opportunities so he can apply his clinical judgment where it matters most.
+- **Billigent's Goal for Chris**: **Focus his expertise.** Billigent surfaces the highest-impact opportunities so he can apply his clinical judgment where it matters most, with evidence graph provenance and attribution checksums.
 
-#### **2. Mark, the Revenue Cycle Manager**
-
-- **Role**: Leader of the revenue cycle operations team.
-- **Pain Points**: High claim denial rates, slow appeals management, lack of real-time visibility into the financial impact of CDI.
+#### **2. Mark, the Revenue Cycle Manager (Mid/Large IDN Hospitals)**
+- **Role**: Leader of the revenue cycle operations team, VP Revenue Cycle / CFO delegate.
+- **Pain Points**: High claim denial rates (~12% baseline), slow appeals management, lack of real-time visibility into the financial impact of CDI.
 - **Goals**: Minimize denial rates, optimize revenue capture, and improve overall cycle efficiency.
-- **Billigent's Goal for Mark**: **Turn data into strategy.** Billigent's dashboard provides the actionable insights needed to identify root causes and optimize team performance.
+- **Billigent's Goal for Mark**: **Turn data into strategy.** Billigent's dashboard provides the actionable insights needed to identify root causes and optimize team performance with real-time risk scoring tied to KPI triggers.
 
-#### **3. Dana, the Denials & Coding Specialist**
-
+#### **3. Dana, the Denials & Coding Specialist (Regional Health Systems)**
 - **Role**: Medical coding professional who also manages the denials and appeals process.
 - **Pain Points**: Complex coding decisions, staying current with regulations, the slow and manual process of gathering evidence and writing appeal letters.
 - **Goals**: Ensure accurate coding, maintain compliance, and increase the success rate of appeals.
-- **Billigent's Goal for Dana**: **Automate the paperwork.** Billigent drafts evidence-based appeals in seconds, freeing her up to manage more cases and win more appeals.
+- **Billigent's Goal for Dana**: **Automate the paperwork.** Billigent drafts evidence-based appeals in seconds with deterministic bundle hashing, freeing her up to manage more cases and win more appeals.
+
+#### **4. Alex, the Coding Lead (Specialty Networks - Cardio/Ortho)**
+- **Role**: Lead coder for high-DRG specificity impact specialties.
+- **Pain Points**: Missed specificity & sepsis / HF capture gaps, payer downgrades due to incomplete documentation.
+- **Goals**: Increase severity capture, reduce payer downgrades, maintain high coding accuracy.
+- **Billigent's Goal for Alex**: **Maximize specificity capture.** Billigent identifies CC/MCC opportunities with transparent attribution and evidence graphs.
 
 ### **3.2 Secondary Users**
 
@@ -78,61 +83,71 @@ To empower healthcare organizations to achieve clinical documentation excellence
 
 ### **4.1 Analytics & Reporting Dashboard**
 
-#### **1.1 Real-Time KPI Monitoring**
+#### **4.1.1 Real-Time KPI Monitoring**
 
 - **Description**: A live dashboard displaying key performance indicators for revenue cycle health.
-- **Features**: Claim denial rates and root cause trends; CDI quality score improvements over time; Appeals success rates by payer; Real-time revenue impact of CDI queries; Case volume and team processing statistics.
+- **Features**: 
+  - Claim denial rates and root cause trends (baseline ~12% target reduction to 20-30%)
+  - CDI quality score improvements over time with CMI optimization tracking
+  - Appeals success rates by payer with overturn percentage tracking
+  - Real-time revenue impact of CDI queries with attribution integrity scoring
+  - Case volume and team processing statistics with rule-to-action latency monitoring
 
-#### **1.2 Interactive Data Visualization**
+#### **4.1.2 Interactive Data Visualization**
 
 - **Description**: Dynamic charts and graphs for deep data exploration.
-- **Features**: Drill-down capabilities from summary to individual case-level detail; Time-series analysis with customizable date ranges; Comparative analysis across service lines, departments, and individual providers; One-click export to PDF and CSV for reporting.
+- **Features**: 
+  - Drill-down capabilities from summary to individual case-level detail
+  - Time-series analysis with customizable date ranges
+  - Comparative analysis across service lines, departments, and individual providers
+  - One-click export to PDF and CSV for reporting
+  - Evidence graph visualization with provenance tracking
 
-#### **1.3 Natural Language Query Interface**
+#### **4.1.3 Natural Language Query Interface**
 
 - **Description**: An AI-powered query system allowing users to ask questions of their data in plain English.
 - **Features**: Powered by the Azure OpenAI Responses API's **Code Interpreter**, this allows users to ask questions like, "What's our denial rate for cardiology this month?" and receive back contextual AI responses with supporting charts and data.
 
 ### **4.2 Pre-Bill CDI Review**
 
-#### **2.1 FHIR Data Ingestion**
+#### **4.2.1 FHIR Data Ingestion**
 
 - **Description**: Automated, near real-time ingestion of clinical data from EHR systems via a secure FHIR R4 API connection.
 - **Technical Requirements**: Support for FHIR `Bundle` resources; Secure connectivity to HL7 FHIR servers; Storage of raw data in Azure Data Lake; Secure data transmission (TLS 1.3).
 
-#### **2.2 AI-Powered Documentation Analysis**
+#### **4.2.2 AI-Powered Documentation Analysis**
 
 - **Description**: The core intelligence engine that analyzes clinical documentation for gaps and opportunities.
 - **AI Capabilities**: Utilizes Azure OpenAI `gpt-5-mini` to perform documentation gap identification, coding accuracy validation, severity and specificity recommendations, and checks against a knowledge base of ICD-10, CPT, and HCPCS codes.
 
-#### **2.3 Prioritized Work Queue**
+#### **4.2.3 Prioritized Work Queue**
 
 - **Description**: An intelligent worklist that prioritizes cases based on a calculated financial impact and clinical risk.
 - **Features**: Real-time financial impact calculation for each finding; Risk stratification to highlight quality-of-care issues; Deadline tracking for timely review.
 
-#### **2.4 Conversational AI Assistant**
+#### **4.2.4 Conversational AI Assistant**
 
 - **Description**: An interactive AI copilot for detailed case discussions.
 - **Features**: Stateful, case-specific conversation threads using the Responses API's `previous_response_id`; Handles follow-up questions about AI findings; Provides evidence-based recommendations and documentation templates.
 
 ### **4.3 Denials Management**
 
-#### **3.1 Automated Denial Letter Processing**
+#### **4.3.1 Automated Denial Letter Processing**
 
 - **Description**: Automated ingestion and analysis of denial letters and Explanation of Benefits (EOBs).
 - **Technical Requirements**: Utilizes Azure AI Document Intelligence (formerly Form Recognizer) for PDF upload with OCR processing; Extracts and categorizes denial reasons and CARC/RARC codes with >95% accuracy.
 
-#### **3.2 Asynchronous AI Analysis**
+#### **4.3.2 Asynchronous AI Analysis**
 
 - **Description**: A non-blocking, background processing workflow for denial analysis.
 - **Features**: A queue-based architecture allows users to upload multiple denials and receive notifications when the AI analysis is complete, with full visibility into the processing status.
 
-#### **3.3 Automated Appeal Generation**
+#### **4.3.3 Automated Appeal Generation**
 
 - **Description**: AI-powered generation of complete, evidence-based appeal letters.
 - **AI Capabilities**: Synthesizes clinical documentation from the Data Lake, integrates regulatory citations, and generates a persuasive appeal letter with an assessment of evidence strength.
 
-#### **3.4 Appeal Tracking & Management**
+#### **4.3.4 Appeal Tracking & Management**
 
 - **Description**: A comprehensive dashboard for the entire appeal lifecycle.
 - **Features**: End-to-end appeal status tracking (Drafting, Submitted, Pending, Overturned); Automated deadline management and follow-up reminders; Success rate analytics by payer and denial reason.
@@ -310,3 +325,60 @@ Clinical documentation gaps, non-standard physician query practices, and fragmen
 [^11]: Azure AI Search Hybrid & Vector Documentation. (Hybrid RRF ranking, vector + keyword fusion powering RAG relevance). Sources: Azure AI Search Hybrid Search Overview; Hybrid Ranking; Vector Search.
 [^12]: Azure OpenAI Responses & Embeddings How‑To. (Stateful responses API enabling conversational chains & embeddings for retrieval).
 [^15]: CMS ICD-10-CM / ICD-10-PCS Guidelines 2025 and CDC NCHS Governance. (Documentation specificity drives DRG assignment & CC/MCC capture; official quarterly/annual update process).
+
+---
+
+## 11. RICE Prioritization Framework (NEW)
+
+### 11.1 Method Overview
+RICE = (Reach × Impact × Confidence) / Effort. We use it to rank backlog items evidence-first. Confidence is decomposed into: Source Count Weight, Source Diversity (regulatory vs. secondary vs. internal analytics), and Consistency (variance across sources). Confidence tiers: **High (0.9)** — >=3 independent authoritative sources + low variance; **Medium (0.7)** — 2 sources or minor variance; **Low (0.5)** — single or secondary only; **Placeholder (0.3)** — hypothesis awaiting data collection.
+
+### 11.2 Input Definitions
+| Dimension | Definition | Measurement Window | Notes |
+|----------|------------|--------------------|-------|
+| Reach | Distinct primary users impacted per month | Month 3 post-launch projected | Derived from target logo pilot sizing (TBD source) |
+| Impact | Relative movement toward North Star metrics (1=Minimal, 5=Massive) mapped to % contribution bands | Modeled | Qualitative→quantified translation rubric maintained in data-ai-plan |
+| Confidence | Weighted evidence score (see 11.1) | Current | Calculated; drops if conflicting data introduced |
+| Effort | Estimated engineer-weeks (½ increments) including QA & a11y | Single release | Includes data ingestion + infra + doc time |
+
+### 11.3 Backlog (Initial Scoring Pass v0.1)
+| ID | Epic | User Story (EARS) | Reach (R) | Impact (I 1–5) | Confidence (C) | Effort (E wks) | RICE Score | Evidence Refs | Notes |
+|----|------|------------------|-----------|-----------------|----------------|----------------|------------|---------------|-------|
+| R1 | Denials Analytics | WHEN denial events are ingested THE SYSTEM SHALL compute Initial Denial Rate and top 5 root causes | 45 | 5 | 0.9 | 3 | (45*5*0.9)/3=67.5 | [^1][^3] | Effort includes taxonomy mapping |
+| R2 | Compliant Query Workflow | WHEN a CDI specialist drafts a physician query THE SYSTEM SHALL enforce non-leading templates & immutable audit log | 30 | 4 | 0.8 | 4 | 24.0 | [^5][^7] | Requires auth + audit infra |
+| R3 | Work Queue Prioritization | WHEN cases enter review queue THE SYSTEM SHALL rank by predicted financial & clinical impact | 40 | 5 | 0.6 | 5 | 24.0 | [^1][^2][^3] | Predictive model placeholder; confidence medium due variance |
+| R4 | Automated Appeal Draft | WHEN a denial is classified THE SYSTEM SHALL generate an appeal draft citing regulations & documentation | 25 | 5 | 0.7 | 6 | 14.6 | [^1][^3][^5] | LLM + evidence bundling complexity |
+| R5 | Real-Time KPI Drilldowns | WHEN a manager selects a KPI THE SYSTEM SHALL drill to case-level drivers within 2s P95 | 35 | 4 | 0.7 | 5 | 19.6 | [^3][^4] | Requires optimized OLAP slices |
+| R6 | Natural Language Query | WHEN a user asks a supported question THE SYSTEM SHALL return grounded answer with citations | 20 | 4 | 0.6 | 6 | 8.0 | [^11][^12] | RAG infra + guardrails |
+| R7 | Physician Query Response Analytics | WHEN queries are answered THE SYSTEM SHALL surface response latency & closure KPIs | 28 | 3 | 0.6 | 3 | 16.8 | [^5][^7] | Depends on R2 event model |
+| R8 | Denial Cost Benchmarking | WHEN denial metrics render THE SYSTEM SHALL display cost per denial & unreworked rate | 45 | 3 | 0.5 | 2 | 33.8 | [^1][^8] | Confidence low (secondary cost source) |
+| R9 | CMI Lift Estimator | WHEN CDI opportunities identified THE SYSTEM SHALL estimate CMI delta potential | 18 | 4 | 0.5 | 4 | 9.0 | [^6] | Pending additional CMI studies |
+| R10 | Security & Audit Dashboard | WHEN admin views security console THE SYSTEM SHALL show access & PHI audit events | 10 | 3 | 0.7 | 3 | 7.0 | [^5] | Compliance prerequisite |
+
+### 11.4 Observations
+- Highest current RICE: Denials Analytics baseline (R1) — aligns with wedge & fastest proof of value.
+- Appeal Draft (R4) raw Impact high but Effort + moderate confidence lowers rank; revisit post evidence expansion.
+- Denial Cost Benchmark (R8) elevated due high Reach despite lower Impact; confidence improvement could shift sequencing.
+- Natural Language Query (R6) intentionally sequenced after foundational analytics due infrastructure dependency.
+
+### 11.5 Roadmap Alignment (Wave Mapping)
+| Wave | Quarter | Thematic Goal | Included IDs | Rationale |
+|------|---------|---------------|-------------|-----------|
+| Wave 1 | Q1 | Establish Denial & CDI Visibility | R1, R2, R8 | Fast KPI wins + compliance-critical query governance |
+| Wave 2 | Q2 | Automate High-Value Actions | R3, R4, R5 | Introduce prioritization & appeal acceleration post data maturity |
+| Wave 3 | Q3 | Intelligence & Exploration | R6, R7, R9 | Adds NLQ, deeper operational analytics, predictive estimation |
+| Wave 4 | Q4 | Harden & Scale | R10 + hardening of earlier features | Security posture & scaling refinements |
+
+### 11.6 Future Backlog Candidates (Placeholders)
+| Candidate | Description | Evidence Gap | Next Step |
+|-----------|-------------|--------------|-----------|
+| Dynamic Payer Policy Monitor | Auto-ingest payer bulletins to adjust rules | Needs corpus of payer bulletins | Add ingestion prototype |
+| Physician Query Suggestion Ranking | ML model ranks draft templates | Requires labeled historical query outcomes | Collect feedback loop events |
+| Denial Win Probability Scoring | Predict overturn likelihood per draft | Needs appeal outcome dataset | Secure de-identified outcome feed |
+
+### 11.7 Open Data Gaps Impacting Confidence
+- Cost per denial primary source missing (affects R8 Confidence 0.5 → cap 0.7 if obtained).
+- CMI improvement studies absent (affects R9 Confidence). 
+- Appeal success benchmarks needed for R4 post-MVP uplift modeling.
+
+---

@@ -1,30 +1,64 @@
+# Billigent Documentation Changelog
 
-### 2025-08-14T14:25:00-05:00 (Stream A1 – Market Needs Evidence Section)
-- Added primary & secondary denial/CDI regulatory sources to corpus (Change Healthcare 2022 Index; CAQH CORE Issue Brief; HFMA KPI & MAP Keys; HIPAA §164.312; CMS CMI; AHIMA/ACDIS query governance; cost/secondary commentary) in `corpus.jsonl`.
-- Appended new A1 sections to `prd.md`: Problem Statement (CDI), Users & Roles table, Market Needs — Evidence-Led table with severity & confidence, MVP Features slice, Assumptions & Open Questions, Sources with footnotes.
-- Established footnote citation pattern and severity/confidence scaffolding for subsequent streams (A2+).
+## [1.3] - 2025-08-14
 
-Files touched:
-- docs/research/corpus.jsonl
-- docs/prd.md
-- docs/CHANGELOG.md
+### Strategic Alignment Update
+- **product-strategy.md**: Updated to version 1.0 with comprehensive strategic positioning, ICP profiles, pricing hypotheses, GTM motions, and roadmap
+- **prd.md**: Updated to version 1.3 with strategic positioning statement, aligned business objectives (20-30% denial reduction), and expanded ICP personas with strategic context
+- **technical-architecture.md**: Updated to version 1.1 with strategic architecture principles including evidence graph provenance, attribution engine, and KPI→action rules DSL
+- **data-ai-plan.md**: Updated to version 2.3 with strategic alignment to evidence graph provenance and attribution capabilities
+- **competitive-analysis.md**: Updated to version 1.0 with strategic positioning statement and active status
+- **README.md**: Updated with strategic positioning statement and core intelligence layer features
 
-### 2025-08-14T15:02:00-05:00 (Stream A1 – Structured Extractions & Rubric)
-- Added evidence severity & confidence rubric (`evidence_scoring.md`).
-- Created structured regulatory requirements extraction (`regulatory_requirements.json`).
-- Created structured CDI & Claim Integrity KPI extraction (`cdi_kpis.json`).
-- Linked artifacts enable reuse in Streams A2 (competitive matrices), A3 (strategy OKRs), and C2/C3 (architecture & AI evaluation criteria).
+### Key Strategic Updates
+- **Evidence Graph Provenance**: Hash-based bundle for each draft ensuring immutable audit trace
+- **Explainability Attribution**: L1-normalized weighted spans with checksum for trust & governance  
+- **Closed-Loop KPI→Action DSL**: Event-driven operational triggers for real-time intervention
+- **Azure-Native Security & Hybrid Search**: Vector + keyword (RRF) hybrid for precision & recall
+- **Target Segments**: Mid/Large IDN Hospitals, Academic Medical Centers, Regional Health Systems, Specialty Networks
+- **North Star KPI**: Net Preventable Denial Dollars Avoided (NPDA)
+- **Roadmap**: 5-wave development plan from Q3 2025 to H2 2026
 
-Files touched:
-- docs/research/evidence_scoring.md
-- docs/research/regulatory_requirements.json
-- docs/research/cdi_kpis.json
-- docs/CHANGELOG.md
+### Business Objectives Alignment
+- Claim denial reduction: 20-30% (aligned with NPDA North Star)
+- CDI quality improvement: 40% (CMI optimization focus)
+- Appeals acceleration: 50-75% (cash flow acceleration)
+- Revenue capture enhancement: CC/MCC uplift focus
 
-### 2025-08-14T15:18:00-05:00 (Stream A1 – Citation Backfill Part 1)
-- Added inline footnotes to Executive Summary aligning claims with corpus sources (denials trend, CDI specificity, appeals acceleration, Azure AI/RAG capabilities, coding governance).
-- Appended new footnote definitions [^11], [^12], [^15] referencing existing corpus entries (Azure AI Search docs, Azure OpenAI docs, ICD-10 governance & guidelines).
+---
 
-Files touched:
-- docs/prd.md
-- docs/CHANGELOG.md
+## [1.2] - 2025-08-10
+
+### Added
+- Initial product strategy document
+- Competitive analysis framework
+- Technical architecture overview
+- Data & AI strategy plan
+
+### Changed
+- Updated PRD with expanded feature specifications
+- Enhanced technical architecture with Azure services integration
+- Expanded competitive landscape analysis
+
+---
+
+## [1.1] - 2025-08-05
+
+### Added
+- Product Requirements Document (PRD)
+- Technical architecture documentation
+- Development guidelines and standards
+
+### Changed
+- Updated project structure documentation
+- Enhanced security and compliance sections
+
+---
+
+## [1.0] - 2025-08-01
+
+### Added
+- Initial project documentation
+- README with project overview
+- Basic project structure documentation
+- Development setup instructions

@@ -1,13 +1,19 @@
 # Billigent Technical Architecture
 
-**Version:** 1.0  
-**Date:** August 10, 2025  
+**Version:** 1.1  
+**Date:** August 14, 2025  
 **Status:** Active Development  
 **Owner:** Engineering Team
 
 ## Architecture Overview
 
 Billigent is built as a cloud-native, microservices-based platform leveraging Azure's ecosystem for scalability, security, and compliance. The architecture follows Domain-Driven Design (DDD) principles with clear separation of concerns and HIPAA-compliant healthcare data handling.
+
+**Strategic Architecture Principles:**
+- **Evidence Graph Provenance**: Hash-based bundle for each draft ensuring immutable audit trace
+- **Explainability Attribution**: L1-normalized weighted spans with checksum for trust & governance
+- **Closed-Loop KPI→Action DSL**: Event-driven operational triggers for real-time intervention
+- **Azure-Native Security & Hybrid Search**: Vector + keyword (RRF) hybrid for precision & recall
 
 ## System Architecture Diagram
 
@@ -49,6 +55,13 @@ graph TB
         Cognitive[Cognitive Services]
     end
 
+    subgraph "Core Intelligence Layer"
+        EvidenceGraph[Evidence Graph Engine]
+        AttributionEngine[Attribution Engine]
+        RulesDSL[KPI→Action Rules DSL]
+        AppealGenerator[Appeal Draft Generator]
+    end
+
     subgraph "Data Layer"
         SQL[Azure SQL Database]
         DataLake[Azure Data Lake]
@@ -73,6 +86,10 @@ graph TB
     RBAC --> API
     API --> OpenAI
     API --> Search
+    API --> EvidenceGraph
+    API --> AttributionEngine
+    API --> RulesDSL
+    API --> AppealGenerator
     API --> SQL
     API --> DataLake
     Worker --> Form

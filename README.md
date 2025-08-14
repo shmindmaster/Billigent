@@ -4,26 +4,34 @@
 
 Billigent is an enterprise-ready, Azure-native clinical intelligence cockpit designed to revolutionize healthcare revenue cycle management through AI-powered insights and automation.
 
+**Strategic Positioning:** Billigent unifies evidence graph provenance, LLM‑assisted drafting, explainable attribution, and KPI→action rules into a single closed feedback loop, providing traceable evidence bundle hashing and attribution checksums out of the box.
+
 ## 🎯 Core Features
 
 ### 📊 Analytics & Reporting Dashboard
-- Real-time KPI monitoring and trend analysis
-- Interactive charts and data visualization  
+- Real-time KPI monitoring and trend analysis with attribution integrity scoring
+- Interactive charts and data visualization with evidence graph provenance tracking
 - Natural language querying powered by Azure OpenAI
-- Custom reporting and business intelligence
+- Custom reporting and business intelligence with rule-to-action latency monitoring
 
 ### 🏥 Pre-Bill CDI Review
 - FHIR-based clinical data ingestion
-- AI-powered documentation gap identification
-- Coding accuracy validation
+- AI-powered documentation gap identification with explainable attribution
+- Coding accuracy validation with evidence graph provenance
 - Prioritized worklist with financial impact calculation
 - Conversational AI for CDI specialist queries
 
 ### 🔄 Denials Management  
 - Direct PDF upload of denial letters
 - Asynchronous AI analysis of denial reasons
-- Automated evidence-based appeal generation
+- Automated evidence-based appeal generation with deterministic bundle hashing
 - Appeal tracking and status monitoring
+
+### 🧠 Core Intelligence Layer
+- **Evidence Graph Engine**: Hash-based bundle for each draft ensuring immutable audit trace
+- **Attribution Engine**: L1-normalized weighted spans with checksum for trust & governance
+- **KPI→Action Rules DSL**: Event-driven operational triggers for real-time intervention
+- **Appeal Draft Generator**: LLM-assisted drafting with evidence bundle provenance
 
 ## 🏗️ Architecture
 

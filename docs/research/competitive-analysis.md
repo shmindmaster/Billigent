@@ -27,33 +27,43 @@ Structured, source-grounded comparison of incumbent and adjacent solutions to id
 
 ---
 ## 3. Capability Matrix (Snapshot)
-(Will be programmatically generated later; initial manual table below.)
+(Manually curated snapshot as of 2025-08-14; automation script pending in later stream)
 
 | Vendor | Denial Prevention | CDI Query | Appeal Automation | Analytics Depth | AI Explainability | Notable Differentiators | Notable Gaps | Sources |
 |--------|-------------------|-----------|-------------------|-----------------|-------------------|-------------------------|-------------|---------|
-| Nuance | none | partial | none | moderate | low | Ambient capture | Denial analytics, appeals drafting | Nuance DAX / Dragon Medical One Product Page |
-| 3M | none | full | none | high | low | Unified CDI+CAC | Proactive appeals automation | 3M 360 Encompass Suite Overview |
-| Iodine | none | full | none | moderate | low | Predictive prioritization | Appeals automation, deep prevention | Iodine Software CDI Suite |
-| FinThrive | full | none | none | high | low | Prevention focus | CDI query governance | FinThrive (formerly nThrive) Denials Management |
-| Optum | full | none | none | high | low | Scale & payer analytics | Automated drafting, CDI specificity uplift | Optum Denial Management Solutions |
-| Cloudmed | full | none | none | high | low | Underpayment/contract depth | Physician-facing CDI workflow, appeals drafting | Cloudmed (R1) Revenue Intelligence |
-| CorroHealth | none | partial | none | moderate | low | Service scale | Productized AI appeals | CorroHealth Appeal & Clinical Review Services |
-| Revecore | partial | none | none | moderate | low | Complex claims niche | AI CDI specificity, drafting | Revecore Complex Claims & Appeals |
-| Dolbey | none | full | none | moderate | low | Combined CAC+CDI | Predictive specificity uplift, appeals | Dolbey Fusion CDI / CAC |
+| Nuance | none | partial | none | moderate | low | Ambient capture at point of care | Denial root cause analytics; automated appeal drafting | Nuance DAX / Dragon Medical One Product Page |
+| 3M | none | full | none | high | low | Unified CDI + CAC + quality suite | Proactive appeal drafting; granular denial prevention | 3M 360 Encompass Suite Overview |
+| Iodine | none | full | none | moderate | low | Predictive CDI case prioritization | Appeals automation; deep denial prevention | Iodine Software CDI Suite |
+| FinThrive | full | none | none | high | low | Prevention & leakage reduction focus | CDI query governance; appeal drafting | FinThrive (formerly nThrive) Denials Management |
+| Optum | full | none | none | high | low | Scale & payer network analytics | Automated evidence-based appeals; CDI specificity uplift | Optum Denial Management Solutions |
+| Cloudmed | full | none | none | high | low | Contract & underpayment recovery depth | Physician-facing CDI workflow; automated appeals | Cloudmed (R1) Revenue Intelligence |
+| CorroHealth | none | partial | none | moderate | low | Service scale & specialty expertise | Productized AI appeals automation | CorroHealth Appeal & Clinical Review Services |
+| Revecore | partial | none | none | moderate | low | Niche complex claims & contract focus | Automated CDI specificity; generative appeals | Revecore Complex Claims & Appeals |
+| Dolbey | none | full | none | moderate | low | Combined CAC + CDI tracking | Predictive specificity uplift modeling; appeals automation | Dolbey Fusion CDI / CAC |
 
 ---
 ## 4. Mapping to Market Needs
-(Planned) Each vendor will receive `mappedNeeds[]` referencing stable need IDs, e.g., `need.initial_denial_pressure`, `need.cdi_query_standardization`, `need.appeal_cycle_time`.
+Stable need IDs defined in `market_needs.json`. `mappedNeeds[]` values already embedded per competitor in `competitors.json`.
 
-Proposed Need IDs (derive from PRD Market Needs table):
-- `need.initial_denial_pressure`
-- `need.front_end_root_causes`
-- `need.avoidable_nonrecoverable_denials`
-- `need.query_standardization_audit`
-- `need.cmi_specificity`
-- `need.denial_writeoff_cycle_time`
-- `need.kpi_visibility`
-- `need.denial_rework_cost`
+### Need Coverage Table
+| Need ID | Label (abridged) | Severity (5 max) | Competitors Addressing | Coverage (%) | Notes |
+|---------|------------------|------------------|------------------------|--------------|-------|
+| need.initial_denial_pressure | Initial denial pressure | 5 | FinThrive, Optum, Cloudmed | 33% (3/9) | Prevention concentrated in denial analytics cohort |
+| need.front_end_root_causes | Front-end root causes | 5 | FinThrive, Optum | 22% (2/9) | Registration/eligibility focus narrow |
+| need.avoidable_nonrecoverable_denials | Avoidable/non‑recoverable denials | 5 | FinThrive, Cloudmed | 22% (2/9) | Recovery vs prevention split |
+| need.query_standardization_audit | Query standardization & audit | 4 | Nuance, 3M, Iodine, Dolbey | 44% (4/9) | Depth varies (partial vs full CDI) |
+| need.cmi_specificity | CMI specificity uplift | 4 | Nuance, 3M, Iodine, Dolbey | 44% (4/9) | Predictive uplift largely unmet |
+| need.denial_writeoff_cycle_time | Denial write-off cycle time | 4 | FinThrive, Optum, CorroHealth, Revecore | 44% (4/9) | Services vs platform bifurcation |
+| need.kpi_visibility | KPI visibility leverage | 3 | 3M | 11% (1/9) | Broad KPI-to-action gap |
+| need.denial_rework_cost | Denial rework cost burden | 4 | Cloudmed, Revecore | 22% (2/9) | Focused on under/complex claims |
+
+### Coverage Insights
+- No competitor maps to all high severity (≥4) needs; fragmented coverage leaves integrative platform whitespace.
+- High-severity appeals-related pain points (cycle time, rework cost) lack automation—service-heavy responses dominate.
+- KPI visibility under-addressed (single vendor) → opportunity for proactive, closed-loop instrumentation.
+- Specificity uplift addressed superficially (full CDI vendors) without predictive explainable modeling.
+- Front-end denial causality coverage narrow (2 vendors), enabling differentiated preventative + documentation fusion.
+
 
 ---
 ## 5. Whitespace & Differentiation (Initial Hypotheses)
@@ -74,11 +84,14 @@ To be deepened in Strategy stream:
 
 ---
 ## 7. Next Actions
-1. Add `mappedNeeds` arrays into each competitor entry.  
-2. Introduce stable `needId` column source of truth file (`market_needs.json`).  
-3. Automate matrix generation via script reading `competitors.json`.  
-4. Quantify whitespace scoring (market coverage %) per capability dimension.  
-5. Feed validated differentiation themes into Stream A3 Strategy.
+(Transitioning to Stream A3 – Strategy & Differentiation)
+1. Define strategic pillars derived from whitespace: Appeals Automation, Explainability Trust, Unified Prevention→Documentation→Appeal Loop, KPI-to-Action Orchestration.  
+2. Quantify weighted whitespace score: severity * (1 - coverage%) for each need; rank top 5 strategic leverage points.  
+3. Draft differentiation thesis and value narrative mapping pillars to PRD MVP & phased roadmap.  
+4. Outline initial Appeals Automation architecture (evidence graph + RAG drafting + citation engine).  
+5. Define Explainability specification (span attribution, confidence scoring, regulatory citation).  
+6. Create strategy doc (`strategy-stream-a3.md`) capturing pillars, scoring, moat model, risks.  
+7. (Deferred) Automate capability matrix & coverage script (post-initial strategy articulation).  
 
 ---
 ## 8. Source Footnotes

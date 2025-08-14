@@ -67,6 +67,11 @@ app.use('/api/users', userRoutes);
 app.use('/api/denials', denialRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/explorer', explorerRoutes);
+// Strategy prototype routes (optional)
+try {
+  const strategyRoutes = require('./routes/strategy').default;
+  app.use('/api/strategy', strategyRoutes);
+} catch { /* optional */ }
 if (cdiRoutes) {
   app.use('/api/cdi', cdiRoutes);
 }
