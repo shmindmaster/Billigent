@@ -1,0 +1,66 @@
+[
+  {
+    "id": "need.initial_denial_pressure",
+    "label": "Rising initial denial rates creating margin pressure",
+    "severity": 5,
+    "confidence": "high",
+    "sources": ["Change Healthcare 2022 Revenue Cycle Denials Index", "CAQH CORE Health Care Claims Issue Brief 2023", "HFMA Claim Integrity KPI Standardization (Six Denial Metrics)"],
+    "prdRow": "Market Needs row 1"
+  },
+  {
+    "id": "need.front_end_root_causes",
+    "label": "High share of denials front-end & registration/eligibility",
+    "severity": 5,
+    "confidence": "high",
+    "sources": ["Change Healthcare 2022 Revenue Cycle Denials Index", "CAQH CORE Health Care Claims Issue Brief 2023"],
+    "prdRow": "Market Needs row 2"
+  },
+  {
+    "id": "need.avoidable_nonrecoverable_denials",
+    "label": "Large pool of avoidable & non-recoverable denials",
+    "severity": 5,
+    "confidence": "high",
+    "sources": ["Change Healthcare 2022 Revenue Cycle Denials Index"],
+    "prdRow": "Market Needs row 3"
+  },
+  {
+    "id": "need.query_standardization_audit",
+    "label": "Non-standard physician query practice & audit risk",
+    "severity": 4,
+    "confidence": "medium-high",
+    "sources": ["HIPAA Security Rule Technical Safeguards §164.312", "AHIMA/ACDIS Compliant Query Practice Landing"],
+    "prdRow": "Market Needs row 4"
+  },
+  {
+    "id": "need.cmi_specificity",
+    "label": "Incomplete CC/MCC & specificity depressing CMI",
+    "severity": 4,
+    "confidence": "high",
+    "sources": ["CMS Case Mix Index Definition Page", "CMS ICD-10-CM Guidelines FY2025"],
+    "prdRow": "Market Needs row 5"
+  },
+  {
+    "id": "need.denial_writeoff_cycle_time",
+    "label": "Denial write-offs & long resolution cycles",
+    "severity": 4,
+    "confidence": "medium",
+    "sources": ["HFMA Claim Integrity KPI Standardization (Six Denial Metrics)", "HFMA MAP Keys – Revenue Cycle KPIs Portal"],
+    "prdRow": "Market Needs row 6"
+  },
+  {
+    "id": "need.kpi_visibility",
+    "label": "Under-leveraged KPI visibility for prevention",
+    "severity": 3,
+    "confidence": "medium",
+    "sources": ["HFMA MAP Keys – Revenue Cycle KPIs Portal"],
+    "prdRow": "Market Needs row 7"
+  },
+  {
+    "id": "need.denial_rework_cost",
+    "label": "Cost & rework burden from unreworked denials",
+    "severity": 4,
+    "confidence": "medium",
+    "sources": ["OS Healthcare Measuring the Cost of Denials (Secondary)", "Change Healthcare 2022 Revenue Cycle Denials Index"],
+    "prdRow": "Market Needs row 8"
+  }
+]

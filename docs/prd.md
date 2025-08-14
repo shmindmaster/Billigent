@@ -10,7 +10,7 @@
 
 ## **1. Executive Summary**
 
-Billigent is an enterprise-ready, Azure-native clinical intelligence cockpit designed to revolutionize healthcare revenue cycle management through AI-powered insights and automation. The platform addresses three critical challenges: **preventing claim denials** before they happen, **perfecting clinical documentation (CDI)** in real-time, and **accelerating the appeals process** from days to minutes. This document serves as the single source of truth for the product's vision, features, and requirements.
+Billigent is an enterprise-ready, Azure-native clinical intelligence cockpit designed to revolutionize healthcare revenue cycle management through AI-powered insights and automation.[^12][^11] The platform addresses three critical challenges: **preventing claim denials** before they happen,[^1][^3] **perfecting clinical documentation (CDI)** in real-time,[^15][^6] and **accelerating the appeals process** from days to minutes.[^3][^7] This document serves as the single source of truth for the product's vision, features, and requirements.
 
 ---
 
@@ -260,3 +260,53 @@ Authoritative standards and platform documentation that ground this PRD. See als
 - Azure AI Search — Hybrid Ranking (RRF): https://learn.microsoft.com/en-us/azure/search/hybrid-search-ranking
 - Azure OpenAI — Responses API (how‑to): https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/responses
 - Azure OpenAI — Embeddings (how‑to): https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/embeddings
+
+## Problem Statement (CDI)
+Clinical documentation gaps, non-standard physician query practices, and fragmented denial prevention tooling drive elevated initial denial rates (~12% nationally with regional peaks 17%) and avoidable financial leakage (31% unequivocally avoidable denials; 43% of those non‑recoverable) while incomplete CC/MCC capture suppresses Case Mix Index and reimbursement sustainability.[^1][^2][^6]
+
+## Users & Roles (CDI Lead, HIM, Coders, Physicians)
+| Role | Core CDI / Denial Pain | Operational Impact | Compliance / Policy Driver | Sources |
+| ---- | ---------------------- | ------------------ | --------------------------- | -------- |
+| CDI Lead | Limited visibility into preventable front‑end & registration/eligibility root causes | High avoidable denial rework; delayed appeals | CAQH CORE standardization opportunities; HFMA denial KPIs | [^2][^3][^4] |
+| HIM Director | Inconsistent query quality & audit trail gaps | Risk of non‑defensible DRG / HCC assignments | AHIMA/ACDIS compliant query governance; HIPAA audit controls | [^5][^7] |
+| Coder / Denials Specialist | Time-intensive manual root cause classification & appeal packet assembly | Slower Time to Appeal / Resolution; higher write‑offs | HFMA Time to Appeal / Resolution KPIs; Change Healthcare root cause taxonomy | [^1][^3] |
+| Physician | Alert & query fatigue; ambiguous, leading or low-signal queries | Low / delayed query response rates; lost CC/MCC specificity | AHIMA/ACDIS non‑leading query standards | [^7] |
+
+## Market Needs — Evidence-Led
+| Need / Theme | Setting | Regulatory / Policy Driver | Evidence & Signals | Severity (1–5) | Confidence | Sources |
+| ------------- | ------- | ------------------------- | ------------------ | ------------- | ---------- | ------- |
+| Rising initial denial rates creating margin pressure | Inpatient / Outpatient | Denial KPI standardization (HFMA); X12 / CAQH CORE claims data uniformity | Initial denial rate ~12% (H1 2022) up from 10% (2020), regional peak 17% (Pacific) | 5 | High | [^1][^2][^3] |
+| High share of denials front‑end & registration/eligibility | All | CAQH CORE operating rule opportunities (837 / 277CA) | Front‑end share 41% (down from 46%); Registration/Eligibility top cause 22% | 5 | High | [^1][^2] |
+| Large pool of avoidable & non‑recoverable denials | Inpatient / Outpatient | Standardized root cause capture & preventive controls | 31% unequivocally avoidable; 43% of avoidable non‑recoverable | 5 | High | [^1] |
+| Non‑standard physician query practice & audit risk | All | AHIMA/ACDIS compliant query guidelines; HIPAA §164.312 (audit controls, access) | Need for non‑leading, traceable queries; mandates for audit controls & unique user IDs | 4 | Medium‑High | [^5][^7] |
+| Incomplete CC/MCC & specificity depressing CMI | Inpatient | CMS IPPS DRG & CMI calculation definitions | CMI driven by summed DRG weights / discharges; reliant on CC/MCC capture | 4 | High | [^6] |
+| Denial write‑offs & long resolution cycles | All | HFMA claim integrity KPI framework | KPIs include Denial Write‑Off %, Time to Appeal, Time to Resolution | 4 | Medium | [^3][^4] |
+| Under-leveraged KPI visibility for prevention | All | HFMA MAP Keys (broader RCM governance) | MAP Keys contextualize denial KPIs alongside Clean Claim Rate, DNFB | 3 | Medium | [^4] |
+| Cost & rework burden from unreworked denials | All | Financial stewardship (HFMA benchmarking) | ~65% denied claims never resubmitted; cost per denial ~$117 (secondary) | 4 | Medium | [^8] |
+
+## MVP Features & Acceptance Criteria (Initial Slice)
+| Feature | Acceptance Criteria (Evidence-Aligned) | Sources |
+| ------- | ------------------------------------- | -------- |
+| Denial Analytics Baseline | System ingests denial events and reports Initial Denial Rate (% volume & $) plus top 5 root causes aligned to Change Healthcare taxonomy (Registration/Eligibility, Missing/Invalid Data, Auth/Pre‑Cert, Medical Documentation Requested, Service Not Covered). | [^1] |
+| Claim Integrity KPI Tracker | Dashboard displays six HFMA claim integrity KPIs with definitional tooltips & data freshness <24h; Denial Write‑Off % computed over NPSR consistent with HFMA formula. | [^3] |
+| Compliant Query Workflow | Query UI enforces non‑leading pattern library; every query has unique ID, physician response status, and immutable audit log entry per HIPAA §164.312(b). | [^5][^7] |
+
+## Assumptions & Open Questions
+1. Need publicly accessible 2024+ full Denials Index dataset (current Optum 2024 landing is gated – quantitative updates deferred). [^1]
+2. Additional primary source for cost per denial (currently secondary). [^8]
+3. HCC / Risk Adjustment specific documentation benchmarks not yet ingested (RADV audit references pending corpus entry).
+4. CMI improvement benchmark ranges (post‑CDI intervention) require authoritative published study (to be sourced).
+5. Full retrofit of legacy PRD sections with footnote markers pending (existing pre‑A1 content predates footnote standard).
+
+## Sources
+[^1]: Change Healthcare 2022 Revenue Cycle Denials Index. (Initial denial rate, regional variance, avoidable/non‑recoverable proportions, root cause taxonomy).
+[^2]: CAQH CORE Health Care Claims Issue Brief 2023. (Claims data standardization opportunities; denial rate trend context).
+[^3]: HFMA Claim Integrity KPI Standardization (Six Denial Metrics). (Definitions for Initial Denial Rate, Primary Denial Rate, Denial Write‑Off %, Time to Appeal, Time to Resolution, % Overturned).
+[^4]: HFMA MAP Keys – Revenue Cycle KPIs Portal. (Broader KPI context: Clean Claim Rate, DNFB, A/R metrics).
+[^5]: HIPAA Security Rule Technical Safeguards §164.312. (Audit controls, access control, authentication, transmission security requirements).
+[^6]: CMS Case Mix Index Definition Page. (CMI formula; dependence on accurate DRG/CC/MCC capture).
+[^7]: AHIMA/ACDIS Compliant Query Practice Landing. (Non‑leading, standardized physician query governance expectations).
+[^8]: OS Healthcare Measuring the Cost of Denials (Secondary). (Cost per denial ~$117; ~65% never resubmitted; prevention emphasis – secondary corroboration).
+[^11]: Azure AI Search Hybrid & Vector Documentation. (Hybrid RRF ranking, vector + keyword fusion powering RAG relevance). Sources: Azure AI Search Hybrid Search Overview; Hybrid Ranking; Vector Search.
+[^12]: Azure OpenAI Responses & Embeddings How‑To. (Stateful responses API enabling conversational chains & embeddings for retrieval).
+[^15]: CMS ICD-10-CM / ICD-10-PCS Guidelines 2025 and CDC NCHS Governance. (Documentation specificity drives DRG assignment & CC/MCC capture; official quarterly/annual update process).
