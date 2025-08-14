@@ -2,7 +2,7 @@
  * Strategy prototype routes exposing evidence bundle, appeal draft, attribution, and rule evaluation.
  * Now integrated with Azure OpenAI and Azure Search for real AI capabilities.
  */
-import { Router } from 'express';
+import { Router, type Request, type Response } from 'express';
 import { evidenceGraph } from '../strategy/evidenceGraph';
 import { buildAppealDraft } from '../strategy/appealSample';
 import { buildAttribution, validateAttribution } from '../strategy/explainability';
@@ -12,9 +12,9 @@ import { eventPublisher, makeEvent } from '../strategy/events';
 import azureOpenAIService from '../services/azureOpenAI.service';
 import azureSearchService from '../services/azureSearch.service';
 
-const router = Router();
+const router: ReturnType<typeof Router> = Router();
 
-router.get('/evidence/:patternId/:encounterId', async (req, res) => {
+router.get('/evidence/:patternId/:encounterId', async (req: Request, res: Response) => {
   const { patternId, encounterId } = req.params;
   
   try {
@@ -83,7 +83,7 @@ router.get('/evidence/:patternId/:encounterId', async (req, res) => {
   }
 });
 
-router.get('/appeal/:patternId/:encounterId', async (req, res) => {
+router.get('/appeal/:patternId/:encounterId', async (req: Request, res: Response) => {
   const { patternId, encounterId } = req.params;
   
   try {
@@ -129,12 +129,13 @@ router.get('/appeal/:patternId/:encounterId', async (req, res) => {
     const validation = validateAttribution(attribution);
 
     // Publish event
+    const aiMeta: any = (aiAppealDraft as any).metadata || {};
     eventPublisher.publish(makeEvent('appeal_draft_generated', { 
-      draftId: aiAppealDraft.draftId, 
+      draftId: (aiAppealDraft as any).draftId, 
       encounterId, 
       denialPatternId: patternId,
-      aiGenerated: !!aiAppealDraft.metadata,
-      modelUsed: aiAppealDraft.metadata?.modelUsed || 'mock'
+      aiGenerated: !!aiMeta,
+      modelUsed: aiMeta.modelUsed || 'mock'
     }));
 
     return res.json({ 

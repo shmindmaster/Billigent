@@ -2,17 +2,17 @@
  * FHIR data ingestion routes for processing FHIR R4 data from Azure Data Lake
  * and populating the evidence graph with real clinical data.
  */
-import { Router } from 'express';
+import { Router, type Request, type Response } from 'express';
 import fhirDataIngestionService from '../services/fhirDataIngestion.service';
 import { eventPublisher, makeEvent } from '../strategy/events';
 
-const router = Router();
+const router: ReturnType<typeof Router> = Router();
 
 /**
  * POST /api/fhir/ingest
  * Ingest FHIR data from Azure Data Lake
  */
-router.post('/ingest', async (req, res) => {
+router.post('/ingest', async (req: Request, res: Response) => {
   const { fileSystemName, path, force } = req.body || {};
   
   try {
@@ -61,7 +61,7 @@ router.post('/ingest', async (req, res) => {
  * GET /api/fhir/ingest/status
  * Get current ingestion status and statistics
  */
-router.get('/ingest/status', async (_req, res) => {
+router.get('/ingest/status', async (_req: Request, res: Response) => {
   try {
     const stats = await fhirDataIngestionService.getIngestionStats();
     
@@ -85,7 +85,7 @@ router.get('/ingest/status', async (_req, res) => {
  * POST /api/fhir/ingest/schedule
  * Schedule recurring FHIR data ingestion
  */
-router.post('/ingest/schedule', async (req, res) => {
+router.post('/ingest/schedule', async (req: Request, res: Response) => {
   const { schedule, fileSystemName, path, enabled } = req.body || {};
   
   try {

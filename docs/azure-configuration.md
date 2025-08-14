@@ -28,7 +28,11 @@ AZURE_STORAGE_CONTAINER_NAME=fhir-data
 
 ### Azure SQL Database (for operational working sets)
 ```bash
-AZURE_SQL_CONNECTION_STRING=Server=tcp:your-server.database.windows.net,1433;Database=your-database;Authentication=Active Directory Default;
+AZURE_SQL_SERVER=your-sql-server.database.windows.net
+AZURE_SQL_DATABASE=your-database-name
+AZURE_SQL_USER=your-username
+AZURE_SQL_PASSWORD=your-password
+# Or use Managed Identity (leave user/password empty)
 ```
 
 ### Azure Redis Cache
@@ -97,7 +101,101 @@ AZURE_COSMOS_CONTAINER=evidence-bundles
    }
    ```
 
-### 3. Azure Data Lake Setup
+### 3. Azure SQL Database Setup
+1. **Create SQL Server** (if not exists):
+   ```bash
+   az sql server create \
+     --name billigent-sql-dev \
+     --resource-group rg-billigent-dev-eus2 \
+     --location eastus2 \
+     --admin-user your-admin-username \
+     --admin-password your-admin-password
+   ```
+
+2. **Create Database**:
+   ```bash
+   az sql db create \
+     --name billigent \
+     --resource-group rg-billigent-dev-eus2 \
+     --server billigent-sql-dev \
+     --edition Standard \
+     --capacity 10
+   ```
+
+3. **Configure Firewall Rules**:
+   ```bash
+   az sql server firewall-rule create \
+     --resource-group rg-billigent-dev-eus2 \
+     --server billigent-sql-dev \
+     --name AllowAzureServices \
+     --start-ip-address 0.0.0.0 \
+     --end-ip-address 0.0.0.0
+   ```
+
+4. **Enable Managed Identity** (optional):
+   ```bash
+   az sql server update \
+     --resource-group rg-billigent-dev-eus2 \
+     --name billigent-sql-dev \
+     --identity-type SystemAssigned
+   ```
+
+### 4. Azure Cosmos DB Setup
+1. **Create Cosmos DB Account**:
+   ```bash
+   az cosmosdb create \
+     --name billigent-cosmos-dev \
+     --resource-group rg-billigent-dev-eus2 \
+     --locations regionName=eastus2 failoverPriority=0 isZoneRedundant=false \
+     --capabilities EnableServerless \
+     --default-consistency-level Session \
+     --enable-analytical-storage true
+   ```
+
+2. **Create Database**:
+   ```bash
+   az cosmosdb sql database create \
+     --account-name billigent-cosmos-dev \
+     --resource-group rg-billigent-dev-eus2 \
+     --name billigent
+   ```
+
+3. **Create Containers**:
+   ```bash
+   # Evidence bundles container
+   az cosmosdb sql container create \
+     --account-name billigent-cosmos-dev \
+     --resource-group rg-billigent-dev-eus2 \
+     --database-name billigent \
+     --name evidence-bundles \
+     --partition-key-path "/patientId"
+
+   # Attribution tracking container
+   az cosmosdb sql container create \
+     --account-name billigent-cosmos-dev \
+     --resource-group rg-billigent-dev-eus2 \
+     --database-name billigent \
+     --name attribution-tracking \
+     --partition-key-path "/bundleId"
+
+   # Document versions container
+   az cosmosdb sql container create \
+     --account-name billigent-cosmos-dev \
+     --resource-group rg-billigent-dev-eus2 \
+     --database-name billigent \
+     --name document-versions \
+     --partition-key-path "/documentId"
+
+   # Collaboration sessions container
+   az cosmosdb sql container create \
+     --account-name billigent-cosmos-dev \
+     --resource-group rg-billigent-dev-eus2 \
+     --database-name billigent \
+     --name collaboration-sessions \
+     --partition-key-path "/sessionId"
+   ```
+
+### 5. Azure Data Lake Setup
 1. Create an Azure Storage account
 2. Enable Data Lake Storage Gen2
 3. Create a container for FHIR data

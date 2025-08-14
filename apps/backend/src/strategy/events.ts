@@ -2,7 +2,33 @@
  * Event schema interfaces & in-memory publisher stub per instrumentation-spec.
  */
 
-export type StrategyEventType = 'query_generated' | 'appeal_draft_generated' | 'rule_fired' | 'http_request' | 'op_timing';
+// Expanded event taxonomy to cover persistence, ingestion and infrastructure lifecycle events used by routes.
+export type StrategyEventType =
+  | 'query_generated'
+  | 'appeal_draft_generated'
+  | 'rule_fired'
+  | 'http_request'
+  | 'op_timing'
+  | 'sql_schema_initialized'
+  | 'sql_schema_initialization_failed'
+  | 'denial_pattern_stored'
+  | 'appeal_case_stored'
+  | 'appeal_case_status_updated'
+  | 'kpi_metric_stored'
+  | 'cosmos_containers_initialized'
+  | 'cosmos_initialization_failed'
+  | 'evidence_bundle_stored'
+  | 'attribution_tracking_stored'
+  | 'attribution_verification_updated'
+  | 'document_version_stored'
+  | 'collaboration_session_created'
+  | 'collaboration_session_updated'
+  | 'collaboration_activity_added'
+  | 'fhir_ingestion_completed'
+  | 'fhir_ingestion_failed'
+  | 'fhir_ingestion_scheduled'
+  | 'fhir_validation_completed'
+  | 'conversational_query';
 
 export interface BaseEvent<T extends StrategyEventType, P> {
   type: T;
@@ -18,7 +44,16 @@ export type RuleFiredEvent = BaseEvent<'rule_fired', { ruleName: string; metric:
 export type HttpRequestEvent = BaseEvent<'http_request', { method: string; path: string; status: number; duration_ms: number; perfBucket: string; correlationId: string; }>;
 export type OpTimingEvent = BaseEvent<'op_timing', { label: string; status: string; duration_ms: number; correlationId: string; }>;
 
-export type StrategyEvent = QueryGeneratedEvent | AppealDraftGeneratedEvent | RuleFiredEvent | HttpRequestEvent | OpTimingEvent;
+// Generic catch‑all event for newly added types where we have not yet defined a rich interface.
+export type GenericStrategyEvent = BaseEvent<StrategyEventType, Record<string, any>>;
+
+export type StrategyEvent =
+  | QueryGeneratedEvent
+  | AppealDraftGeneratedEvent
+  | RuleFiredEvent
+  | HttpRequestEvent
+  | OpTimingEvent
+  | GenericStrategyEvent; // fallback union member
 
 export interface EventPublisher {
   publish: (event: StrategyEvent) => void;

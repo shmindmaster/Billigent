@@ -1,10 +1,10 @@
-import { Router } from 'express';
+import { Router, Router as RouterType } from 'express';
 import fs from 'fs';
 import path from 'path';
 import { loadNormalizedCitations } from '../strategy/citations';
 import { evidenceGraph } from '../strategy/evidenceGraph';
 
-const router = Router();
+const router: RouterType = Router();
 
 router.get('/metrics/citation', (req, res) => {
   const normalized = loadNormalizedCitations();
