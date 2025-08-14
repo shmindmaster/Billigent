@@ -84,6 +84,6 @@ Tasks:
 | D | In Progress | Citation review upcoming; new sections footnoted |
 | E | In Progress | benchmarks-placeholders.md created (v0.1) |
 | F | Pending | Await quantitative placeholders |
-| G | Pending | Will add corpus stubs after E |
+| G | In Progress | Added benchmark placeholder stubs to corpus.jsonl (13 entries) |
 | H | Pending | Deferred |
 
