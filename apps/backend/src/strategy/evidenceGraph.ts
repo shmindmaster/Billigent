@@ -21,6 +21,7 @@ export interface EvidenceBundle {
   kpis: KPIObservation[];
   bundleHash: string;
   generatedAt: string;
+  citationCoverage?: { authoritativeFactCount: number; totalFactCount: number; authoritativePct: number };
 }
 
 class EvidenceGraphStore {
@@ -61,6 +62,21 @@ class EvidenceGraphStore {
     const raw = JSON.stringify({ facts, codes, regs, sources, kpis });
     const bundleHash = 'sha256:' + crypto.createHash('sha256').update(raw).digest('hex');
 
+    // Attempt citation coverage (lazy load; optional)
+    let citationCoverage: { authoritativeFactCount: number; totalFactCount: number; authoritativePct: number } | undefined;
+    try {
+      // Dynamically require to avoid circular/early load issues
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const { computeCitationCoverage } = require('./citations');
+      const sourceCitations = facts.flatMap(f => f.sourceIds.map(sid => {
+        const src = sources.find(s => s.id === sid);
+        return src?.citation || '';
+      })).filter(Boolean);
+      citationCoverage = computeCitationCoverage(sourceCitations);
+    } catch {
+      // silently ignore if citations module or file absent
+    }
+
     return {
       denialPatternId,
       encounterId,
@@ -70,7 +86,8 @@ class EvidenceGraphStore {
       sources,
       kpis,
       bundleHash,
-      generatedAt: new Date().toISOString()
+      generatedAt: new Date().toISOString(),
+      citationCoverage
     };
   }
 }

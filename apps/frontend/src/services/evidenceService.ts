@@ -167,6 +167,123 @@ class EvidenceService {
   }
 
   /**
+   * Generate conversational AI response for CDI queries
+   */
+  async generateConversationalResponse(
+    query: string,
+    context: {
+      caseId: string;
+      patientInfo?: string;
+      clinicalSummary?: string;
+      currentDRG?: string;
+      patientId?: string;
+      diagnosisCodes?: string[];
+    }
+  ): Promise<{
+    response: {
+      responseId: string;
+      content: string;
+      confidence: number;
+      sources: string[];
+      suggestedActions: string[];
+      metadata: {
+        modelUsed: string;
+        tokensUsed: number;
+        processingTime: number;
+      };
+    };
+    relevantDocuments: any[];
+    searchMetadata: {
+      documentsFound: number;
+      searchTime: number;
+    };
+  }> {
+    const response = await axios.post(`${this.baseURL}/api/strategy/conversational`, {
+      query,
+      context
+    });
+    return response.data;
+  }
+
+  /**
+   * Search for clinical evidence
+   */
+  async searchClinicalEvidence(
+    query: string,
+    context?: {
+      encounterId?: string;
+      patientId?: string;
+      diagnosisCodes?: string[];
+      clinicalNotes?: string;
+      dateRange?: {
+        start: string;
+        end: string;
+      };
+    }
+  ): Promise<{
+    results: any[];
+    totalCount: number;
+    searchTime: number;
+    queryType: 'keyword' | 'vector' | 'hybrid';
+    metadata: {
+      modelUsed: string;
+      tokensProcessed: number;
+    };
+  }> {
+    const response = await axios.post(`${this.baseURL}/api/strategy/search/clinical`, {
+      query,
+      context
+    });
+    return response.data;
+  }
+
+  /**
+   * Search for denial patterns
+   */
+  async searchDenialPatterns(
+    denialReason: string,
+    diagnosisCodes: string[],
+    context?: {
+      encounterId?: string;
+      patientId?: string;
+      dateRange?: {
+        start: string;
+        end: string;
+      };
+    }
+  ): Promise<{
+    results: any[];
+    totalCount: number;
+    searchTime: number;
+    queryType: 'keyword' | 'vector' | 'hybrid';
+    metadata: {
+      modelUsed: string;
+      tokensProcessed: number;
+    };
+  }> {
+    const response = await axios.post(`${this.baseURL}/api/strategy/search/denial-patterns`, {
+      denialReason,
+      diagnosisCodes,
+      context
+    });
+    return response.data;
+  }
+
+  /**
+   * Check Azure services health
+   */
+  async checkAzureHealth(): Promise<{
+    timestamp: string;
+    services: {
+      openai: string;
+      search: string;
+    };
+  }> {
+    const response = await axios.get(`${this.baseURL}/api/strategy/health/azure`);
+    return response.data;
+  }
+
+  /**
    * Build evidence bundle for a case (helper method)
    */
   async buildCaseEvidenceBundle(

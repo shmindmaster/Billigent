@@ -11,7 +11,9 @@
     "clean": "rimraf dist",
     "adls:inventory": "tsx scripts/adls-ops.ts inventory",
     "adls:plan": "tsx scripts/adls-ops.ts move-plan",
-    "adls:copy": "tsx scripts/adls-ops.ts copy-verify"
+    "adls:copy": "tsx scripts/adls-ops.ts copy-verify",
+    "citations:normalize": "tsx scripts/normalize-citations.ts",
+    "test": "tsx --test src/tests/**/*.test.ts"
   },
   "dependencies": {
     "@azure/identity": "^4.11.1",
@@ -41,6 +43,8 @@
     "eslint": "^8.56.0",
     "rimraf": "^5.0.5",
     "tsx": "^4.20.3",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "supertest": "^7.1.1",
+    "@types/supertest": "^2.0.16"
   }
 }

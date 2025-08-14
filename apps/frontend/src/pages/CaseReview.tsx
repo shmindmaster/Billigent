@@ -11,6 +11,9 @@ import { useTheme } from '@/contexts/ThemeContext';
 import { useAssignCase, useCreateQuery, useUnifiedCase } from '@/hooks/useData';
 import { getConversationalResponse, ResponsesAPIError } from '@/lib/responses-api';
 import { formatDate } from '@/lib/utils';
+// Import new evidence components
+import { EvidenceProvenanceCard } from '@/components/evidence/EvidenceProvenanceCard';
+import { KPIMonitoringCard } from '@/components/kpi/KPIMonitoringCard';
 
 interface ConversationMessage {
   id: string;
@@ -33,6 +36,16 @@ const CaseReview: React.FC = () => {
 
   const assignCase = useAssignCase();
   const createQuery = useCreateQuery();
+
+  // Mock KPI metrics for demonstration - in real app these would come from the backend
+  const currentKPIMetrics = {
+    initial_denial_rate: 0.085, // 8.5%
+    appeal_success_rate: 0.72,  // 72%
+    avg_processing_time: 4.2,   // 4.2 days
+    cmi_gap_score: 0.18,        // 18% opportunity
+    query_response_rate: 0.89,   // 89%
+    revenue_impact: 125000       // $125K
+  };
 
   const handleAction = async (action: 'agree' | 'disagree') => {
     if (!caseId) return;
@@ -99,22 +112,46 @@ const CaseReview: React.FC = () => {
           content: 'I\'m still processing your request. Please try again in a moment.',
           timestamp: new Date()
         };
+
         setConversationHistory(prev => [...prev, errorMessage]);
       }
     } catch (error) {
-      console.error('Error sending follow-up question:', error);
-      const errorMessage: ConversationMessage = {
+      console.error('Error getting conversational response:', error);
+      
+      // Handle specific error types
+      let errorMessage = 'I encountered an error while processing your request.';
+      if (error instanceof ResponsesAPIError) {
+        errorMessage = `API Error: ${error.message}`;
+      }
+      
+      const errorResponse: ConversationMessage = {
         id: Date.now().toString(),
         role: 'assistant',
-        content: error instanceof ResponsesAPIError 
-          ? `Sorry, I encountered an error: ${error.message}`
-          : 'Sorry, I encountered an error processing your question. Please try again.',
+        content: errorMessage,
         timestamp: new Date()
       };
-      setConversationHistory(prev => [...prev, errorMessage]);
+
+      setConversationHistory(prev => [...prev, errorResponse]);
     } finally {
       setIsSendingMessage(false);
     }
+  };
+
+  // Handle KPI rule triggers
+  const handleRuleTrigger = (event: any) => {
+    console.log('KPI Rule triggered:', event);
+    // In a real app, this would trigger notifications, dashboard updates, etc.
+  };
+
+  // Handle evidence actions
+  const handleViewEvidence = () => {
+    // Navigate to evidence detail view or open modal
+    console.log('View evidence for case:', caseId);
+  };
+
+  const handleGenerateAppeal = () => {
+    // Navigate to appeal generation or open modal
+    console.log('Generate appeal for case:', caseId);
   };
 
   // Handle Enter key press
@@ -440,53 +477,131 @@ const CaseReview: React.FC = () => {
           </Card>
         </div>
 
-        {/* Right Column - Evidence Viewer */}
-        <div>
-          <div className="mb-4">
-            <h2 className="text-xl font-semibold text-white mb-2">Supporting Clinical Evidence</h2>
-            <p className="text-gray-400 text-sm">
-              Review the clinical documentation that supports the AI-identified finding
-            </p>
-          </div>
-          
-          <div className="space-y-4 max-h-[800px] overflow-y-auto pr-2">
-            {(caseData.evidence || [])
-              .sort((a, b) => b.relevanceScore - a.relevanceScore)
-              .map((evidence) => (
-                <Card key={evidence.id} className="bg-gray-900 border-gray-700">
-                  <CardHeader className="pb-3">
-                    <div className="flex items-center justify-between">
-                      <CardTitle className="text-white text-base flex items-center">
-                        <span className="mr-2">{getEvidenceIcon(evidence.type)}</span>
-                        {evidence.title}
-                        {evidence.severity && (
-                          <span className={getSeverityBadge(evidence.severity) || ''}>
-                            {evidence.severity}
-                          </span>
-                        )}
-                      </CardTitle>
-                      <div className="flex items-center space-x-2">
-                        <div className={`w-2 h-2 rounded-full ${getRelevanceColor(evidence.relevanceScore)}`}></div>
-                        <span className="text-xs text-gray-400">{evidence.relevanceScore}%</span>
-                      </div>
+        {/* Right Column - Strategic Intelligence */}
+        <div className="space-y-6">
+          {/* Evidence Provenance Card */}
+          <EvidenceProvenanceCard
+            caseId={caseId || ''}
+            onViewEvidence={handleViewEvidence}
+            onGenerateAppeal={handleGenerateAppeal}
+          />
+
+          {/* KPI Monitoring Card */}
+          <KPIMonitoringCard
+            currentMetrics={currentKPIMetrics}
+            onRuleTrigger={handleRuleTrigger}
+          />
+
+          {/* Strategic Insights Card */}
+          <Card className={`${theme === 'dark' ? 'bg-gray-900 border-gray-700' : 'bg-white border-gray-200'}`}>
+            <CardHeader className="pb-4">
+              <CardTitle className={`text-lg ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                Strategic Insights
+              </CardTitle>
+              <CardDescription className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
+                AI-powered recommendations for revenue optimization
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {/* CMI Opportunity */}
+              <div className={`p-3 rounded-lg ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-50'}`}>
+                <div className="flex items-center justify-between mb-2">
+                  <span className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+                    CMI Optimization
+                  </span>
+                  <Badge variant="outline" className="text-xs">
+                    {currentKPIMetrics.cmi_gap_score > 0.15 ? 'High Impact' : 'Moderate'}
+                  </Badge>
+                </div>
+                <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+                  {currentKPIMetrics.cmi_gap_score > 0.15 
+                    ? 'Significant opportunity to improve Case Mix Index through enhanced documentation specificity.'
+                    : 'Moderate opportunity for CMI improvement through targeted CDI interventions.'
+                  }
+                </p>
+                <div className="mt-2">
+                  <span className={`text-xs ${theme === 'dark' ? 'text-gray-500' : 'text-gray-500'}`}>
+                    Potential Revenue Impact: ${(currentKPIMetrics.revenue_impact * currentKPIMetrics.cmi_gap_score).toLocaleString()}
+                  </span>
+                </div>
+              </div>
+
+              {/* Denial Risk */}
+              <div className={`p-3 rounded-lg ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-50'}`}>
+                <div className="flex items-center justify-between mb-2">
+                  <span className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+                    Denial Risk Assessment
+                  </span>
+                  <Badge 
+                    variant={currentKPIMetrics.initial_denial_rate > 0.08 ? "destructive" : "secondary"}
+                    className="text-xs"
+                  >
+                    {currentKPIMetrics.initial_denial_rate > 0.08 ? 'High Risk' : 'Low Risk'}
+                  </Badge>
+                </div>
+                <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+                  {currentKPIMetrics.initial_denial_rate > 0.08
+                    ? 'Current denial rate exceeds target threshold. Consider pre-bill review interventions.'
+                    : 'Denial rate within acceptable range. Continue monitoring for trends.'
+                  }
+                </p>
+              </div>
+
+              {/* Appeal Strategy */}
+              <div className={`p-3 rounded-lg ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-50'}`}>
+                <div className="flex items-center justify-between mb-2">
+                  <span className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+                    Appeal Strategy
+                  </span>
+                  <Badge 
+                    variant={currentKPIMetrics.appeal_success_rate < 0.75 ? "destructive" : "secondary"}
+                    className="text-xs"
+                  >
+                    {currentKPIMetrics.appeal_success_rate < 0.75 ? 'Needs Improvement' : 'Strong'}
+                  </Badge>
+                </div>
+                <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+                  {currentKPIMetrics.appeal_success_rate < 0.75
+                    ? 'Appeal success rate below target. Focus on evidence quality and narrative strength.'
+                    : 'Strong appeal performance. Consider expanding appeal volume for additional revenue recovery.'
+                  }
+                </p>
+              </div>
+
+              {/* Action Items */}
+              <div className="pt-2">
+                <h5 className={`text-sm font-medium mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+                  Recommended Actions
+                </h5>
+                <div className="space-y-2">
+                  {currentKPIMetrics.cmi_gap_score > 0.15 && (
+                    <div className="flex items-center space-x-2 text-sm">
+                      <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                      <span className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
+                        Prioritize CC/MCC documentation review
+                      </span>
                     </div>
-                    <div className="flex items-center text-xs text-gray-400">
-                      <Clock className="w-3 h-3 mr-1" />
-                      {evidence.timestamp}
-                      {getTrendingIcon(evidence.trending)}
+                  )}
+                  {currentKPIMetrics.initial_denial_rate > 0.08 && (
+                    <div className="flex items-center space-x-2 text-sm">
+                      <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                      <span className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
+                        Implement pre-bill denial prevention rules
+                      </span>
                     </div>
-                  </CardHeader>
-                  <CardContent className="pt-0">
-                    <div 
-                      className="text-sm text-gray-300 leading-relaxed"
-                      dangerouslySetInnerHTML={{
-                        __html: highlightText(evidence.content, evidence.highlightedTerms)
-                      }}
-                    />
-                  </CardContent>
-                </Card>
-              ))}
-          </div>
+                  )}
+                  {currentKPIMetrics.appeal_success_rate < 0.75 && (
+                    <div className="flex items-center space-x-2 text-sm">
+                      <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                      <span className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
+                        Enhance appeal evidence bundling
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

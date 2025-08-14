@@ -1,102 +1,90 @@
-import { PrismaClient } from '@billigent/database';
+import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import express from 'express';
+import { logger } from './utils/logger';
+import { metricsMiddleware } from './middleware/metrics';
 
 // Import routes
-import analyticsRoutes from './routes/analytics';
-import caseRoutes from './routes/cases';
-import denialRoutes from './routes/denials';
-import queryRoutes from './routes/queries';
-import userRoutes from './routes/users';
-import explorerRoutes from './routes/explorer';
-
-// CDI routes - import only if available
-let cdiRoutes: any;
-try {
-  cdiRoutes = require('./routes/cdi').default;
-} catch (error) {
-  console.log('CDI routes not available, skipping');
-}
-
-// Services - import only if available
-try {
-  require('./services/datalake.service');
-  require('./services/rag.service');
-  require('./services/responses-api.service');
-} catch (error) {
-  console.log('Some services not available, continuing with basic functionality');
-}
-
-// Import middleware
-import { errorHandler } from './middleware/errorHandler';
-// requestLogger file may be absent; keep optional
-let requestLogger: any;
-try { requestLogger = require('./middleware/requestLogger').requestLogger; } catch {}
+import strategyRoutes from './routes/strategy';
+import fhirRoutes from './routes/fhir';
 
 // Load environment variables
 dotenv.config();
-// Load local overrides if present (SAFE_MODE, local secrets)
-dotenv.config({ path: '.env.local' });
 
-const app: express.Application = express();
-const port = process.env.PORT || 3001;
-
-// Initialize Prisma Client
-export const prisma = new PrismaClient();
+const app = express();
+const PORT = process.env.PORT || 3001;
 
 // Middleware
 app.use(cors());
+app.use(metricsMiddleware);
 app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true }));
-if (requestLogger) app.use(requestLogger);
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Request logging middleware
+app.use((req, res, next) => {
+  logger.info(`${req.method} ${req.path}`, {
+    method: req.method,
+    path: req.path,
+    userAgent: req.get('User-Agent'),
+    timestamp: new Date().toISOString()
+  });
+  next();
+});
 
 // Health check endpoint
-app.get('/health', (req, res) => {
-  res.json({ 
-    status: 'ok', 
+app.get('/health', (_req, res) => {
+  res.json({
+    status: 'healthy',
     timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV || 'development'
+    service: 'billigent-backend',
+    version: '1.0.0'
   });
 });
 
-// API Routes
-app.use('/api/cases', caseRoutes);
-app.use('/api/queries', queryRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/denials', denialRoutes);
-app.use('/api/analytics', analyticsRoutes);
-app.use('/api/explorer', explorerRoutes);
-// Strategy prototype routes (optional)
-try {
-  const strategyRoutes = require('./routes/strategy').default;
-  app.use('/api/strategy', strategyRoutes);
-} catch { /* optional */ }
-if (cdiRoutes) {
-  app.use('/api/cdi', cdiRoutes);
-}
+// API routes
+app.use('/api/strategy', strategyRoutes);
+app.use('/api/fhir', fhirRoutes);
 
-// Error handling middleware (must be last)
-app.use(errorHandler);
-
-// Graceful shutdown
-process.on('SIGTERM', async () => {
-  console.log('SIGTERM signal received: closing HTTP server');
-  await prisma.$disconnect();
-  process.exit(0);
+// Root endpoint
+app.get('/', (_req, res) => {
+  res.json({
+    message: 'Billigent Backend API',
+    version: '1.0.0',
+    endpoints: {
+      health: '/health',
+      strategy: '/api/strategy',
+      fhir: '/api/fhir'
+    },
+    timestamp: new Date().toISOString()
+  });
 });
 
-process.on('SIGINT', async () => {
-  console.log('SIGINT signal received: closing HTTP server');
-  await prisma.$disconnect();
-  process.exit(0);
+// Error handling middleware
+app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  logger.error('Unhandled error:', err);
+  
+  res.status(500).json({
+    error: 'Internal server error',
+    message: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong',
+    timestamp: new Date().toISOString()
+  });
+});
+
+// 404 handler
+app.use('*', (_req, res) => {
+  res.status(404).json({
+    error: 'Endpoint not found',
+    message: 'The requested endpoint does not exist',
+    timestamp: new Date().toISOString()
+  });
 });
 
 // Start server
-app.listen(port, () => {
-  console.log(`🚀 Billigent API Server running on http://localhost:${port}`);
-  console.log(`📊 Health check available at http://localhost:${port}/health`);
-  console.log(`🔗 API endpoints available at http://localhost:${port}/api/*`);
+app.listen(PORT, () => {
+  logger.info(`🚀 Billigent Backend server running on port ${PORT}`);
+  logger.info(`📊 Health check: http://localhost:${PORT}/health`);
+  logger.info(`🔍 Strategy API: http://localhost:${PORT}/api/strategy`);
+  logger.info(`🏥 FHIR API: http://localhost:${PORT}/api/fhir`);
 });
 
 export default app;

@@ -11,6 +11,8 @@ import { formatCurrency } from '@/lib/utils';
 import { AlertTriangle, CheckCircle, Clock, FileText, XCircle } from 'lucide-react';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+// Import KPI monitoring component
+import { KPIMonitoringCard } from '@/components/kpi/KPIMonitoringCard';
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -55,6 +57,16 @@ const Dashboard: React.FC = () => {
 
   // Current user info (this would come from auth context in real app)
   const currentUser = { name: user.fullName, role: user.role };
+
+  // Mock KPI metrics for demonstration - in real app these would come from the backend
+  const currentKPIMetrics = {
+    initial_denial_rate: 0.085, // 8.5%
+    appeal_success_rate: 0.72,  // 72%
+    avg_processing_time: 4.2,   // 4.2 days
+    cmi_gap_score: 0.18,        // 18% opportunity
+    query_response_rate: 0.89,   // 89%
+    revenue_impact: 125000       // $125K
+  };
 
   // Use real data from dashboard stats or provide calculated defaults
   const kpiData = {
@@ -194,144 +206,102 @@ const Dashboard: React.FC = () => {
           />
         </div>
 
-        {/* Right Column - Actionable Work Queue */}
+        {/* Work Queue Section */}
         <div className="space-y-4">
-          <h2 className={`text-xl font-semibold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Your Work Queue</h2>
-          
-          {/* New Pre-Bill Cases */}
-          <Card 
-            className={`hover:border-blue-500 transition-all duration-200 cursor-pointer group ${
-              theme === 'dark' 
-                ? 'bg-gray-900 border-gray-700' 
-                : 'bg-white border-gray-200'
-            }`}
-            onClick={handleNewPreBillCases}
-          >
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4">
-                  <div className="w-10 h-10 bg-blue-600 bg-opacity-20 rounded-lg flex items-center justify-center group-hover:bg-opacity-30 transition-all">
-                    <FileText className="w-5 h-5 text-blue-400" />
-                  </div>
+          <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+            Work Queue
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Card 
+              className={`cursor-pointer transition-all hover:shadow-lg ${
+                theme === 'dark' ? 'bg-gray-900 border-gray-700 hover:bg-gray-800' : 'bg-white border-gray-200 hover:bg-gray-50'
+              }`}
+              onClick={handleNewPreBillCases}
+            >
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
                   <div>
-                    <p className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>New Pre-Bill Cases</p>
-                    <p className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-700'}`}>Requires CDI review</p>
+                    <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>New Pre-Bill Cases</p>
+                    <p className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                      {workQueueData.newPreBillCases}
+                    </p>
                   </div>
+                  <FileText className={`w-8 h-8 ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`} />
                 </div>
-                <div className="text-right">
-                  <span className="text-2xl font-bold text-blue-400">{workQueueData.newPreBillCases}</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
 
-          {/* Denials Awaiting Review */}
-          <Card 
-            className={`hover:border-red-500 transition-all duration-200 cursor-pointer group ${
-              theme === 'dark' 
-                ? 'bg-gray-900 border-gray-700' 
-                : 'bg-white border-gray-200'
-            }`}
-            onClick={handleDenialsAwaitingReview}
-          >
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4">
-                  <div className="w-10 h-10 bg-red-600 bg-opacity-20 rounded-lg flex items-center justify-center group-hover:bg-opacity-30 transition-all">
-                    <XCircle className="w-5 h-5 text-red-400" />
-                  </div>
+            <Card 
+              className={`cursor-pointer transition-all hover:shadow-lg ${
+                theme === 'dark' ? 'bg-gray-900 border-gray-700 hover:bg-gray-800' : 'bg-white border-gray-200 hover:bg-gray-50'
+              }`}
+              onClick={handleDenialsAwaitingReview}
+            >
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
                   <div>
-                    <p className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Denials Awaiting Review</p>
-                    <p className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-700'}`}>Need appeal action</p>
+                    <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Denials Awaiting Review</p>
+                    <p className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                      {workQueueData.denialsAwaitingReview}
+                    </p>
                   </div>
+                  <XCircle className={`w-8 h-8 ${theme === 'dark' ? 'text-red-400' : 'text-red-600'}`} />
                 </div>
-                <div className="text-right">
-                  <span className="text-2xl font-bold text-red-400">{workQueueData.denialsAwaitingReview}</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
 
-          {/* High Priority Cases */}
-          <Card 
-            className={`hover:border-orange-500 transition-all duration-200 cursor-pointer group ${
-              theme === 'dark' 
-                ? 'bg-gray-900 border-gray-700' 
-                : 'bg-white border-gray-200'
-            }`}
-            onClick={handleHighPriorityCases}
-          >
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4">
-                  <div className="w-10 h-10 bg-orange-600 bg-opacity-20 rounded-lg flex items-center justify-center group-hover:bg-opacity-30 transition-all">
-                    <AlertTriangle className="w-5 h-5 text-orange-400" />
-                  </div>
+            <Card 
+              className={`cursor-pointer transition-all hover:shadow-lg ${
+                theme === 'dark' ? 'bg-gray-900 border-gray-700 hover:bg-gray-800' : 'bg-white border-gray-200 hover:bg-gray-50'
+              }`}
+              onClick={handleOverdueQueries}
+            >
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
                   <div>
-                    <p className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>High Priority Cases</p>
-                    <p className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-700'}`}>Urgent attention needed</p>
+                    <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Overdue Queries</p>
+                    <p className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                      {workQueueData.overdueQueries}
+                    </p>
                   </div>
+                  <Clock className={`w-8 h-8 ${theme === 'dark' ? 'text-yellow-400' : 'text-yellow-600'}`} />
                 </div>
-                <div className="text-right">
-                  <span className="text-2xl font-bold text-orange-400">{workQueueData.highPriorityCases}</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
 
-          {/* Overdue Queries */}
-          <Card 
-            className={`hover:border-yellow-500 transition-all duration-200 cursor-pointer group ${
-              theme === 'dark' 
-                ? 'bg-gray-900 border-gray-700' 
-                : 'bg-white border-gray-200'
-            }`}
-            onClick={handleOverdueQueries}
-          >
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4">
-                  <div className="w-10 h-10 bg-yellow-600 bg-opacity-20 rounded-lg flex items-center justify-center group-hover:bg-opacity-30 transition-all">
-                    <Clock className="w-5 h-5 text-yellow-400" />
-                  </div>
+            <Card 
+              className={`cursor-pointer transition-all hover:shadow-lg ${
+                theme === 'dark' ? 'bg-gray-900 border-gray-700 hover:bg-gray-800' : 'bg-white border-gray-200 hover:bg-gray-50'
+              }`}
+              onClick={handleHighPriorityCases}
+            >
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
                   <div>
-                    <p className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Overdue Queries</p>
-                    <p className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-700'}`}>Past due date</p>
+                    <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>High Priority Cases</p>
+                    <p className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                      {workQueueData.highPriorityCases}
+                    </p>
                   </div>
+                  <AlertTriangle className={`w-8 h-8 ${theme === 'dark' ? 'text-orange-400' : 'text-orange-600'}`} />
                 </div>
-                <div className="text-right">
-                  <span className="text-2xl font-bold text-yellow-400">{workQueueData.overdueQueries}</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
 
-          {/* Pending Appeals */}
-          <Card 
-            className={`hover:border-purple-500 transition-all duration-200 cursor-pointer group ${
-              theme === 'dark' 
-                ? 'bg-gray-900 border-gray-700' 
-                : 'bg-white border-gray-200'
-            }`}
-            onClick={handlePendingAppeals}
-          >
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4">
-                  <div className="w-10 h-10 bg-purple-600 bg-opacity-20 rounded-lg flex items-center justify-center group-hover:bg-opacity-30 transition-all">
-                    <CheckCircle className="w-5 h-5 text-purple-400" />
-                  </div>
-                  <div>
-                    <p className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Pending Appeals</p>
-                    <p className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-700'}`}>Awaiting response</p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <span className="text-2xl font-bold text-purple-400">{workQueueData.pendingAppeals}</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+        {/* KPI Monitoring Section */}
+        <div className="space-y-4">
+          <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+            Real-Time KPI Monitoring
+          </h3>
+          <KPIMonitoringCard
+            currentMetrics={currentKPIMetrics}
+            onRuleTrigger={(event) => {
+              console.log('KPI Rule triggered from Dashboard:', event);
+              // In a real app, this would trigger notifications, dashboard updates, etc.
+            }}
+          />
         </div>
       </div>
 
