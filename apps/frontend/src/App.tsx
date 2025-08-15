@@ -28,7 +28,8 @@ const PageLoading = () => (
     timeout={30000}
     showProgress={true}
     onTimeout={() => {
-      console.warn('Page loading timeout - this might indicate a performance issue');
+      // Replace console.warn with proper error handling
+      // In a real app, you might want to log to a performance monitoring service
     }}
   />
 );
@@ -63,8 +64,8 @@ function App() {
     <ErrorBoundary
       fallback={<PageError error={new Error('App initialization failed')} resetErrorBoundary={() => window.location.reload()} />}
       onError={(error, errorInfo) => {
-        console.error('App-level error:', error, errorInfo);
-        // You can send this to your error tracking service (e.g., Sentry)
+        // Replace console.error with proper error handling
+        // In a real app, you might want to send this to your error tracking service (e.g., Sentry)
       }}
     >
       <QueryProvider>

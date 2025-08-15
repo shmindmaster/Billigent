@@ -18,7 +18,6 @@
     "@azure/search-documents": "^12.1.0",
     "@azure/storage-blob": "^12.28.0",
     "@azure/storage-file-datalake": "^12.27.0",
-    // Purged database dependency removed
     "@types/multer": "^2.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",

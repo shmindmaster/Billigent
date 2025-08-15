@@ -133,8 +133,10 @@ export function EnhancedCDIAnalysis({ encounterId, onAnalysisComplete }: Enhance
       setAnalysis(response.data.data);
       onAnalysisComplete?.(response.data.data);
 
-    } catch (err: any) {
-      setError(err.response?.data?.message || err.message || 'Analysis failed');
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 
+        (err as { response?: { data?: { message?: string } } })?.response?.data?.message || 'Analysis failed';
+      setError(errorMessage);
     } finally {
       setIsAnalyzing(false);
     }
@@ -170,8 +172,10 @@ export function EnhancedCDIAnalysis({ encounterId, onAnalysisComplete }: Enhance
       
       setQuestion('');
 
-    } catch (err: any) {
-      setError(err.response?.data?.message || err.message || 'Question failed');
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 
+        (err as { response?: { data?: { message?: string } } })?.response?.data?.message || 'Question failed';
+      setError(errorMessage);
     } finally {
       setIsAskingQuestion(false);
     }

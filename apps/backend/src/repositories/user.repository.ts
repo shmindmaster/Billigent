@@ -1,5 +1,6 @@
 import { v4 as uuid } from "uuid";
 import { azureCosmosService } from "../services/azureCosmos.service";
+import { Container } from "@azure/cosmos";
 
 export interface UserRecord {
   id: string;
@@ -18,7 +19,7 @@ interface ListOptions {
 
 class UserRepository {
   private static instance: UserRepository;
-  private container: any;
+  private container!: Container;
   private initialized = false;
 
   static getInstance(): UserRepository {

@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import { log } from "./utils/logger.js";
 // Prisma removed
 
 dotenv.config();
@@ -91,7 +92,14 @@ app.get("/ready", async (_req, res) => {
       ),
     ]);
 
-    const arr = healthCheck as any[];
+    const arr = healthCheck as Array<{
+      status: string;
+      timestamp?: string;
+      connected?: boolean;
+      database?: string;
+      containers?: string[];
+      connectionTime?: number;
+    }>;
     const db = arr[0];
     const cosmos = arr[1];
     const allHealthy = db.connected && cosmos.status === "healthy";
@@ -143,12 +151,12 @@ app.use("/api/fhir", fhirRoutes);
 // Simple error handler for rapid prototyping
 app.use(
   (
-    err: any,
+    err: Error & { code?: string },
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
   ) => {
-    console.error("Unhandled error", err);
+    log.error("Unhandled error", { error: err.message, stack: err.stack, url: req.url });
 
     // Check if it's a timeout error
     if (err.code === "ETIMEDOUT" || err.message?.includes("timeout")) {
@@ -193,31 +201,28 @@ if (require.main === module) {
       const { ensureSeeded } = await import("./startup/ensureSeeded.js");
       await ensureSeeded();
     } catch (e) {
-      console.warn(
-        "[startup] ensureSeeded not executed:",
-        e instanceof Error ? e.message : e
-      );
+      log.warn("ensureSeeded not executed", { error: e instanceof Error ? e.message : e });
     }
 
     const server = app.listen(PORT, () => {
-      console.log(`🚀 Server running on port ${PORT}`);
-      console.log(`📊 Health check: http://localhost:${PORT}/health`);
-      console.log(`✅ Ready check: http://localhost:${PORT}/ready`);
+      log.info("Server started successfully", { port: PORT });
+      log.info("Health check available", { url: `http://localhost:${PORT}/health` });
+      log.info("Ready check available", { url: `http://localhost:${PORT}/ready` });
     });
 
     // Graceful shutdown handling
     process.on("SIGTERM", () => {
-      console.log("SIGTERM received, shutting down gracefully");
+      log.info("SIGTERM received, shutting down gracefully");
       server.close(() => {
-        console.log("Process terminated");
+        log.info("Process terminated");
         process.exit(0);
       });
     });
 
     process.on("SIGINT", () => {
-      console.log("SIGINT received, shutting down gracefully");
+      log.info("SIGINT received, shutting down gracefully");
       server.close(() => {
-        console.log("Process terminated");
+        log.info("Process terminated");
         process.exit(0);
       });
     });

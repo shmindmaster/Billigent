@@ -22,7 +22,9 @@
     "testsprite:mcp": "pnpm exec testsprite-mcp-plugin",
     "testsprite:mcp:local": "pnpm exec testsprite-mcp-plugin",
     "testsprite:mcp:debug": "DEBUG=* pnpm exec testsprite-mcp-plugin",
-    "testsprite:mcp:win": "node ./node_modules/@testsprite/testsprite-mcp/dist/index.js"
+    "testsprite:mcp:win": "node ./node_modules/@testsprite/testsprite-mcp/dist/index.js",
+    "cleanup:analyze": "tsx scripts/cleanup-non-functional.ts",
+    "cleanup:plan": "tsx scripts/cleanup-non-functional.ts && echo 'Review CLEANUP_PLAN.md for recommendations'"
   },
   "dependencies": {
     "@azure/identity": "^4.11.1",

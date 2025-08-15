@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Optional dependency pattern: allow tests/local runs without @azure/cosmos installed.
 let CosmosClient: any;
 let cosmosAvailable = true;
@@ -9,6 +8,7 @@ try {
   cosmosAvailable = false;
 }
 import { DefaultAzureCredential } from "@azure/identity";
+import { log } from "../utils/logger.js";
 
 export interface CosmosConfig {
   endpoint: string;
@@ -270,9 +270,9 @@ export class AzureCosmosService {
         });
       this.containers.collaborationSessions = collaborationSessions;
 
-      console.log("Cosmos DB containers initialized successfully");
+      log.info("Cosmos DB containers initialized successfully");
     } catch (error) {
-      console.error("Failed to initialize Cosmos DB:", error);
+      log.error("Failed to initialize Cosmos DB", { error: error instanceof Error ? error.message : error });
       throw error;
     }
   }
@@ -294,9 +294,9 @@ export class AzureCosmosService {
       };
 
       await this.containers.evidenceBundles.items.create(item);
-      console.log(`Evidence bundle stored: ${bundle.id}`);
+      log.info("Evidence bundle stored", { bundleId: bundle.id });
     } catch (error) {
-      console.error("Failed to store evidence bundle:", error);
+      log.error("Failed to store evidence bundle", { error: error instanceof Error ? error.message : error, bundleId: bundle.id });
       throw error;
     }
   }
@@ -318,10 +318,10 @@ export class AzureCosmosService {
         .read();
       return (resource as EvidenceBundle) || null;
     } catch (error) {
-      if (error.code === 404) {
+      if ((error as any).code === 404) {
         return null;
       }
-      console.error("Failed to get evidence bundle:", error);
+      log.error("Failed to get evidence bundle", { error: error instanceof Error ? error.message : error, bundleId: id, patientId });
       throw error;
     }
   }
@@ -348,7 +348,7 @@ export class AzureCosmosService {
 
       return resources as EvidenceBundle[];
     } catch (error) {
-      console.error("Failed to get evidence bundles by patient:", error);
+      log.error("Failed to get evidence bundles by patient", { error: error instanceof Error ? error.message : error, patientId });
       throw error;
     }
   }
@@ -372,9 +372,9 @@ export class AzureCosmosService {
       };
 
       await this.containers.attributionTracking.items.create(item);
-      console.log(`Attribution tracking stored: ${attribution.id}`);
+      log.info("Attribution tracking stored", { attributionId: attribution.id, bundleId: attribution.bundleId });
     } catch (error) {
-      console.error("Failed to store attribution tracking:", error);
+      log.error("Failed to store attribution tracking", { error: error instanceof Error ? error.message : error, attributionId: attribution.id });
       throw error;
     }
   }
@@ -398,7 +398,7 @@ export class AzureCosmosService {
 
       return (resources[0] as AttributionTracking) || null;
     } catch (error) {
-      console.error("Failed to get attribution tracking:", error);
+      log.error("Failed to get attribution tracking", { error: error instanceof Error ? error.message : error, bundleId });
       throw error;
     }
   }
@@ -421,7 +421,12 @@ export class AzureCosmosService {
         throw new Error("Attribution tracking not found");
       }
 
-      const updateData = {
+      const updateData: {
+        verificationStatus: AttributionTracking["verificationStatus"];
+        verificationTimestamp: string;
+        updatedAt: string;
+        checksum?: string;
+      } = {
         verificationStatus: status,
         verificationTimestamp: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
@@ -438,9 +443,9 @@ export class AzureCosmosService {
           ...updateData,
         });
 
-      console.log(`Attribution verification updated: ${bundleId} - ${status}`);
+      log.info("Attribution verification updated", { bundleId, status });
     } catch (error) {
-      console.error("Failed to update attribution verification:", error);
+      log.error("Failed to update attribution verification", { error: error instanceof Error ? error.message : error, bundleId, status });
       throw error;
     }
   }
@@ -458,14 +463,38 @@ export class AzureCosmosService {
         ...version,
         _partitionKey: version.documentId,
         createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
       };
 
       await this.containers.documentVersions.items.create(item);
-      console.log(
-        `Document version stored: ${version.documentId} v${version.version}`
-      );
+      log.info("Document version stored", { versionId: version.id, documentId: version.documentId });
     } catch (error) {
-      console.error("Failed to store document version:", error);
+      log.error("Failed to store document version", { error: error instanceof Error ? error.message : error, versionId: version.id });
+      throw error;
+    }
+  }
+
+  /**
+   * Get document version by ID
+   */
+  async getDocumentVersion(
+    id: string,
+    documentId: string
+  ): Promise<DocumentVersion | null> {
+    if (!this.containers.documentVersions) {
+      throw new Error("Document versions container not initialized");
+    }
+
+    try {
+      const { resource } = await this.containers.documentVersions
+        .item(id, documentId)
+        .read();
+      return (resource as DocumentVersion) || null;
+    } catch (error) {
+      if ((error as any).code === 404) {
+        return null;
+      }
+      log.error("Failed to get document version", { error: error instanceof Error ? error.message : error, versionId: id, documentId });
       throw error;
     }
   }
@@ -473,7 +502,9 @@ export class AzureCosmosService {
   /**
    * Get document versions by document ID
    */
-  async getDocumentVersions(documentId: string): Promise<DocumentVersion[]> {
+  async getDocumentVersionsByDocument(
+    documentId: string
+  ): Promise<DocumentVersion[]> {
     if (!this.containers.documentVersions) {
       throw new Error("Document versions container not initialized");
     }
@@ -490,7 +521,7 @@ export class AzureCosmosService {
 
       return resources as DocumentVersion[];
     } catch (error) {
-      console.error("Failed to get document versions:", error);
+      log.error("Failed to get document versions by document", { error: error instanceof Error ? error.message : error, documentId });
       throw error;
     }
   }
@@ -501,7 +532,7 @@ export class AzureCosmosService {
   async getLatestDocumentVersion(
     documentId: string
   ): Promise<DocumentVersion | null> {
-    const versions = await this.getDocumentVersions(documentId);
+    const versions = await this.getDocumentVersionsByDocument(documentId);
     return versions[0] || null;
   }
 
@@ -524,9 +555,9 @@ export class AzureCosmosService {
       };
 
       await this.containers.collaborationSessions.items.create(item);
-      console.log(`Collaboration session stored: ${session.sessionId}`);
+      log.info("Collaboration session stored", { sessionId: session.sessionId, caseId: session.caseId });
     } catch (error) {
-      console.error("Failed to store collaboration session:", error);
+      log.error("Failed to store collaboration session", { error: error instanceof Error ? error.message : error, sessionId: session.sessionId });
       throw error;
     }
   }
@@ -543,20 +574,11 @@ export class AzureCosmosService {
     }
 
     try {
-      const query =
-        "SELECT * FROM c WHERE c.sessionId = @sessionId ORDER BY c.createdAt DESC OFFSET 0 LIMIT 1";
-      const { resources } = await this.containers.collaborationSessions.items
-        .query({
-          query,
-          parameters: [{ name: "@sessionId", value: sessionId }],
-        })
-        .fetchAll();
-
-      if (resources.length === 0) {
+      const session = await this.getCollaborationSession(sessionId);
+      if (!session) {
         throw new Error("Collaboration session not found");
       }
 
-      const session = resources[0] as CollaborationSession;
       const updatedSession = {
         ...session,
         ...updates,
@@ -566,9 +588,9 @@ export class AzureCosmosService {
       await this.containers.collaborationSessions
         .item(session.id, sessionId)
         .replace(updatedSession);
-      console.log(`Collaboration session updated: ${sessionId}`);
+      log.info("Collaboration session updated", { sessionId });
     } catch (error) {
-      console.error("Failed to update collaboration session:", error);
+      log.error("Failed to update collaboration session", { error: error instanceof Error ? error.message : error, sessionId });
       throw error;
     }
   }
@@ -585,20 +607,11 @@ export class AzureCosmosService {
     }
 
     try {
-      const query =
-        "SELECT * FROM c WHERE c.sessionId = @sessionId ORDER BY c.createdAt DESC OFFSET 0 LIMIT 1";
-      const { resources } = await this.containers.collaborationSessions.items
-        .query({
-          query,
-          parameters: [{ name: "@sessionId", value: sessionId }],
-        })
-        .fetchAll();
-
-      if (resources.length === 0) {
+      const session = await this.getCollaborationSession(sessionId);
+      if (!session) {
         throw new Error("Collaboration session not found");
       }
 
-      const session = resources[0] as CollaborationSession;
       const updatedSession = {
         ...session,
         activities: [...session.activities, activity],
@@ -608,9 +621,9 @@ export class AzureCosmosService {
       await this.containers.collaborationSessions
         .item(session.id, sessionId)
         .replace(updatedSession);
-      console.log(`Activity added to collaboration session: ${sessionId}`);
+      log.info("Activity added to collaboration session", { sessionId });
     } catch (error) {
-      console.error("Failed to add collaboration activity:", error);
+      log.error("Failed to add collaboration activity", { error: error instanceof Error ? error.message : error, sessionId });
       throw error;
     }
   }
@@ -637,7 +650,7 @@ export class AzureCosmosService {
 
       return (resources[0] as CollaborationSession) || null;
     } catch (error) {
-      console.error("Failed to get collaboration session:", error);
+      log.error("Failed to get collaboration session", { error: error instanceof Error ? error.message : error, sessionId });
       throw error;
     }
   }
@@ -661,7 +674,7 @@ export class AzureCosmosService {
 
       return resources as CollaborationSession[];
     } catch (error) {
-      console.error("Failed to get active collaboration sessions:", error);
+      log.error("Failed to get active collaboration sessions", { error: error instanceof Error ? error.message : error, caseId });
       throw error;
     }
   }
@@ -709,7 +722,7 @@ export class AzureCosmosService {
     try {
       await this.client.dispose();
     } catch (error) {
-      console.error("Error closing Cosmos DB client:", error);
+      log.error("Error closing Cosmos DB client", { error: error instanceof Error ? error.message : error });
     }
   }
 }

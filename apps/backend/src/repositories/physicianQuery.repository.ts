@@ -1,5 +1,6 @@
 import { v4 as uuid } from "uuid";
 import { azureCosmosService } from "../services/azureCosmos.service";
+import { Container } from "@azure/cosmos";
 
 export enum PhysicianQueryStatus {
   DRAFT = "DRAFT",
@@ -57,7 +58,7 @@ interface ListOptions {
 
 class PhysicianQueryRepository {
   private static instance: PhysicianQueryRepository;
-  private container: any;
+  private container!: Container;
   private initialized = false;
 
   static getInstance(): PhysicianQueryRepository {

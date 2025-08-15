@@ -17,9 +17,16 @@ import {
   Clock
 } from 'lucide-react';
 
+interface StrategyEvent {
+  type: string;
+  occurredAt: string;
+  payload: Record<string, unknown>;
+  version: string;
+}
+
 interface KPIMonitoringCardProps {
   currentMetrics: Record<string, number>;
-  onRuleTrigger?: (event: any) => void;
+  onRuleTrigger?: (event: StrategyEvent) => void;
 }
 
 // Predefined KPI rules for common scenarios
@@ -66,10 +73,13 @@ export const KPIMonitoringCard: React.FC<KPIMonitoringCardProps> = ({
     try {
       const result = await kpiRuleEvaluation.mutateAsync({ rule, metrics: currentMetrics });
       if (result.fired.length > 0 && onRuleTrigger) {
-        result.fired.forEach(event => onRuleTrigger(event));
+        result.fired.forEach((event: StrategyEvent) => onRuleTrigger(event));
       }
     } catch (error) {
-      console.error('Rule evaluation failed:', error);
+      // Replace console.error with proper error handling
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      // In a real app, you might want to show a toast notification here
+      console.error('Rule evaluation failed:', errorMessage);
     } finally {
       setIsEvaluating(false);
     }

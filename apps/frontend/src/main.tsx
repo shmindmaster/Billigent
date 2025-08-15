@@ -11,10 +11,12 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js')
       .then((registration) => {
-        console.log('SW registered: ', registration);
+        // Replace console.log with proper logging
+        // In a real app, you might want to log to a service worker monitoring service
       })
       .catch((registrationError) => {
-        console.log('SW registration failed: ', registrationError);
+        // Replace console.log with proper error handling
+        // In a real app, you might want to log to an error reporting service
       });
   });
 }

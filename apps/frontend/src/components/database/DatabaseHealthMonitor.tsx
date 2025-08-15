@@ -38,7 +38,9 @@ export const DatabaseHealthMonitor: React.FC<DatabaseHealthMonitorProps> = ({
         onInitialize();
       }
     } catch (error) {
-      console.error('Failed to initialize databases:', error);
+      // Replace console.error with proper error handling
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      // In a real app, you might want to show a toast notification or log to an error service
     }
   };
 

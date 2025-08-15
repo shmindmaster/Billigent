@@ -15,7 +15,7 @@ export interface TableColumn {
   key: string;
   label: string;
   width?: string;
-  render?: (value: any, row: any) => React.ReactNode;
+  render?: (value: unknown, row: Record<string, unknown>) => React.ReactNode;
   className?: string;
 }
 
@@ -23,10 +23,10 @@ export interface DataTableProps {
   title?: string;
   description?: string;
   columns: TableColumn[];
-  data: any[];
+  data: Record<string, unknown>[];
   loading?: boolean;
   emptyMessage?: string;
-  onRowClick?: (row: any) => void;
+  onRowClick?: (row: Record<string, unknown>) => void;
   className?: string;
   headerActions?: React.ReactNode;
 }

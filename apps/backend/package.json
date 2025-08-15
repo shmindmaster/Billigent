@@ -19,40 +19,42 @@
     "icd10:parse": "tsx scripts/icd10cm-parse.ts",
     "icd10:upload": "tsx scripts/icd10cm-upload.ts",
     "icd10:all": "pnpm icd10:download && pnpm icd10:parse && pnpm icd10:upload",
-    "icd10:typecheck": "tsc -p tsconfig.ingest.json --noEmit"
+    "icd10:typecheck": "tsc -p tsconfig.ingest.json --noEmit",
+    "cosmos:optimize": "tsx scripts/optimize-cosmos.ts",
+    "cosmos:optimize:apply": "tsx scripts/optimize-cosmos.ts --apply"
   },
   "dependencies": {
     "@azure/cosmos": "^4.2.0",
-    "@azure/identity": "^4.11.1",
     "@azure/search-documents": "^12.1.0",
     "@azure/storage-blob": "^12.28.0",
     "@azure/storage-file-datalake": "^12.27.0",
     "@types/multer": "^2.0.0",
     "cors": "^2.8.5",
+    "csv-stringify": "^6.5.2",
     "dotenv": "^16.6.1",
     "express": "^4.21.2",
     "fast-csv": "^4.3.6",
     "multer": "^2.0.2",
     "openai": "^4.104.0",
     "pdf-parse": "^1.1.1",
-    "winston": "^3.17.0",
-    "zod": "^3.25.76",
-    "csv-stringify": "^6.5.2",
+    "unzipper": "^0.11.4",
     "uuid": "^9.0.1",
-    "unzipper": "^0.11.4"
+    "winston": "^3.17.0",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@azure/identity": "^4.11.1",
     "@types/cors": "^2.8.19",
     "@types/express": "^4.17.21",
     "@types/node": "^20.19.10",
+    "@types/supertest": "^2.0.16",
+    "@types/uuid": "^9.0.7",
     "@typescript-eslint/eslint-plugin": "^6.18.1",
     "@typescript-eslint/parser": "^6.18.1",
     "eslint": "^8.56.0",
     "rimraf": "^5.0.5",
-    "tsx": "^4.20.3",
-    "typescript": "^5.9.2",
     "supertest": "^7.1.1",
-    "@types/supertest": "^2.0.16",
-    "@types/uuid": "^9.0.7"
+    "tsx": "^4.20.3",
+    "typescript": "^5.9.2"
   }
 }

@@ -1,15 +1,16 @@
 import { v4 as uuid } from "uuid";
 import { azureCosmosService } from "../services/azureCosmos.service";
+import { Container } from "@azure/cosmos";
 
 export interface QueryRecord {
   id: string;
   question: string;
   answer?: string | null;
   confidence?: number | null;
-  sources?: any[] | null;
+  sources?: string[] | null;
   status: string;
   userId: string;
-  context: Record<string, any>;
+  context: Record<string, unknown>;
   createdAt: string;
   updatedAt: string;
   type: "query";
@@ -18,11 +19,12 @@ export interface QueryRecord {
 interface ListOptions {
   limit?: number;
   page?: number;
+  search?: string;
 }
 
 class QueryRepository {
   private static instance: QueryRepository;
-  private container: any; // partition by id for now
+  private container!: Container; // partition by id for now
   private initialized = false;
 
   static getInstance(): QueryRepository {
@@ -41,14 +43,24 @@ class QueryRepository {
 
   async list(options: ListOptions = {}) {
     await this.ensureInit();
-    const { limit = 50, page = 1 } = options;
+    const { limit = 50, page = 1, search } = options;
     const querySpec = {
       query: 'SELECT * FROM c WHERE c.type = "query" ORDER BY c.createdAt DESC',
     };
     const { resources } = await this.container.items
       .query(querySpec)
       .fetchAll();
-    const all = resources as QueryRecord[];
+    let all = resources as QueryRecord[];
+    
+    // Apply search filter if provided
+    if (search) {
+      const searchLower = search.toLowerCase();
+      all = all.filter(q => 
+        q.question.toLowerCase().includes(searchLower) ||
+        (q.answer && q.answer.toLowerCase().includes(searchLower))
+      );
+    }
+    
     const total = all.length;
     const start = (page - 1) * limit;
     return { queries: all.slice(start, start + limit), total };
@@ -67,7 +79,7 @@ class QueryRepository {
   async create(data: {
     question: string;
     userId: string;
-    context?: Record<string, any>;
+    context?: Record<string, unknown>;
   }): Promise<QueryRecord> {
     await this.ensureInit();
     const now = new Date().toISOString();

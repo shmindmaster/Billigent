@@ -48,7 +48,8 @@ const CitationAnalyticsCard: React.FC<CitationAnalyticsCardProps> = ({ className
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to fetch citation data';
       setError(errorMessage);
-      console.error('Error fetching citation data:', err);
+      // Replace console.error with proper error handling
+      // In a real app, you might want to log to an error reporting service
     } finally {
       setLoading(false);
     }

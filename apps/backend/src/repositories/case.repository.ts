@@ -1,5 +1,6 @@
 import azureCosmosService from "../services/azureCosmos.service";
 import { v4 as uuid } from "uuid";
+import { Container, Database } from "@azure/cosmos";
 
 export interface CaseRecord {
   id: string;
@@ -28,21 +29,26 @@ export interface CaseRecord {
 
 const CONTAINER_ID = "cases";
 
-async function ensureContainer() {
+interface CosmosService {
+  database: Database;
+  containers: Record<string, Container>;
+}
+
+async function ensureContainer(): Promise<Container> {
   await azureCosmosService.initialize();
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const {
     azureCosmosService: svc,
   } = require("../services/azureCosmos.service");
-  const db: any = (svc as any).database;
-  if (db && !(svc as any).containers[CONTAINER_ID]) {
+  const db = (svc as CosmosService).database;
+  if (db && !(svc as CosmosService).containers[CONTAINER_ID]) {
     const { container } = await db.containers.createIfNotExists({
       id: CONTAINER_ID,
       partitionKey: { paths: ["/id"] },
     });
-    (svc as any).containers[CONTAINER_ID] = container;
+    (svc as CosmosService).containers[CONTAINER_ID] = container;
   }
-  return (svc as any).containers[CONTAINER_ID];
+  return (svc as CosmosService).containers[CONTAINER_ID];
 }
 
 export class CaseRepository {
@@ -88,8 +94,8 @@ export class CaseRepository {
     try {
       const { resource } = await container.item(id, id).read();
       return resource as CaseRecord;
-    } catch (e: any) {
-      if (e.code === 404) return null;
+    } catch (e: unknown) {
+      if (e instanceof Error && 'code' in e && e.code === 404) return null;
       throw e;
     }
   }
@@ -101,8 +107,8 @@ export class CaseRepository {
       id: uuid(),
       patientFhirId: data.patientFhirId!,
       encounterFhirId: data.encounterFhirId!,
-      title: (data as any).title || null,
-      description: (data as any).description || null,
+      title: data.title || null,
+      description: data.description || null,
       status: data.status || "open",
       priority: data.priority || "medium",
       assignedUserId: data.assignedUserId || null,
@@ -147,8 +153,8 @@ export class CaseRepository {
     try {
       await container.item(id, id).delete();
       return true;
-    } catch (e: any) {
-      if (e.code === 404) return false;
+    } catch (e: unknown) {
+      if (e instanceof Error && 'code' in e && e.code === 404) return false;
       throw e;
     }
   }

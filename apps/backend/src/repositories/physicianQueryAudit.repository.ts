@@ -2,6 +2,7 @@ import { v4 as uuid } from "uuid";
 import crypto from "crypto";
 import { azureCosmosService } from "../services/azureCosmos.service";
 import { PhysicianQueryEventType } from "./physicianQuery.repository";
+import { Container } from "@azure/cosmos";
 
 export interface PhysicianQueryAuditEventRecord {
   id: string; // uuid of audit event
@@ -13,7 +14,7 @@ export interface PhysicianQueryAuditEventRecord {
   sequence: number;
   hash: string;
   prevHash?: string | null;
-  metadata?: Record<string, any> | null;
+  metadata?: Record<string, unknown> | null;
   createdAt: string;
   type: "physicianQueryAuditEvent";
 }
@@ -24,12 +25,12 @@ interface AppendInput {
   actorUserId: string;
   previousStatus?: string | null;
   newStatus?: string | null;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 class PhysicianQueryAuditRepository {
   private static instance: PhysicianQueryAuditRepository;
-  private container: any; // partitionKey on physicianQueryId for grouping
+  private container!: Container; // partitionKey on physicianQueryId for grouping
   private initialized = false;
 
   static getInstance(): PhysicianQueryAuditRepository {

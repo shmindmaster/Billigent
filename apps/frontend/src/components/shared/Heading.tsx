@@ -13,7 +13,7 @@ export function Heading({ level = 1, className, ...props }: HeadingProps) {
     3: 'text-xl md:text-2xl font-medium',
     4: 'text-lg md:text-xl font-medium',
   } as const;
-  return <Tag className={cn(map[level], className)} {...(props as any)} />;
+  return <Tag className={cn(map[level], className)} {...props} />;
 }
 
 

@@ -1,7 +1,8 @@
-import express from "express";
+import express, { Router } from "express";
 import { CosmosClient } from "@azure/cosmos";
+import { log } from "../utils/logger.js";
 
-const router = express.Router();
+const router: Router = express.Router();
 
 // Initialize Cosmos DB client
 const cosmosClient = new CosmosClient({
