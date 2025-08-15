@@ -1,4 +1,4 @@
-// Prisma removed; using Cosmos repository
+// Legacy relational ORM removed; now using Cosmos-backed CaseRepository
 import CaseRepository from '../repositories/case.repository';
 import { Request, Response, Router } from 'express';
 import { getGroundedIcdResponse } from '../services/rag.service';
@@ -26,23 +26,14 @@ router.get('/', async (req: Request, res: Response) => {
 
     const pageNum = parseInt(page as string, 10);
     const limitNum = parseInt(limit as string, 10);
-    const skip = (pageNum - 1) * limitNum;
+    // Filtering handled client-side in repository (future: move to server-side queries)
+    if (status || priority || assignedUserId || search) {
+      // Placeholder: raw filtering handled within CaseRepository.list() call parameters
+    }
 
-    // Build where clause
-    const where: any = {};
-    
-    if (status) where.status = status;
-    if (priority) where.priority = priority;
-    if (assignedUserId) where.assignedUserId = assignedUserId as string;
-    
     if (search) {
-      where.OR = [
-        { patientFhirId: { contains: search as string } },
-        { encounterFhirId: { contains: search as string } },
-        { medicalRecordNumber: { contains: search as string } },
-        { patientName: { contains: search as string } },
-        { primaryDiagnosis: { contains: search as string } }
-      ];
+      // Legacy relational search patterns; repository will perform simple substring checks
+      // TODO: implement proper indexed search in Cosmos
     }
 
     const { cases, total } = await CaseRepository.list({
@@ -82,7 +73,7 @@ router.post('/:caseId/conversation', async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Missing prompt' });
     }
 
-    const theCase = await prisma.case.findUnique({ where: { id: caseId } });
+    const theCase = await CaseRepository.get(caseId);
     if (!theCase) return res.status(404).json({ error: 'Case not found' });
 
     // First message: perform RAG grounding scoped to encounter
@@ -222,7 +213,7 @@ router.post('/:id/enrich/prebill', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
-    const theCase = await prisma.case.findUnique({ where: { id } });
+    const theCase = await CaseRepository.get(id);
     if (!theCase) return res.status(404).json({ error: 'Case not found' });
 
     if (!theCase.encounterFhirId) {

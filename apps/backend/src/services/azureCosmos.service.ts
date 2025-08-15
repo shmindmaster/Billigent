@@ -186,8 +186,18 @@ export class AzureCosmosService {
     }
   }
 
+  async getOrCreateContainer(id: string, partitionKey: string) {
+    await this.initialize();
+    if (!this.database) throw new Error('Database not initialized');
+    if (!this.containers[id]) {
+      const { container } = await this.database.containers.createIfNotExists({ id, partitionKey: { paths: [partitionKey] } });
+      this.containers[id] = container;
+    }
+    return this.containers[id];
+  }
+
   /**
-   * Initialize database and containers
+   * Initialize database and default containers
    */
   async initialize(): Promise<void> {
     try {

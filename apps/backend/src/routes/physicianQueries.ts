@@ -1,6 +1,8 @@
 import { Router } from 'express';
-import { PrismaClient, PhysicianQueryStatus, PhysicianQueryEventType } from '@billigent/database';
-import { appendAuditEvent } from '../services/physicianQueryAudit';
+// Migrated from ORM to Cosmos repositories
+import PhysicianQueryRepository, { PhysicianQueryStatus, PhysicianQueryEventType } from '../repositories/physicianQuery.repository';
+import PhysicianQueryAuditRepository from '../repositories/physicianQueryAudit.repository';
+// Replaced appendAuditEvent with audit repository append
 // TODO: import { requireRoles } from '../middleware/rbac';
 
 /**
@@ -10,7 +12,7 @@ import { appendAuditEvent } from '../services/physicianQueryAudit';
  * NOTE: This scaffold is intentionally conservative; expand with RBAC + validation.
  */
 const router = Router();
-const prisma = new PrismaClient();
+// Repositories encapsulate data access; no direct ORM client here
 
 // Feature flag removed (forcing always-on per dev directive)
 function enabled(): boolean {
@@ -29,31 +31,24 @@ router.post('/', async (req, res) => {
     if (!templateCode || !createdById || !assignedPhysicianId) {
       return res.status(400).json({ error: 'templateCode, createdById, assignedPhysicianId required' });
     }
-    const template = await prisma.queryTemplate.findUnique({ where: { code: templateCode } });
-    if (!template || !template.active) {
-      return res.status(404).json({ error: 'Template not found or inactive' });
-    }
-    const pq = await prisma.physicianQuery.create({
-      data: {
-        templateId: template.id,
-        templateVersion: template.version,
-        templateSnapshot: {
-          code: template.code,
-            title: template.title,
-            bodyMarkup: template.bodyMarkup,
-            version: template.version,
-            guidance: template.guidance,
-            clinicalIndicators: template.clinicalIndicators
-        },
-        createdById,
-        assignedPhysicianId,
-        caseId,
-        encounterId,
-        freeTextSupplement,
-        status: PhysicianQueryStatus.DRAFT
-      }
+    // Template storage not yet migrated; fabricate minimal snapshot (future: fetch from dedicated container)
+    const templateSnapshot = {
+      code: templateCode,
+      title: templateCode,
+      bodyMarkup: freeTextSupplement || '',
+      version: 1,
+      guidance: null,
+      clinicalIndicators: null
+    };
+    const pq = await PhysicianQueryRepository.create({
+      templateSnapshot,
+      createdById,
+      assignedPhysicianId,
+      caseId,
+      encounterId,
+      freeTextSupplement
     });
-    await appendAuditEvent(prisma, { physicianQueryId: pq.id, eventType: PhysicianQueryEventType.CREATED, actorUserId: createdById, metadata: { templateCode } });
+    await PhysicianQueryAuditRepository.append({ physicianQueryId: pq.id, eventType: PhysicianQueryEventType.CREATED, actorUserId: createdById, metadata: { templateCode } });
     res.status(201).json(pq);
   } catch (e) {
     console.error('Create physician query failed', e);
@@ -66,14 +61,12 @@ router.post('/:id/send', async (req, res) => {
   try {
     const { id } = req.params;
     const { actorUserId } = req.body || {};
-    const pq = await prisma.physicianQuery.findUnique({ where: { id } });
+    const pq = await PhysicianQueryRepository.get(id);
     if (!pq) return res.status(404).json({ error: 'Not found' });
     if (pq.status !== PhysicianQueryStatus.DRAFT) return res.status(409).json({ error: 'Only draft can be sent' });
-    const updated = await prisma.physicianQuery.update({
-      where: { id },
-      data: { status: PhysicianQueryStatus.SENT, draft: false, sentAt: new Date(), statusUpdatedAt: new Date() }
-    });
-    await appendAuditEvent(prisma, { physicianQueryId: id, eventType: PhysicianQueryEventType.SENT, actorUserId: actorUserId || updated.createdById, previousStatus: PhysicianQueryStatus.DRAFT, newStatus: PhysicianQueryStatus.SENT });
+    const updated = await PhysicianQueryRepository.update(id, { status: PhysicianQueryStatus.SENT, draft: false, sentAt: new Date().toISOString(), statusUpdatedAt: new Date().toISOString() });
+    if (!updated) return res.status(500).json({ error: 'Failed to update status' });
+    await PhysicianQueryAuditRepository.append({ physicianQueryId: id, eventType: PhysicianQueryEventType.SENT, actorUserId: actorUserId || updated.createdById, previousStatus: PhysicianQueryStatus.DRAFT, newStatus: PhysicianQueryStatus.SENT });
     res.json(updated);
   } catch (e) {
     console.error('Send physician query failed', e);
@@ -87,19 +80,15 @@ router.post('/:id/respond', async (req, res) => {
     const { id } = req.params;
     const { responderId, responseType, responseText } = req.body || {};
     if (!responderId || !responseType) return res.status(400).json({ error: 'responderId & responseType required' });
-    const pq = await prisma.physicianQuery.findUnique({ where: { id } });
+    const pq = await PhysicianQueryRepository.get(id);
     if (!pq) return res.status(404).json({ error: 'Not found' });
     if (pq.status !== PhysicianQueryStatus.SENT) return res.status(409).json({ error: 'Only sent queries can be responded' });
 
-    const response = await prisma.physicianQueryResponse.create({
-      data: { physicianQueryId: id, responderId, responseType, responseText }
-    });
-    const updated = await prisma.physicianQuery.update({
-      where: { id },
-      data: { status: PhysicianQueryStatus.RESPONDED, respondedAt: new Date(), statusUpdatedAt: new Date() }
-    });
-    await appendAuditEvent(prisma, { physicianQueryId: id, eventType: PhysicianQueryEventType.RESPONDED, actorUserId: responderId, previousStatus: PhysicianQueryStatus.SENT, newStatus: PhysicianQueryStatus.RESPONDED, metadata: { responseType } });
-    res.json({ query: updated, response });
+    // Store response inline for now (future: separate container if needed)
+    const updated = await PhysicianQueryRepository.update(id, { status: PhysicianQueryStatus.RESPONDED, respondedAt: new Date().toISOString(), statusUpdatedAt: new Date().toISOString(), draft: false, freeTextSupplement: responseText || pq.freeTextSupplement });
+    if (!updated) return res.status(500).json({ error: 'Failed to update' });
+    await PhysicianQueryAuditRepository.append({ physicianQueryId: id, eventType: PhysicianQueryEventType.RESPONDED, actorUserId: responderId, previousStatus: PhysicianQueryStatus.SENT, newStatus: PhysicianQueryStatus.RESPONDED, metadata: { responseType } });
+    res.json({ query: updated, response: { responderId, responseType, responseText } });
   } catch (e) {
     console.error('Respond physician query failed', e);
     res.status(500).json({ error: 'Failed to respond to physician query' });
@@ -108,18 +97,15 @@ router.post('/:id/respond', async (req, res) => {
 
 // Basic list
 router.get('/', async (_req, res) => {
-  const list = await prisma.physicianQuery.findMany({ orderBy: { createdAt: 'desc' }, take: 50 });
-  res.json(list);
+  const { queries } = await PhysicianQueryRepository.list({ limit: 50, page: 1 });
+  res.json(queries);
 });
 
 // Quick dev-only audit chain view (no RBAC enforced intentionally per dev preference)
 router.get('/:id/audit', async (req, res) => {
   try {
     const { id } = req.params;
-    const events = await prisma.physicianQueryAuditEvent.findMany({
-      where: { physicianQueryId: id },
-      orderBy: { sequence: 'asc' }
-    });
+    const events = await PhysicianQueryAuditRepository.list(id);
     if (events.length === 0) return res.status(404).json({ error: 'No audit events or query not found' });
     // Basic integrity verification: check chain linkage
     const brokenLinks: number[] = [];
