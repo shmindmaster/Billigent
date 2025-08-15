@@ -1,0 +1,50 @@
+[
+  {
+    "code": "B59",
+    "change_type": "modified",
+    "old_long_title": "Pneumocystosis",
+    "new_long_title": "Pneumocystosis",
+    "effective_start": "2025-04-01",
+    "effective_end": ""
+  },
+  {
+    "code": "E23.0",
+    "change_type": "modified",
+    "old_long_title": "Hypopituitarism",
+    "new_long_title": "Hypopituitarism",
+    "effective_start": "2025-04-01",
+    "effective_end": ""
+  },
+  {
+    "code": "J17",
+    "change_type": "modified",
+    "old_long_title": "Pneumonia in diseases classified elsewhere",
+    "new_long_title": "Pneumonia in diseases classified elsewhere",
+    "effective_start": "2025-04-01",
+    "effective_end": ""
+  },
+  {
+    "code": "J65",
+    "change_type": "modified",
+    "old_long_title": "Pneumoconiosis associated with tuberculosis",
+    "new_long_title": "Pneumoconiosis associated with tuberculosis",
+    "effective_start": "2025-04-01",
+    "effective_end": ""
+  },
+  {
+    "code": "K56.41",
+    "change_type": "modified",
+    "old_long_title": "Fecal impaction",
+    "new_long_title": "Fecal impaction",
+    "effective_start": "2025-04-01",
+    "effective_end": ""
+  },
+  {
+    "code": "K90.822",
+    "change_type": "modified",
+    "old_long_title": "Short bowel syndrome without colon in continuity",
+    "new_long_title": "Short bowel syndrome without colon in continuity",
+    "effective_start": "2025-04-01",
+    "effective_end": ""
+  }
+]

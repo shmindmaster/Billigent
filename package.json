@@ -19,8 +19,10 @@
     "adls:inventory": "tsx scripts/adls-ops.ts inventory",
     "adls:plan": "tsx scripts/adls-ops.ts move-plan",
     "adls:copy": "tsx scripts/adls-ops.ts copy-verify",
-    "testsprite:mcp": "pnpm dlx @testsprite/testsprite-mcp@latest",
-    "testsprite:mcp:debug": "DEBUG=* pnpm dlx @testsprite/testsprite-mcp@latest"
+    "testsprite:mcp": "pnpm exec testsprite-mcp-plugin",
+    "testsprite:mcp:local": "pnpm exec testsprite-mcp-plugin",
+    "testsprite:mcp:debug": "DEBUG=* pnpm exec testsprite-mcp-plugin",
+    "testsprite:mcp:win": "node ./node_modules/@testsprite/testsprite-mcp/dist/index.js"
   },
   "dependencies": {
     "@azure/identity": "^4.11.1",

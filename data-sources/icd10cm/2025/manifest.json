@@ -1,0 +1,110 @@
+[
+  {
+    "id": "code_tables_tabular_index",
+    "original_filename": "2025-code-tables-tabular-and-index.zip",
+    "version_label": "FY2025",
+    "effective_range_start": "2024-10-01",
+    "effective_range_end": "2025-03-31",
+    "source_url": "https://www.cms.gov/files/zip/2025-code-tables-tabular-and-index.zip",
+    "sha256": "ecad76ac02b0ee74fda1f526f205f067795204fbb34bb4051c74410b1722fd18",
+    "size_bytes": 22809189,
+    "downloaded_at": "2025-08-15T04:25:23.311Z",
+    "content_type": "application/zip"
+  },
+  {
+    "id": "code_descriptions_tabular",
+    "original_filename": "2025-code-descriptions-tabular-order.zip",
+    "version_label": "FY2025",
+    "effective_range_start": "2024-10-01",
+    "effective_range_end": "2025-03-31",
+    "source_url": "https://www.cms.gov/files/zip/2025-code-descriptions-tabular-order.zip",
+    "sha256": "4f6c65f0034736d2b02fa9eb1128aab564fa673dd4d99363f8b2167af3994816",
+    "size_bytes": 2317827,
+    "downloaded_at": "2025-08-15T04:25:24.056Z",
+    "content_type": "application/zip"
+  },
+  {
+    "id": "addendum",
+    "original_filename": "2025-addendum.zip",
+    "version_label": "FY2025",
+    "effective_range_start": "2024-10-01",
+    "effective_range_end": "2025-03-31",
+    "source_url": "https://www.cms.gov/files/zip/2025-addendum.zip",
+    "sha256": "940389243d6e1e45a9686176e6728069cca090ffd267b281531210467ddfc79c",
+    "size_bytes": 743893,
+    "downloaded_at": "2025-08-15T04:25:24.377Z",
+    "content_type": "application/zip"
+  },
+  {
+    "id": "conversion_table",
+    "original_filename": "2025-conversion-table.zip",
+    "version_label": "FY2025",
+    "effective_range_start": "2024-10-01",
+    "effective_range_end": "",
+    "source_url": "https://www.cms.gov/files/zip/2025-conversion-table.zip",
+    "sha256": "1a1bf02ad413776d290c8b1e3cc2a90031b5a72f91305b3810c9889655952605",
+    "size_bytes": 152304,
+    "downloaded_at": "2025-08-15T04:25:24.827Z",
+    "content_type": "application/zip"
+  },
+  {
+    "id": "poa_exempt",
+    "original_filename": "2025-poa-exempt-codes.zip",
+    "version_label": "FY2025",
+    "effective_range_start": "2024-10-01",
+    "effective_range_end": "",
+    "source_url": "https://www.cms.gov/files/zip/2025-poa-exempt-codes.zip",
+    "sha256": "adf8677cfb19257e3a2fd6669afc3610dca1159a88136c110b3e4b658d4897a6",
+    "size_bytes": 1659705,
+    "downloaded_at": "2025-08-15T04:25:25.019Z",
+    "content_type": "application/zip"
+  },
+  {
+    "id": "official_guidelines_pdf",
+    "original_filename": "fy-2025-icd-10-cm-coding-guidelines.pdf",
+    "version_label": "FY2025",
+    "effective_range_start": "2024-10-01",
+    "effective_range_end": "",
+    "source_url": "https://www.cms.gov/files/document/fy-2025-icd-10-cm-coding-guidelines.pdf",
+    "sha256": "16e0cc5e26ba0d64836b43b3639caba0e658aabe238969831a949a5c480d6cb3",
+    "size_bytes": 835361,
+    "downloaded_at": "2025-08-15T04:25:25.146Z",
+    "content_type": "application/pdf"
+  },
+  {
+    "id": "april_code_tables_tabular_index",
+    "original_filename": "2025-code-tables-tabular-and-index-april.zip",
+    "version_label": "FY2025-April",
+    "effective_range_start": "2025-04-01",
+    "effective_range_end": "",
+    "source_url": "https://www.cms.gov/files/zip/2025-code-tables-tabular-and-index-april.zip",
+    "sha256": "bbb4e547338c7097dfaaaebeb6447a3bb7c23342223deacbdc9a573b651f7c03",
+    "size_bytes": 21881066,
+    "downloaded_at": "2025-08-15T04:25:27.293Z",
+    "content_type": "application/zip"
+  },
+  {
+    "id": "april_code_descriptions_tabular",
+    "original_filename": "2025-code-descriptions-tabular-order-april.zip",
+    "version_label": "FY2025-April",
+    "effective_range_start": "2025-04-01",
+    "effective_range_end": "",
+    "source_url": "https://www.cms.gov/files/zip/2025-code-descriptions-tabular-order-april.zip",
+    "sha256": "82291c7e21ac175574ea79413dc9e777e84d0bc4c92c08f6c3a2b3827d7384dc",
+    "size_bytes": 2194944,
+    "downloaded_at": "2025-08-15T04:25:27.876Z",
+    "content_type": "application/zip"
+  },
+  {
+    "id": "april_addendum",
+    "original_filename": "2025-icd-10-addendum-april.zip",
+    "version_label": "FY2025-April",
+    "effective_range_start": "2025-04-01",
+    "effective_range_end": "",
+    "source_url": "https://www.cms.gov/files/zip/2025-icd-10-addendum-april.zip",
+    "sha256": "08804924c4825a12dbd4c5d3512c5dc93e1c355a09625484bdd16785f8688559",
+    "size_bytes": 275967,
+    "downloaded_at": "2025-08-15T04:25:28.154Z",
+    "content_type": "application/zip"
+  }
+]

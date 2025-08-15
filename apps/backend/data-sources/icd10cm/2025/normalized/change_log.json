@@ -1,0 +1,68 @@
+[
+  {
+    "code": "B59",
+    "change_type": "modified",
+    "old_long_title": "Pneumocystosis",
+    "new_long_title": "Pneumocystosis",
+    "old_context_notes": "Pneumonia due to Pneumocystis carinii | Pneumonia due to Pneumocystis jiroveci",
+    "new_context_notes": "Pneumonia due to Pneumocystis carinii | Pneumonia due to Pneumocystis jirovecii",
+    "change_reason": "context",
+    "effective_start": "2025-04-01",
+    "effective_end": ""
+  },
+  {
+    "code": "E23.0",
+    "change_type": "modified",
+    "old_long_title": "Hypopituitarism",
+    "new_long_title": "Hypopituitarism",
+    "old_context_notes": "Fertile eunuch syndrome | Hypogonadotropic hypogonadism | Idiopathic growth hormone deficiency | Isolated deficiency of gonadotropin | Isolated deficiency of growth hormone | Isolated deficiency of pituitary hormone | Kallmann's syndrome | Lorain-Levi short stature | Necrosis of pituitary gland (postpartum) | Panhypopituitarism | Pituitary cachexia | Pituitary insufficiency NOS | Pituitary short stature | Sheehan's syndrome | Simmonds' disease",
+    "new_context_notes": "Fertile eunuch syndrome | Hypogonadotropic hypogonadism | Idiopathic growth hormone deficiency | Isolated deficiency of gonadotropin | Isolated deficiency of growth hormone | Isolated deficiency of pituitary hormone | Kallmann's syndrome | Lorain-Levi short stature | Necrosis of pituitary gland (postpartum) | Panhypopituitarism | Pituitary cachexia | Pituitary insufficiency NOS | Pituitary short stature | Sheehan's syndrome | Simmonds' disease | code, if applicable, for associated cachexia (E88.A)",
+    "change_reason": "context",
+    "effective_start": "2025-04-01",
+    "effective_end": ""
+  },
+  {
+    "code": "J17",
+    "change_type": "modified",
+    "old_long_title": "Pneumonia in diseases classified elsewhere",
+    "new_long_title": "Pneumonia in diseases classified elsewhere",
+    "old_context_notes": "underlying disease, such as: | Q fever (A78) | rheumatic fever (I00) | schistosomiasis (B65.0-B65.9) | , if applicable, any associated condition such as: | abscess (J85.1) | aspiration pneumonia (J69.-) | <note>candidial pneumonia (B37.1) | chlamydial pneumonia (J16.0) | gonorrheal pneumonia (A54.84) | histoplasmosis pneumonia (B39.0-B39.2) | measles pneumonia (B05.2) | nocardiosis pneumonia (A43.0) | pneumocystosis (B59) | pneumonia due to Pneumocystis carinii (B59) | pneumonia due to Pneumocystis jiroveci (B59) | pneumonia in actinomycosis (A42.0) | pneumonia in anthrax (A22.1) | pneumonia in ascariasis (B77.81) | pneumonia in aspergillosis (B44.0-B44.1) | pneumonia in coccidioidomycosis (B38.0-B38.2) | pneumonia in cytomegalovirus disease (B25.0) | pneumonia in toxoplasmosis (B58.3) | rubella pneumonia (B06.81) | salmonella pneumonia (A02.22) | spirochetal infection NEC with pneumonia (A69.8) | tularemia pneumonia (A21.2) | typhoid fever with pneumonia (A01.03) | varicella pneumonia (B01.2) | whooping cough with pneumonia (A37 with fifth-character 1)",
+    "new_context_notes": "underlying disease, such as: | Q fever (A78) | rheumatic fever (I00) | schistosomiasis (B65.0-B65.9) | , if applicable, any associated condition such as: | abscess (J85.1) | aspiration pneumonia (J69.-) | <note>candidial pneumonia (B37.1) | chlamydial pneumonia (J16.0) | gonorrheal pneumonia (A54.84) | histoplasmosis pneumonia (B39.0-B39.2) | measles pneumonia (B05.2) | nocardiosis pneumonia (A43.0) | pneumocystosis (B59) | pneumonia due to Pneumocystis carinii (B59) | pneumonia due to Pneumocystis jirovecii (B59) | pneumonia in actinomycosis (A42.0) | pneumonia in anthrax (A22.1) | pneumonia in ascariasis (B77.81) | pneumonia in aspergillosis (B44.0-B44.1) | pneumonia in coccidioidomycosis (B38.0-B38.2) | pneumonia in cytomegalovirus disease (B25.0) | pneumonia in toxoplasmosis (B58.3) | rubella pneumonia (B06.81) | salmonella pneumonia (A02.22) | spirochetal infection NEC with pneumonia (A69.8) | tularemia pneumonia (A21.2) | typhoid fever with pneumonia (A01.03) | varicella pneumonia (B01.2) | whooping cough with pneumonia (A37 with fifth-character 1)",
+    "change_reason": "context",
+    "effective_start": "2025-04-01",
+    "effective_end": ""
+  },
+  {
+    "code": "J65",
+    "change_type": "modified",
+    "old_long_title": "Pneumoconiosis associated with tuberculosis",
+    "new_long_title": "Pneumoconiosis associated with tuberculosis",
+    "old_context_notes": "Any condition in J60-J64 with tuberculosis, any type in A15 | Silicotuberculosis",
+    "new_context_notes": "Any condition in J60-J64 with tuberculosis, any type in A15 | Silicotuberculosis | code, if applicable, for associated cachexia (E88.A)",
+    "change_reason": "context",
+    "effective_start": "2025-04-01",
+    "effective_end": ""
+  },
+  {
+    "code": "K56.41",
+    "change_type": "modified",
+    "old_long_title": "Fecal impaction",
+    "new_long_title": "Fecal impaction",
+    "old_context_notes": "<note>constipation (K59.0-) | <note>incomplete defecation (R15.0)",
+    "new_context_notes": "<note>incomplete defecation (R15.0)",
+    "change_reason": "context",
+    "effective_start": "2025-04-01",
+    "effective_end": ""
+  },
+  {
+    "code": "K90.822",
+    "change_type": "modified",
+    "old_long_title": "Short bowel syndrome without colon in continuity",
+    "new_long_title": "Short bowel syndrome without colon in continuity",
+    "old_context_notes": "Short bowel syndrome without colonic continuity",
+    "new_context_notes": "Short bowel syndrome without colonic continuity | code, if applicable, for colostomy status (Z93.3)",
+    "change_reason": "context",
+    "effective_start": "2025-04-01",
+    "effective_end": ""
+  }
+]

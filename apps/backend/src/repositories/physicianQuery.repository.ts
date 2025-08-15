@@ -1,16 +1,16 @@
-import { v4 as uuid } from 'uuid';
-import AzureCosmosService from '../services/azureCosmos.service';
+import { v4 as uuid } from "uuid";
+import { azureCosmosService } from "../services/azureCosmos.service";
 
 export enum PhysicianQueryStatus {
-  DRAFT = 'DRAFT',
-  SENT = 'SENT',
-  RESPONDED = 'RESPONDED'
+  DRAFT = "DRAFT",
+  SENT = "SENT",
+  RESPONDED = "RESPONDED",
 }
 
 export enum PhysicianQueryEventType {
-  CREATED = 'CREATED',
-  SENT = 'SENT',
-  RESPONDED = 'RESPONDED'
+  CREATED = "CREATED",
+  SENT = "SENT",
+  RESPONDED = "RESPONDED",
 }
 
 export interface PhysicianQueryTemplateSnapshot {
@@ -38,7 +38,7 @@ export interface PhysicianQueryRecord {
   statusUpdatedAt?: string | null;
   createdAt: string;
   updatedAt: string;
-  type: 'physicianQuery';
+  type: "physicianQuery";
 }
 
 interface CreateInput {
@@ -51,7 +51,8 @@ interface CreateInput {
 }
 
 interface ListOptions {
-  limit?: number; page?: number;
+  limit?: number;
+  page?: number;
 }
 
 class PhysicianQueryRepository {
@@ -60,15 +61,19 @@ class PhysicianQueryRepository {
   private initialized = false;
 
   static getInstance(): PhysicianQueryRepository {
-    if (!PhysicianQueryRepository.instance) PhysicianQueryRepository.instance = new PhysicianQueryRepository();
+    if (!PhysicianQueryRepository.instance)
+      PhysicianQueryRepository.instance = new PhysicianQueryRepository();
     return PhysicianQueryRepository.instance;
   }
 
   private async ensureInit(): Promise<void> {
     if (this.initialized) return;
-    const cosmos = AzureCosmosService.getInstance();
+    const cosmos = azureCosmosService;
     await cosmos.initialize();
-    this.container = await cosmos.getOrCreateContainer('physician-queries', '/id');
+    this.container = await cosmos.getOrCreateContainer(
+      "physician-queries",
+      "/id"
+    );
     this.initialized = true;
   }
 
@@ -88,7 +93,7 @@ class PhysicianQueryRepository {
       draft: true,
       createdAt: now,
       updatedAt: now,
-      type: 'physicianQuery'
+      type: "physicianQuery",
     };
     await this.container.items.create({ ...record, _partitionKey: record.id });
     return record;
@@ -104,20 +109,35 @@ class PhysicianQueryRepository {
     }
   }
 
-  async update(id: string, updates: Partial<PhysicianQueryRecord>): Promise<PhysicianQueryRecord | null> {
+  async update(
+    id: string,
+    updates: Partial<PhysicianQueryRecord>
+  ): Promise<PhysicianQueryRecord | null> {
     await this.ensureInit();
     const existing = await this.get(id);
     if (!existing) return null;
-    const updated: PhysicianQueryRecord = { ...existing, ...updates, id, updatedAt: new Date().toISOString() };
+    const updated: PhysicianQueryRecord = {
+      ...existing,
+      ...updates,
+      id,
+      updatedAt: new Date().toISOString(),
+    };
     await this.container.item(id, id).replace(updated);
     return updated;
   }
 
-  async list(options: ListOptions = {}): Promise<{ queries: PhysicianQueryRecord[]; total: number }> {
+  async list(
+    options: ListOptions = {}
+  ): Promise<{ queries: PhysicianQueryRecord[]; total: number }> {
     await this.ensureInit();
     const { limit = 50, page = 1 } = options;
-    const querySpec = { query: 'SELECT * FROM c WHERE c.type = "physicianQuery" ORDER BY c.createdAt DESC' };
-    const { resources } = await this.container.items.query(querySpec).fetchAll();
+    const querySpec = {
+      query:
+        'SELECT * FROM c WHERE c.type = "physicianQuery" ORDER BY c.createdAt DESC',
+    };
+    const { resources } = await this.container.items
+      .query(querySpec)
+      .fetchAll();
     const records = resources as PhysicianQueryRecord[];
     const total = records.length;
     const start = (page - 1) * limit;

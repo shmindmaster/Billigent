@@ -1,5 +1,5 @@
-import { v4 as uuid } from 'uuid';
-import AzureCosmosService from '../services/azureCosmos.service';
+import { v4 as uuid } from "uuid";
+import { azureCosmosService } from "../services/azureCosmos.service";
 
 export interface UserRecord {
   id: string;
@@ -30,24 +30,32 @@ class UserRepository {
 
   private async ensureInit(): Promise<void> {
     if (this.initialized) return;
-    const cosmos = AzureCosmosService.getInstance();
+    const cosmos = azureCosmosService;
     await cosmos.initialize();
-    this.container = await cosmos.getOrCreateContainer('users', '/id');
+    this.container = await cosmos.getOrCreateContainer("users", "/id");
     this.initialized = true;
   }
 
-  async list(options: ListOptions = {}): Promise<{ users: UserRecord[]; total: number }> {
+  async list(
+    options: ListOptions = {}
+  ): Promise<{ users: UserRecord[]; total: number }> {
     await this.ensureInit();
     const { limit = 50, page = 1, search } = options;
 
     // Simple query: fetch page worth; for now we pull all then filter (optimize later)
-    const querySpec = { query: 'SELECT * FROM c ORDER BY c.createdAt DESC' };
-    const { resources } = await this.container.items.query(querySpec).fetchAll();
+    const querySpec = { query: "SELECT * FROM c ORDER BY c.createdAt DESC" };
+    const { resources } = await this.container.items
+      .query(querySpec)
+      .fetchAll();
     let users = resources as UserRecord[];
 
     if (search) {
       const s = search.toLowerCase();
-      users = users.filter(u => u.name?.toLowerCase().includes(s) || u.email?.toLowerCase().includes(s));
+      users = users.filter(
+        (u) =>
+          u.name?.toLowerCase().includes(s) ||
+          u.email?.toLowerCase().includes(s)
+      );
     }
 
     const total = users.length;
@@ -66,26 +74,37 @@ class UserRepository {
     }
   }
 
-  async create(data: { name: string; email: string; role?: string }): Promise<UserRecord> {
+  async create(data: {
+    name: string;
+    email: string;
+    role?: string;
+  }): Promise<UserRecord> {
     await this.ensureInit();
     const now = new Date().toISOString();
     const user: UserRecord = {
       id: uuid(),
       name: data.name,
       email: data.email,
-      role: data.role || 'user',
+      role: data.role || "user",
       createdAt: now,
-      updatedAt: now
+      updatedAt: now,
     };
     await this.container.items.create({ ...user, _partitionKey: user.id });
     return user;
   }
 
-  async update(id: string, updates: Partial<Pick<UserRecord, 'name' | 'email' | 'role'>>): Promise<UserRecord | null> {
+  async update(
+    id: string,
+    updates: Partial<Pick<UserRecord, "name" | "email" | "role">>
+  ): Promise<UserRecord | null> {
     await this.ensureInit();
     const existing = await this.get(id);
     if (!existing) return null;
-    const updated: UserRecord = { ...existing, ...updates, updatedAt: new Date().toISOString() };
+    const updated: UserRecord = {
+      ...existing,
+      ...updates,
+      updatedAt: new Date().toISOString(),
+    };
     await this.container.item(id, id).replace(updated);
     return updated;
   }

@@ -71,13 +71,17 @@ export class AzureSearchService {
     this.useManagedIdentity = !this.apiKey;
 
     if (!this.endpoint) {
-      console.warn("Azure Search endpoint not configured: service will run in fallback mode");
+      console.warn(
+        "Azure Search endpoint not configured: service will run in fallback mode"
+      );
       this.isEnabled = false;
       return;
     }
 
     if (!this.apiKey && !this.useManagedIdentity) {
-      console.warn("Azure Search authentication not configured: service will run in fallback mode");
+      console.warn(
+        "Azure Search authentication not configured: service will run in fallback mode"
+      );
       this.isEnabled = false;
       return;
     }
@@ -98,7 +102,7 @@ export class AzureSearchService {
           new AzureKeyCredential(this.apiKey!)
         );
       }
-      
+
       this.isEnabled = true;
       console.log("Azure Search service initialized successfully");
     } catch (error) {
@@ -204,7 +208,10 @@ export class AzureSearchService {
         },
       };
     } catch (error) {
-      console.error("Error performing search with Azure Search, falling back to fallback mode:", error);
+      console.error(
+        "Error performing search with Azure Search, falling back to fallback mode:",
+        error
+      );
       return this.generateFallbackSearchResult(query, context);
     }
   }
@@ -217,7 +224,7 @@ export class AzureSearchService {
     context?: ClinicalSearchContext
   ): HybridSearchResult {
     const startTime = Date.now();
-    
+
     // Generate mock results for development/testing
     const mockResults: SearchResult[] = [
       {
@@ -459,7 +466,11 @@ export class AzureSearchService {
   /**
    * Health check for the service
    */
-  async healthCheck(): Promise<{ status: string; endpoint: string; indexName: string }> {
+  async healthCheck(): Promise<{
+    status: string;
+    endpoint: string;
+    indexName: string;
+  }> {
     if (!this.isServiceEnabled()) {
       return {
         status: "fallback",
@@ -482,6 +493,30 @@ export class AzureSearchService {
         endpoint: this.endpoint,
         indexName: this.indexName,
       };
+    }
+  }
+
+  /**
+   * Minimal index statistics method required by strategy route health check.
+   * When running in fallback mode we return a stub so callers can treat the
+   * service as responsive without special casing.
+   */
+  async getIndexStats(): Promise<{
+    status: string;
+    indexName: string;
+    docCount?: number;
+  }> {
+    if (!this.isServiceEnabled()) {
+      return { status: "fallback", indexName: this.indexName };
+    }
+    try {
+      // There's no direct documents count in the simplified SDK call here; we
+      // re-use a lightweight query to approximate availability. More detailed
+      // statistics could be added later via index client.
+      await this.searchClient!.getSearchServiceStatistics();
+      return { status: "healthy", indexName: this.indexName };
+    } catch (err) {
+      return { status: "unhealthy", indexName: this.indexName };
     }
   }
 }

@@ -1,0 +1,12 @@
+{
+  "parser": "icd10cm-parse.ts",
+  "version": 1,
+  "features": [
+    "multi-line",
+    "april-overlay",
+    "change-log",
+    "basic-validation",
+    "xml-tabular"
+  ],
+  "generated_at": "2025-08-15T05:38:29.184Z"
+}

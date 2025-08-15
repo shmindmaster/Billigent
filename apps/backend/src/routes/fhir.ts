@@ -186,17 +186,29 @@ router.get("/resources/:resourceType", async (req, res) => {
   const { patientId, encounterId, limit = 100, offset = 0 } = req.query;
 
   try {
-    const FhirResourceService = (await import('../services/fhirResource.service')).default;
-    const { items, total } = await FhirResourceService.listByType(resourceType, {
-      patientId: patientId as string | undefined,
-      encounterId: encounterId as string | undefined,
-      limit: parseInt(limit as string),
-      offset: parseInt(offset as string)
-    });
+    const { FhirResourceService } = await import(
+      "../services/fhirResource.service.js"
+    );
+    const { items, total } = await FhirResourceService.listByType(
+      resourceType,
+      {
+        patientId: patientId as string | undefined,
+        encounterId: encounterId as string | undefined,
+        limit: parseInt(limit as string),
+        offset: parseInt(offset as string),
+      }
+    );
 
     return res.json({
       success: true,
-      resources: items.map(r => ({ id: r.id, resourceType: r.resourceType, createdAt: r.createdAt, patientId: r.patientId, encounterId: r.encounterId, json: r.json })),
+      resources: items.map((r: any) => ({
+        id: r.id,
+        resourceType: r.resourceType,
+        createdAt: r.createdAt,
+        patientId: r.patientId,
+        encounterId: r.encounterId,
+        json: r.json,
+      })),
       pagination: {
         limit: parseInt(limit as string),
         offset: parseInt(offset as string),
@@ -223,17 +235,29 @@ router.get("/patients/:patientId/resources", async (req, res) => {
   const { resourceType, limit = 100, offset = 0 } = req.query;
 
   try {
-    const FhirResourceService = (await import('../services/fhirResource.service')).default;
-    const { items, total } = await FhirResourceService.listByPatient(patientId, {
-      resourceType: resourceType as string | undefined,
-      limit: parseInt(limit as string),
-      offset: parseInt(offset as string)
-    });
+    const { FhirResourceService } = await import(
+      "../services/fhirResource.service.js"
+    );
+    const { items, total } = await FhirResourceService.listByPatient(
+      patientId,
+      {
+        resourceType: resourceType as string | undefined,
+        limit: parseInt(limit as string),
+        offset: parseInt(offset as string),
+      }
+    );
 
     return res.json({
       success: true,
       patientId,
-      resources: items.map(r => ({ id: r.id, resourceType: r.resourceType, createdAt: r.createdAt, patientId: r.patientId, encounterId: r.encounterId, json: r.json })),
+      resources: items.map((r: any) => ({
+        id: r.id,
+        resourceType: r.resourceType,
+        createdAt: r.createdAt,
+        patientId: r.patientId,
+        encounterId: r.encounterId,
+        json: r.json,
+      })),
       pagination: {
         limit: parseInt(limit as string),
         offset: parseInt(offset as string),
@@ -291,16 +315,26 @@ router.get("/health", async (_req, res) => {
  * POST /api/fhir/resources/:resourceType
  * Create (persist) a raw FHIR resource
  */
-router.post('/resources/:resourceType', async (req, res) => {
+router.post("/resources/:resourceType", async (req, res) => {
   const { resourceType } = req.params;
   const payload = req.body;
   try {
-    const FhirResourceService = (await import('../services/fhirResource.service')).default;
-    const created = await FhirResourceService.upsert({ resourceType, resource: payload });
+    const { FhirResourceService } = await import(
+      "../services/fhirResource.service.js"
+    );
+    const created = await FhirResourceService.upsert({
+      resourceType,
+      resource: payload,
+    });
     return res.status(201).json({ success: true, id: created.id });
   } catch (error) {
-    console.error('Failed to persist FHIR resource:', error);
-    return res.status(400).json({ success: false, error: error instanceof Error ? error.message : 'Unknown error' });
+    console.error("Failed to persist FHIR resource:", error);
+    return res
+      .status(400)
+      .json({
+        success: false,
+        error: error instanceof Error ? error.message : "Unknown error",
+      });
   }
 });
 

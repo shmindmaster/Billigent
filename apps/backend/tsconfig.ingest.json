@@ -1,0 +1,17 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "outDir": "dist-ingest",
+        "rootDir": ".",
+        "noEmit": false,
+        "composite": false,
+        "tsBuildInfoFile": "./.tsbuildinfo-ingest"
+    },
+    "include": [
+        "scripts/icd10cm-*.ts",
+        "scripts/icd10cm*.ts"
+    ],
+    "exclude": [
+        "src"
+    ]
+}

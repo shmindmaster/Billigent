@@ -186,11 +186,27 @@ export class AzureCosmosService {
     }
   }
 
+  /**
+   * Backwards-compatible accessor used by repositories that were written
+   * expecting a static getInstance() factory. We already export a singleton
+   * instance at the bottom of the file, so this simply returns it. Keeping
+   * this method avoids touching every repository right now and is the
+   * smallest change to restore build parity.
+   */
+  static getInstance(): AzureCosmosService {
+    // The exported singleton is defined after the class declaration; runtime
+    // order is safe because this method is only invoked after module load.
+    return azureCosmosService;
+  }
+
   async getOrCreateContainer(id: string, partitionKey: string) {
     await this.initialize();
-    if (!this.database) throw new Error('Database not initialized');
+    if (!this.database) throw new Error("Database not initialized");
     if (!this.containers[id]) {
-      const { container } = await this.database.containers.createIfNotExists({ id, partitionKey: { paths: [partitionKey] } });
+      const { container } = await this.database.containers.createIfNotExists({
+        id,
+        partitionKey: { paths: [partitionKey] },
+      });
       this.containers[id] = container;
     }
     return this.containers[id];
