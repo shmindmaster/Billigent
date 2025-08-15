@@ -189,4 +189,8 @@ temp/
 .playwright-mcp/
 # Added by AI: ignore generic env files repo-wide
 .env
+.env.*
+!.env.example
 **/.env
+**/.env.*
+!**/.env.example

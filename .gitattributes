@@ -1,0 +1,14 @@
+# Normalize all text to LF in repo *and* working copies
+* text=auto eol=lf
+
+# Treat these as binary (no line ending conversion)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary
+
+# Common lockfiles (no CRLF conversion, avoid churn)
+pnpm-lock.yaml -text
+package-lock.json -text
+yarn.lock -text
