@@ -1,0 +1,361 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Markdown Preview</title>
+      <style>
+        body {
+          font-family: sans-serif;
+          padding: 40px;
+          line-height: 1.6;
+          background: #fdfdfd;
+          color: #333;
+        }
+        pre {
+          background: #f4f4f4;
+          padding: 10px;
+          border-radius: 5px;
+          overflow-x: auto;
+        }
+        code {
+          font-family: monospace;
+          background: #eee;
+          padding: 2px 4px;
+        }
+        table {
+          border-collapse: collapse;
+          width: 100%;
+          margin-top: 20px;
+        }
+        th, td {
+          border: 1px solid #ccc;
+          padding: 8px 12px;
+          text-align: left;
+        }
+        th {
+          background-color: #f2f2f2;
+          font-weight: bold;
+        }
+      </style>
+    </head>
+    <body>
+      <h1>TestSprite AI Testing Report(MCP)</h1>
+<hr>
+<h2>1️⃣ Document Metadata</h2>
+<ul>
+<li><strong>Project Name:</strong> Billigent</li>
+<li><strong>Version:</strong> 0.0.0</li>
+<li><strong>Date:</strong> 2025-08-14</li>
+<li><strong>Prepared by:</strong> TestSprite AI Team</li>
+</ul>
+<hr>
+<h2>2️⃣ Requirement Validation Summary</h2>
+<h3>Requirement: User Authentication and Security</h3>
+<ul>
+<li><strong>Description:</strong> OAuth 2.0 authentication with Microsoft Entra ID, multi-factor authentication, and role-based access controls.</li>
+</ul>
+<h4>Test 1</h4>
+<ul>
+<li><strong>Test ID:</strong> TC001</li>
+<li><strong>Test Name:</strong> User Authentication Success</li>
+<li><strong>Test Code:</strong> <a href="./TC001_User_Authentication_Success.py">code_file</a></li>
+<li><strong>Test Error:</strong> Test execution timed out after 15 minutes</li>
+<li><strong>Test Visualization and Result:</strong> https://www.testsprite.com/dashboard/mcp/tests/08527770-2b0a-4612-9808-b078363a59a1/242ce4c0-2379-4ece-9104-a340c34e468b</li>
+<li><strong>Status:</strong> ❌ Failed</li>
+<li><strong>Severity:</strong> HIGH</li>
+<li><strong>Analysis / Findings:</strong> The test for user authentication via OAuth 2.0 failed due to a timeout, indicating the authentication flow is not completing as expected within the allowed time. This could be due to backend delays, UI not responding, or integration issues with Microsoft Entra ID and MFA processes.</li>
+</ul>
+<hr>
+<h4>Test 2</h4>
+<ul>
+<li><strong>Test ID:</strong> TC002</li>
+<li><strong>Test Name:</strong> User Authentication Failure with Invalid Credentials</li>
+<li><strong>Test Code:</strong> <a href="./TC002_User_Authentication_Failure_with_Invalid_Credentials.py">code_file</a></li>
+<li><strong>Test Error:</strong> Test execution timed out after 15 minutes</li>
+<li><strong>Test Visualization and Result:</strong> https://www.testsprite.com/dashboard/mcp/tests/08527770-2b0a-4612-9808-b078363a59a1/5c75f547-d3d0-4363-bbcc-378fa9a8caf5</li>
+<li><strong>Status:</strong> ❌ Failed</li>
+<li><strong>Severity:</strong> HIGH</li>
+<li><strong>Analysis / Findings:</strong> The system failed to deny access and show appropriate error messages for invalid OAuth login attempts, as the test timed out. This suggests potential issues with error handling or UI feedback mechanisms during failed authentication.</li>
+</ul>
+<hr>
+<h4>Test 3</h4>
+<ul>
+<li><strong>Test ID:</strong> TC011</li>
+<li><strong>Test Name:</strong> Role-Based Access Control Enforcement</li>
+<li><strong>Test Code:</strong> <a href="./TC011_Role_Based_Access_Control_Enforcement.py">code_file</a></li>
+<li><strong>Test Error:</strong> Test execution timed out after 15 minutes</li>
+<li><strong>Test Visualization and Result:</strong> https://www.testsprite.com/dashboard/mcp/tests/08527770-2b0a-4612-9808-b078363a59a1/fbb7f938-a2f2-44e3-885e-14cdf6c244ba</li>
+<li><strong>Status:</strong> ❌ Failed</li>
+<li><strong>Severity:</strong> HIGH</li>
+<li><strong>Analysis / Findings:</strong> Role-based access controls are not enforced or reported correctly within the allotted test time, which may allow unauthorized access or fail to log blocked actions.</li>
+</ul>
+<hr>
+<h4>Test 4</h4>
+<ul>
+<li><strong>Test ID:</strong> TC015</li>
+<li><strong>Test Name:</strong> System Security Penetration Test and Audit Log Verification</li>
+<li><strong>Test Code:</strong> <a href="./TC015_System_Security_Penetration_Test_and_Audit_Log_Verification.py">code_file</a></li>
+<li><strong>Test Error:</strong> Test execution timed out after 15 minutes</li>
+<li><strong>Test Visualization and Result:</strong> https://www.testsprite.com/dashboard/mcp/tests/08527770-2b0a-4612-9808-b078363a59a1/5efc3c11-8855-4abc-827b-8e137a73c159</li>
+<li><strong>Status:</strong> ❌ Failed</li>
+<li><strong>Severity:</strong> HIGH</li>
+<li><strong>Analysis / Findings:</strong> Security penetration testing and audit log verification failed to complete, possibly indicating unaddressed security vulnerabilities or issues with audit logging.</li>
+</ul>
+<hr>
+<h3>Requirement: Pre-Bill CDI Review and Case Management</h3>
+<ul>
+<li><strong>Description:</strong> Clinical Documentation Improvement review workflows, case creation, AI-assisted review, and submission processes.</li>
+</ul>
+<h4>Test 1</h4>
+<ul>
+<li><strong>Test ID:</strong> TC003</li>
+<li><strong>Test Name:</strong> Pre-Bill CDI Review Queue Prioritization</li>
+<li><strong>Test Code:</strong> <a href="./TC003_Pre_Bill_CDI_Review_Queue_Prioritization.py">code_file</a></li>
+<li><strong>Test Error:</strong> Test execution timed out after 15 minutes</li>
+<li><strong>Test Visualization and Result:</strong> https://www.testsprite.com/dashboard/mcp/tests/08527770-2b0a-4612-9808-b078363a59a1/24c24462-e3f3-4274-a75d-70a9d2849718</li>
+<li><strong>Status:</strong> ❌ Failed</li>
+<li><strong>Severity:</strong> HIGH</li>
+<li><strong>Analysis / Findings:</strong> The Pre-Bill CDI Review queue prioritization is not functioning within the expected timeframe, resulting in a test timeout. This implies that prioritization logic or rendering of prioritized cases in the queue is delayed or broken.</li>
+</ul>
+<hr>
+<h4>Test 2</h4>
+<ul>
+<li><strong>Test ID:</strong> TC009</li>
+<li><strong>Test Name:</strong> Case Management Workflow for Creation, Review, and Submission</li>
+<li><strong>Test Code:</strong> <a href="./TC009_Case_Management_Workflow_for_Creation_Review_and_Submission.py">code_file</a></li>
+<li><strong>Test Error:</strong> Test execution timed out after 15 minutes</li>
+<li><strong>Test Visualization and Result:</strong> https://www.testsprite.com/dashboard/mcp/tests/08527770-2b0a-4612-9808-b078363a59a1/1fce2140-999c-43dd-a5ab-51d5605aaa3f</li>
+<li><strong>Status:</strong> ❌ Failed</li>
+<li><strong>Severity:</strong> HIGH</li>
+<li><strong>Analysis / Findings:</strong> Case management workflows for creation, AI-assisted review, and submission did not complete as expected, leading to a timeout.</li>
+</ul>
+<hr>
+<h3>Requirement: Denial Management and Appeal Processing</h3>
+<ul>
+<li><strong>Description:</strong> Denial letter processing, OCR extraction, AI analysis, and appeal letter generation workflows.</li>
+</ul>
+<h4>Test 1</h4>
+<ul>
+<li><strong>Test ID:</strong> TC004</li>
+<li><strong>Test Name:</strong> Denial Letter PDF Upload and OCR Processing</li>
+<li><strong>Test Code:</strong> <a href="./TC004_Denial_Letter_PDF_Upload_and_OCR_Processing.py">code_file</a></li>
+<li><strong>Test Error:</strong> Test execution timed out after 15 minutes</li>
+<li><strong>Test Visualization and Result:</strong> https://www.testsprite.com/dashboard/mcp/tests/08527770-2b0a-4612-9808-b078363a59a1/06dfa0a0-6cab-4c59-9b1b-7bbdae2f1d96</li>
+<li><strong>Status:</strong> ❌ Failed</li>
+<li><strong>Severity:</strong> HIGH</li>
+<li><strong>Analysis / Findings:</strong> The denial letter PDF upload and asynchronous OCR processing failed due to test timeout, indicating the system is not processing uploads or extracting CARC/RARC codes and denial reasons correctly or promptly.</li>
+</ul>
+<hr>
+<h4>Test 2</h4>
+<ul>
+<li><strong>Test ID:</strong> TC005</li>
+<li><strong>Test Name:</strong> Automated Appeal Letter Generation with Evidence Citation</li>
+<li><strong>Test Code:</strong> <a href="./TC005_Automated_Appeal_Letter_Generation_with_Evidence_Citation.py">code_file</a></li>
+<li><strong>Test Error:</strong> Test execution timed out after 15 minutes</li>
+<li><strong>Test Visualization and Result:</strong> https://www.testsprite.com/dashboard/mcp/tests/08527770-2b0a-4612-9808-b078363a59a1/952549d6-4c10-4aa1-8c28-0b4aa03e0a86</li>
+<li><strong>Status:</strong> ❌ Failed</li>
+<li><strong>Severity:</strong> HIGH</li>
+<li><strong>Analysis / Findings:</strong> Automated appeal letter generation with evidence citation failed to complete, indicating problems in synthesizing clinical data and regulatory citations or passing expert validation steps.</li>
+</ul>
+<hr>
+<h4>Test 3</h4>
+<ul>
+<li><strong>Test ID:</strong> TC008</li>
+<li><strong>Test Name:</strong> Appeal Tracking and Management Dashboard Functionality</li>
+<li><strong>Test Code:</strong> <a href="./TC008_Appeal_Tracking_and_Management_Dashboard_Functionality.py">code_file</a></li>
+<li><strong>Test Error:</strong> Test execution timed out after 15 minutes</li>
+<li><strong>Test Visualization and Result:</strong> https://www.testsprite.com/dashboard/mcp/tests/08527770-2b0a-4612-9808-b078363a59a1/72d2b9c1-cb56-4a91-a3a0-8a5f8b20da11</li>
+<li><strong>Status:</strong> ❌ Failed</li>
+<li><strong>Severity:</strong> HIGH</li>
+<li><strong>Analysis / Findings:</strong> The appeal tracking and management dashboard failed to load or display lifecycle statuses, deadlines, and analytics properly within the allowed time.</li>
+</ul>
+<hr>
+<h4>Test 4</h4>
+<ul>
+<li><strong>Test ID:</strong> TC012</li>
+<li><strong>Test Name:</strong> Asynchronous AI Denial Analysis Notification and Workflow</li>
+<li><strong>Test Code:</strong> <a href="./TC012_Asynchronous_AI_Denial_Analysis_Notification_and_Workflow.py">code_file</a></li>
+<li><strong>Test Error:</strong> Test execution timed out after 15 minutes</li>
+<li><strong>Test Visualization and Result:</strong> https://www.testsprite.com/dashboard/mcp/tests/08527770-2b0a-4612-9808-b078363a59a1/f4a21dec-6e37-4faf-a0dc-f80a7cbe8c60</li>
+<li><strong>Status:</strong> ❌ Failed</li>
+<li><strong>Severity:</strong> HIGH</li>
+<li><strong>Analysis / Findings:</strong> Asynchronous AI denial analysis and user notification workflows did not complete or update UI properly during the test timeframe.</li>
+</ul>
+<hr>
+<h3>Requirement: KPI Monitoring and Performance</h3>
+<ul>
+<li><strong>Description:</strong> Real-time KPI dashboard updates, performance monitoring, and system health tracking.</li>
+</ul>
+<h4>Test 1</h4>
+<ul>
+<li><strong>Test ID:</strong> TC006</li>
+<li><strong>Test Name:</strong> Real-time KPI Monitoring Dashboard Refresh and Performance</li>
+<li><strong>Test Code:</strong> <a href="./TC006_Real_time_KPI_Monitoring_Dashboard_Refresh_and_Performance.py">code_file</a></li>
+<li><strong>Test Error:</strong> Test execution timed out after 15 minutes</li>
+<li><strong>Test Visualization and Result:</strong> https://www.testsprite.com/dashboard/mcp/tests/08527770-2b0a-4612-9808-b078363a59a1/97d72a39-baeb-4954-9a48-d8a312fa7f85</li>
+<li><strong>Status:</strong> ❌ Failed</li>
+<li><strong>Severity:</strong> HIGH</li>
+<li><strong>Analysis / Findings:</strong> The KPI dashboard failed to update data within 24 hours and did not respond within the required 2 seconds under expected load, resulting in a timeout.</li>
+</ul>
+<hr>
+<h4>Test 2</h4>
+<ul>
+<li><strong>Test ID:</strong> TC010</li>
+<li><strong>Test Name:</strong> System Uptime and Database Health Monitoring</li>
+<li><strong>Test Code:</strong> <a href="./TC010_System_Uptime_and_Database_Health_Monitoring.py">code_file</a></li>
+<li><strong>Test Error:</strong> Test execution timed out after 15 minutes</li>
+<li><strong>Test Visualization and Result:</strong> https://www.testsprite.com/dashboard/mcp/tests/08527770-2b0a-4612-9808-b078363a59a1/66eca25a-d598-4f9b-af13-b80c4e599526</li>
+<li><strong>Status:</strong> ❌ Failed</li>
+<li><strong>Severity:</strong> HIGH</li>
+<li><strong>Analysis / Findings:</strong> The system health monitoring dashboard failed to report real-time status and database health indicators timely, causing the test to timeout.</li>
+</ul>
+<hr>
+<h3>Requirement: AI-Powered Features and Natural Language Processing</h3>
+<ul>
+<li><strong>Description:</strong> Natural language query interface, conversational AI assistant, and AI-powered recommendations.</li>
+</ul>
+<h4>Test 1</h4>
+<ul>
+<li><strong>Test ID:</strong> TC007</li>
+<li><strong>Test Name:</strong> Natural Language Query Interface Compliance and Accuracy</li>
+<li><strong>Test Code:</strong> <a href="./TC007_Natural_Language_Query_Interface_Compliance_and_Accuracy.py">code_file</a></li>
+<li><strong>Test Error:</strong> Test execution timed out after 15 minutes</li>
+<li><strong>Test Visualization and Result:</strong> https://www.testsprite.com/dashboard/mcp/tests/08527770-2b0a-4612-9808-b078363a59a1/cf57acb2-0898-415f-87c6-5793582e37da</li>
+<li><strong>Status:</strong> ❌ Failed</li>
+<li><strong>Severity:</strong> HIGH</li>
+<li><strong>Analysis / Findings:</strong> The AI-powered natural language query interface did not respond or comply with non-leading template enforcement, HIPAA audit, and unique query ID generation within the test timeout.</li>
+</ul>
+<hr>
+<h4>Test 2</h4>
+<ul>
+<li><strong>Test ID:</strong> TC013</li>
+<li><strong>Test Name:</strong> Conversational AI Assistant Case Discussion and Recommendations</li>
+<li><strong>Test Code:</strong> <a href="./TC013_Conversational_AI_Assistant_Case_Discussion_and_Recommendations.py">code_file</a></li>
+<li><strong>Test Error:</strong> Test execution timed out after 15 minutes</li>
+<li><strong>Test Visualization and Result:</strong> https://www.testsprite.com/dashboard/mcp/tests/08527770-2b0a-4612-9808-b078363a59a1/8566eac6-f8d4-478b-9049-622dc70f81d8</li>
+<li><strong>Status:</strong> ❌ Failed</li>
+<li><strong>Severity:</strong> HIGH</li>
+<li><strong>Analysis / Findings:</strong> The conversational AI assistant failed to support case discussions, evidence recommendations, or document template access within the allotted time.</li>
+</ul>
+<hr>
+<h3>Requirement: Data Management and Search Integration</h3>
+<ul>
+<li><strong>Description:</strong> Azure Search integration, data indexing, and search query functionality.</li>
+</ul>
+<h4>Test 1</h4>
+<ul>
+<li><strong>Test ID:</strong> TC014</li>
+<li><strong>Test Name:</strong> Database Query and Indexing Integrity with Azure Search</li>
+<li><strong>Test Code:</strong> <a href="./TC014_Database_Query_and_Indexing_Integrity_with_Azure_Search.py">code_file</a></li>
+<li><strong>Test Error:</strong> Test execution timed out after 15 minutes</li>
+<li><strong>Test Visualization and Result:</strong> https://www.testsprite.com/dashboard/mcp/tests/08527770-2b0a-4612-9808-b078363a59a1/3890c54e-07bb-47b7-aef4-e118386e2d45</li>
+<li><strong>Status:</strong> ❌ Failed</li>
+<li><strong>Severity:</strong> HIGH</li>
+<li><strong>Analysis / Findings:</strong> Azure Search integration failed to index clinical and denial data properly or return accurate search results within the given time, causing a timeout.</li>
+</ul>
+<hr>
+<h2>3️⃣ Coverage &amp; Matching Metrics</h2>
+<ul>
+<li><strong>0% of product requirements tested successfully</strong></li>
+<li><strong>0% of tests passed</strong></li>
+<li><strong>100% of tests failed due to timeout issues</strong></li>
+</ul>
+<p><strong>Key gaps / risks:</strong></p>
+<blockquote>
+<p>All 15 test cases failed due to execution timeouts, indicating significant performance and responsiveness issues across the entire application. The frontend application appears to be unresponsive or experiencing severe delays that prevent proper testing completion.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Total Tests</th>
+<th>✅ Passed</th>
+<th>⚠️ Partial</th>
+<th>❌ Failed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>User Authentication and Security</td>
+<td>4</td>
+<td>0</td>
+<td>0</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Pre-Bill CDI Review and Case Management</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Denial Management and Appeal Processing</td>
+<td>4</td>
+<td>0</td>
+<td>0</td>
+<td>4</td>
+</tr>
+<tr>
+<td>KPI Monitoring and Performance</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+</tr>
+<tr>
+<td>AI-Powered Features and Natural Language Processing</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Data Management and Search Integration</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>4️⃣ Critical Issues and Recommendations</h2>
+<h3>Immediate Action Required:</h3>
+<ol>
+<li><strong>Performance Investigation</strong>: All tests are timing out after 15 minutes, indicating severe performance issues</li>
+<li><strong>Backend Connectivity</strong>: The frontend is showing API connection errors, suggesting backend services are not running</li>
+<li><strong>Authentication Flow</strong>: OAuth 2.0 integration with Microsoft Entra ID needs immediate attention</li>
+<li><strong>System Responsiveness</strong>: UI components are not responding within acceptable timeframes</li>
+</ol>
+<h3>Technical Recommendations:</h3>
+<ol>
+<li><strong>Start Backend Services</strong>: Ensure all backend APIs are running and accessible</li>
+<li><strong>Performance Optimization</strong>: Investigate and resolve timeout issues across all major components</li>
+<li><strong>Error Handling</strong>: Implement proper error handling and user feedback mechanisms</li>
+<li><strong>Monitoring</strong>: Set up real-time performance monitoring to identify bottlenecks</li>
+</ol>
+<h3>Next Steps:</h3>
+<ol>
+<li>Verify backend service status and connectivity</li>
+<li>Run performance profiling to identify timeout causes</li>
+<li>Implement proper error handling and loading states</li>
+<li>Re-run Testsprite tests after resolving critical issues</li>
+</ol>
+<hr>
+<h2>5️⃣ Test Environment Details</h2>
+<ul>
+<li><strong>Frontend Server</strong>: Running on port 5173 (Vite)</li>
+<li><strong>Backend Status</strong>: Not responding (connection refused errors)</li>
+<li><strong>Test Execution Time</strong>: 15 minutes per test case</li>
+<li><strong>Test Framework</strong>: TestSprite AI with Playwright</li>
+<li><strong>Browser</strong>: Automated browser testing via TestSprite tunnel</li>
+</ul>
+<hr>
+<p><em>Report generated by TestSprite AI Team on 2025-08-14</em></p>
+
+    </body>
+    </html>
+  

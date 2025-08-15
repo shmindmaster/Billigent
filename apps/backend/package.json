@@ -19,6 +19,7 @@
     "seed": "pnpm -F @billigent/database prisma db seed"
   },
   "dependencies": {
+    "@azure/cosmos": "^4.2.0",
     "@azure/identity": "^4.11.1",
     "@azure/msal-node": "^2.6.6",
     "@azure/search-documents": "^12.1.0",

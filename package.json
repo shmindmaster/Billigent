@@ -18,7 +18,9 @@
     "test:e2e:ci": "playwright test --reporter=list,html --config=playwright.config.ts",
     "adls:inventory": "tsx scripts/adls-ops.ts inventory",
     "adls:plan": "tsx scripts/adls-ops.ts move-plan",
-    "adls:copy": "tsx scripts/adls-ops.ts copy-verify"
+    "adls:copy": "tsx scripts/adls-ops.ts copy-verify",
+    "testsprite:mcp": "testsprite-mcp-plugin",
+    "testsprite:mcp:debug": "DEBUG=* testsprite-mcp-plugin"
   },
   "dependencies": {
     "@azure/identity": "^4.11.1",
@@ -49,6 +51,7 @@
     "eslint": "^8.56.0",
     "rimraf": "^5.0.5",
     "tsx": "^4.20.3",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "@testsprite/testsprite-mcp": "^0.0.11"
   }
 }

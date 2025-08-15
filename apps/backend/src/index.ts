@@ -7,9 +7,33 @@ dotenv.config();
 initSentry();
 
 const app: express.Express = express();
-// Enable CORS for local dev
+
+// Performance optimizations
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Enable CORS for local dev with proper timeout handling
 import cors from 'cors';
-app.use(cors({ origin: 'http://localhost:5173', credentials: false }));
+app.use(cors({ 
+  origin: 'http://localhost:5173', 
+  credentials: false,
+  optionsSuccessStatus: 200
+}));
+
+// Request timeout middleware (15 seconds max)
+app.use((req, res, next) => {
+  const timeout = setTimeout(() => {
+    res.status(408).json({ 
+      error: 'Request timeout', 
+      message: 'Request took too long to process' 
+    });
+  }, 15000);
+
+  res.on('finish', () => clearTimeout(timeout));
+  res.on('close', () => clearTimeout(timeout));
+  next();
+});
+
 // Attach Sentry handlers if client present (single module instance via ./sentry export)
 if (Sentry.getCurrentHub().getClient()) {
   // Express request/tracing handlers updated for Sentry 8.x (Handlers namespace removed from types)
@@ -28,46 +52,77 @@ if (Sentry.getCurrentHub().getClient()) {
     console.warn('Sentry middleware not applied');
   }
 }
-app.use(express.json());
+
 const PORT = process.env.PORT || 3001;
 
 // Import citation routes
 import citationMetricsRoutes from "./routes/citationMetrics";
 import denialsRoutes from "./routes/denials";
 
-app.get("/health", (_req, res) => {
-  res.json({ status: "healthy", ts: new Date().toISOString() });
+// Health check with timeout
+app.get("/health", async (_req, res) => {
+  try {
+    const healthCheck = await Promise.race([
+      Promise.resolve({ status: "healthy", ts: new Date().toISOString() }),
+      new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Health check timeout')), 5000)
+      )
+    ]);
+    res.json(healthCheck);
+  } catch (error) {
+    res.status(503).json({ 
+      status: "unhealthy", 
+      error: error instanceof Error ? error.message : 'Unknown error',
+      ts: new Date().toISOString() 
+    });
+  }
 });
 
+// Ready check with comprehensive health monitoring
 app.get("/ready", async (_req, res) => {
-  const [db, cosmos] = await Promise.all([
-    PrismaService.healthCheck(),
-    (async () => {
-      try {
-        // Use require to avoid TS module resolution complaints in NodeNext mode for optional dependency
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const svc = require('./services/azureCosmos.service');
-        return svc.azureCosmosService.healthCheck();
-      } catch (e) {
-        return {
-          status: "unavailable",
-          database: "billigent",
-          containers: [],
-          connectionTime: 0,
-        };
-      }
-    })(),
-  ]);
+  try {
+    const healthCheck = await Promise.race([
+      Promise.all([
+        PrismaService.healthCheck(),
+        (async () => {
+          try {
+            // Use require to avoid TS module resolution complaints in NodeNext mode for optional dependency
+            // eslint-disable-next-line @typescript-eslint/no-var-requires
+            const svc = require('./services/azureCosmos.service');
+            return svc.azureCosmosService.healthCheck();
+          } catch (e) {
+            return {
+              status: "unavailable",
+              database: "billigent",
+              containers: [],
+              connectionTime: 0,
+            };
+          }
+        })(),
+      ]),
+      new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Ready check timeout')), 10000)
+      )
+    ]);
 
-  const allHealthy = db.connected && cosmos.status === "healthy";
-  res.status(allHealthy ? 200 : 503).json({
-    status: allHealthy ? "ready" : "degraded",
-    db,
-    cosmos,
-    release: process.env.APP_RELEASE || "local",
-    commit: process.env.GIT_COMMIT || null,
-    ts: new Date().toISOString(),
-  });
+    const [db, cosmos] = healthCheck;
+    const allHealthy = db.connected && cosmos.status === "healthy";
+    
+    res.status(allHealthy ? 200 : 503).json({
+      status: allHealthy ? "ready" : "degraded",
+      db,
+      cosmos,
+      release: process.env.APP_RELEASE || "local",
+      commit: process.env.GIT_COMMIT || null,
+      ts: new Date().toISOString(),
+    });
+  } catch (error) {
+    res.status(503).json({
+      status: "error",
+      error: error instanceof Error ? error.message : 'Ready check failed',
+      ts: new Date().toISOString(),
+    });
+  }
 });
 
 app.get("/", (_req, res) => {
@@ -94,7 +149,7 @@ app.get("/debug-sentry", (_req, _res, next) => {
   }
 });
 
-// Register routes
+// Register routes with error handling
 app.use("/api/citation-metrics", citationMetricsRoutes);
 app.use("/api/denials", denialsRoutes);
 // Dev RAG (speed over security) - DO NOT ENABLE IN PROD
@@ -120,18 +175,50 @@ if (Sentry.getCurrentHub().getClient()) {
   }
 }
 
-// Basic fallback error handler
+// Enhanced error handler with timeout detection
 app.use(
   (
     err: any,
-    _req: express.Request,
+    req: express.Request,
     res: express.Response,
-    _next: express.NextFunction
+    next: express.NextFunction
   ) => {
     console.error("Unhandled error", err);
-    res.status(500).json({ error: "Internal Server Error" });
+    
+    // Check if it's a timeout error
+    if (err.code === 'ETIMEDOUT' || err.message?.includes('timeout')) {
+      return res.status(408).json({ 
+        error: "Request timeout", 
+        message: "The operation took too long to complete",
+        timestamp: new Date().toISOString()
+      });
+    }
+    
+    // Check if it's a connection error
+    if (err.code === 'ECONNREFUSED' || err.code === 'ENOTFOUND') {
+      return res.status(503).json({ 
+        error: "Service unavailable", 
+        message: "Backend service is not available",
+        timestamp: new Date().toISOString()
+      });
+    }
+    
+    res.status(500).json({ 
+      error: "Internal Server Error",
+      message: process.env.NODE_ENV === 'development' ? err.message : 'An unexpected error occurred',
+      timestamp: new Date().toISOString()
+    });
   }
 );
+
+// 404 handler for unmatched routes
+app.use('*', (req, res) => {
+  res.status(404).json({
+    error: 'Not Found',
+    message: `Route ${req.originalUrl} not found`,
+    timestamp: new Date().toISOString()
+  });
+});
 
 // Only listen when invoked directly
 if (require.main === module) {
@@ -143,8 +230,28 @@ if (require.main === module) {
     } catch (e) {
       console.warn('[startup] ensureSeeded not executed:', e instanceof Error ? e.message : e);
     }
-    app.listen(PORT, () => {
-      console.log(`🚀 Server on ${PORT}`);
+    
+    const server = app.listen(PORT, () => {
+      console.log(`🚀 Server running on port ${PORT}`);
+      console.log(`📊 Health check: http://localhost:${PORT}/health`);
+      console.log(`✅ Ready check: http://localhost:${PORT}/ready`);
+    });
+    
+    // Graceful shutdown handling
+    process.on('SIGTERM', () => {
+      console.log('SIGTERM received, shutting down gracefully');
+      server.close(() => {
+        console.log('Process terminated');
+        process.exit(0);
+      });
+    });
+    
+    process.on('SIGINT', () => {
+      console.log('SIGINT received, shutting down gracefully');
+      server.close(() => {
+        console.log('Process terminated');
+        process.exit(0);
+      });
     });
   })();
 }
