@@ -194,3 +194,47 @@ temp/
 **/.env
 **/.env.*
 !**/.env.example
+
+# ICD-10 local staging artifacts (raw ZIPs, extracted work files). Keep normalized CSV optional.
+apps/backend/data-sources/icd10cm/*/raw/
+apps/backend/data-sources/icd10cm/*/work/
+apps/backend/data-sources/icd10cm/*/normalized/*.zip
+apps/backend/data-sources/icd10cm/*/normalized/*.pdf
+apps/backend/data-sources/icd10cm/*/normalized/april_overlay_diagnostics.json
+apps/backend/data-sources/icd10cm/*/normalized/icd10cm_*_diagnostics.json
+apps/backend/data-sources/icd10cm/*/normalized/icd10cm_*.summary.json
+apps/backend/data-sources/icd10cm/*/normalized/icd10cm_*.csv
+apps/backend/data-sources/icd10cm/*/normalized/icd10cm_*.parquet
+apps/backend/data-sources/icd10cm/*/normalized/dataset_hash.json
+
+# Root-level ingestion mirrors (if run outside backend app path)
+data-sources/icd10cm/*/raw/
+data-sources/icd10cm/*/work/
+data-sources/icd10cm/*/normalized/*.zip
+data-sources/icd10cm/*/normalized/*.pdf
+data-sources/icd10cm/*/normalized/april_overlay_diagnostics.json
+data-sources/icd10cm/*/normalized/icd10cm_*_diagnostics.json
+data-sources/icd10cm/*/normalized/icd10cm_*.summary.json
+data-sources/icd10cm/*/normalized/icd10cm_*.csv
+data-sources/icd10cm/*/normalized/icd10cm_*.parquet
+data-sources/icd10cm/*/normalized/dataset_hash.json
+
+# Allow placeholders so directory structure can exist without data
+!apps/backend/data-sources/icd10cm/.gitkeep
+!apps/backend/data-sources/icd10cm/*/.gitkeep
+!data-sources/icd10cm/.gitkeep
+!data-sources/icd10cm/*/.gitkeep
+
+# Generic large data outputs across ingestion jobs
+**/data-sources/**/raw/**
+**/data-sources/**/work/**
+**/data-sources/**/normalized/**/*.tmp
+**/data-sources/**/normalized/**/*.bak
+**/data-sources/**/normalized/**/*_diagnostics.json
+**/data-sources/**/normalized/**/*_summary.json
+**/data-sources/**/normalized/**/*_summary.parquet
+
+# Exclude any accidental zipped source bundles placed at repo root
+icd10cm-*.zip
+icd10cm-*.pdf
+
