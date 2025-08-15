@@ -2,764 +2,615 @@
  * Database routes for Azure SQL Database and Cosmos DB operations
  * Handles operational working sets, evidence bundles, attribution tracking, and collaboration
  */
-import { Router, type Request, type Response } from "express";
-import azureSqlService from "../services/azureSql.service";
-import azureCosmosService from "../services/azureCosmos.service";
-import { eventPublisher, makeEvent } from "../strategy/events";
+import express from "express";
+import { CosmosClient } from "@azure/cosmos";
 
-const router: ReturnType<typeof Router> = Router();
+const router = express.Router();
 
-// ============================================================================
-// AZURE SQL DATABASE ROUTES (Operational Working Sets)
-// ============================================================================
-
-/**
- * POST /api/database/sql/init
- * Initialize Azure SQL Database schema
- */
-router.post("/sql/init", async (_req: Request, res: Response) => {
-  try {
-    await azureSqlService.initializeSchema();
-
-    // Publish initialization event
-    eventPublisher.publish(
-      makeEvent("sql_schema_initialized", {
-        timestamp: new Date().toISOString(),
-        service: "azure-sql",
-      })
-    );
-
-    return res.json({
-      success: true,
-      message: "Azure SQL Database schema initialized successfully",
-    });
-  } catch (error) {
-    console.error("SQL schema initialization failed:", error);
-
-    eventPublisher.publish(
-      makeEvent("sql_schema_initialization_failed", {
-        error: error instanceof Error ? error.message : "Unknown error",
-        timestamp: new Date().toISOString(),
-      })
-    );
-
-    return res.status(500).json({
-      success: false,
-      error: "Failed to initialize SQL schema",
-      details: error instanceof Error ? error.message : "Unknown error",
-    });
-  }
+// Initialize Cosmos DB client
+const cosmosClient = new CosmosClient({
+  endpoint: process.env.AZURE_COSMOS_ENDPOINT || "",
+  key: process.env.AZURE_COSMOS_KEY || "",
 });
 
-/**
- * POST /api/database/sql/denial-patterns
- * Store denial pattern in SQL Database
- */
-router.post("/sql/denial-patterns", async (req: Request, res: Response) => {
+const database = cosmosClient.database(process.env.AZURE_COSMOS_DATABASE || "billigent");
+
+// Initialize database schema
+async function initializeSchema() {
   try {
-    const pattern = req.body;
-    await azureSqlService.storeDenialPattern(pattern);
+    // Create containers if they don't exist
+    const containers = [
+      { id: "denial_patterns", partitionKey: "/id" },
+      { id: "appeal_cases", partitionKey: "/id" },
+      { id: "kpi_metrics", partitionKey: "/category" },
+      { id: "evidence_bundles", partitionKey: "/id" },
+      { id: "attribution_tracking", partitionKey: "/bundleId" },
+      { id: "document_versions", partitionKey: "/documentId" },
+      { id: "collaboration_sessions", partitionKey: "/caseId" }
+    ];
 
-    eventPublisher.publish(
-      makeEvent("denial_pattern_stored", {
-        patternId: pattern.id,
-        timestamp: new Date().toISOString(),
-      })
-    );
+    for (const container of containers) {
+      try {
+        await database.containers.createIfNotExists(container);
+        console.log(`Container ${container.id} ready`);
+      } catch (error) {
+        console.error(`Failed to create container ${container.id}:`, error);
+      }
+    }
+  } catch (error) {
+    console.error("Failed to initialize Cosmos DB schema:", error);
+    throw error;
+  }
+}
 
-    return res.json({
-      success: true,
-      message: "Denial pattern stored successfully",
-    });
+// Store denial pattern
+async function storeDenialPattern(pattern: any) {
+  try {
+    const container = database.container("denial_patterns");
+    const result = await container.items.upsert(pattern);
+    return result.resource;
   } catch (error) {
     console.error("Failed to store denial pattern:", error);
-    return res.status(500).json({
-      success: false,
-      error: "Failed to store denial pattern",
-      details: error instanceof Error ? error.message : "Unknown error",
-    });
+    throw error;
   }
-});
+}
 
-/**
- * GET /api/database/sql/denial-patterns/:codes
- * Get denial patterns by diagnosis codes
- */
-router.get(
-  "/sql/denial-patterns/:codes",
-  async (req: Request, res: Response) => {
-    try {
-      const codes = req.params.codes.split(",");
-      const patterns = await azureSqlService.getDenialPatternsByCodes(codes);
-
-      return res.json({
-        success: true,
-        patterns,
-      });
-    } catch (error) {
-      console.error("Failed to get denial patterns:", error);
-      return res.status(500).json({
-        success: false,
-        error: "Failed to retrieve denial patterns",
-        details: error instanceof Error ? error.message : "Unknown error",
-      });
-    }
-  }
-);
-
-/**
- * POST /api/database/sql/appeal-cases
- * Store appeal case in SQL Database
- */
-router.post("/sql/appeal-cases", async (req: Request, res: Response) => {
+// Get denial patterns by diagnosis codes
+async function getDenialPatternsByCodes(codes: string[]) {
   try {
-    const appealCase = req.body;
-    await azureSqlService.storeAppealCase(appealCase);
+    const container = database.container("denial_patterns");
+    const query = {
+      query: "SELECT * FROM c WHERE ARRAY_CONTAINS(@codes, c.diagnosis_codes)",
+      parameters: [{ name: "@codes", value: codes }]
+    };
+    
+    const { resources } = await container.items.query(query).fetchAll();
+    return resources;
+  } catch (error) {
+    console.error("Failed to get denial patterns:", error);
+    throw error;
+  }
+}
 
-    eventPublisher.publish(
-      makeEvent("appeal_case_stored", {
-        caseId: appealCase.id,
-        patientId: appealCase.patientId,
-        timestamp: new Date().toISOString(),
-      })
-    );
-
-    return res.json({
-      success: true,
-      message: "Appeal case stored successfully",
-    });
+// Store appeal case
+async function storeAppealCase(appealCase: any) {
+  try {
+    const container = database.container("appeal_cases");
+    const result = await container.items.upsert(appealCase);
+    return result.resource;
   } catch (error) {
     console.error("Failed to store appeal case:", error);
-    return res.status(500).json({
-      success: false,
-      error: "Failed to store appeal case",
-      details: error instanceof Error ? error.message : "Unknown error",
+    throw error;
+  }
+}
+
+// Update appeal case status
+async function updateAppealCaseStatus(
+  id: string,
+  status: string,
+  outcome?: string,
+  recoveryAmount?: number
+) {
+  try {
+    const container = database.container("appeal_cases");
+    const item = container.item(id, id);
+    
+    const { resource } = await item.read();
+    if (resource) {
+      resource.appeal_status = status;
+      if (outcome) resource.outcome = outcome;
+      if (recoveryAmount) resource.recovery_amount = recoveryAmount;
+      resource.updated_at = new Date().toISOString();
+      
+      const result = await item.replace(resource);
+      return result.resource;
+    }
+    throw new Error("Appeal case not found");
+  } catch (error) {
+    console.error("Failed to update appeal case status:", error);
+    throw error;
+  }
+}
+
+// Get appeal cases by patient
+async function getAppealCasesByPatient(patientId: string) {
+  try {
+    const container = database.container("appeal_cases");
+    const query = {
+      query: "SELECT * FROM c WHERE c.patient_id = @patientId",
+      parameters: [{ name: "@patientId", value: patientId }]
+    };
+    
+    const { resources } = await container.items.query(query).fetchAll();
+    return resources;
+  } catch (error) {
+    console.error("Failed to get appeal cases by patient:", error);
+    throw error;
+  }
+}
+
+// Calculate real-time KPIs
+async function calculateRealTimeKPIs() {
+  try {
+    const appealContainer = database.container("appeal_cases");
+    const patternContainer = database.container("denial_patterns");
+    
+    // Get appeal statistics
+    const appealQuery = "SELECT VALUE COUNT(1) FROM c WHERE c.appeal_status = 'decided'";
+    const { resources: appealCount } = await appealContainer.items.query(appealQuery).fetchAll();
+    
+    // Get denial pattern statistics
+    const patternQuery = "SELECT VALUE COUNT(1) FROM c";
+    const { resources: patternCount } = await patternContainer.items.query(patternQuery).fetchAll();
+    
+    return {
+      totalAppeals: appealCount[0] || 0,
+      totalDenialPatterns: patternCount[0] || 0,
+      lastUpdated: new Date().toISOString()
+    };
+  } catch (error) {
+    console.error("Failed to calculate real-time KPIs:", error);
+    throw error;
+  }
+}
+
+// Store KPI metric
+async function storeKPIMetric(metric: any) {
+  try {
+    const container = database.container("kpi_metrics");
+    const result = await container.items.upsert(metric);
+    return result.resource;
+  } catch (error) {
+    console.error("Failed to store KPI metric:", error);
+    throw error;
+  }
+}
+
+// Get KPI metrics by category and time period
+async function getKPIMetrics(category: string, timePeriod: string, limit: number = 100) {
+  try {
+    const container = database.container("kpi_metrics");
+    const query = {
+      query: "SELECT * FROM c WHERE c.category = @category AND c.time_period = @timePeriod ORDER BY c.timestamp DESC OFFSET 0 LIMIT @limit",
+      parameters: [
+        { name: "@category", value: category },
+        { name: "@timePeriod", value: timePeriod },
+        { name: "@limit", value: limit }
+      ]
+    };
+    
+    const { resources } = await container.items.query(query).fetchAll();
+    return resources;
+  } catch (error) {
+    console.error("Failed to get KPI metrics:", error);
+    throw error;
+  }
+}
+
+// Store evidence bundle
+async function storeEvidenceBundle(bundle: any) {
+  try {
+    const container = database.container("evidence_bundles");
+    const result = await container.items.upsert(bundle);
+    return result.resource;
+  } catch (error) {
+    console.error("Failed to store evidence bundle:", error);
+    throw error;
+  }
+}
+
+// Get evidence bundle by ID
+async function getEvidenceBundle(id: string, patientId: string) {
+  try {
+    const container = database.container("evidence_bundles");
+    const item = container.item(id, id);
+    const { resource } = await item.read();
+    return resource;
+  } catch (error) {
+    console.error("Failed to get evidence bundle:", error);
+    throw error;
+  }
+}
+
+// Get evidence bundles by patient
+async function getEvidenceBundlesByPatient(patientId: string) {
+  try {
+    const container = database.container("evidence_bundles");
+    const query = {
+      query: "SELECT * FROM c WHERE c.patient_id = @patientId ORDER BY c.created_at DESC",
+      parameters: [{ name: "@patientId", value: patientId }]
+    };
+    
+    const { resources } = await container.items.query(query).fetchAll();
+    return resources;
+  } catch (error) {
+    console.error("Failed to get evidence bundles by patient:", error);
+    throw error;
+  }
+}
+
+// Store attribution tracking
+async function storeAttributionTracking(attribution: any) {
+  try {
+    const container = database.container("attribution_tracking");
+    const result = await container.items.upsert(attribution);
+    return result.resource;
+  } catch (error) {
+    console.error("Failed to store attribution tracking:", error);
+    throw error;
+  }
+}
+
+// Update attribution verification status
+async function updateAttributionVerification(bundleId: string, status: string, checksum?: string) {
+  try {
+    const container = database.container("attribution_tracking");
+    const item = container.item(bundleId, bundleId);
+    
+    const { resource } = await item.read();
+    if (resource) {
+      resource.verification_status = status;
+      if (checksum) resource.checksum = checksum;
+      resource.updated_at = new Date().toISOString();
+      
+      const result = await item.replace(resource);
+      return result.resource;
+    }
+    throw new Error("Attribution tracking not found");
+  } catch (error) {
+    console.error("Failed to update attribution verification:", error);
+    throw error;
+  }
+}
+
+// Store document version
+async function storeDocumentVersion(version: any) {
+  try {
+    const container = database.container("document_versions");
+    const result = await container.items.upsert(version);
+    return result.resource;
+  } catch (error) {
+    console.error("Failed to store document version:", error);
+    throw error;
+  }
+}
+
+// Get document versions by document ID
+async function getDocumentVersions(documentId: string) {
+  try {
+    const container = database.container("document_versions");
+    const query = {
+      query: "SELECT * FROM c WHERE c.document_id = @documentId ORDER BY c.version_number DESC",
+      parameters: [{ name: "@documentId", value: documentId }]
+    };
+    
+    const { resources } = await container.items.query(query).fetchAll();
+    return resources;
+  } catch (error) {
+    console.error("Failed to get document versions:", error);
+    throw error;
+  }
+}
+
+// Store collaboration session
+async function storeCollaborationSession(session: any) {
+  try {
+    const container = database.container("collaboration_sessions");
+    const result = await container.items.upsert(session);
+    return result.resource;
+  } catch (error) {
+    console.error("Failed to store collaboration session:", error);
+    throw error;
+  }
+}
+
+// Update collaboration session
+async function updateCollaborationSession(sessionId: string, updates: any) {
+  try {
+    const container = database.container("collaboration_sessions");
+    const item = container.item(sessionId, sessionId);
+    
+    const { resource } = await item.read();
+    if (resource) {
+      Object.assign(resource, updates);
+      resource.updated_at = new Date().toISOString();
+      
+      const result = await item.replace(resource);
+      return result.resource;
+    }
+    throw new Error("Collaboration session not found");
+  } catch (error) {
+    console.error("Failed to update collaboration session:", error);
+    throw error;
+  }
+}
+
+// Add collaboration activity
+async function addCollaborationActivity(sessionId: string, activity: any) {
+  try {
+    const container = database.container("collaboration_sessions");
+    const item = container.item(sessionId, sessionId);
+    
+    const { resource } = await item.read();
+    if (resource) {
+      if (!resource.activities) resource.activities = [];
+      resource.activities.push({
+        ...activity,
+        timestamp: new Date().toISOString()
+      });
+      resource.updated_at = new Date().toISOString();
+      
+      const result = await item.replace(resource);
+      return result.resource;
+    }
+    throw new Error("Collaboration session not found");
+  } catch (error) {
+    console.error("Failed to add collaboration activity:", error);
+    throw error;
+  }
+}
+
+// Get collaboration session by ID
+async function getCollaborationSession(sessionId: string) {
+  try {
+    const container = database.container("collaboration_sessions");
+    const item = container.item(sessionId, sessionId);
+    const { resource } = await item.read();
+    return resource;
+  } catch (error) {
+    console.error("Failed to get collaboration session:", error);
+    throw error;
+  }
+}
+
+// Get active collaboration sessions by case ID
+async function getActiveCollaborationSessions(caseId: string) {
+  try {
+    const container = database.container("collaboration_sessions");
+    const query = {
+      query: "SELECT * FROM c WHERE c.case_id = @caseId AND c.status = 'active' ORDER BY c.created_at DESC",
+      parameters: [{ name: "@caseId", value: caseId }]
+    };
+    
+    const { resources } = await container.items.query(query).fetchAll();
+    return resources;
+  } catch (error) {
+    console.error("Failed to get active collaboration sessions:", error);
+    throw error;
+  }
+}
+
+// Check Cosmos DB health
+async function checkCosmosHealth() {
+  try {
+    const { resource: db } = await database.read();
+    return {
+      status: "healthy",
+      database: db?.id || "unknown",
+      lastCheck: new Date().toISOString()
+    };
+  } catch (error) {
+    console.error("Cosmos DB health check failed:", error);
+    return {
+      status: "unhealthy",
+      error: error instanceof Error ? error.message : "Unknown error",
+      lastCheck: new Date().toISOString()
+    };
+  }
+}
+
+// Check overall database health
+async function checkOverallHealth() {
+  try {
+    const cosmosHealth = await checkCosmosHealth();
+    
+    return {
+      overall: cosmosHealth.status === "healthy" ? "healthy" : "degraded",
+      cosmos: cosmosHealth,
+      lastCheck: new Date().toISOString()
+    };
+  } catch (error) {
+    console.error("Overall health check failed:", error);
+    return {
+      overall: "unhealthy",
+      error: error instanceof Error ? error.message : "Unknown error",
+      lastCheck: new Date().toISOString()
+    };
+  }
+}
+
+// Get connection status
+async function getConnectionStatus() {
+  try {
+    const cosmosHealth = await checkCosmosHealth();
+    
+    return {
+      cosmos: cosmosHealth.status,
+      overall: cosmosHealth.status === "healthy" ? "healthy" : "unhealthy",
+      lastCheck: new Date().toISOString()
+    };
+  } catch (error) {
+    console.error("Connection status check failed:", error);
+    return {
+      cosmos: "unhealthy",
+      overall: "unhealthy",
+      error: error instanceof Error ? error.message : "Unknown error",
+      lastCheck: new Date().toISOString()
+    };
+  }
+}
+
+// Initialize all databases
+async function initializeAll() {
+  try {
+    await initializeSchema();
+    return { success: true, message: "All databases initialized successfully" };
+  } catch (error) {
+    console.error("Failed to initialize all databases:", error);
+    throw error;
+  }
+}
+
+// Health check endpoint
+router.get("/health", async (req, res) => {
+  try {
+    const health = await checkOverallHealth();
+    res.json(health);
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      message: error instanceof Error ? error.message : "Unknown error"
     });
   }
 });
 
-/**
- * PUT /api/database/sql/appeal-cases/:id/status
- * Update appeal case status
- */
-router.put("/sql/appeal-cases/:id/status", async (req, res) => {
+// Initialize schema endpoint
+router.post("/init", async (req, res) => {
+  try {
+    await initializeSchema();
+    res.json({ success: true, message: "Database schema initialized successfully" });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error instanceof Error ? error.message : "Unknown error"
+    });
+  }
+});
+
+// Store denial pattern endpoint
+router.post("/denial-patterns", async (req, res) => {
+  try {
+    const pattern = req.body;
+    const result = await storeDenialPattern(pattern);
+    res.json({ success: true, data: result });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error instanceof Error ? error.message : "Unknown error"
+    });
+  }
+});
+
+// Get denial patterns by codes endpoint
+router.get("/denial-patterns/by-codes", async (req, res) => {
+  try {
+    const { codes } = req.query;
+    if (!codes || !Array.isArray(codes)) {
+      return res.status(400).json({ success: false, message: "Codes parameter is required and must be an array" });
+    }
+    
+    const patterns = await getDenialPatternsByCodes(codes as string[]);
+    res.json({ success: true, data: patterns });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error instanceof Error ? error.message : "Unknown error"
+    });
+  }
+});
+
+// Store appeal case endpoint
+router.post("/appeal-cases", async (req, res) => {
+  try {
+    const appealCase = req.body;
+    const result = await storeAppealCase(appealCase);
+    res.json({ success: true, data: result });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error instanceof Error ? error.message : "Unknown error"
+    });
+  }
+});
+
+// Update appeal case status endpoint
+router.patch("/appeal-cases/:id/status", async (req, res) => {
   try {
     const { id } = req.params;
     const { status, outcome, recoveryAmount } = req.body;
-
-    await azureSqlService.updateAppealCaseStatus(
-      id,
-      status,
-      outcome,
-      recoveryAmount
-    );
-
-    eventPublisher.publish(
-      makeEvent("appeal_case_status_updated", {
-        caseId: id,
-        status,
-        outcome,
-        timestamp: new Date().toISOString(),
-      })
-    );
-
-    return res.json({
-      success: true,
-      message: "Appeal case status updated successfully",
-    });
+    
+    const result = await updateAppealCaseStatus(id, status, outcome, recoveryAmount);
+    res.json({ success: true, data: result });
   } catch (error) {
-    console.error("Failed to update appeal case status:", error);
-    return res.status(500).json({
+    res.status(500).json({
       success: false,
-      error: "Failed to update appeal case status",
-      details: error instanceof Error ? error.message : "Unknown error",
+      message: error instanceof Error ? error.message : "Unknown error"
     });
   }
 });
 
-/**
- * GET /api/database/sql/appeal-cases/patient/:patientId
- * Get appeal cases by patient
- */
-router.get("/sql/appeal-cases/patient/:patientId", async (req, res) => {
+// Get appeal cases by patient endpoint
+router.get("/appeal-cases/patient/:patientId", async (req, res) => {
   try {
     const { patientId } = req.params;
-    const cases = await azureSqlService.getAppealCasesByPatient(patientId);
-
-    return res.json({
-      success: true,
-      cases,
-    });
+    const cases = await getAppealCasesByPatient(patientId);
+    res.json({ success: true, data: cases });
   } catch (error) {
-    console.error("Failed to get appeal cases:", error);
-    return res.status(500).json({
+    res.status(500).json({
       success: false,
-      error: "Failed to retrieve appeal cases",
-      details: error instanceof Error ? error.message : "Unknown error",
+      message: error instanceof Error ? error.message : "Unknown error"
     });
   }
 });
 
-/**
- * GET /api/database/sql/kpis/real-time
- * Get real-time KPI calculations
- */
-router.get("/sql/kpis/real-time", async (_req, res) => {
+// Get real-time KPIs endpoint
+router.get("/kpis/real-time", async (req, res) => {
   try {
-    const kpis = await azureSqlService.calculateRealTimeKPIs();
-
-    return res.json({
-      success: true,
-      kpis,
-      calculatedAt: new Date().toISOString(),
-    });
+    const kpis = await calculateRealTimeKPIs();
+    res.json({ success: true, data: kpis });
   } catch (error) {
-    console.error("Failed to calculate real-time KPIs:", error);
-    return res.status(500).json({
+    res.status(500).json({
       success: false,
-      error: "Failed to calculate KPIs",
-      details: error instanceof Error ? error.message : "Unknown error",
+      message: error instanceof Error ? error.message : "Unknown error"
     });
   }
 });
 
-/**
- * POST /api/database/sql/kpis
- * Store KPI metric
- */
-router.post("/sql/kpis", async (req, res) => {
+// Store KPI metric endpoint
+router.post("/kpis/metrics", async (req, res) => {
   try {
     const metric = req.body;
-    await azureSqlService.storeKPIMetric(metric);
-
-    eventPublisher.publish(
-      makeEvent("kpi_metric_stored", {
-        metricId: metric.id,
-        metricName: metric.metricName,
-        timestamp: new Date().toISOString(),
-      })
-    );
-
-    return res.json({
-      success: true,
-      message: "KPI metric stored successfully",
-    });
+    const result = await storeKPIMetric(metric);
+    res.json({ success: true, data: result });
   } catch (error) {
-    console.error("Failed to store KPI metric:", error);
-    return res.status(500).json({
+    res.status(500).json({
       success: false,
-      error: "Failed to store KPI metric",
-      details: error instanceof Error ? error.message : "Unknown error",
+      message: error instanceof Error ? error.message : "Unknown error"
     });
   }
 });
 
-/**
- * GET /api/database/sql/kpis/:category/:timePeriod
- * Get KPI metrics by category and time period
- */
-router.get("/sql/kpis/:category/:timePeriod", async (req, res) => {
+// Get KPI metrics endpoint
+router.get("/kpis/metrics", async (req, res) => {
   try {
-    const { category, timePeriod } = req.params;
-    const { limit = 100 } = req.query;
-
-    const metrics = await azureSqlService.getKPIMetrics(
-      category,
-      timePeriod,
-      parseInt(limit as string)
-    );
-
-    return res.json({
-      success: true,
-      metrics,
-    });
-  } catch (error) {
-    console.error("Failed to get KPI metrics:", error);
-    return res.status(500).json({
-      success: false,
-      error: "Failed to retrieve KPI metrics",
-      details: error instanceof Error ? error.message : "Unknown error",
-    });
-  }
-});
-
-// ============================================================================
-// AZURE COSMOS DB ROUTES (Evidence Bundles & Collaboration)
-// ============================================================================
-
-/**
- * POST /api/database/cosmos/init
- * Initialize Cosmos DB containers
- */
-router.post("/cosmos/init", async (_req, res) => {
-  try {
-    await azureCosmosService.initialize();
-
-    eventPublisher.publish(
-      makeEvent("cosmos_containers_initialized", {
-        timestamp: new Date().toISOString(),
-        service: "azure-cosmos",
-      })
-    );
-
-    return res.json({
-      success: true,
-      message: "Cosmos DB containers initialized successfully",
-    });
-  } catch (error) {
-    console.error("Cosmos DB initialization failed:", error);
-
-    eventPublisher.publish(
-      makeEvent("cosmos_initialization_failed", {
-        error: error instanceof Error ? error.message : "Unknown error",
-        timestamp: new Date().toISOString(),
-      })
-    );
-
-    return res.status(500).json({
-      success: false,
-      error: "Failed to initialize Cosmos DB",
-      details: error instanceof Error ? error.message : "Unknown error",
-    });
-  }
-});
-
-/**
- * POST /api/database/cosmos/evidence-bundles
- * Store evidence bundle in Cosmos DB
- */
-router.post("/cosmos/evidence-bundles", async (req, res) => {
-  try {
-    const bundle = req.body;
-    await azureCosmosService.storeEvidenceBundle(bundle);
-
-    eventPublisher.publish(
-      makeEvent("evidence_bundle_stored", {
-        bundleId: bundle.id,
-        patientId: bundle.patientId,
-        timestamp: new Date().toISOString(),
-      })
-    );
-
-    return res.json({
-      success: true,
-      message: "Evidence bundle stored successfully",
-    });
-  } catch (error) {
-    console.error("Failed to store evidence bundle:", error);
-    return res.status(500).json({
-      success: false,
-      error: "Failed to store evidence bundle",
-      details: error instanceof Error ? error.message : "Unknown error",
-    });
-  }
-});
-
-/**
- * GET /api/database/cosmos/evidence-bundles/:id
- * Get evidence bundle by ID
- */
-router.get("/cosmos/evidence-bundles/:id/:patientId", async (req, res) => {
-  try {
-    const { id, patientId } = req.params;
-    const bundle = await azureCosmosService.getEvidenceBundle(id, patientId);
-
-    if (!bundle) {
-      return res.status(404).json({
-        success: false,
-        error: "Evidence bundle not found",
-      });
+    const { category, timePeriod, limit } = req.query;
+    if (!category || !timePeriod) {
+      return res.status(400).json({ success: false, message: "Category and timePeriod parameters are required" });
     }
-
-    return res.json({
-      success: true,
-      bundle,
-    });
-  } catch (error) {
-    console.error("Failed to get evidence bundle:", error);
-    return res.status(500).json({
-      success: false,
-      error: "Failed to retrieve evidence bundle",
-      details: error instanceof Error ? error.message : "Unknown error",
-    });
-  }
-});
-
-/**
- * GET /api/database/cosmos/evidence-bundles/patient/:patientId
- * Get evidence bundles by patient
- */
-router.get("/cosmos/evidence-bundles/patient/:patientId", async (req, res) => {
-  try {
-    const { patientId } = req.params;
-    const bundles = await azureCosmosService.getEvidenceBundlesByPatient(
-      patientId
+    
+    const metrics = await getKPIMetrics(
+      category as string,
+      timePeriod as string,
+      limit ? parseInt(limit as string) : 100
     );
-
-    return res.json({
-      success: true,
-      bundles,
-    });
+    res.json({ success: true, data: metrics });
   } catch (error) {
-    console.error("Failed to get evidence bundles:", error);
-    return res.status(500).json({
+    res.status(500).json({
       success: false,
-      error: "Failed to retrieve evidence bundles",
-      details: error instanceof Error ? error.message : "Unknown error",
+      message: error instanceof Error ? error.message : "Unknown error"
     });
   }
 });
 
-/**
- * POST /api/database/cosmos/attribution-tracking
- * Store attribution tracking in Cosmos DB
- */
-router.post("/cosmos/attribution-tracking", async (req, res) => {
+// Health check endpoint for compatibility
+router.get("/health-check", async (req, res) => {
   try {
-    const attribution = req.body;
-    await azureCosmosService.storeAttributionTracking(attribution);
-
-    eventPublisher.publish(
-      makeEvent("attribution_tracking_stored", {
-        attributionId: attribution.id,
-        bundleId: attribution.bundleId,
-        timestamp: new Date().toISOString(),
-      })
-    );
-
-    return res.json({
-      success: true,
-      message: "Attribution tracking stored successfully",
-    });
+    const health = await checkOverallHealth();
+    res.json(health);
   } catch (error) {
-    console.error("Failed to store attribution tracking:", error);
-    return res.status(500).json({
-      success: false,
-      error: "Failed to store attribution tracking",
-      details: error instanceof Error ? error.message : "Unknown error",
-    });
-  }
-});
-
-/**
- * PUT /api/database/cosmos/attribution-tracking/:bundleId/verification
- * Update attribution verification status
- */
-router.put(
-  "/cosmos/attribution-tracking/:bundleId/verification",
-  async (req, res) => {
-    try {
-      const { bundleId } = req.params;
-      const { status, checksum } = req.body;
-
-      await azureCosmosService.updateAttributionVerification(
-        bundleId,
-        status,
-        checksum
-      );
-
-      eventPublisher.publish(
-        makeEvent("attribution_verification_updated", {
-          bundleId,
-          status,
-          timestamp: new Date().toISOString(),
-        })
-      );
-
-      return res.json({
-        success: true,
-        message: "Attribution verification updated successfully",
-      });
-    } catch (error) {
-      console.error("Failed to update attribution verification:", error);
-      return res.status(500).json({
-        success: false,
-        error: "Failed to update attribution verification",
-        details: error instanceof Error ? error.message : "Unknown error",
-      });
-    }
-  }
-);
-
-/**
- * POST /api/database/cosmos/document-versions
- * Store document version in Cosmos DB
- */
-router.post("/cosmos/document-versions", async (req, res) => {
-  try {
-    const version = req.body;
-    await azureCosmosService.storeDocumentVersion(version);
-
-    eventPublisher.publish(
-      makeEvent("document_version_stored", {
-        documentId: version.documentId,
-        version: version.version,
-        timestamp: new Date().toISOString(),
-      })
-    );
-
-    return res.json({
-      success: true,
-      message: "Document version stored successfully",
-    });
-  } catch (error) {
-    console.error("Failed to store document version:", error);
-    return res.status(500).json({
-      success: false,
-      error: "Failed to store document version",
-      details: error instanceof Error ? error.message : "Unknown error",
-    });
-  }
-});
-
-/**
- * GET /api/database/cosmos/document-versions/:documentId
- * Get document versions by document ID
- */
-router.get("/cosmos/document-versions/:documentId", async (req, res) => {
-  try {
-    const { documentId } = req.params;
-    const versions = await azureCosmosService.getDocumentVersions(documentId);
-
-    return res.json({
-      success: true,
-      versions,
-    });
-  } catch (error) {
-    console.error("Failed to get document versions:", error);
-    return res.status(500).json({
-      success: false,
-      error: "Failed to retrieve document versions",
-      details: error instanceof Error ? error.message : "Unknown error",
-    });
-  }
-});
-
-/**
- * POST /api/database/cosmos/collaboration-sessions
- * Store collaboration session in Cosmos DB
- */
-router.post("/cosmos/collaboration-sessions", async (req, res) => {
-  try {
-    const session = req.body;
-    await azureCosmosService.storeCollaborationSession(session);
-
-    eventPublisher.publish(
-      makeEvent("collaboration_session_created", {
-        sessionId: session.sessionId,
-        caseId: session.caseId,
-        timestamp: new Date().toISOString(),
-      })
-    );
-
-    return res.json({
-      success: true,
-      message: "Collaboration session created successfully",
-    });
-  } catch (error) {
-    console.error("Failed to create collaboration session:", error);
-    return res.status(500).json({
-      success: false,
-      error: "Failed to create collaboration session",
-      details: error instanceof Error ? error.message : "Unknown error",
-    });
-  }
-});
-
-/**
- * PUT /api/database/cosmos/collaboration-sessions/:sessionId
- * Update collaboration session
- */
-router.put("/cosmos/collaboration-sessions/:sessionId", async (req, res) => {
-  try {
-    const { sessionId } = req.params;
-    const updates = req.body;
-
-    await azureCosmosService.updateCollaborationSession(sessionId, updates);
-
-    eventPublisher.publish(
-      makeEvent("collaboration_session_updated", {
-        sessionId,
-        timestamp: new Date().toISOString(),
-      })
-    );
-
-    return res.json({
-      success: true,
-      message: "Collaboration session updated successfully",
-    });
-  } catch (error) {
-    console.error("Failed to update collaboration session:", error);
-    return res.status(500).json({
-      success: false,
-      error: "Failed to update collaboration session",
-      details: error instanceof Error ? error.message : "Unknown error",
-    });
-  }
-});
-
-/**
- * POST /api/database/cosmos/collaboration-sessions/:sessionId/activities
- * Add activity to collaboration session
- */
-router.post(
-  "/cosmos/collaboration-sessions/:sessionId/activities",
-  async (req, res) => {
-    try {
-      const { sessionId } = req.params;
-      const activity = req.body;
-
-      await azureCosmosService.addCollaborationActivity(sessionId, activity);
-
-      eventPublisher.publish(
-        makeEvent("collaboration_activity_added", {
-          sessionId,
-          activityType: activity.type,
-          userId: activity.userId,
-          timestamp: new Date().toISOString(),
-        })
-      );
-
-      return res.json({
-        success: true,
-        message: "Activity added to collaboration session successfully",
-      });
-    } catch (error) {
-      console.error("Failed to add collaboration activity:", error);
-      return res.status(500).json({
-        success: false,
-        error: "Failed to add collaboration activity",
-        details: error instanceof Error ? error.message : "Unknown error",
-      });
-    }
-  }
-);
-
-/**
- * GET /api/database/cosmos/collaboration-sessions/:sessionId
- * Get collaboration session by ID
- */
-router.get("/cosmos/collaboration-sessions/:sessionId", async (req, res) => {
-  try {
-    const { sessionId } = req.params;
-    const session = await azureCosmosService.getCollaborationSession(sessionId);
-
-    if (!session) {
-      return res.status(404).json({
-        success: false,
-        error: "Collaboration session not found",
-      });
-    }
-
-    return res.json({
-      success: true,
-      session,
-    });
-  } catch (error) {
-    console.error("Failed to get collaboration session:", error);
-    return res.status(500).json({
-      success: false,
-      error: "Failed to retrieve collaboration session",
-      details: error instanceof Error ? error.message : "Unknown error",
-    });
-  }
-});
-
-/**
- * GET /api/database/cosmos/collaboration-sessions/case/:caseId/active
- * Get active collaboration sessions by case ID
- */
-router.get(
-  "/cosmos/collaboration-sessions/case/:caseId/active",
-  async (req, res) => {
-    try {
-      const { caseId } = req.params;
-      const sessions = await azureCosmosService.getActiveCollaborationSessions(
-        caseId
-      );
-
-      return res.json({
-        success: true,
-        sessions,
-      });
-    } catch (error) {
-      console.error("Failed to get active collaboration sessions:", error);
-      return res.status(500).json({
-        success: false,
-        error: "Failed to retrieve active collaboration sessions",
-        details: error instanceof Error ? error.message : "Unknown error",
-      });
-    }
-  }
-);
-
-// ============================================================================
-// HEALTH CHECK ROUTES
-// ============================================================================
-
-/**
- * GET /api/database/health/sql
- * Health check for Azure SQL Database
- */
-router.get("/health/sql", async (_req, res) => {
-  try {
-    const health = await azureSqlService.healthCheck();
-    return res.json(health);
-  } catch (error) {
-    return res.status(503).json({
-      status: "unhealthy",
-      error: error instanceof Error ? error.message : "Unknown error",
-      timestamp: new Date().toISOString(),
-    });
-  }
-});
-
-/**
- * GET /api/database/health/cosmos
- * Health check for Azure Cosmos DB
- */
-router.get("/health/cosmos", async (_req, res) => {
-  try {
-    const health = await azureCosmosService.healthCheck();
-    return res.json(health);
-  } catch (error) {
-    return res.status(503).json({
-      status: "unhealthy",
-      error: error instanceof Error ? error.message : "Unknown error",
-      timestamp: new Date().toISOString(),
-    });
-  }
-});
-
-/**
- * GET /api/database/health
- * Overall database health check
- */
-router.get("/health", async (_req, res) => {
-  try {
-    const [sqlHealth, cosmosHealth] = await Promise.all([
-      azureSqlService.healthCheck(),
-      azureCosmosService.healthCheck(),
-    ]);
-
-    const overallStatus =
-      sqlHealth.status === "healthy" && cosmosHealth.status === "healthy"
-        ? "healthy"
-        : "degraded";
-
-    return res.json({
-      status: overallStatus,
-      timestamp: new Date().toISOString(),
-      services: {
-        sql: sqlHealth,
-        cosmos: cosmosHealth,
-      },
-    });
-  } catch (error) {
-    return res.status(503).json({
-      status: "unhealthy",
-      error: error instanceof Error ? error.message : "Unknown error",
-      timestamp: new Date().toISOString(),
+    res.status(500).json({
+      status: "error",
+      message: error instanceof Error ? error.message : "Unknown error"
     });
   }
 });

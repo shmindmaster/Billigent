@@ -1,6 +1,5 @@
 packages:
-  - apps/*
-  - packages/*
-
-# Purged: removed Prisma onlyBuiltDependencies block
-# (original prisma-related entries removed during Cosmos migration)
+  - 'apps/*'
+  - 'deploy'
+  - 'scripts'
+  - 'tests'

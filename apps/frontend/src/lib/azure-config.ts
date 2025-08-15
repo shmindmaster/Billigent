@@ -3,32 +3,7 @@
  * Centralized configuration management for Azure services
  */
 
-interface AzureConfiguration {
-  // Azure SQL Database
-  sqlServer: string;
-  sqlDatabase: string;
-  sqlUsername: string;
-  sqlPassword: string;
-  
-  // Azure OpenAI
-  openaiEndpoint: string;
-  openaiApiKey: string;
-  openaiDeploymentName: string;
-  
-  // Azure AI Search
-  searchEndpoint: string;
-  searchApiKey: string;
-  searchIndexName: string;
-  
-  // Azure Data Lake
-  dataLakeAccountName: string;
-  dataLakeAccountKey: string;
-  dataLakeContainerName: string;
-  
-  // Application Settings
-  environment: 'development' | 'staging' | 'production';
-  apiBaseUrl: string;
-}
+import { AzureConfiguration } from '@/types/azure-config';
 
 class AzureConfigService {
   private config: AzureConfiguration;
@@ -40,11 +15,10 @@ class AzureConfigService {
   private loadConfiguration(): AzureConfiguration {
     // Load from environment variables with fallbacks
     return {
-      // Azure SQL Database
-      sqlServer: this.getEnvVar('VITE_AZURE_SQL_SERVER', 'localhost'),
-      sqlDatabase: this.getEnvVar('VITE_AZURE_SQL_DATABASE', 'billigent'),
-      sqlUsername: this.getEnvVar('VITE_AZURE_SQL_USERNAME', 'sa'),
-      sqlPassword: this.getEnvVar('VITE_AZURE_SQL_PASSWORD', 'YourPassword123!'),
+      // Azure Cosmos DB
+      cosmosEndpoint: this.getEnvVar('VITE_AZURE_COSMOS_ENDPOINT', ''),
+      cosmosKey: this.getEnvVar('VITE_AZURE_COSMOS_KEY', ''),
+      cosmosDatabase: this.getEnvVar('VITE_AZURE_COSMOS_DATABASE', 'billigent'),
       
       // Azure OpenAI (Responses or standard)
       openaiEndpoint: this.getEnvVar('VITE_AZURE_OPENAI_RESPONSES_ENDPOINT', this.getEnvVar('VITE_AZURE_OPENAI_ENDPOINT', '')),
@@ -69,115 +43,22 @@ class AzureConfigService {
 
   private getEnvVar(key: string, defaultValue: string = ''): string {
     // Try Vite environment variables first
-    if ((import.meta as any)?.env && (import.meta as any).env[key]) {
-      return (import.meta as any).env[key];
+    if (import.meta.env[key]) {
+      return import.meta.env[key] as string;
     }
     
-    // Try process.env for Node.js environments
+    // Fallback to process.env for Node.js compatibility
     if (typeof process !== 'undefined' && process.env && process.env[key]) {
-      return process.env[key];
+      return process.env[key] as string;
     }
     
     return defaultValue;
   }
 
-  /**
-   * Get the complete configuration object
-   */
   getConfig(): AzureConfiguration {
-    return { ...this.config };
-  }
-
-  /**
-   * Get SQL Database configuration
-   */
-  getSqlConfig() {
-    return {
-      server: this.config.sqlServer,
-      database: this.config.sqlDatabase,
-      username: this.config.sqlUsername,
-      password: this.config.sqlPassword,
-    };
-  }
-
-  /**
-   * Get Azure OpenAI configuration
-   */
-  getOpenAIConfig() {
-    return {
-      endpoint: this.config.openaiEndpoint,
-      apiKey: this.config.openaiApiKey,
-      deploymentName: this.config.openaiDeploymentName,
-    };
-  }
-
-  /**
-   * Get Azure AI Search configuration
-   */
-  getSearchConfig() {
-    return {
-      endpoint: this.config.searchEndpoint,
-      apiKey: this.config.searchApiKey,
-      indexName: this.config.searchIndexName,
-    };
-  }
-
-  /**
-   * Get Azure Data Lake configuration
-   */
-  getDataLakeConfig() {
-    return {
-      accountName: this.config.dataLakeAccountName,
-      accountKey: this.config.dataLakeAccountKey,
-      containerName: this.config.dataLakeContainerName,
-    };
-  }
-
-  /**
-   * Check if running in production environment
-   */
-  isProduction(): boolean {
-    return this.config.environment === 'production';
-  }
-
-  /**
-   * Check if running in development environment
-   */
-  isDevelopment(): boolean {
-    return this.config.environment === 'development';
-  }
-
-  /**
-   * Validate required configuration values
-   */
-  validateConfig(): { valid: boolean; missing: string[] } {
-    const requiredFields: (keyof AzureConfiguration)[] = [
-      'sqlServer',
-      'sqlDatabase',
-      'openaiEndpoint',
-      'openaiApiKey',
-      'searchEndpoint',
-      'searchApiKey',
-    ];
-
-    const missing: string[] = [];
-
-    for (const field of requiredFields) {
-      if (!this.config[field] || this.config[field] === '') {
-        missing.push(field);
-      }
-    }
-
-    return {
-      valid: missing.length === 0,
-      missing,
-    };
+    return this.config;
   }
 }
 
-// Create singleton instance
 export const azureConfig = new AzureConfigService();
-
-// Export types
-export type { AzureConfiguration };
-export { AzureConfigService };
+export default azureConfig;

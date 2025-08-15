@@ -1,12 +1,10 @@
 import UserBadge from '@/components/shared/UserBadge';
-import { useAuth } from '@/contexts/AuthContext';
 import {
     BarChart3,
     Briefcase,
     Database,
     FileText,
     LayoutDashboard,
-    LogOut,
     Menu,
     MessageSquare,
     Settings,
@@ -20,14 +18,7 @@ import ThemeToggle from './ThemeToggle';
 
 const Layout: React.FC = () => {
   const { theme } = useTheme();
-  const { user } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  const handleSignOut = () => {
-    // In a real app, this would clear authentication tokens
-    // TODO: Implement proper authentication flow
-    // navigate('/login');
-  };
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
@@ -37,145 +28,106 @@ const Layout: React.FC = () => {
     {
       name: 'Dashboard',
       path: '/dashboard',
-      icon: LayoutDashboard,
-      description: 'KPIs, task summaries, and alerts'
+      icon: LayoutDashboard
     },
     {
-      name: 'Case Management',
+      name: 'Cases',
       path: '/cases',
-      icon: Briefcase,
-      description: 'Universal search hub for all cases, patients, and claims'
+      icon: Briefcase
     },
     {
-      name: 'Pre-Bill Review',
-      path: '/pre-bill',
-      icon: MessageSquare,
-      description: 'AI CDI opportunities and worklist'
+      name: 'Analytics',
+      path: '/analytics',
+      icon: BarChart3
     },
     {
       name: 'Denials',
       path: '/denials',
-      icon: FileText,
-      description: 'Appeals and denial workflows'
+      icon: FileText
+    },
+    {
+      name: 'Pre-Bill Review',
+      path: '/pre-bill',
+      icon: Stethoscope
     },
     {
       name: 'Queries',
       path: '/queries',
-      icon: Stethoscope,
-      description: 'Physician queries and CDI reviews'
-    },
-    {
-      name: 'Reports & Analytics',
-      path: '/analytics',
-      icon: BarChart3,
-      description: 'Historical reporting and trends'
+      icon: MessageSquare
     },
     {
       name: 'Data Explorer',
-      path: '/data-explorer',
-      icon: Database,
-      description: 'Browse silver/gold datasets'
+      path: '/explorer',
+      icon: Database
     },
     {
       name: 'Settings',
       path: '/settings',
-      icon: Settings,
-      description: 'System configuration and admin'
+      icon: Settings
     }
   ];
 
   return (
-    <div className={`flex h-screen ${theme === 'dark' ? 'dark' : ''}`}>
-      {/* Skip to content for keyboard users */}
-      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 px-3 py-2 rounded bg-primary text-primary-foreground">
-        Skip to content
-      </a>
-      
-      {/* Mobile Menu Button */}
-      <button
-        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        className={`md:hidden fixed top-4 left-4 z-50 p-2 rounded-lg ${
-          theme === 'dark' 
-            ? 'bg-gray-800 text-white hover:bg-gray-700' 
-            : 'bg-white text-gray-900 hover:bg-gray-50'
-        } shadow-lg border ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}
-      >
-        {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-      </button>
-
-      {/* Mobile Overlay */}
+    <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
+      {/* Mobile menu overlay */}
       {isMobileMenuOpen && (
         <div 
-          className="md:hidden fixed inset-0 z-40 bg-black bg-opacity-50"
+          className="fixed inset-0 z-40 bg-black bg-opacity-50 md:hidden"
           onClick={closeMobileMenu}
         />
       )}
 
       {/* Sidebar */}
-      <div className={`${
+      <div className={`fixed inset-y-0 left-0 z-50 w-64 transform transition-transform duration-300 ease-in-out md:relative md:translate-x-0 ${
         isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
-      } md:translate-x-0 fixed md:static inset-y-0 left-0 z-50 w-64 border-r flex flex-col transition-transform duration-300 ease-in-out ${
-        theme === 'dark' 
-          ? 'bg-gray-900 border-gray-700' 
-          : 'bg-white border-gray-200'
-      }`}>
-        {/* Logo/Brand */}
-        <div className={`p-6 border-b ${
-          theme === 'dark' ? 'border-gray-700' : 'border-gray-200'
-        }`}>
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-              <Stethoscope className="w-6 h-6 text-white" />
+      } ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} border-r ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}>
+        
+        {/* Logo and close button */}
+        <div className="flex items-center justify-between p-4 border-b ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}">
+          <div className="flex items-center space-x-2">
+            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-sm">B</span>
             </div>
-            <div>
-              <h1 className={`text-xl font-bold ${
-                theme === 'dark' ? 'text-white' : 'text-gray-900'
-              }`}>Billigent</h1>
-              <p className={`text-xs ${
-                theme === 'dark' ? 'text-gray-400' : 'text-gray-700'
-              }`}>Healthcare Billing</p>
-            </div>
+            <span className={`text-xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+              Billigent
+            </span>
           </div>
+          
+          <button
+            onClick={closeMobileMenu}
+            className="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+          >
+            <X className="w-5 h-5" />
+          </button>
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 px-4 py-6">
-          <ul className="space-y-2">
-            {navigationItems.map((item) => (
-              <li key={item.path}>
-                <NavLink
-                  to={item.path}
-                  onClick={closeMobileMenu}
-                  className={({ isActive }) =>
-                    `flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 group no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 ${theme === 'dark' ? 'focus-visible:ring-offset-gray-900' : 'focus-visible:ring-offset-white'} ${
-                      isActive
-                        ? 'bg-blue-600 text-white shadow-lg cursor-default hover:bg-blue-600 hover:text-white'
-                        : theme === 'dark' 
-                          ? 'text-gray-300 hover:bg-gray-800 hover:text-white'
-                          : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
-                    }`
+        <nav className="flex-1 p-4 space-y-2">
+          {navigationItems.map((item) => {
+            const Icon = item.icon;
+            return (
+              <NavLink
+                key={item.path}
+                to={item.path}
+                onClick={closeMobileMenu}
+                className={({ isActive }) => `
+                  flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 group
+                  ${isActive 
+                    ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300' 
+                    : theme === 'dark' 
+                      ? 'text-gray-400 hover:bg-gray-800 hover:text-white' 
+                      : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
                   }
-                >
-                  <item.icon className="w-5 h-5 mr-3 transition-colors duration-200" />
-                  <div>
-                    <div className="font-medium">{item.name}</div>
-                    <div
-                      className={`text-xs mt-0.5 ${
-                        theme === 'dark'
-                          ? 'text-gray-400 group-aria-[current=page]:text-white/90'
-                          : 'text-gray-700 group-aria-[current=page]:text-white/90'
-                      }`}
-                    >
-                      {item.description}
-                    </div>
-                  </div>
-                </NavLink>
-              </li>
-            ))}
-          </ul>
+                `}
+              >
+                <Icon className="w-5 h-5 mr-3" />
+                {item.name}
+              </NavLink>
+            );
+          })}
         </nav>
 
-        {/* User Profile Section */}
+        {/* Bottom Section */}
         <div className={`p-4 border-t space-y-3 ${
           theme === 'dark' ? 'border-gray-700' : 'border-gray-200'
         }`}>
@@ -185,20 +137,8 @@ const Layout: React.FC = () => {
           </div>
           
           <div className="flex flex-col">
-            <UserBadge user={{ name: user.fullName, email: user.email }} />
+            <UserBadge user={{ name: 'System User', email: 'system@billigent.com' }} />
           </div>
-          
-          <button
-            onClick={handleSignOut}
-            className={`w-full flex items-center px-4 py-2 text-sm rounded-lg transition-all duration-200 group ${
-              theme === 'dark' 
-                ? 'text-gray-400 hover:bg-gray-800 hover:text-white' 
-                : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
-            }`}
-          >
-            <LogOut className="w-4 h-4 mr-3" />
-            Sign Out
-          </button>
         </div>
       </div>
 

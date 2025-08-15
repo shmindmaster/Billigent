@@ -1,0 +1,50 @@
+Order25	POAexemptCode	Description
+29387	Q23.81	Bicuspid aortic valve
+29388	Q23.82	Congenital mitral valve cleft leaflet
+29389	Q23.88	Other congenital malformations of aortic and mitral valves
+30176	Q87.86	Kleefstra syndrome
+78161	T45.AX1D	"Poisoning by immune checkpoint inhibitors and immunostimulant drugs, accidental (unintentional), subsequent encounter"
+78162	T45.AX1S	"Poisoning by immune checkpoint inhibitors and immunostimulant drugs, accidental (unintentional), sequela"
+78165	T45.AX2D	"Poisoning by immune checkpoint inhibitors and immunostimulant drugs, intentional self-harm, subsequent encounter"
+78166	T45.AX2S	"Poisoning by immune checkpoint inhibitors and immunostimulant drugs, intentional self-harm, sequela"
+78169	T45.AX3D	"Poisoning by immune checkpoint inhibitors and immunostimulant drugs, assault, subsequent encounter"
+78170	T45.AX3S	"Poisoning by immune checkpoint inhibitors and immunostimulant drugs, assault, sequela"
+78173	T45.AX4D	"Poisoning by immune checkpoint inhibitors and immunostimulant drugs, undetermined, subsequent encounter"
+78174	T45.AX4S	"Poisoning by immune checkpoint inhibitors and immunostimulant drugs, undetermined, sequela"
+78177	T45.AX5D	"Adverse effect of immune checkpoint inhibitors and immunostimulant drugs, subsequent encounter"
+78178	T45.AX5S	"Adverse effect of immune checkpoint inhibitors and immunostimulant drugs, sequela"
+78181	T45.AX6D	"Underdosing of immune checkpoint inhibitors and immunostimulant drugs, subsequent encounter"
+78182	T45.AX6S	"Underdosing of immune checkpoint inhibitors and immunostimulant drugs, sequela"
+83005	T81.320D	"Disruption or dehiscence of gastrointestinal tract anastomosis, repair, or closure, subsequent encounter"
+83006	T81.320S	"Disruption or dehiscence of gastrointestinal tract anastomosis, repair, or closure, sequela"
+83009	T81.321D	"Disruption or dehiscence of closure of internal operation (surgical) wound of abdominal wall muscle or fascia, subsequent encounter"
+83010	T81.321S	"Disruption or dehiscence of closure of internal operation (surgical) wound of abdominal wall muscle or fascia, sequela"
+83013	T81.328D	"Disruption or dehiscence of closure of other specified internal operation (surgical) wound, subsequent encounter"
+83014	T81.328S	"Disruption or dehiscence of closure of other specified internal operation (surgical) wound, sequela"
+83017	T81.329D	"Deep disruption or dehiscence of operation wound, unspecified, subsequent encounter"
+83018	T81.329S	"Deep disruption or dehiscence of operation wound, unspecified, sequela"
+95983	Z15.1	Genetic susceptibility to epilepsy and neurodevelopmental disorders
+95984	Z15.2	Genetic susceptibility to obesity
+96016	Z17.21	Progesterone receptor positive status
+96017	Z17.22	Progesterone receptor negative status
+96019	Z17.31	Human epidermal growth factor receptor 2 positive status
+96020	Z17.32	Human epidermal growth factor receptor 2 negative status
+96023	Z17.410	Hormone receptor positive with human epidermal growth factor receptor 2 positive status
+96024	Z17.411	Hormone receptor positive with human epidermal growth factor receptor 2 negative status
+96026	Z17.420	Hormone receptor negative with human epidermal growth factor receptor 2 positive status
+96027	Z17.421	Hormone receptor negative with human epidermal growth factor receptor 2 negative status
+96495	Z51.A	Encounter for sepsis aftercare
+96606	Z59.71	Insufficient health insurance coverage
+96607	Z59.72	Insufficient welfare support
+96707	Z67.A1	Duffy null
+96708	Z67.A2	Duffy a positive
+96709	Z67.A3	Duffy b positive
+96710	Z67.A4	Duffy a and b positive
+96746	Z68.55	"Body mass index [BMI] pediatric, 120% of the 95th percentile for age to less than 140% of the 95th percentile for age"
+96747	Z68.56	"Body mass index [BMI] pediatric, greater than or equal to 140% of the 95th percentile for age"
+96999	Z83.72	Family history of familial adenomatous polyposis
+97103	Z86.0100	"Personal history of colon polyps, unspecified"
+97104	Z86.0101	Personal history of adenomatous and serrated colon polyps
+97105	Z86.0102	Personal history of hyperplastic colon polyps
+97106	Z86.0109	Personal history of other colon polyps
+97411	Z92.26	Personal history of immune checkpoint inhibitor therapy

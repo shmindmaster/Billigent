@@ -1,118 +1,115 @@
-# -------------------------
-# 1. Dependencies
-# -------------------------
+# Dependencies
 node_modules/
-.pnp
-.pnp.js
-**/node_modules/
-**/.pnp
-**/.pnp.js
+.pnpm-store/
 
-# -------------------------
-# 2. Build Outputs
-# -------------------------
+# Build outputs
 dist/
 build/
-.out
-.storybook-out
-.cache
-.parcel-cache
-.next
-.nuxt
-.cache/
-.rpt2_cache/
-.rts2_cache_cjs/
-.rts2_cache_es/
-.rts2_cache_umd/
-**/dist/
-**/build/
-**/.next/
-**/.nuxt/
-**/.cache/
+.next/
+out/
 
-# -------------------------
-# 3. Environment Variables
-# -------------------------
+# Environment files
+.env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
-**/.env.local
-**/.env.development.local
-**/.env.test.local
-**/.env.production.local
-prisma/.env
-prisma/.env.local
-**/prisma/.env
-**/prisma/.env.local
 
-# -------------------------
-# 4. Logs & Debug Files
-# -------------------------
+# Logs
+logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-*.log
-**/*.log
 
-# -------------------------
-# 5. Runtime Data & Locks
-# -------------------------
+# Runtime data
 pids
 *.pid
 *.seed
 *.pid.lock
-**/*.pid
-**/*.seed
-**/*.pid.lock
 
-# -------------------------
-# 6. Test & Coverage Reports
-# -------------------------
+# Coverage directory used by tools like istanbul
 coverage/
 *.lcov
+
+# nyc test coverage
 .nyc_output
-test-results/
-playwright-report/
-test-output/
-**/coverage/
-**/test-results/
-**/playwright-report/
-**/test-output/
 
-# -------------------------
-# 7. Caches
-# -------------------------
-.eslintcache
-.stylelintcache
+# Grunt intermediate storage
+.grunt
+
+# Bower dependency directory
+bower_components
+
+# node-waf configuration
+.lock-wscript
+
+# Compiled binary addons
+build/Release
+
+# Dependency directories
+jspm_packages/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
 .npm
-.yarn-integrity
+
+# Optional eslint cache
+.eslintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
 .node_repl_history
-**/.eslintcache
-**/.stylelintcache
-**/.npm
-**/.yarn-integrity
-**/.node_repl_history
 
-# -------------------------
-# 8. Editors & IDEs
-# -------------------------
-.vscode/*
-!.vscode/extensions.json
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env.test
+
+# parcel-bundler cache
+.cache
+.parcel-cache
+
+# Next.js build output
+.next
+
+# Nuxt.js build / generate output
+.nuxt
+dist
+
+# Gatsby files
+.cache/
+public
+
+# Storybook build outputs
+.out
+.storybook-out
+
+# Temporary folders
+tmp/
+temp/
+
+# Editor directories and files
+.vscode/
 .idea/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-**/.vscode/*
-**/.idea/
+*.swp
+*.swo
+*~
 
-# -------------------------
-# 9. OS Files
-# -------------------------
+# OS generated files
 .DS_Store
 .DS_Store?
 ._*
@@ -120,121 +117,24 @@ test-output/
 .Trashes
 ehthumbs.db
 Thumbs.db
-**/.DS_Store
-**/Thumbs.db
 
-# -------------------------
-# 10. Azure
-# -------------------------
-local.settings.json
-host.json
+# Test results
+test-results/
+playwright-report/
+playwright/.cache/
+
+# Data sources (large files)
+data-sources/**/{raw,work,normalized}
+data-sources/**/work/
+data-sources/**/normalized/
+
+# Azure deployment artifacts
 .azure/
-**/.azure/
+deploy/.env
 
-# -------------------------
-# 11. Docker
-# -------------------------
-.dockerignore
+# Sentry
+.sentryclirc
 
-# -------------------------
-# 12. GitHub Config (optional)
-# -------------------------
-.github/chatmodes/
-.github/instructions/
-.github/prompts/
-.github\chatmodes
-.github\instructions
-.github\prompts
-
-# -------------------------
-# 13. Prisma & Generated Clients
-# -------------------------
-# Auto-generated Prisma client (ANYWHERE in repo)
-**/.prisma/**
-**/prisma/generated/**
-**/generated/prisma/**
-**/generated/**/prisma/**
-**/prisma-client/**
-**/client.d.ts
-**/client.js
-**/client.mjs
-**/index.d.ts
-**/index.js
-**/query_engine*.node
-**/wasm.js
-**/wasm.d.ts
-
-# -------------------------
-# 14. TypeScript
-# -------------------------
-*.tsbuildinfo
-**/*.tsbuildinfo
-
-# -------------------------
-# 15. Databases
-# -------------------------
-*.db
-*.sqlite
-**/*.db
-**/*.sqlite
-
-# -------------------------
-# 16. Temporary Folders
-# -------------------------
-tmp/
-temp/
-**/tmp/
-**/temp/
-
-.playwright-mcp/
-# Added by AI: ignore generic env files repo-wide
-.env
-.env.*
-!.env.example
-**/.env
-**/.env.*
-!**/.env.example
-
-# ICD-10 local staging artifacts (raw ZIPs, extracted work files). Keep normalized CSV optional.
-apps/backend/data-sources/icd10cm/*/raw/
-apps/backend/data-sources/icd10cm/*/work/
-apps/backend/data-sources/icd10cm/*/normalized/*.zip
-apps/backend/data-sources/icd10cm/*/normalized/*.pdf
-apps/backend/data-sources/icd10cm/*/normalized/april_overlay_diagnostics.json
-apps/backend/data-sources/icd10cm/*/normalized/icd10cm_*_diagnostics.json
-apps/backend/data-sources/icd10cm/*/normalized/icd10cm_*.summary.json
-apps/backend/data-sources/icd10cm/*/normalized/icd10cm_*.csv
-apps/backend/data-sources/icd10cm/*/normalized/icd10cm_*.parquet
-apps/backend/data-sources/icd10cm/*/normalized/dataset_hash.json
-
-# Root-level ingestion mirrors (if run outside backend app path)
-data-sources/icd10cm/*/raw/
-data-sources/icd10cm/*/work/
-data-sources/icd10cm/*/normalized/*.zip
-data-sources/icd10cm/*/normalized/*.pdf
-data-sources/icd10cm/*/normalized/april_overlay_diagnostics.json
-data-sources/icd10cm/*/normalized/icd10cm_*_diagnostics.json
-data-sources/icd10cm/*/normalized/icd10cm_*.summary.json
-data-sources/icd10cm/*/normalized/icd10cm_*.csv
-data-sources/icd10cm/*/normalized/icd10cm_*.parquet
-data-sources/icd10cm/*/normalized/dataset_hash.json
-
-# Allow placeholders so directory structure can exist without data
-!apps/backend/data-sources/icd10cm/.gitkeep
-!apps/backend/data-sources/icd10cm/*/.gitkeep
-!data-sources/icd10cm/.gitkeep
-!data-sources/icd10cm/*/.gitkeep
-
-# Generic large data outputs across ingestion jobs
-**/data-sources/**/raw/**
-**/data-sources/**/work/**
-**/data-sources/**/normalized/**/*.tmp
-**/data-sources/**/normalized/**/*.bak
-**/data-sources/**/normalized/**/*_diagnostics.json
-**/data-sources/**/normalized/**/*_summary.json
-**/data-sources/**/normalized/**/*_summary.parquet
-
-# Exclude any accidental zipped source bundles placed at repo root
-icd10cm-*.zip
-icd10cm-*.pdf
+# Local development
+*.local
 

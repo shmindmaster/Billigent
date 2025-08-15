@@ -1,0 +1,6 @@
+POAexemptCode	Description
+Q23.8	Other congenital malformations of aortic and mitral valves
+T81.32XD	"Disruption of internal operation (surgical) wound, not elsewhere classified, subsequent encounter"
+T81.32XS	"Disruption of internal operation (surgical) wound, not elsewhere classified, sequela"
+Z59.7	Insufficient social insurance and welfare support
+Z86.010	Personal history of colonic polyps

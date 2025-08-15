@@ -1,184 +1,338 @@
-// Analytics route currently returns placeholder data; real metrics pending Cosmos implementation
-import { Request, Response, Router } from 'express';
-import {
-    createTextResponse,
-    getAnalyticsWithCodeInterpreter,
-    getConversationalResponse,
-    retrieveResponse,
-    startBackgroundAnalysisFromBase64,
-    startPdfAnalysisWithFileId,
-    uploadPdfForAnalysis,
-} from '../services/responses-api.service';
+import express from "express";
+import { CosmosClient } from "@azure/cosmos";
 
-const router: Router = Router();
-// All former Prisma analytics queries removed. Placeholder responses below.
-// prisma reference removed
+const router = express.Router();
 
-// GET /api/analytics/dashboard - Get dashboard statistics
-router.get('/dashboard', async (req: Request, res: Response) => {
+// Initialize Cosmos DB client
+const cosmosClient = new CosmosClient({
+  endpoint: process.env.AZURE_COSMOS_ENDPOINT || "",
+  key: process.env.AZURE_COSMOS_KEY || "",
+});
+
+const database = cosmosClient.database(process.env.AZURE_COSMOS_DATABASE || "billigent");
+
+// Get revenue analytics
+router.get("/revenue", async (req, res) => {
   try {
-    if (process.env.SAFE_MODE === 'true') {
-      return res.json({
-        cases: { total: 0, active: 0, completed: 0, completionRate: 0 },
-        denials: { total: 0, active: 0, totalDeniedAmount: 0 },
-        queries: { total: 0, pending: 0, responseRate: 0 },
-        financialImpact: { totalPotential: 0, totalDenied: 0 }
-      });
-    }
-    return res.status(501).json({
-      error: 'analytics dashboard disabled during purge',
-      cases: { total: 0, active: 0, completed: 0, completionRate: 0 },
-      denials: { total: 0, active: 0, totalDeniedAmount: 0 },
-      queries: { total: 0, pending: 0, responseRate: 0 },
-      financialImpact: { totalPotential: 0, totalDenied: 0 }
+    // Placeholder response - replace with actual Cosmos DB query
+    const revenueData = {
+      totalRevenue: 2500000,
+      collectedRevenue: 2100000,
+      pendingRevenue: 400000,
+      denialRate: 0.15,
+      appealSuccessRate: 0.72,
+      averageProcessingTime: 4.2,
+      monthlyTrends: [
+        { month: "Jan", revenue: 180000, denials: 27000 },
+        { month: "Feb", revenue: 195000, denials: 29250 },
+        { month: "Mar", revenue: 210000, denials: 31500 },
+        { month: "Apr", revenue: 225000, denials: 33750 },
+        { month: "May", revenue: 240000, denials: 36000 },
+        { month: "Jun", revenue: 255000, denials: 38250 }
+      ]
+    };
+
+    res.json({
+      success: true,
+      data: revenueData
     });
   } catch (error) {
-    console.error('Error fetching dashboard analytics:', error);
-    res.status(500).json({ error: 'Failed to fetch dashboard analytics' });
+    console.error("Failed to get revenue analytics:", error);
+    res.status(500).json({
+      success: false,
+      message: error instanceof Error ? error.message : "Unknown error"
+    });
   }
 });
 
-// GET /api/analytics/cases-by-status - Get case distribution by status
-router.get('/cases-by-status', async (req: Request, res: Response) => {
+// Get denial analytics
+router.get("/denials", async (req, res) => {
   try {
-    return res.status(501).json({ error: 'cases-by-status disabled during purge', data: [] });
+    // Placeholder response - replace with actual Cosmos DB query
+    const denialData = {
+      totalDenials: 450,
+      resolvedDenials: 324,
+      pendingDenials: 126,
+      topDenialReasons: [
+        { reason: "Medical Necessity", count: 156, percentage: 34.7 },
+        { reason: "Documentation Issues", count: 98, percentage: 21.8 },
+        { reason: "Coding Errors", count: 76, percentage: 16.9 },
+        { reason: "Authorization Required", count: 65, percentage: 14.4 },
+        { reason: "Duplicate Claims", count: 55, percentage: 12.2 }
+      ],
+      denialTrends: [
+        { month: "Jan", denials: 65, resolved: 47 },
+        { month: "Feb", denials: 72, resolved: 58 },
+        { month: "Mar", denials: 68, resolved: 52 },
+        { month: "Apr", denials: 75, resolved: 61 },
+        { month: "May", denials: 82, resolved: 67 },
+        { month: "Jun", denials: 88, resolved: 71 }
+      ]
+    };
+
+    res.json({
+      success: true,
+      data: denialData
+    });
   } catch (error) {
-    console.error('Error fetching cases by status:', error);
-    res.status(500).json({ error: 'Failed to fetch cases by status' });
+    console.error("Failed to get denial analytics:", error);
+    res.status(500).json({
+      success: false,
+      message: error instanceof Error ? error.message : "Unknown error"
+    });
   }
 });
 
-// GET /api/analytics/cases-by-priority - Get case distribution by priority
-router.get('/cases-by-priority', async (req: Request, res: Response) => {
+// Get appeal analytics
+router.get("/appeals", async (req, res) => {
   try {
-    return res.status(501).json({ error: 'cases-by-priority disabled during purge', data: [] });
+    // Placeholder response - replace with actual Cosmos DB query
+    const appealData = {
+      totalAppeals: 324,
+      successfulAppeals: 233,
+      pendingAppeals: 91,
+      appealSuccessRate: 0.72,
+      averageAppealTime: 45,
+      appealOutcomes: [
+        { outcome: "Fully Approved", count: 156, percentage: 48.1 },
+        { outcome: "Partially Approved", count: 77, percentage: 23.8 },
+        { outcome: "Denied", count: 91, percentage: 28.1 }
+      ],
+      appealTrends: [
+        { month: "Jan", appeals: 45, successful: 32 },
+        { month: "Feb", appeals: 52, successful: 38 },
+        { month: "Mar", appeals: 48, successful: 35 },
+        { month: "Apr", appeals: 55, successful: 41 },
+        { month: "May", appeals: 62, successful: 47 },
+        { month: "Jun", appeals: 68, successful: 52 }
+      ]
+    };
+
+    res.json({
+      success: true,
+      data: appealData
+    });
   } catch (error) {
-    console.error('Error fetching cases by priority:', error);
-    res.status(500).json({ error: 'Failed to fetch cases by priority' });
+    console.error("Failed to get appeal analytics:", error);
+    res.status(500).json({
+      success: false,
+      message: error instanceof Error ? error.message : "Unknown error"
+    });
   }
 });
 
-// GET /api/analytics/user-workload - Get workload distribution by user
-router.get('/user-workload', async (req: Request, res: Response) => {
+// Get coding analytics
+router.get("/coding", async (req, res) => {
   try {
-    return res.status(501).json({ error: 'user-workload disabled during purge', data: [] });
+    // Placeholder response - replace with actual Cosmos DB query
+    const codingData = {
+      totalCases: 1250,
+      casesWithQueries: 189,
+      queryResponseRate: 0.89,
+      averageQueryTime: 3.2,
+      topQueryTypes: [
+        { type: "Documentation Gap", count: 67, percentage: 35.4 },
+        { type: "Code Specificity", count: 54, percentage: 28.6 },
+        { type: "Clinical Indication", count: 43, percentage: 22.8 },
+        { type: "Procedure Code", count: 25, percentage: 13.2 }
+      ],
+      codingAccuracy: {
+        initialAccuracy: 0.78,
+        finalAccuracy: 0.94,
+        improvement: 0.16
+      }
+    };
+
+    res.json({
+      success: true,
+      data: codingData
+    });
   } catch (error) {
-    console.error('Error fetching user workload:', error);
-    res.status(500).json({ error: 'Failed to fetch user workload' });
+    console.error("Failed to get coding analytics:", error);
+    res.status(500).json({
+      success: false,
+      message: error instanceof Error ? error.message : "Unknown error"
+    });
   }
 });
 
-// GET /api/analytics/financial-impact - Get financial impact metrics
-router.get('/financial-impact', async (req: Request, res: Response) => {
+// Get performance analytics
+router.get("/performance", async (req, res) => {
   try {
-    return res.status(501).json({ error: 'financial-impact disabled during purge', cdiReviews: [], denials: [] });
+    // Placeholder response - replace with actual Cosmos DB query
+    const performanceData = {
+      systemMetrics: {
+        responseTime: 245,
+        throughput: 1250,
+        errorRate: 0.02,
+        availability: 0.999
+      },
+      userMetrics: {
+        activeUsers: 45,
+        averageSessionTime: 28,
+        userSatisfaction: 4.6,
+        featureUsage: {
+          denialAnalysis: 0.89,
+          appealGeneration: 0.76,
+          codingOptimization: 0.82,
+          analytics: 0.71
+        }
+      },
+      businessMetrics: {
+        casesProcessed: 1250,
+        averageProcessingTime: 4.2,
+        costPerCase: 45.80,
+        roi: 3.2
+      }
+    };
+
+    res.json({
+      success: true,
+      data: performanceData
+    });
   } catch (error) {
-    console.error('Error fetching financial impact:', error);
-    res.status(500).json({ error: 'Failed to fetch financial impact' });
+    console.error("Failed to get performance analytics:", error);
+    res.status(500).json({
+      success: false,
+      message: error instanceof Error ? error.message : "Unknown error"
+    });
   }
 });
 
-// ===== AI endpoints leveraging Azure OpenAI Responses API =====
-
-// POST /api/analytics/ai/text - simple text response
-router.post('/ai/text', async (req: Request, res: Response) => {
+// Get predictive analytics
+router.get("/predictive", async (req, res) => {
   try {
-    const { prompt } = req.body || {};
-    if (!prompt || typeof prompt !== 'string') {
-      return res.status(400).json({ error: 'Missing prompt' });
+    // Placeholder response - replace with actual ML model predictions
+    const predictiveData = {
+      denialPredictions: {
+        nextMonthDenials: 95,
+        confidence: 0.87,
+        riskFactors: [
+          "High denial rate for specific diagnosis codes",
+          "Documentation gaps in recent cases",
+          "Coding errors in similar procedures"
+        ]
+      },
+      revenueForecast: {
+        nextMonthRevenue: 275000,
+        confidence: 0.92,
+        growthRate: 0.08,
+        seasonalFactors: [
+          "Q3 typically shows 5-8% increase",
+          "Holiday season may impact processing",
+          "Year-end rush expected"
+        ]
+      },
+      resourcePlanning: {
+        recommendedStaffing: 12,
+        expectedWorkload: 1350,
+        efficiencyGains: 0.15,
+        automationOpportunities: [
+          "Automated denial analysis",
+          "Smart appeal routing",
+          "Predictive coding suggestions"
+        ]
+      }
+    };
+
+    res.json({
+      success: true,
+      data: predictiveData
+    });
+  } catch (error) {
+    console.error("Failed to get predictive analytics:", error);
+    res.status(500).json({
+      success: false,
+      message: error instanceof Error ? error.message : "Unknown error"
+    });
+  }
+});
+
+// Get custom analytics by date range
+router.get("/custom", async (req, res) => {
+  try {
+    const { startDate, endDate, metrics } = req.query;
+    
+    if (!startDate || !endDate) {
+      return res.status(400).json({
+        success: false,
+        message: "Start date and end date are required"
+      });
     }
-    const result = await createTextResponse(prompt);
-    res.json(result);
-  } catch (error: any) {
-    console.error('AI text error:', error);
-    res.status(500).json({ error: error?.message || 'AI text failed' });
-  }
-});
 
-// POST /api/analytics/ai/conversation - stateful conversation
-router.post('/ai/conversation', async (req: Request, res: Response) => {
-  try {
-    const { prompt, previousResponseId } = req.body || {};
-    if (!prompt || typeof prompt !== 'string') {
-      return res.status(400).json({ error: 'Missing prompt' });
-    }
-    const result = await getConversationalResponse(prompt, previousResponseId);
-    res.json(result);
-  } catch (error: any) {
-    console.error('AI conversation error:', error);
-    res.status(500).json({ error: error?.message || 'AI conversation failed' });
-  }
-});
+    // Placeholder response - replace with actual Cosmos DB query based on parameters
+    const customData = {
+      dateRange: {
+        start: startDate,
+        end: endDate
+      },
+      requestedMetrics: metrics || "all",
+      data: {
+        totalCases: 450,
+        totalRevenue: 875000,
+        denialRate: 0.14,
+        appealSuccessRate: 0.75,
+        averageProcessingTime: 3.8
+      }
+    };
 
-// POST /api/analytics/ai/background/start - start background task from base64 file
-router.post('/ai/background/start', async (req: Request, res: Response) => {
-  try {
-    const { filename, mimeType, base64Data, prompt } = req.body || {};
-    if (!filename || !mimeType || !base64Data || !prompt) {
-      return res.status(400).json({ error: 'filename, mimeType, base64Data, prompt are required' });
-    }
-
-    // Prefer uploading via Files API and referencing file_id for higher reliability
-    try {
-      const fileBuffer = Buffer.from(String(base64Data), 'base64');
-      const fileId = await uploadPdfForAnalysis(fileBuffer, filename);
-      const result = await startPdfAnalysisWithFileId(fileId, prompt);
-      return res.json(result);
-    } catch (fileErr) {
-      console.warn('Files API path failed, falling back to inline base64:', fileErr);
-      const fallback = await startBackgroundAnalysisFromBase64(base64Data, `analysis-${Date.now()}`);
-      return res.json(fallback);
-    }
-  } catch (error: any) {
-    console.error('AI background start error:', error);
-    res.status(500).json({ error: error?.message || 'AI background start failed' });
-  }
-});
-
-// GET /api/analytics/ai/background/:id - retrieve background response
-router.get('/ai/background/:id', async (req: Request, res: Response) => {
-  try {
-    const { id } = req.params;
-    const result = await retrieveResponse(id);
-    res.json(result);
-  } catch (error: any) {
-    console.error('AI background get error:', error);
-    res.status(500).json({ error: error?.message || 'AI background get failed' });
-  }
-});
-
-// POST /api/analytics/query - analytics via code interpreter
-router.post('/query', async (req: Request, res: Response) => {
-  try {
-    const { prompt, question } = req.body || {};
-    const userQuestion: string | undefined = typeof question === 'string' ? question : (typeof prompt === 'string' ? prompt : undefined);
-    if (!userQuestion) return res.status(400).json({ error: 'Missing question' });
-    // Pull live data from Azure SQL via Prisma to feed into the model
-    // Example datasets commonly used for analytics
-    // Dataset construction disabled; return placeholder dataset with no real analytics during purge
-    const placeholder = { denialsByReason: [], revenueByDepartment: [] };
-    const engineered = `Analytics disabled during purge. QUESTION:\n${userQuestion}`;
-    const resp = await getAnalyticsWithCodeInterpreter(engineered, placeholder);
-    const text = resp.data?.answer || resp.data?.content || 'Analytics disabled.';
-    return res.json({ type: 'text', content: text });
-  } catch (error: any) {
-    console.error('AI analytics error:', error);
-    res.status(500).json({ error: error?.message || 'AI analytics failed' });
-  }
-});
-
-// GET /api/analytics/activity-trends - Get activity trends over time
-router.get('/activity-trends', async (req: Request, res: Response) => {
-  try {
-    const { days = '30' } = req.query;
-    const daysBack = parseInt(days as string, 10);
-    const startDate = new Date();
-    startDate.setDate(startDate.getDate() - daysBack);
-
-    return res.status(501).json({ error: 'activity-trends disabled during purge', data: [] });
+    res.json({
+      success: true,
+      data: customData
+    });
   } catch (error) {
-    console.error('Error fetching activity trends:', error);
-    res.status(500).json({ error: 'Failed to fetch activity trends' });
+    console.error("Failed to get custom analytics:", error);
+    res.status(500).json({
+      success: false,
+      message: error instanceof Error ? error.message : "Unknown error"
+    });
+  }
+});
+
+// Export analytics data
+router.post("/export", async (req, res) => {
+  try {
+    const { format, dataType, dateRange } = req.body;
+    
+    // Placeholder response - replace with actual export functionality
+    const exportData = {
+      format: format || "csv",
+      dataType: dataType || "all",
+      dateRange: dateRange || "last30days",
+      downloadUrl: "/api/analytics/download/export-12345.csv",
+      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
+    };
+
+    res.json({
+      success: true,
+      data: exportData
+    });
+  } catch (error) {
+    console.error("Failed to export analytics:", error);
+    res.status(500).json({
+      success: false,
+      message: error instanceof Error ? error.message : "Unknown error"
+    });
+  }
+});
+
+// Download exported data
+router.get("/download/:filename", async (req, res) => {
+  try {
+    const { filename } = req.params;
+    
+    // Placeholder response - replace with actual file download
+    res.json({
+      success: true,
+      message: `Download initiated for ${filename}`,
+      note: "This is a placeholder. Implement actual file download logic."
+    });
+  } catch (error) {
+    console.error("Failed to download file:", error);
+    res.status(500).json({
+      success: false,
+      message: error instanceof Error ? error.message : "Unknown error"
+    });
   }
 });
 

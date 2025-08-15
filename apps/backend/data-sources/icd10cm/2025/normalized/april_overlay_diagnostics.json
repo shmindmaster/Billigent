@@ -1,0 +1,14 @@
+{
+  "base_xml_path": "H:\\Repos\\shmindmaster\\Billigent\\apps\\backend\\data-sources\\icd10cm\\2025\\work\\2025-code-tables-tabular-and-index\\icd10cm_tabular_2025.xml",
+  "april_xml_path": "H:\\Repos\\shmindmaster\\Billigent\\apps\\backend\\data-sources\\icd10cm\\2025\\work\\2025-code-tables-tabular-and-index-april\\Table and Index\\icd10cm_tabular_2025.xml",
+  "base_row_count": 36030,
+  "april_row_count": 36030,
+  "change_log_entries": 6,
+  "base_only_count": 0,
+  "april_only_count": 0,
+  "modified_count": 0,
+  "sample_base_only": [],
+  "sample_april_only": [],
+  "sample_modified": [],
+  "generated_at": "2025-08-15T05:51:42.681Z"
+}

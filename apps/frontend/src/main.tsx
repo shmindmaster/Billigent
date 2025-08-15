@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
 import { queryClient } from './lib/queryClient';
-import './sentry'; // Initialize Sentry side effects
 
 // Register service worker for caching
 if ('serviceWorker' in navigator && import.meta.env.PROD) {

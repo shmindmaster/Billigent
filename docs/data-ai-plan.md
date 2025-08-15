@@ -1,379 +1,300 @@
-# Billigent Data & AI Strategy Plan — v2.3 (Strategic Alignment)
+# Billigent Data & AI Implementation Plan
 
-**Date:** 14-Aug-2025
-**Owner:** Data & AI Team
-**Status:** Active Implementation
+**Version:** 1.0  
+**Date:** August 14, 2025  
+**Status:** Planning Phase  
+**Owner:** Data Engineering Team
 
----
+## Executive Summary
 
-## 1) Purpose & Outcomes
+This document outlines the comprehensive data and AI implementation strategy for Billigent, focusing on healthcare billing optimization through intelligent data processing, machine learning, and AI-powered insights.
 
-**Purpose:** Stand up a defensible, high-accuracy CDI platform on Azure with a lean but authoritative lakehouse, small SQL "working sets," and RAG/LLM services that deliver:
+## Data Architecture Overview
 
-- **Pre-bill**: <2s rule checks (ICD-10, MS-DRG, NCCI, MPFS/OPPS sanity) with real-time risk scoring tied to KPI triggers.
-- **Physician queries**: targeted, evidence-grounded prompts against structured FHIR + notes with explainable attribution checksums.
-- **Denial analytics**: EOB semantics mapped to CARC/RARC; payer-style simulation until real claims arrive.
-- **Evidence Graph Provenance**: Hash-based bundle for each draft ensuring immutable audit trace.
-- **KPI→Action Rules DSL**: Event-driven operational triggers for real-time intervention.
+### Data Sources & Ingestion
 
-**North-star outcomes (12 months):** 40% CDI score lift, 20-30% reduction in preventable denials, 95%+ data quality, 85%+ recommendation accuracy, >90% rule latency <5s.
+#### Primary Data Sources
+- **EHR Systems**: FHIR R4 compliant data from major EHR platforms
+- **Claims Data**: Medicare, Medicaid, and commercial insurance claims
+- **Clinical Documents**: Denial letters, EOBs, clinical notes, and appeals
+- **Coding Standards**: ICD-10-CM, CPT, HCPCS, and DRG classifications
+- **Regulatory Updates**: CMS guidelines, coding changes, and compliance requirements
 
-**Strategic Alignment:** Supports Billigent's wedge of unifying evidence graph provenance, LLM‑assisted drafting, explainable attribution, and KPI→action rules into a single closed feedback loop.
+#### Data Ingestion Strategy
+- **Real-time**: FHIR subscriptions for critical clinical updates
+- **Batch**: Scheduled bulk exports for historical data and large datasets
+- **Streaming**: Event-driven processing for real-time denials and appeals
+- **API Integration**: RESTful APIs for external system connectivity
 
----
+### Data Storage Architecture
 
-## 2) Environment (authoritative)
+#### Azure Cosmos DB: Operational Data Store
+- **Purpose**: Primary operational database for cases, denials, and user workflows
+- **Data Model**: Document-based schema optimized for healthcare billing operations
+- **Performance**: Sub-millisecond response times with global distribution
+- **Scalability**: Automatic scaling based on demand
 
-- **Storage (ADLS Gen2):** `billigentdevdlseus2` → **container: `data`** (single source of truth).
-- **Azure SQL:** `billigent-dev-sql-eus2` / DB `BilligentAppDev` (operational “working sets”).
-- **Azure OpenAI:** `billigent-dev-openai-eus2` (LLM: **gpt-5-mini**, Embedding: **text-embedding-small**).
-- **Azure AI Search:** `billigent-dev-search-basic-eus2` (vector + keyword).
-- **Key Vault:** `billigent-dev-kv-eus2` (all secrets; MI everywhere).
-- **Auth:** Entra ID + RBAC; no shared keys in app services.
+#### Azure Data Lake Storage Gen2: Analytical Data Store
+- **Bronze Layer**: Raw data ingestion with minimal transformation
+- **Silver Layer**: Cleaned, validated, and standardized data
+- **Gold Layer**: Business-ready datasets for analytics and ML
 
----
+#### Azure Blob Storage: Document Repository
+- **Clinical Documents**: Denial letters, EOBs, and supporting documentation
+- **Appeals**: Generated appeal letters and supporting evidence
+- **Audit Trail**: Complete documentation of all system activities
 
-## 3) Lakehouse Topology (canonical)
+### Data Processing Pipeline
 
-**Single container:** `data`
+#### ETL/ELT Strategy
+- **Extract**: Multi-source data extraction with change data capture
+- **Transform**: Data quality validation, standardization, and enrichment
+- **Load**: Incremental loading with full refresh capabilities
+- **Orchestration**: Azure Data Factory for pipeline management
 
+#### Data Quality Framework
+- **Validation**: Schema validation, data type checking, and business rule validation
+- **Cleansing**: Duplicate removal, missing value handling, and outlier detection
+- **Enrichment**: AI-powered data enhancement and context addition
+- **Monitoring**: Continuous quality metrics and alerting
+
+## AI/ML Implementation Strategy
+
+### Azure OpenAI Integration
+
+#### Model Selection & Deployment
+- **GPT-4**: Primary model for complex clinical reasoning and appeal generation
+- **GPT-3.5**: Secondary model for routine tasks and cost optimization
+- **Embeddings**: Text embedding model for semantic search and similarity
+
+#### Prompt Engineering Strategy
+- **Clinical Context**: Specialized prompts for medical coding and billing scenarios
+- **Regulatory Compliance**: Prompts that ensure HIPAA and coding guideline adherence
+- **Error Handling**: Robust error handling and fallback strategies
+- **Continuous Improvement**: A/B testing and prompt optimization
+
+#### Response Management
+- **Structured Output**: JSON responses for consistent data processing
+- **Validation**: Multi-layer validation for clinical accuracy and compliance
+- **Audit Trail**: Complete logging of all AI interactions and decisions
+
+### Retrieval-Augmented Generation (RAG)
+
+#### Knowledge Base Construction
+- **Medical Coding Standards**: Comprehensive ICD-10, CPT, and HCPCS databases
+- **Clinical Guidelines**: Evidence-based clinical decision support
+- **Regulatory Documents**: CMS guidelines, payer policies, and compliance requirements
+- **Historical Cases**: Anonymized case studies and outcomes
+
+#### Vector Database: Azure AI Search
+- **Embedding Strategy**: Domain-specific embeddings for medical terminology
+- **Indexing**: Hierarchical indexing for efficient retrieval
+- **Hybrid Search**: Combination of vector similarity and keyword matching
+- **Relevance Ranking**: Reciprocal Rank Fusion (RRF) for optimal results
+
+#### Retrieval Pipeline
+- **Query Understanding**: Natural language processing for user intent
+- **Context Retrieval**: Multi-modal retrieval from various knowledge sources
+- **Evidence Synthesis**: AI-powered synthesis of retrieved information
+- **Source Attribution**: Complete traceability of information sources
+
+### Machine Learning Models
+
+#### Denial Prediction Models
+- **Risk Scoring**: ML models to predict denial likelihood
+- **Pattern Recognition**: Identification of common denial patterns
+- **Recommendation Engine**: AI-powered suggestions for denial prevention
+- **Success Prediction**: Models to predict appeal success rates
+
+#### Clinical Coding Optimization
+- **Code Recommendation**: AI suggestions for optimal ICD-10 and CPT codes
+- **Documentation Analysis**: Automated review of clinical documentation
+- **Compliance Checking**: Real-time validation against coding guidelines
+- **Audit Support**: Automated audit preparation and support
+
+#### Revenue Cycle Optimization
+- **Payment Prediction**: ML models for expected payment amounts
+- **Timeline Optimization**: AI-driven recommendations for optimal submission timing
+- **Resource Allocation**: Intelligent allocation of staff and resources
+- **Performance Analytics**: Predictive analytics for revenue cycle performance
+
+## Implementation Phases
+
+### Phase 1: Foundation (Months 1-3)
+- **Data Infrastructure**: Set up Azure Cosmos DB and Data Lake Storage
+- **Basic ETL**: Implement core data ingestion and processing pipelines
+- **AI Foundation**: Deploy Azure OpenAI and establish basic prompt engineering
+- **Data Governance**: Implement data quality monitoring and basic governance
+
+### Phase 2: Core AI Features (Months 4-6)
+- **RAG Implementation**: Build knowledge base and implement retrieval system
+- **Denial Analysis**: Deploy AI-powered denial analysis and classification
+- **Appeal Generation**: Implement automated appeal letter generation
+- **Basic ML Models**: Deploy initial denial prediction and coding optimization models
+
+### Phase 3: Advanced Features (Months 7-9)
+- **Advanced Analytics**: Implement comprehensive business intelligence and reporting
+- **Predictive Models**: Deploy advanced ML models for revenue optimization
+- **Integration**: Complete integration with major EHR systems
+- **Performance Optimization**: Fine-tune AI models and system performance
+
+### Phase 4: Scale & Optimize (Months 10-12)
+- **Production Scaling**: Scale systems for production workloads
+- **Advanced Features**: Implement advanced AI features and automation
+- **Continuous Learning**: Establish model retraining and improvement processes
+- **Compliance & Audit**: Complete compliance validation and audit preparation
+
+## Technical Implementation Details
+
+### Data Pipeline Architecture
+
+```typescript
+interface DataPipeline {
+  // Source connectors
+  sources: {
+    ehr: EHRConnector;
+    claims: ClaimsConnector;
+    documents: DocumentConnector;
+    external: ExternalConnector;
+  };
+
+  // Processing stages
+  stages: {
+    ingestion: DataIngestionService;
+    validation: DataValidationService;
+    transformation: DataTransformationService;
+    enrichment: AIEnrichmentService;
+    storage: CosmosDBStorage;
+  };
+
+  // Quality control
+  quality: {
+    validation: SchemaValidation;
+    profiling: DataProfiling;
+    monitoring: QualityMetrics;
+    alerting: QualityAlerts;
+  };
+}
 ```
-/data/
-  bronze/
-    terminologies/  icd-10-cm/ icd-10-pcs/ hcpcs/ ms-drg/ ncci/ carc/ rarc/ loinc/ mpfs/ opps/
-    providers/      nucc/ nppes/
-    sdoh/           svi/
-    clinical/       synthea/ smart/ c4bb/ mimic/ eicu_demo/
-    claims/         cms/ bb2_sandbox/
-    ml-datasets/    huggingface/
-  silver/
-    fhir/           (normalized slices when needed)
-    terminologies/  (+ _snapshots/)
-    claims/         eob/
-    providers/      nucc/
-    sdoh/           svi/
-    catalog/        (manifests, QA, data dictionary)
-  gold/
-    analytics/
-    cdi-models/
-    denial-patterns/
+
+### AI Service Architecture
+
+```typescript
+interface AIServiceArchitecture {
+  // Core AI services
+  services: {
+    openai: AzureOpenAIService;
+    search: AzureAISearchService;
+    ml: MachineLearningService;
+    analytics: AnalyticsService;
+  };
+
+  // Knowledge management
+  knowledge: {
+    base: KnowledgeBase;
+    retrieval: RetrievalEngine;
+    synthesis: SynthesisEngine;
+    attribution: AttributionEngine;
+  };
+
+  // Model management
+  models: {
+    training: ModelTrainingPipeline;
+    deployment: ModelDeployment;
+    monitoring: ModelMonitoring;
+    optimization: ModelOptimization;
+  };
+}
 ```
 
-**Guardrails:** freeze legacy `bronze` container (read-only), soft-delete + versioning on account, SHA-256 verification on moves.
-
----
-
-## 4) Dataset Portfolio (lean core now; paid/DUA later)
-
-### 4.1 Core free datasets to **ingest now** (accurate + small)
-
-| Category         | Dataset                                            | Format            | Refresh          | ADLS Path (bronze)                         | Primary Use                                                |
-| ---------------- | -------------------------------------------------- | ----------------- | ---------------- | ------------------------------------------ | ---------------------------------------------------------- |
-| Clinical (FHIR)  | **Synthea FHIR R4 (≈1K pts)**                      | ZIP → NDJSON      | Ad-hoc           | `clinical/synthea/1000/`                   | Full clinical graph for pre-bill, evidence joins, UI flows |
-| Payer semantics  | **Blue Button 2.0 Sandbox** (EOB/Coverage/Patient) | FHIR JSON via API | Continuous       | `claims/cms/bb2_sandbox/`                  | EOB parsing, CARC/RARC mapping, denial loop prototype      |
-| IG examples      | **CARIN C4BB EOB examples**                        | FHIR JSON         | Spec updates     | `clinical/c4bb/examples/`                  | Conformance tests, unit vectors                            |
-| Rulebooks        | **ICD-10-CM/PCS**                                  | TXT/CSV/XML       | Annual + addenda | `terminologies/icd-10-cm/`, `icd-10-pcs/`  | Dx/PCS validation, MEAT, grouping inputs                   |
-| Rulebooks        | **MS-DRG tables/weights**                          | CSV/XLSX          | Annual           | `terminologies/ms-drg/<FY>/`               | DRG financials (RW, G/AMLOS, transfer)                     |
-| Edits            | **NCCI PTP & MUE**                                 | CSV/XLSX          | Quarterly        | `terminologies/ncci/<YYYYQ#>/`             | Code-pair & unit edits, pre-bill suppression               |
-| Denial codes     | **CARC/RARC**                                      | CSV/HTML          | Periodic         | `terminologies/carc/`, `rarc/`             | Denial semantics, appeal text hints                        |
-| Providers        | **NUCC Taxonomy**                                  | CSV               | Semiannual       | `providers/nucc/`                          | Specialty normalization, routing                           |
-| Providers (lite) | **NPPES weekly**                                   | CSV ZIP           | Weekly           | `providers/nppes/weekly/`                  | NPI validation (tiny subset)                               |
-| SDOH             | **SVI 2022 (county)**                              | CSV               | Biennial         | `sdoh/svi/2022/`                           | Denial-risk features                                       |
-| Labs             | **LOINC top subset**                               | CSV/XLSX          | Periodic         | `terminologies/loinc/top20k/`              | Obs normalization (80/20)                                  |
-| Notes (optional) | **eICU demo**                                      | CSV               | Static           | `clinical/eicu_demo/`                      | ICU signals, prompt prototypes                             |
-| Notes (DUA)      | **MIMIC-IV-Note**                                  | CSV               | Static           | `clinical/mimic/`                          | Real note style for queries (credentialed)                 |
-| Augment          | **HF synthetic ICD-10 sets**                       | JSONL             | Ad-hoc           | `ml-datasets/huggingface/synth-ehr-icd10/` | Prompt-/tool-eval only                                     |
-
-### 4.2 Paid/DUA pipeline **to queue**
-
-- **CCW VRDC LDS/RIF (Medicare claims/EOB)** → real denial patterns.
-- **HCUP NIS** → DRG/LOS/charges benchmarking.
-- **APR-DRG (3M)**, **CPT (AMA)** → outpatient/commercial parity.
-- **Commercial RWD** (Premier/Vizient/MarketScan/TriNetX/Cerner RWD) → scale realism.
-
----
-
-## 5) Normalization Targets (silver) — **canonical Parquet** + QA
-
-**Terminologies (all append-only, current snapshot mirrored):**
-
-- `codes_icd10cm.parquet(code, title, long_desc, eff_start, eff_end, status)`
-- `codes_icd10pcs.parquet(code, title, axis1..axis7, eff_start, eff_end)`
-- `msdrg.parquet(drg, desc, rw, amlos, gmlos, transfer_flag, fy)`
-- `hcpcs.parquet(code, short_desc, long_desc, status, eff_start, eff_end)`
-- `ncci_ptp.parquet(code_a, code_b, modifier_indicator, eff_start, eff_end)`
-- `ncci_mue.parquet(code, mue_value, eff_start, eff_end)`
-- `carc.parquet(code, group, desc, eff_start, eff_end)`
-- `rarc.parquet(code, desc, eff_start, eff_end)`
-- `loinc_top.parquet(code, component, property, time, system, scale, method, ucum_hint)`
-
-**Claims/EOB (prototype):**
-
-- `eob_line.parquet(claim_id, line_num, hcpcs, units, charge_amt, paid_amt, drg, service_from, service_to)`
-- `eob_adj.parquet(claim_id, line_num, category, amount, carc, rarc, reason_text)`
-
-**FHIR slices (as needed):**
-
-- `fhir/Condition.parquet(...)`, `Observation.parquet(...)`, etc., with stable keys and encounter linkage.
-
-**Snapshots & QA:**
-
-- `_snapshots/*_current.parquet` (latest validity window).
-- `/data/silver/catalog/terminologies_normalization/{qa_report.csv,data_dictionary.json,run_manifest.json}`
-
-  - QA includes code counts, date-window overlap checks, null density, referential joins (e.g., DRG↔ICD).
-
----
-
-## 6) SQL “Working Sets” (fast, tiny, indexed)
-
-**Why:** serve hot UI/LLM lookups without scanning the lake.
-
-**Tables (current only):** `lkp_icd10cm`, `lkp_icd10pcs`, `lkp_msdrg`, `lkp_hcpcs`, `lkp_ncci_ptp`, `lkp_ncci_mue`, `lkp_carc`, `lkp_rarc`, `lkp_nucc_taxonomy`, optional `lkp_npi_provider` (≤50k weekly).
-
-**Facts:** `fact_eob_line`, `fact_eob_adj` (if EOB parquet exists).
-
-**Indexes:**
-
-- Lookups: PK on `code` (or composite), text idx on titles.
-- EOB: unique `(claim_id,line_num)`, idx `(hcpcs, drg)`.
-- NCCI: idx `(code_a, code_b)` and `(code, eff_from)`.
-
-**Refresh:** overwrite-by-upsert from silver `_current` snapshots on schedule (daily/weekly).
-
----
-
-## 7) RAG & LLM Orchestration (grounded, deterministic)
-
-**Indices (AI Search):**
-
-- `clinical-docs-index`: fields `{id, name, url, intro, content, contentVector, tags[], license, formats, update_cadence, sample_size, data_size, intended_use, fhir_mapping_hints, stats_json, adls_url, last_updated}`; embeddings with **text-embedding-small**.
-- Separate index for **rulebooks excerpts** (ICD titles/guidelines, MS-DRG notes, NCCI policy snippets).
-- Optional index for **de-ID notes** (eICU/MIMIC subsets) gated by terms of use.
-
-**Chunking:**
-
-- Rulebooks: \~800–1200 tokens, overlap 120, per-code or per-section.
-- Notes: per section note or 1–2k token windows.
-
-**Tooling flow (Responses API):**
-
-1. Retrieve top-k (vector + BM25 hybrid).
-2. Deduplicate by code/section id; enforce **cite-or-fail** guard.
-3. Structured tool calls: DRG explain, NCCI check, CARC/RARC map.
-4. Confidence thresholding → human review if <0.9.
-
-**Primary prompts (system-level intents):**
-
-- **Pre-bill check** (inputs: Dx, Proc, Obs, EOB?) → outputs: flags with rule IDs, evidence spans, fix suggestions with code refs.
-- **Physician query draft** (inputs: case summary + ambiguities) → outputs: compliant query, rationale, evidence URIs.
-- **Denial mapping** (inputs: EOB lines) → outputs: normalized CARC/RARC, appeal template, missing documentation list.
-
----
-
-## 8) Real-Time & Batch
-
-**Batch:** scripts/Functions for all free sources; schedule nightly/weekly; provenance JSON per folder.
-
-**Event-driven (future):** Event Hubs → small Functions for change-feeds, if live EHR feeds arrive. Latency target <5s; otherwise batch suffices.
-
----
-
-## 9) Governance, Security, Compliance
-
-- **Lineage:** Catalog all ingestions; store `run_manifest.json` with source URL, hash, retrieval method, and timestamps.
-- **Data quality gates:** schema, code-set validity, date-window checks; reject on critical violations.
-- **Access:**
-
-  - Bronze: engineering only.
-  - Silver: stakeholder read.
-  - Gold: demo-safe read.
-  - App: MI with **Storage Blob Data Reader**, **SQL db_datareader/db_datawriter** to working sets.
-
-- **PHI:** keep synthetic/non-PHI until DUA. De-identify notes rigorously when real data arrives.
-- **Audit:** App Insights for `/api/explorer/*` access, SQL changes, index writes.
-
----
-
-## 10) Operations Runbook (MCP-first, reproducible)
-
-**Consolidation (one-time):**
-
-- \#azure-mcp — inventory `bronze/**` & `data/**`, compute SHA-256, write `/data/silver/catalog/_ops/<run>/inventory_pre.csv`.
-- Plan mapping → copy → verify → tag → soft-delete matched → freeze legacy `bronze`.
-- Emit `/data/silver/catalog/_ops/<run>/{copy_verify.csv, deletes.csv, conflicts.csv, manifest.json}`.
-
-**Acquisition (free core):**
-
-- \#exa / #websearch to resolve authoritative URLs.
-- \#playwright to click EULA pages and capture final download URLs when needed.
-- \#huggingface to pull synthetic sets.
-- Land to `bronze/**`; record `provenance.json` with `final_url`, `retrieved_at`, `sha256`.
-
-**Normalization:**
-
-- Build silver Parquet per §5; store `_snapshots/*_current.parquet`; write QA + dictionary.
-
-**Catalog & Index:**
-
-- Write `/data/silver/catalog/billigent_catalog.csv` (+ parquet).
-- Upsert SQL working sets.
-- Populate AI Search indices with embeddings.
-
----
-
-## 11) Product Features Mapping → Data
-
-| Feature                  | Data (silver/SQL)                                                                | Logic                                                                                  |
-| ------------------------ | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| Pre-bill rule checks     | SQL `lkp_*` + silver FHIR slices                                                 | ICD/PCS validity; MS-DRG sanity (RW/LOS); NCCI PTP/MUE; MPFS/OPPS price reasonableness |
-| Physician queries        | FHIR (Conditions/Procedures/Observations), notes (eICU/MIMIC), rulebook excerpts | RAG retrieves evidence; LLM drafts compliant query; confidence gates                   |
-| Denial analytics (proto) | `eob_line/eob_adj` from BB2.0 + CARC/RARC                                        | Normalize reasons; classify preventable vs documentation; simulate payer edits         |
-| Executive metrics        | gold marts                                                                       | Denials by CARC, DRG mix changes, edit-hit rates, query turnaround                     |
-
----
-
-## 12) SLAs, KPIs, and Quality Gates
-
-- **P95 pre-bill response:** <2s
-- **RAG end-to-end:** <10s
-- **DQ pass rate:** ≥95% on each nightly run
-- **Model accuracy:** ≥85% on validation sets (coding & denial mapping)
-- **Uptime:** 99.9% app/API; 99% search index
-
-**Quality gates (block deploy if fail):** schema drift; code-set validity drop >1%; search index doc count delta >10% without manifest.
-
----
-
-## 13) Risks & Mitigations (targeted)
-
-- **No real denials early:** simulate via NCCI+CARC patterns; queue CCW LDS/RIF; flip once approved.
-- **Outpatient parity gaps (CPT/APR-DRG):** scope initial MVP to inpatient DRG; plan paid licenses for parity.
-- **Notes realism:** start eICU/MIMIC; layer commercial RWD as contracts close.
-- **Search Basic tier limits:** shard docs, compress chunks, throttle batch writes; upgrade to S1+ when index > few million vectors.
-
----
-
-## 14) Deliverables & Acceptance (phase-by-phase)
-
-**Phase A — Lake correctness (2 weeks):**
-
-- Single `data` container with canonical tree; SHA-verified moves; legacy `bronze` frozen.
-- Silver rulebooks Parquet + `_current` snapshots + QA/dictionary.
-- Catalog CSV+Parquet in `silver/catalog/`; provenance attached.
-
-**Phase B — App readiness (2–3 weeks):**
-
-- SQL working sets populated; hot indexes present.
-- AI Search indices live with embeddings; RAG retrieves rule excerpts with citations.
-- Data Explorer page live (read-only) against **silver/gold**.
-
-**Phase C — CDI features (2–4 weeks):**
-
-- Pre-bill service hits SQL lookups + rule excerpts; P95<2s.
-- Physician query drafts grounded with evidence URIs; confidence gating.
-- Denial prototype from BB2.0 EOB; CARC/RARC normalization; basic trends.
-
----
-
-## 15) Execution Checklists (succinct)
-
-**Ingestion (each dataset):**
-
-1. Resolve authoritative URL → hash.
-2. Land to `bronze/<domain>/<dataset>/<version>/`.
-3. Write `provenance.json`.
-4. Normalize to `silver` Parquet + snapshot.
-5. QA + dictionary + catalog row.
-
-**Search:**
-
-- Chunk, embed (text-embedding-small), upsert; verify doc count & recall on smoke queries.
-
-**SQL:**
-
-- Upsert only `_current` snapshots; cap NPI ≤50k; no notes in SQL.
-
-**Security:**
-
-- MI only; KV secrets; RBAC roles; audit logs for `/api/explorer/*` and index writes.
-
----
-
-## 16) Appendices
-
-**A) Minimal catalog fields (for each dataset):**
-`name, source_url, license, file_formats, update_cadence, fhir_mapping_hints, sample_size, data_size, key_attributes, intended_use, expected_benefits, adls_bronze_path, silver_artifacts, provenance(run_id, retrieved_at, sha256)`.
-
-**B) Validations (per dataset):**
-
-- **ICD/PCS/HCPCS:** duplicate codes, date windows, deprecations.
-- **MS-DRG:** FY completeness, RW ranges, LOS bounds.
-- **NCCI:** PTP symmetry, MUE numeric validity.
-- **CARC/RARC:** code presence, description non-empty.
-- **FHIR NDJSON:** JSON validity, resource type, required fields.
-- **EOB:** adjudication arrays, amount totals, reason codes cross-walked.
-
-**C) LLM safety rails:**
-
-- Cite or fail; never invent codes; never override rulebooks; redact PHI even in synthetic contexts; log prompts & tool calls.
-
-
----
-
-## References
-
-Grounding references for datasets, rulebooks, interoperability, and Azure services. Full corpus with notes: docs/research/corpus.jsonl.
-
-- CDC/NCHS — ICD-10-CM Files: https://www.cdc.gov/nchs/icd/icd-10-cm/files.html
-- NCHS — ICD-10-CM Browser: https://icd10cmtool.cdc.gov/
-- CMS — ICD-10 Landing (CM/PCS files): https://www.cms.gov/medicare/coding-billing/icd-10-codes
-- CMS — 2025 ICD-10-PCS Coding Guidelines (PDF): https://www.cms.gov/files/document/2025-official-icd-10-pcs-coding-guidelines.pdf
-- CMS — FY2025 ICD-10-CM Coding Guidelines (PDF): https://www.cms.gov/files/document/fy-2025-icd-10-cm-coding-guidelines.pdf
-- CMS — MS‑DRG Classifications & Software: https://www.cms.gov/medicare/payment/prospective-payment-systems/acute-inpatient-pps/ms-drg-classifications-and-software
-- CMS — NCCI PTP & MUE: https://www.cms.gov/medicare/coding-billing/national-correct-coding-initiative-ncci-edits/medicare-ncci-procedure-procedure-ptp-edits | https://www.cms.gov/medicare/coding-billing/national-correct-coding-initiative-ncci-edits/medicare-ncci-medically-unlikely-edits
-- X12 — CARC/RARC external code lists: https://x12.org/codes/claim-adjustment-reason-codes | https://x12.org/codes/remittance-advice-remark-codes
-- HL7 — FHIR Bulk Data Access IG: https://hl7.org/fhir/uv/bulkdata/
-- CARIN — C4BB IG & EOB Profiles: https://build.fhir.org/ig/HL7/carin-bb/index.html
-- Azure AI Search — Hybrid & Vector Search: https://learn.microsoft.com/en-us/azure/search/hybrid-search-overview | https://learn.microsoft.com/en-us/azure/search/vector-search-overview
-- Azure AI Search — Hybrid Query & RRF: https://learn.microsoft.com/en-us/azure/search/hybrid-search-how-to-query | https://learn.microsoft.com/en-us/azure/search/hybrid-search-ranking
-- Azure OpenAI — Responses API & Embeddings: https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/responses | https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/embeddings
-
----
-## 11) Quality Gates (Release Readiness Criteria) — v0.1
-Each gate must pass before promoting a feature from staging → production. Failing any gate blocks release until remediated. Metrics logged in Observability stack (App Insights + custom tables) and summarized on internal readiness dashboard.
-
-| Gate | Dimension | Criterion | Metric / Threshold | Measurement Method | Evidence / Source Refs | Status Field |
-|------|-----------|----------|--------------------|--------------------|------------------------|--------------|
-| DATA-Q1 | Data Quality | Referential integrity for silver snapshots | 100% valid foreign key joins (no orphan codes) | QA job join audit | QA reports (§5) | pass/fail |
-| DATA-Q2 | Data Freshness | Core terminologies current | All active code sets <= 7 days lag from official publish | Provenance manifests | Source publish cadences | pass/fail |
-| DATA-Q3 | PII/PHI Guard | No PHI in non‑authorized tiers pre-DUA | 0 detected PHI tokens in synthetic-only mode | De-ID scanner logs | HIPAA §164.312 | pass/fail |
-| MODEL-Q1 | Recommendation Accuracy | CDI suggestion precision | ≥0.85 precision on validation set | Offline eval suite | Internal labeled set (pending) | value/pass |
-| MODEL-Q2 | Hallucination Control | Unsupported citation rate | ≤2% hallucinated cites in spot audit | Sampled inference audit | RAG logs | value/pass |
-| MODEL-Q3 | Drift Monitoring | Embedding centroid shift | <5% cosine shift MoM | Vector stats job | Embedding monitoring SOP | value/pass |
-| XAI-Q1 | Attribution Integrity | Hash verification success | 100% checksum match | Attribution validator | explainability module | pass/fail |
-| XAI-Q2 | Citation Coverage | Claims with ≥1 authoritative cite | ≥98% for production prompts | Prompt eval harness | Source list (§References) | value/pass |
-| SEC-Q1 | Secrets Management | No plaintext secrets in code | 0 policy violations | Code scan (git hooks) | OWASP A02 | pass/fail |
-| SEC-Q2 | Vulnerability Scan | Critical vulns remediated | 0 Critical / 0 High open >7 days | Dependency scanner | OWASP A06 | pass/fail |
-| SEC-Q3 | Audit Logging | Protected events captured | 100% create/update/delete events logged | Log sampling | HIPAA §164.312(b) | pass/fail |
-| A11Y-Q1 | Keyboard Navigation | All interactive elements tab-order correct | 0 blocking keyboard traps | Automated + manual audit | WCAG 2.2 | pass/fail |
-| A11Y-Q2 | Contrast Ratios | Text contrast compliant | 100% tested text ≥4.5:1 | Axe CI + manual | WCAG 1.4.* | pass/fail |
-| PERF-Q1 | API Latency | Evidence bundle build time | P95 < 1500ms | Load test + APM | SLO doc | value/pass |
-| PERF-Q2 | UI Interactivity | Dashboard Time-to-Interactive | < 2s P95 on reference dataset | Web vitals capture | PRD §5.3 | value/pass |
-| OBS-Q1 | Trace Coverage | Distributed trace sampling | ≥95% of strategy API calls traced | OpenTelemetry metrics | Observability SOP | value/pass |
-| OBS-Q2 | Error Budget | SLO adherence | Error budget burn <30% rolling 30d | SLO calculator | SLO sheet | value/pass |
-
-### 11.1 Escalation & Waivers
-- Waiver requires: documented rationale, risk assessment, compensating control, expiration date ≤ one release cycle.
-- Automatic Slack alert if any gate flips from pass→fail post-release (regression).
-
-### 11.2 Automation Backlog
-| ID | Gate Dependency | Automation Task | Priority | Notes |
-|----|-----------------|-----------------|----------|-------|
-| QA-A1 | DATA-Q1 | Automate FK join audit diff report | High | Diff vs prior run |
-| MODEL-A1 | MODEL-Q1 | Establish labeled validation subset | High | Blocks precision metric |
-| SEC-A1 | SEC-Q1 | Pre-commit secret scan hook | Medium | Leverage gitleaks |
-| XAI-A1 | XAI-Q2 | Add citation coverage analyzer | Medium | Parse attribution packets |
-| OBS-A1 | OBS-Q1 | Auto-insert trace IDs in strategy route | Medium | Middleware |
-
----
+### Security & Compliance
+
+#### Data Security
+- **Encryption**: End-to-end encryption for data at rest and in transit
+- **Access Control**: Role-based access control with least privilege principles
+- **Audit Logging**: Comprehensive logging of all data access and modifications
+- **Data Masking**: PII/PHI protection through data masking and tokenization
+
+#### HIPAA Compliance
+- **Data Minimization**: Only collect and process necessary data
+- **Consent Management**: Robust consent management and tracking
+- **Breach Notification**: Automated breach detection and notification
+- **Data Retention**: Automated data retention and disposal policies
+
+#### Regulatory Compliance
+- **Coding Standards**: Adherence to ICD-10, CPT, and HCPCS guidelines
+- **CMS Compliance**: Full compliance with Medicare and Medicaid requirements
+- **Audit Support**: Comprehensive audit trail and documentation
+- **Quality Assurance**: Continuous quality monitoring and improvement
+
+## Performance & Scalability
+
+### Performance Targets
+- **Data Ingestion**: Process 1M+ records per hour
+- **AI Response Time**: < 5 seconds for complex queries
+- **Search Performance**: < 100ms for knowledge base queries
+- **System Availability**: 99.9% uptime with 99.99% for critical functions
+
+### Scalability Strategy
+- **Horizontal Scaling**: Auto-scaling based on demand
+- **Data Partitioning**: Intelligent data partitioning for performance
+- **Caching Strategy**: Multi-layer caching for optimal performance
+- **Load Balancing**: Intelligent load balancing across regions
+
+### Monitoring & Observability
+- **Real-time Monitoring**: Continuous monitoring of system performance
+- **Alerting**: Proactive alerting for performance issues
+- **Metrics Collection**: Comprehensive collection of business and technical metrics
+- **Performance Analytics**: Advanced analytics for performance optimization
+
+## Risk Management
+
+### Technical Risks
+- **Data Quality**: Risk of poor data quality affecting AI model performance
+- **Model Accuracy**: Risk of AI model errors in clinical decision making
+- **System Performance**: Risk of performance degradation under load
+- **Integration Complexity**: Risk of complex system integration challenges
+
+### Mitigation Strategies
+- **Data Quality**: Implement comprehensive data quality monitoring and validation
+- **Model Validation**: Extensive testing and validation of AI models
+- **Performance Testing**: Comprehensive performance testing and optimization
+- **Phased Implementation**: Incremental implementation to manage complexity
+
+### Business Risks
+- **Regulatory Changes**: Risk of regulatory changes affecting compliance
+- **Market Competition**: Risk of competitive pressure and market changes
+- **User Adoption**: Risk of low user adoption and resistance to change
+- **ROI Realization**: Risk of not achieving expected return on investment
+
+### Mitigation Strategies
+- **Regulatory Monitoring**: Continuous monitoring of regulatory changes
+- **Market Analysis**: Regular market analysis and competitive intelligence
+- **Change Management**: Comprehensive change management and user training
+- **ROI Tracking**: Continuous tracking and optimization of ROI metrics
+
+## Success Metrics
+
+### Technical Metrics
+- **System Performance**: Response time, throughput, and availability
+- **Data Quality**: Accuracy, completeness, and consistency metrics
+- **AI Model Performance**: Accuracy, precision, recall, and F1 scores
+- **System Reliability**: Uptime, error rates, and recovery times
+
+### Business Metrics
+- **Revenue Impact**: Increase in revenue cycle efficiency and collections
+- **Cost Reduction**: Reduction in denial rates and appeal costs
+- **User Satisfaction**: User adoption rates and satisfaction scores
+- **Compliance**: Regulatory compliance scores and audit results
+
+### ROI Metrics
+- **Cost Savings**: Reduction in operational costs and manual processes
+- **Revenue Increase**: Increase in successful claims and collections
+- **Efficiency Gains**: Improvement in processing times and accuracy
+- **Risk Reduction**: Reduction in compliance and regulatory risks
+
+## Conclusion
+
+This implementation plan provides a comprehensive roadmap for building a world-class data and AI platform for healthcare billing optimization. By following this phased approach and focusing on quality, compliance, and performance, Billigent will deliver significant value to healthcare organizations while maintaining the highest standards of security and regulatory compliance.
+
+The success of this implementation depends on strong collaboration between technical teams, business stakeholders, and end users. Regular reviews and adjustments to the plan will ensure that we stay on track and deliver maximum value to our customers.

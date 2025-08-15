@@ -1,0 +1,5 @@
+Order25	Action	POAexemptCode	Description
+29298	Revise from:	Q13.81	Rieger's anomaly
+29298	Revise to:	Q13.81	Rieger anomaly
+96745	Revise from:	Z68.54	"Body mass index [BMI] pediatric, greater than or equal to 95th percentile for age"
+96745	Revise to:	Z68.54	"Body mass index [BMI] pediatric, 95th percentile for age to less than 120% of the 95th percentile for age"

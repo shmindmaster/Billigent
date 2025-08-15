@@ -14,17 +14,16 @@
     "adls:copy": "tsx scripts/adls-ops.ts copy-verify",
     "citations:normalize": "tsx scripts/normalize-citations.ts",
     "test": "pnpm build && node scripts/run-tests.js",
-  "test:ci": "pnpm citations:normalize && pnpm test",
-  "icd10:download": "tsx scripts/icd10cm-download.ts",
-  "icd10:parse": "tsx scripts/icd10cm-parse.ts",
-  "icd10:upload": "tsx scripts/icd10cm-upload.ts",
-  "icd10:all": "pnpm icd10:download && pnpm icd10:parse && pnpm icd10:upload",
-  "icd10:typecheck": "tsc -p tsconfig.ingest.json --noEmit"
+    "test:ci": "pnpm citations:normalize && pnpm test",
+    "icd10:download": "tsx scripts/icd10cm-download.ts",
+    "icd10:parse": "tsx scripts/icd10cm-parse.ts",
+    "icd10:upload": "tsx scripts/icd10cm-upload.ts",
+    "icd10:all": "pnpm icd10:download && pnpm icd10:parse && pnpm icd10:upload",
+    "icd10:typecheck": "tsc -p tsconfig.ingest.json --noEmit"
   },
   "dependencies": {
     "@azure/cosmos": "^4.2.0",
     "@azure/identity": "^4.11.1",
-    "@azure/msal-node": "^2.6.6",
     "@azure/search-documents": "^12.1.0",
     "@azure/storage-blob": "^12.28.0",
     "@azure/storage-file-datalake": "^12.27.0",
@@ -39,10 +38,8 @@
     "winston": "^3.17.0",
     "zod": "^3.25.76",
     "csv-stringify": "^6.5.2",
-    "@sentry/node": "^8.30.0",
-    "@sentry/profiling-node": "^8.30.0",
-  "uuid": "^9.0.1",
-  "unzipper": "^0.11.4"
+    "uuid": "^9.0.1",
+    "unzipper": "^0.11.4"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",

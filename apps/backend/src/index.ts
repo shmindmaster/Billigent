@@ -1,10 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
-import { initSentry, Sentry } from "./sentry";
 // Prisma removed
 
 dotenv.config();
-initSentry();
 
 const app: express.Express = express();
 
@@ -35,25 +33,6 @@ app.use((req, res, next) => {
   res.on("close", () => clearTimeout(timeout));
   next();
 });
-
-// Attach Sentry handlers if client present (single module instance via ./sentry export)
-if (Sentry.getCurrentHub().getClient()) {
-  // Express request/tracing handlers updated for Sentry 8.x (Handlers namespace removed from types)
-  // Use the middleware functions exported directly from @sentry/node when available.
-  // Fallback to no-op if middleware signatures change.
-  try {
-    // @ts-ignore - runtime feature detection
-    const { requestHandler, tracingHandler } = Sentry as any;
-    if (typeof requestHandler === "function") {
-      app.use(requestHandler());
-    }
-    if (typeof tracingHandler === "function") {
-      app.use(tracingHandler());
-    }
-  } catch {
-    console.warn("Sentry middleware not applied");
-  }
-}
 
 const PORT = process.env.PORT || 3001;
 
@@ -144,18 +123,8 @@ app.get("/", (_req, res) => {
       citationMetrics: "/api/citation-metrics",
       denials: "/api/denials",
       fhir: "/api/fhir",
-      debugSentry: "/debug-sentry",
     },
   });
-});
-
-// Intentionally throw an error to generate a Sentry issue (remove or guard in production)
-app.get("/debug-sentry", (_req, _res, next) => {
-  try {
-    throw new Error("Manual test error for Sentry verification");
-  } catch (e) {
-    next(e);
-  }
 });
 
 // Register routes with error handling
@@ -171,20 +140,7 @@ app.use("/api/physician-queries", physicianQueriesRoutes);
 import fhirRoutes from "./routes/fhir.js";
 app.use("/api/fhir", fhirRoutes);
 
-// Sentry error handler must come after routes if initialized
-if (Sentry.getCurrentHub().getClient()) {
-  try {
-    // @ts-ignore
-    const { errorHandler } = Sentry as any;
-    if (typeof errorHandler === "function") {
-      app.use(errorHandler());
-    }
-  } catch {
-    console.warn("Sentry error handler not applied");
-  }
-}
-
-// Enhanced error handler with timeout detection
+// Simple error handler for rapid prototyping
 app.use(
   (
     err: any,
@@ -214,10 +170,7 @@ app.use(
 
     res.status(500).json({
       error: "Internal Server Error",
-      message:
-        process.env.NODE_ENV === "development"
-          ? err.message
-          : "An unexpected error occurred",
+      message: err.message || "An unexpected error occurred",
       timestamp: new Date().toISOString(),
     });
   }
