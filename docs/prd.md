@@ -160,7 +160,7 @@ To empower healthcare organizations to achieve clinical documentation excellence
 
 - **Frontend**: React 19 + TypeScript + Vite + Tailwind CSS 4.1
 - **Backend**: Node.js 22 + Express + TypeScript
-- **Database**: Azure SQL Database with Prisma ORM
+- **Database**: Azure Cosmos DB (operational) + Azure Data Lake (clinical raw)
 - **AI/ML**: Azure OpenAI (**`gpt-5-mini`** via Responses API) + Azure AI Search (for RAG)
 - **Infrastructure**: Azure Kubernetes Service (AKS) for microservices
 - **Storage**: Azure Data Lake Storage for clinical data repository

@@ -1,22 +1,22 @@
-import { PrismaClient } from '@billigent/database';
+// Migrated from Prisma to Cosmos QueryRepository (Prisma fully removed in this file)
+import QueryRepository from '../repositories/query.repository';
+import UserRepository from '../repositories/user.repository';
 import { Request, Response, Router, type Router as ExpressRouter } from 'express';
 import { ragService } from '../services/rag.service';
 
 const router: ExpressRouter = Router();
-const prisma = new PrismaClient();
+// Removed Prisma client
 
 // GET /api/queries - Get all queries
 router.get('/', async (req: Request, res: Response) => {
   try {
-    const queries = await prisma.query.findMany({
-      orderBy: { createdAt: 'desc' },
-      include: {
-        user: {
-          select: { id: true, name: true, email: true }
-        }
-      }
-    });
-    res.json(queries);
+    const { queries } = await QueryRepository.list({ limit: 100, page: 1 });
+    // Enrich with user (simple in-memory join)
+    const enriched = await Promise.all(queries.map(async q => {
+      const user = await UserRepository.get(q.userId);
+      return { ...q, user: user ? { id: user.id, name: user.name, email: user.email } : null };
+    }));
+    res.json(enriched);
   } catch (error) {
     console.error('Error fetching queries:', error);
     res.status(500).json({ error: 'Failed to fetch queries' });
@@ -33,35 +33,19 @@ router.post('/', async (req: Request, res: Response) => {
     }
 
     // Create query record
-    const query = await prisma.query.create({
-      data: {
-        question,
-        userId,
-        status: 'processing',
-        context: context || {}
-      }
-    });
+    const record = await QueryRepository.create({ question, userId, context });
 
-    // Process with RAG service
     const ragResponse = await ragService.query(question);
 
-    // Update query with results
-    const updatedQuery = await prisma.query.update({
-      where: { id: query.id },
-      data: {
-        answer: ragResponse.answer,
-        confidence: ragResponse.confidence,
-        sources: JSON.stringify(ragResponse.sources),
-        status: 'completed'
-      },
-      include: {
-        user: {
-          select: { id: true, name: true, email: true }
-        }
-      }
+    const updated = await QueryRepository.update(record.id, {
+      answer: ragResponse.answer,
+      confidence: ragResponse.confidence,
+      sources: ragResponse.sources,
+      status: 'completed'
     });
 
-    res.status(201).json(updatedQuery);
+    const user = await UserRepository.get(userId);
+    res.status(201).json({ ...updated, user: user ? { id: user.id, name: user.name, email: user.email } : null });
   } catch (error) {
     console.error('Error creating query:', error);
     res.status(500).json({ error: 'Failed to create query' });
@@ -73,14 +57,12 @@ router.get('/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     
-    const query = await prisma.query.findUnique({
-      where: { id },
-      include: {
-        user: {
-          select: { id: true, name: true, email: true }
-        }
-      }
-    });
+    const query = await QueryRepository.get(id);
+    let user: any = null;
+    if (query?.userId) {
+      const u = await UserRepository.get(query.userId);
+      if (u) user = { id: u.id, name: u.name, email: u.email };
+    }
 
     if (!query) {
       return res.status(404).json({ error: 'Query not found' });
@@ -99,22 +81,19 @@ router.put('/:id', async (req: Request, res: Response) => {
     const { id } = req.params;
     const { question, status, context } = req.body;
 
-    const query = await prisma.query.update({
-      where: { id },
-      data: {
-        ...(question && { question }),
-        ...(status && { status }),
-        ...(context && { context }),
-        updatedAt: new Date()
-      },
-      include: {
-        user: {
-          select: { id: true, name: true, email: true }
-        }
-      }
-    });
+    const updatePayload: any = { updatedAt: new Date() };
+    if (question) updatePayload.question = question;
+    if (status) updatePayload.status = status;
+    if (context) updatePayload.context = context;
 
-    res.json(query);
+    const updated = await QueryRepository.update(id, updatePayload);
+    if (!updated) return res.status(404).json({ error: 'Not found' });
+    let user: any = null;
+    if (updated.userId) {
+      const u = await UserRepository.get(updated.userId);
+      if (u) user = { id: u.id, name: u.name, email: u.email };
+    }
+    res.json({ ...updated, user });
   } catch (error) {
     console.error('Error updating query:', error);
     res.status(500).json({ error: 'Failed to update query' });
@@ -126,10 +105,7 @@ router.delete('/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     
-    await prisma.query.delete({
-      where: { id }
-    });
-
+    await QueryRepository.delete(id);
     res.status(204).send();
   } catch (error) {
     console.error('Error deleting query:', error);

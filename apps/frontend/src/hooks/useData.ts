@@ -1,6 +1,6 @@
 import api from '@/services/api.service';
 import type { CaseDetail } from '@/types/case-detail';
-import type { Case as DbCase, Denial as DbDenial, Query as DbQuery } from '@billigent/database';
+import type { Case as DbCase, Denial as DbDenial, Query as DbQuery } from '@/types/domain';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 // Dashboard aggregate placeholder types

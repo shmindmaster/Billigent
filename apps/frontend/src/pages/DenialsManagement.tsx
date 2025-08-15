@@ -26,7 +26,7 @@ import { useCases, useDenials } from '@/hooks/useData';
 import { getAnalysisResult, ResponsesAPIError, startBackgroundAnalysis } from '@/lib/responses-api';
 import { formatCurrency, formatDate } from '@/lib/utils';
 import { DenialRecord, FileUploadState } from '@/types/denials';
-import type { Denial } from '@billigent/database';
+import type { Denial } from '@/types/domain';
 import { useQueryClient } from '@tanstack/react-query';
 import { AlertCircle, Download, FileText, Upload, X } from 'lucide-react';
 import React, { useCallback, useEffect, useState } from 'react';

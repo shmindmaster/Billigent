@@ -38,7 +38,7 @@ Billigent is an enterprise-ready, Azure-native clinical intelligence cockpit des
 ### Technology Stack
 - **Frontend**: React 19 + TypeScript + Vite + Tailwind CSS
 - **Backend**: Node.js 22 + Express + TypeScript
-- **Database**: Azure SQL Database with Prisma ORM
+- **Database**: Azure Cosmos DB (Core API) for operational data + Azure Data Lake for raw clinical ingestion
 - **AI/ML**: Azure OpenAI (GPT-5-mini) + Azure AI Search
 - **Infrastructure**: Azure Kubernetes Service (AKS)
 - **Storage**: Azure Data Lake for clinical data repository
@@ -71,9 +71,6 @@ pnpm install
 cp .env.example .env.local
 # Edit .env.local with your Azure credentials
 
-# Generate Prisma client
-pnpm db:generate
-
 # Start development servers
 pnpm dev
 ```
@@ -89,8 +86,7 @@ Billigent/
 ├── apps/
 │   ├── frontend/          # React application
 │   └── backend/           # Express API server
-├── packages/
-│   └── database/          # Shared Prisma schema & client
+├── packages/             # (Former shared SQL/Prisma package removed)
 └── docs/                  # Documentation
 ```
 
@@ -115,11 +111,7 @@ pnpm test:e2e            # Run E2E tests
 pnpm lint                # Run ESLint
 pnpm type-check          # Run TypeScript checks
 
-# Database
-pnpm db:generate         # Generate Prisma client
-pnpm db:push             # Push schema changes
-pnpm db:migrate          # Run migrations
-pnpm db:seed             # Seed development data
+# (Legacy database scripts removed after migration to Cosmos DB)
 ```
 
 ## 🏥 Healthcare Compliance

@@ -1,4 +1,4 @@
-import type { Case as DbCase } from '@billigent/database';
+import type { Case as DbCase } from './domain';
 
 // Extended case interface that includes AI-generated properties
 export interface CaseDetail extends DbCase {

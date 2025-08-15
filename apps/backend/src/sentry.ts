@@ -16,8 +16,8 @@ export function initSentry() {
     release: process.env.APP_RELEASE || "local",
     integrations: [
       nodeProfilingIntegration(),
-      // Prisma v6+ automatic query span instrumentation
-      Sentry.prismaIntegration(),
+      // Removed Prisma integration after migration
+      // (previous Sentry.prismaIntegration() call deleted)
     ],
     beforeSend(event) {
       // Placeholder for future PII scrubbing if needed

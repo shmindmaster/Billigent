@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import { initSentry, Sentry } from "./sentry";
-import PrismaService from "./services/prisma.service";
+// Prisma removed
 
 dotenv.config();
 initSentry();
@@ -83,7 +83,8 @@ app.get("/ready", async (_req, res) => {
   try {
     const healthCheck = await Promise.race([
       Promise.all([
-        PrismaService.healthCheck(),
+        // Prisma removed: placeholder health result
+        Promise.resolve({ status: 'removed', timestamp: new Date().toISOString(), connected: false }),
         (async () => {
           try {
             // Use require to avoid TS module resolution complaints in NodeNext mode for optional dependency

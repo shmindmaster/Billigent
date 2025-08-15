@@ -158,7 +158,7 @@ interface ApplicationArchitecture {
 
 - **Runtime**: Node.js 22 LTS for performance and stability
 - **Framework**: Express.js with TypeScript for API development
-- **ORM**: Prisma for type-safe database access
+- **Data Access**: Custom repository layer over Azure Cosmos DB (SQL API)
 - **Validation**: Zod for runtime type validation
 - **Authentication**: Microsoft Entra ID integration
 
@@ -200,7 +200,7 @@ interface MicroserviceArchitecture {
 
 ### Database Architecture
 
-#### Primary Database: Azure SQL Database
+#### Primary Operational Store: Azure Cosmos DB
 
 ```sql
 -- Core Entity Relationships

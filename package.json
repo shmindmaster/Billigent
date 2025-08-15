@@ -19,8 +19,8 @@
     "adls:inventory": "tsx scripts/adls-ops.ts inventory",
     "adls:plan": "tsx scripts/adls-ops.ts move-plan",
     "adls:copy": "tsx scripts/adls-ops.ts copy-verify",
-    "testsprite:mcp": "testsprite-mcp-plugin",
-    "testsprite:mcp:debug": "DEBUG=* testsprite-mcp-plugin"
+    "testsprite:mcp": "pnpm dlx @testsprite/testsprite-mcp@latest",
+    "testsprite:mcp:debug": "DEBUG=* pnpm dlx @testsprite/testsprite-mcp@latest"
   },
   "dependencies": {
     "@azure/identity": "^4.11.1",
@@ -28,7 +28,6 @@
     "@azure/search-documents": "^12.1.0",
     "@azure/storage-blob": "^12.28.0",
     "@azure/storage-file-datalake": "^12.27.0",
-    "@billigent/database": "workspace:*",
     "@types/multer": "^2.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",

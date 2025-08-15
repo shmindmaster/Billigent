@@ -2,9 +2,5 @@ packages:
   - apps/*
   - packages/*
 
-onlyBuiltDependencies:
-  - '@prisma/client'
-  - '@prisma/engines'
-  - duckdb
-  - esbuild
-  - prisma
+# Purged: removed Prisma onlyBuiltDependencies block
+# (original prisma-related entries removed during Cosmos migration)

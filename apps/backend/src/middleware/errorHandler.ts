@@ -14,20 +14,7 @@ export const errorHandler = (
     timestamp: new Date().toISOString()
   });
 
-  // Prisma specific errors
-  if (err.code === 'P2002') {
-    return res.status(409).json({
-      error: 'Unique constraint violation',
-      message: 'A record with this data already exists'
-    });
-  }
-
-  if (err.code === 'P2025') {
-    return res.status(404).json({
-      error: 'Record not found',
-      message: 'The requested record does not exist'
-    });
-  }
+  // Legacy ORM-specific error branches removed after data layer migration
 
   // Validation errors
   if (err.name === 'ValidationError') {

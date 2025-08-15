@@ -1,0 +1,5 @@
+[33mcac5e06[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m security: stop tracking env files and add .env.example
+[33m4ec6ac4[m chore: enforce LF line endings via .gitattributes and stop tracking env files
+[33ma88483e[m feat: Implement Performance API Service with Axios for enhanced error handling and retry logic
+[33m3a5ae0a[m Refactor seed script to export runFullSeed function and improve execution logic; enhance e2e tests for data explorer and smoke tests; implement physician query governance routes with audit logging; add FHIR resource service for managing healthcare data; establish asynchronous denial analysis workflow; create comprehensive test plans for frontend and backend functionalities.
+[33m6481d69[m feat: update environment configurations and improve accessibility in frontend components; add CORS support and adjust test cases

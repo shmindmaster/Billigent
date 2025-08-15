@@ -14,9 +14,7 @@
     "adls:copy": "tsx scripts/adls-ops.ts copy-verify",
     "citations:normalize": "tsx scripts/normalize-citations.ts",
     "test": "pnpm build && node scripts/run-tests.js",
-    "test:ci": "pnpm citations:normalize && pnpm test",
-    "migrate": "pnpm -F @billigent/database prisma migrate deploy",
-    "seed": "pnpm -F @billigent/database prisma db seed"
+    "test:ci": "pnpm citations:normalize && pnpm test"
   },
   "dependencies": {
     "@azure/cosmos": "^4.2.0",
@@ -25,7 +23,6 @@
     "@azure/search-documents": "^12.1.0",
     "@azure/storage-blob": "^12.28.0",
     "@azure/storage-file-datalake": "^12.27.0",
-    "@billigent/database": "workspace:*",
     "@types/multer": "^2.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",
