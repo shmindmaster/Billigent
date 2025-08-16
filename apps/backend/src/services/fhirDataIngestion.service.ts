@@ -7,6 +7,7 @@ import {
 import { DefaultAzureCredential } from "@azure/identity";
 import { azureOpenAIService } from "./azureOpenAI.service";
 import { azureSearchService } from "./azureSearch.service";
+import { log } from "../utils/logger";
 
 export interface FHIRResource {
   resourceType: string;
@@ -162,7 +163,7 @@ export class FHIRDataIngestionService {
             error instanceof Error ? error.message : "Unknown error"
           }`;
           result.errors.push(errorMessage);
-          console.error(errorMessage);
+          log.error("Error processing FHIR file", { error: error instanceof Error ? error.message : error, file, errorMessage });
         }
       }
 
@@ -179,7 +180,7 @@ export class FHIRDataIngestionService {
         error instanceof Error ? error.message : "Unknown error"
       }`;
       result.errors.push(errorMessage);
-      console.error(errorMessage);
+      log.error("FHIR ingestion failed", { error: error instanceof Error ? error.message : error, errorMessage });
       result.processingTime = Date.now() - startTime;
       return result;
     }
@@ -206,9 +207,7 @@ export class FHIRDataIngestionService {
         }
       }
     } catch (error) {
-      console.warn(
-        "Could not list Data Lake paths, falling back to blob storage"
-      );
+      log.warn("Could not list Data Lake paths, falling back to blob storage", { error: error instanceof Error ? error.message : error, path });
       // Fallback to blob storage
       const containerClient = this.blobServiceClient.getContainerClient(
         this.containerName
@@ -277,7 +276,7 @@ export class FHIRDataIngestionService {
 
       throw new Error("No readable stream body");
     } catch (error) {
-      console.warn(
+      log.warn(
         `Could not read from Data Lake, falling back to blob storage: ${error}`
       );
 
@@ -345,7 +344,7 @@ export class FHIRDataIngestionService {
 
         return null;
       } catch (ndjsonError) {
-        console.error("Failed to parse FHIR content:", error);
+        log.error("Failed to parse FHIR content", { error: error instanceof Error ? error.message : error });
         return null;
       }
     }
@@ -450,7 +449,7 @@ export class FHIRDataIngestionService {
       try {
         vector = await azureOpenAIService.generateEmbeddings(content);
       } catch (error) {
-        console.warn("Failed to generate embeddings:", error);
+        log.warn("Failed to generate embeddings", { error: error instanceof Error ? error.message : error, documentId: `${resource.resourceType}/${resource.id}` });
       }
 
       return {
@@ -470,7 +469,7 @@ export class FHIRDataIngestionService {
         },
       };
     } catch (error) {
-      console.error(
+      log.error(
         "Error converting FHIR resource to clinical document:",
         error
       );
@@ -660,7 +659,7 @@ Issued: ${issued || "Unknown"}`;
           vector: document.metadata.vector,
         });
       } catch (error) {
-        console.error(`Failed to index document ${document.id}:`, error);
+        log.error(`Failed to index document ${document.id}`, { error: error instanceof Error ? error.message : error, documentId: document.id });
       }
     }
   }
@@ -702,7 +701,7 @@ Issued: ${issued || "Unknown"}`;
         container: this.containerName,
       };
     } catch (error) {
-      console.error("Failed to get ingestion stats:", error);
+      log.error("Failed to get ingestion stats", { error: error instanceof Error ? error.message : error });
       return {
         totalDocuments: 0,
         lastIngestion: "",

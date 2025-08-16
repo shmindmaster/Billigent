@@ -1,4 +1,4 @@
-import { Router, type Router as ExpressRouter } from "express";
+import { Router, type Request, type Response } from "express";
 import {
   loadNormalizedCitations,
   computeCitationCoverage,
@@ -7,8 +7,9 @@ import {
   type AuthorityTier,
 } from "../strategy/citations";
 // import { evidenceGraph } from "../strategy/evidenceGraph";
+import { log } from "../utils/logger";
 
-const router: ExpressRouter = Router();
+const router: Router = Router();
 
 /**
  * GET /api/citation-metrics/health
@@ -71,7 +72,7 @@ router.get("/health", (req, res) => {
 
     res.json(healthData);
   } catch (error) {
-    console.error("Error in citation health check:", error);
+    log.error("Error in citation health check", { error: error instanceof Error ? error.message : error });
     res.status(500).json({
       error: "Failed to retrieve citation health data",
       status: "unhealthy",
@@ -207,10 +208,10 @@ router.get("/analytics", (req, res) => {
 
     res.json(analyticsData);
   } catch (error) {
-    console.error("Error in citation analytics:", error);
+    log.error("Error in citation analytics", { error: error instanceof Error ? error.message : error });
     res.status(500).json({
       error: "Failed to retrieve citation analytics",
-      details: error instanceof Error ? error.message : "Unknown error",
+      status: "error",
     });
   }
 });
@@ -266,10 +267,10 @@ router.get("/citations", (req, res) => {
       },
     });
   } catch (error) {
-    console.error("Error in citations list:", error);
+    log.error("Error in citations list", { error: error instanceof Error ? error.message : error, query: req.query });
     res.status(500).json({
-      error: "Failed to retrieve citations",
-      details: error instanceof Error ? error.message : "Unknown error",
+      error: "Failed to retrieve citations list",
+      status: "error",
     });
   }
 });
@@ -307,10 +308,10 @@ router.get("/citations/:id", (req, res) => {
       },
     });
   } catch (error) {
-    console.error("Error in citation detail:", error);
+    log.error("Error in citation detail", { error: error instanceof Error ? error.message : error, citationId: req.params.id });
     res.status(500).json({
-      error: "Failed to retrieve citation",
-      details: error instanceof Error ? error.message : "Unknown error",
+      error: "Failed to retrieve citation detail",
+      status: "error",
     });
   }
 });
@@ -354,10 +355,10 @@ router.post("/coverage", (req, res) => {
       recommendations: generateCoverageRecommendations(coverage, sourceDetails),
     });
   } catch (error) {
-    console.error("Error in coverage analysis:", error);
+    log.error("Error in coverage analysis", { error: error instanceof Error ? error.message : error, query: req.query });
     res.status(500).json({
-      error: "Failed to analyze citation coverage",
-      details: error instanceof Error ? error.message : "Unknown error",
+      error: "Failed to retrieve coverage analysis",
+      status: "error",
     });
   }
 });
@@ -394,10 +395,10 @@ router.post("/evidence-quality", (req, res) => {
       recommendations: generateQualityRecommendations(qualityMetrics, coverage),
     });
   } catch (error) {
-    console.error("Error in evidence quality analysis:", error);
+    log.error("Error in evidence quality analysis", { error: error instanceof Error ? error.message : error, query: req.query });
     res.status(500).json({
-      error: "Failed to analyze evidence quality",
-      details: error instanceof Error ? error.message : "Unknown error",
+      error: "Failed to retrieve evidence quality analysis",
+      status: "error",
     });
   }
 });
@@ -483,10 +484,10 @@ router.get("/statistics", (req, res) => {
       },
     });
   } catch (error) {
-    console.error("Error in citation statistics:", error);
+    log.error("Error in citation statistics", { error: error instanceof Error ? error.message : error, query: req.query });
     res.status(500).json({
       error: "Failed to retrieve citation statistics",
-      details: error instanceof Error ? error.message : "Unknown error",
+      status: "error",
     });
   }
 });

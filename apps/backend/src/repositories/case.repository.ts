@@ -64,29 +64,91 @@ export class CaseRepository {
     const { page, limit, search, status, priority, assignedUserId } = params;
     const offset = (page - 1) * limit;
 
-    const query =
-      'SELECT * FROM c WHERE c.type = "case" ORDER BY c.createdAt DESC';
-    const { resources } = await container.items.query({ query }).fetchAll();
-    let records: CaseRecord[] = resources as CaseRecord[];
-    if (status) records = records.filter((r) => r.status === status);
-    if (priority) records = records.filter((r) => r.priority === priority);
-    if (assignedUserId)
-      records = records.filter((r) => r.assignedUserId === assignedUserId);
+    // Build dynamic SQL query with proper filtering
+    let query = 'SELECT * FROM c WHERE c.type = "case"';
+    const parameters: Array<{ name: string; value: string | number }> = [];
+    let parameterIndex = 1;
+
+    // Add search filter using CONTAINS for indexed search
     if (search) {
-      const s = search.toLowerCase();
-      records = records.filter((r) =>
-        [
-          r.patientFhirId,
-          r.encounterFhirId,
-          r.medicalRecordNumber,
-          r.patientName,
-          r.primaryDiagnosis,
-        ].some((v) => v && v.toLowerCase().includes(s))
-      );
+      query += ` AND (CONTAINS(c.patientFhirId, @search${parameterIndex}) OR CONTAINS(c.encounterFhirId, @search${parameterIndex}) OR CONTAINS(c.medicalRecordNumber, @search${parameterIndex}) OR CONTAINS(c.patientName, @search${parameterIndex}) OR CONTAINS(c.primaryDiagnosis, @search${parameterIndex}) OR CONTAINS(c.title, @search${parameterIndex}) OR CONTAINS(c.description, @search${parameterIndex}))`;
+      parameters.push({ name: `@search${parameterIndex}`, value: search });
+      parameterIndex++;
     }
-    const total = records.length;
-    const paged = records.slice(offset, offset + limit);
-    return { cases: paged, total };
+
+    // Add status filter
+    if (status) {
+      query += ` AND c.status = @status${parameterIndex}`;
+      parameters.push({ name: `@status${parameterIndex}`, value: status });
+      parameterIndex++;
+    }
+
+    // Add priority filter
+    if (priority) {
+      query += ` AND c.priority = @priority${parameterIndex}`;
+      parameters.push({ name: `@priority${parameterIndex}`, value: priority });
+      parameterIndex++;
+    }
+
+    // Add assigned user filter
+    if (assignedUserId) {
+      query += ` AND c.assignedUserId = @assignedUserId${parameterIndex}`;
+      parameters.push({ name: `@assignedUserId${parameterIndex}`, value: assignedUserId });
+      parameterIndex++;
+    }
+
+    // Add ordering and pagination
+    query += ' ORDER BY c.createdAt DESC OFFSET @offset LIMIT @limit';
+    parameters.push(
+      { name: '@offset', value: offset },
+      { name: '@limit', value: limit }
+    );
+
+    // Execute the optimized query
+    const { resources } = await container.items.query({ 
+      query, 
+      parameters 
+    }).fetchAll();
+
+    // Get total count for pagination (separate count query for efficiency)
+    let totalQuery = 'SELECT VALUE COUNT(1) FROM c WHERE c.type = "case"';
+    const countParameters: Array<{ name: string; value: string | number }> = [];
+    let countParamIndex = 1;
+
+    // Add the same filters to count query (excluding pagination)
+    if (search) {
+      totalQuery += ` AND (CONTAINS(c.patientFhirId, @search${countParamIndex}) OR CONTAINS(c.encounterFhirId, @search${countParamIndex}) OR CONTAINS(c.medicalRecordNumber, @search${countParamIndex}) OR CONTAINS(c.patientName, @search${countParamIndex}) OR CONTAINS(c.primaryDiagnosis, @search${countParamIndex}) OR CONTAINS(c.title, @search${countParamIndex}) OR CONTAINS(c.description, @search${countParamIndex}))`;
+      countParameters.push({ name: `@search${countParamIndex}`, value: search });
+      countParamIndex++;
+    }
+
+    if (status) {
+      totalQuery += ` AND c.status = @status${countParamIndex}`;
+      countParameters.push({ name: `@status${countParamIndex}`, value: status });
+      countParamIndex++;
+    }
+
+    if (priority) {
+      totalQuery += ` AND c.priority = @priority${countParamIndex}`;
+      countParameters.push({ name: `@priority${countParamIndex}`, value: priority });
+      countParamIndex++;
+    }
+
+    if (assignedUserId) {
+      totalQuery += ` AND c.assignedUserId = @assignedUserId${countParamIndex}`;
+      countParameters.push({ name: `@assignedUserId${countParamIndex}`, value: assignedUserId });
+      countParamIndex++;
+    }
+
+    const { resources: countResources } = await container.items.query({ 
+      query: totalQuery, 
+      parameters: countParameters 
+    }).fetchAll();
+    
+    const total = countResources[0] || 0;
+    const records: CaseRecord[] = resources as CaseRecord[];
+
+    return { cases: records, total };
   }
 
   static async get(id: string): Promise<CaseRecord | null> {

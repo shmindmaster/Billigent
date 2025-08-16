@@ -1,0 +1,52 @@
+[
+  {
+    "id": "TC001",
+    "title": "authentication system secure oauth2 integration",
+    "description": "Test the user authentication and authorization process via OAuth 2.0 integrated with Microsoft Entra ID to ensure secure login and access control."
+  },
+  {
+    "id": "TC002",
+    "title": "prebill cdi review case prioritization",
+    "description": "Verify that the pre-bill CDI review queue correctly prioritizes cases based on financial and clinical impact scores."
+  },
+  {
+    "id": "TC003",
+    "title": "denial letter upload and ocr processing",
+    "description": "Test the upload of denial letter PDFs and validate the asynchronous AI-driven OCR processing for accurate extraction of denial reasons and CARC/RARC codes."
+  },
+  {
+    "id": "TC004",
+    "title": "automated appeal letter generation",
+    "description": "Validate the AI-generated appeal letters for correct synthesis of clinical data and regulatory citations, ensuring traceable provenance and compliance with expert validation."
+  },
+  {
+    "id": "TC005",
+    "title": "appeal tracking and management dashboard",
+    "description": "Test the appeal tracking dashboard for accurate lifecycle status updates, deadline management, and success analytics."
+  },
+  {
+    "id": "TC006",
+    "title": "real time kpi monitoring dashboard",
+    "description": "Verify that the KPI monitoring dashboard displays denial rates, CDI quality scores, appeals success rates, and revenue impact metrics with data refreshing within 24 hours and UI response times under 2 seconds."
+  },
+  {
+    "id": "TC007",
+    "title": "ai powered natural language query interface",
+    "description": "Test the AI-powered natural language query interface for correct interpretation of user queries and contextual AI responses."
+  },
+  {
+    "id": "TC008",
+    "title": "multi factor authentication and role based access control enforcement",
+    "description": "Verify that multi-factor authentication and role-based access controls are enforced for all users, with audit logs capturing all data access events."
+  },
+  {
+    "id": "TC009",
+    "title": "database and system health monitoring",
+    "description": "Test the real-time database connection and system health monitoring features to ensure 99.9% uptime SLA and sub-2 second UI response times."
+  },
+  {
+    "id": "TC010",
+    "title": "automated denial letter processing accuracy",
+    "description": "Validate the automated denial letter processing using Azure AI Document Intelligence for OCR accuracy and correct denial reason extraction."
+  }
+]

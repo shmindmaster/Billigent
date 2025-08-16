@@ -2,44 +2,39 @@
  * Database routes for Azure SQL Database and Cosmos DB operations
  * Handles operational working sets, evidence bundles, attribution tracking, and collaboration
  */
-import express, { Router } from "express";
-import { CosmosClient } from "@azure/cosmos";
-import { log } from "../utils/logger.js";
+import express, { Request, Response, Router } from 'express';
+import { CosmosClient } from '@azure/cosmos';
+import { log } from '../utils/logger';
 
 const router: Router = express.Router();
 
 // Initialize Cosmos DB client
-const cosmosClient = new CosmosClient({
-  endpoint: process.env.AZURE_COSMOS_ENDPOINT || "",
-  key: process.env.AZURE_COSMOS_KEY || "",
-});
+const client = new CosmosClient(process.env.AZURE_COSMOS_ENDPOINT!);
+const database = client.database(process.env.AZURE_COSMOS_DATABASE!);
 
-const database = cosmosClient.database(process.env.AZURE_COSMOS_DATABASE || "billigent");
-
-// Initialize database schema
+// Initialize Cosmos DB schema
 async function initializeSchema() {
   try {
-    // Create containers if they don't exist
     const containers = [
-      { id: "denial_patterns", partitionKey: "/id" },
-      { id: "appeal_cases", partitionKey: "/id" },
-      { id: "kpi_metrics", partitionKey: "/category" },
-      { id: "evidence_bundles", partitionKey: "/id" },
-      { id: "attribution_tracking", partitionKey: "/bundleId" },
-      { id: "document_versions", partitionKey: "/documentId" },
+      { id: "denial_patterns", partitionKey: "/diagnosis_codes" },
+      { id: "appeal_cases", partitionKey: "/patient_id" },
+      { id: "kpi_metrics", partitionKey: "/metric_name" },
+      { id: "evidence_bundles", partitionKey: "/patient_id" },
+      { id: "attribution_tracking", partitionKey: "/document_id" },
+      { id: "document_versions", partitionKey: "/document_id" },
       { id: "collaboration_sessions", partitionKey: "/caseId" }
     ];
 
     for (const container of containers) {
       try {
         await database.containers.createIfNotExists(container);
-        console.log(`Container ${container.id} ready`);
+        log.info(`Container ${container.id} ready`);
       } catch (error) {
-        console.error(`Failed to create container ${container.id}:`, error);
+        log.error(`Failed to create container ${container.id}`, { error: error instanceof Error ? error.message : error });
       }
     }
   } catch (error) {
-    console.error("Failed to initialize Cosmos DB schema:", error);
+    log.error("Failed to initialize Cosmos DB schema", { error: error instanceof Error ? error.message : error });
     throw error;
   }
 }
@@ -51,7 +46,7 @@ async function storeDenialPattern(pattern: any) {
     const result = await container.items.upsert(pattern);
     return result.resource;
   } catch (error) {
-    console.error("Failed to store denial pattern:", error);
+    log.error("Failed to store denial pattern", { error: error instanceof Error ? error.message : error });
     throw error;
   }
 }
@@ -68,7 +63,7 @@ async function getDenialPatternsByCodes(codes: string[]) {
     const { resources } = await container.items.query(query).fetchAll();
     return resources;
   } catch (error) {
-    console.error("Failed to get denial patterns:", error);
+    log.error("Failed to get denial patterns", { error: error instanceof Error ? error.message : error, codes });
     throw error;
   }
 }
@@ -80,7 +75,7 @@ async function storeAppealCase(appealCase: any) {
     const result = await container.items.upsert(appealCase);
     return result.resource;
   } catch (error) {
-    console.error("Failed to store appeal case:", error);
+    log.error("Failed to store appeal case", { error: error instanceof Error ? error.message : error });
     throw error;
   }
 }
@@ -108,7 +103,7 @@ async function updateAppealCaseStatus(
     }
     throw new Error("Appeal case not found");
   } catch (error) {
-    console.error("Failed to update appeal case status:", error);
+    log.error("Failed to update appeal case status", { error: error instanceof Error ? error.message : error, appealId: id, status });
     throw error;
   }
 }
@@ -125,7 +120,7 @@ async function getAppealCasesByPatient(patientId: string) {
     const { resources } = await container.items.query(query).fetchAll();
     return resources;
   } catch (error) {
-    console.error("Failed to get appeal cases by patient:", error);
+    log.error("Failed to get appeal cases by patient", { error: error instanceof Error ? error.message : error, patientId });
     throw error;
   }
 }
@@ -150,7 +145,7 @@ async function calculateRealTimeKPIs() {
       lastUpdated: new Date().toISOString()
     };
   } catch (error) {
-    console.error("Failed to calculate real-time KPIs:", error);
+    log.error("Failed to calculate real-time KPIs", { error: error instanceof Error ? error.message : error });
     throw error;
   }
 }
@@ -162,7 +157,7 @@ async function storeKPIMetric(metric: any) {
     const result = await container.items.upsert(metric);
     return result.resource;
   } catch (error) {
-    console.error("Failed to store KPI metric:", error);
+    log.error("Failed to store KPI metric", { error: error instanceof Error ? error.message : error });
     throw error;
   }
 }
@@ -183,7 +178,7 @@ async function getKPIMetrics(category: string, timePeriod: string, limit: number
     const { resources } = await container.items.query(query).fetchAll();
     return resources;
   } catch (error) {
-    console.error("Failed to get KPI metrics:", error);
+    log.error("Failed to get KPI metrics", { error: error instanceof Error ? error.message : error, category, timePeriod });
     throw error;
   }
 }
@@ -195,7 +190,7 @@ async function storeEvidenceBundle(bundle: any) {
     const result = await container.items.upsert(bundle);
     return result.resource;
   } catch (error) {
-    console.error("Failed to store evidence bundle:", error);
+    log.error("Failed to store evidence bundle", { error: error instanceof Error ? error.message : error });
     throw error;
   }
 }
@@ -208,7 +203,7 @@ async function getEvidenceBundle(id: string, patientId: string) {
     const { resource } = await item.read();
     return resource;
   } catch (error) {
-    console.error("Failed to get evidence bundle:", error);
+    log.error("Failed to get evidence bundle", { error: error instanceof Error ? error.message : error, id, patientId });
     throw error;
   }
 }
@@ -225,7 +220,7 @@ async function getEvidenceBundlesByPatient(patientId: string) {
     const { resources } = await container.items.query(query).fetchAll();
     return resources;
   } catch (error) {
-    console.error("Failed to get evidence bundles by patient:", error);
+    log.error("Failed to get evidence bundles by patient", { error: error instanceof Error ? error.message : error, patientId });
     throw error;
   }
 }
@@ -237,7 +232,7 @@ async function storeAttributionTracking(attribution: any) {
     const result = await container.items.upsert(attribution);
     return result.resource;
   } catch (error) {
-    console.error("Failed to store attribution tracking:", error);
+    log.error("Failed to store attribution tracking", { error: error instanceof Error ? error.message : error });
     throw error;
   }
 }
@@ -259,7 +254,7 @@ async function updateAttributionVerification(bundleId: string, status: string, c
     }
     throw new Error("Attribution tracking not found");
   } catch (error) {
-    console.error("Failed to update attribution verification:", error);
+    log.error("Failed to update attribution verification", { error: error instanceof Error ? error.message : error, bundleId, status });
     throw error;
   }
 }
@@ -271,7 +266,7 @@ async function storeDocumentVersion(version: any) {
     const result = await container.items.upsert(version);
     return result.resource;
   } catch (error) {
-    console.error("Failed to store document version:", error);
+    log.error("Failed to store document version", { error: error instanceof Error ? error.message : error });
     throw error;
   }
 }
@@ -288,7 +283,7 @@ async function getDocumentVersions(documentId: string) {
     const { resources } = await container.items.query(query).fetchAll();
     return resources;
   } catch (error) {
-    console.error("Failed to get document versions:", error);
+    log.error("Failed to get document versions", { error: error instanceof Error ? error.message : error, documentId });
     throw error;
   }
 }
@@ -300,7 +295,7 @@ async function storeCollaborationSession(session: any) {
     const result = await container.items.upsert(session);
     return result.resource;
   } catch (error) {
-    console.error("Failed to store collaboration session:", error);
+    log.error("Failed to store collaboration session", { error: error instanceof Error ? error.message : error });
     throw error;
   }
 }
@@ -321,7 +316,7 @@ async function updateCollaborationSession(sessionId: string, updates: any) {
     }
     throw new Error("Collaboration session not found");
   } catch (error) {
-    console.error("Failed to update collaboration session:", error);
+    log.error("Failed to update collaboration session", { error: error instanceof Error ? error.message : error, sessionId });
     throw error;
   }
 }
@@ -346,7 +341,7 @@ async function addCollaborationActivity(sessionId: string, activity: any) {
     }
     throw new Error("Collaboration session not found");
   } catch (error) {
-    console.error("Failed to add collaboration activity:", error);
+    log.error("Failed to add collaboration activity", { error: error instanceof Error ? error.message : error, sessionId });
     throw error;
   }
 }
@@ -359,7 +354,7 @@ async function getCollaborationSession(sessionId: string) {
     const { resource } = await item.read();
     return resource;
   } catch (error) {
-    console.error("Failed to get collaboration session:", error);
+    log.error("Failed to get collaboration session", { error: error instanceof Error ? error.message : error, sessionId });
     throw error;
   }
 }
@@ -376,7 +371,7 @@ async function getActiveCollaborationSessions(caseId: string) {
     const { resources } = await container.items.query(query).fetchAll();
     return resources;
   } catch (error) {
-    console.error("Failed to get active collaboration sessions:", error);
+    log.error("Failed to get active collaboration sessions", { error: error instanceof Error ? error.message : error, caseId });
     throw error;
   }
 }
@@ -391,7 +386,7 @@ async function checkCosmosHealth() {
       lastCheck: new Date().toISOString()
     };
   } catch (error) {
-    console.error("Cosmos DB health check failed:", error);
+    log.error("Cosmos DB health check failed", { error: error instanceof Error ? error.message : error });
     return {
       status: "unhealthy",
       error: error instanceof Error ? error.message : "Unknown error",
@@ -411,7 +406,7 @@ async function checkOverallHealth() {
       lastCheck: new Date().toISOString()
     };
   } catch (error) {
-    console.error("Overall health check failed:", error);
+    log.error("Overall health check failed", { error: error instanceof Error ? error.message : error });
     return {
       overall: "unhealthy",
       error: error instanceof Error ? error.message : "Unknown error",
@@ -431,7 +426,7 @@ async function getConnectionStatus() {
       lastCheck: new Date().toISOString()
     };
   } catch (error) {
-    console.error("Connection status check failed:", error);
+    log.error("Connection status check failed", { error: error instanceof Error ? error.message : error });
     return {
       cosmos: "unhealthy",
       overall: "unhealthy",
@@ -447,7 +442,7 @@ async function initializeAll() {
     await initializeSchema();
     return { success: true, message: "All databases initialized successfully" };
   } catch (error) {
-    console.error("Failed to initialize all databases:", error);
+    log.error("Failed to initialize all databases", { error: error instanceof Error ? error.message : error });
     throw error;
   }
 }

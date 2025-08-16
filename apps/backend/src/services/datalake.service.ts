@@ -5,6 +5,7 @@ import {
   DataLakeServiceClient,
   StorageSharedKeyCredential,
 } from "@azure/storage-file-datalake";
+import { log } from "../utils/logger";
 
 type FhirResource = Record<string, any>;
 
@@ -30,7 +31,7 @@ export async function getClinicalEvidence(
 
   const accountKey = process.env.AZURE_STORAGE_KEY || "";
   if (!accountKey) {
-    console.warn("[DataLakeService] Disabled: missing AZURE_STORAGE_KEY");
+    log.warn("DataLakeService disabled: missing AZURE_STORAGE_KEY", { accountName, fileSystemName, baseDir });
     return [];
   }
   const credential = new StorageSharedKeyCredential(accountName, accountKey);

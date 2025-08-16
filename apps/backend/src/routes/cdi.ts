@@ -7,7 +7,6 @@
  */
 
 import express, { Router } from 'express';
-import * as winston from 'winston';
 import { ragService } from '../services/rag.service';
 import { responsesAPIService } from '../services/responses-api.service';
 import {
@@ -15,20 +14,10 @@ import {
     generateCDIManagementReport,
     performEnhancedCDIAnalysis
 } from '../workflows/cdi-enhanced.workflow';
+import CDIAnalysisRepository from '../repositories/cdiAnalysis.repository';
+import { log } from '../utils/logger';
 
 const router: Router = express.Router();
-
-// Configure logging
-const logger = winston.createLogger({
-  level: 'info',
-  format: winston.format.combine(
-    winston.format.timestamp(),
-    winston.format.json()
-  ),
-  transports: [
-    new winston.transports.Console()
-  ]
-});
 
 /**
  * POST /api/cdi/analyze/:encounterId
@@ -41,7 +30,7 @@ router.post('/analyze/:encounterId', async (req, res) => {
     const { encounterId } = req.params;
     const options = req.body || {};
 
-    logger.info('Starting enhanced CDI analysis request', { 
+    log.info('Starting enhanced CDI analysis request', { 
       encounterId, 
       options,
       userId: req.headers['x-user-id'] 
@@ -62,7 +51,7 @@ router.post('/analyze/:encounterId', async (req, res) => {
       priority: options.priority
     });
 
-    logger.info('Enhanced CDI analysis completed', {
+    log.info('Enhanced CDI analysis completed', {
       encounterId,
       analysisId: result.analysisId,
       priority: result.priority,
@@ -81,7 +70,11 @@ router.post('/analyze/:encounterId', async (req, res) => {
     });
 
   } catch (error) {
-    logger.error('Error in enhanced CDI analysis:', error);
+    log.error('Error in enhanced CDI analysis', { 
+      error: error instanceof Error ? error.message : error,
+      encounterId: req.params.encounterId,
+      options: req.body || {} 
+    });
 
     const statusCode = error instanceof Error && error.message.includes('not found') ? 404 : 500;
     
@@ -105,7 +98,7 @@ router.post('/question/:conversationId', async (req, res) => {
     const { conversationId } = req.params;
     const { question, context } = req.body;
 
-    logger.info('Processing CDI follow-up question', {
+    log.info('Processing CDI follow-up question', {
       conversationId,
       questionLength: question?.length,
       hasContext: !!context,
@@ -130,7 +123,7 @@ router.post('/question/:conversationId', async (req, res) => {
     // Ask CDI follow-up question
     const result = await askCDIFollowUpQuestion(conversationId, question, context);
 
-    logger.info('CDI follow-up question answered', {
+    log.info('CDI follow-up question answered', {
       conversationId,
       confidence: result.confidence,
       sourcesCount: result.sources.length
@@ -147,7 +140,11 @@ router.post('/question/:conversationId', async (req, res) => {
     });
 
   } catch (error) {
-    logger.error('Error answering CDI question:', error);
+    log.error('Error answering CDI question', { 
+      error: error instanceof Error ? error.message : error,
+      conversationId: req.params.conversationId,
+      question: req.body.question 
+    });
 
     res.status(500).json({
       error: 'Failed to answer CDI question',
@@ -168,7 +165,7 @@ router.post('/report', async (req, res) => {
   try {
     const { timeRange, filters } = req.body;
 
-    logger.info('Generating CDI management report', {
+    log.info('Generating CDI management report', {
       timeRange,
       filters,
       userId: req.headers['x-user-id']
@@ -205,7 +202,7 @@ router.post('/report', async (req, res) => {
       filters
     );
 
-    logger.info('CDI management report generated', {
+    log.info('CDI management report generated', {
       totalAnalyses: result.summary.totalEncounters,
       totalFinancialImpact: result.summary.totalFinancialImpact,
       topOpportunitiesCount: result.topOpportunities.length
@@ -223,7 +220,11 @@ router.post('/report', async (req, res) => {
     });
 
   } catch (error) {
-    logger.error('Error generating CDI report:', error);
+    log.error('Error generating CDI report', { 
+      error: error instanceof Error ? error.message : error,
+      timeRange: req.body.timeRange,
+      filters: req.body.filters 
+    });
 
     res.status(500).json({
       error: 'Failed to generate CDI report',
@@ -244,7 +245,7 @@ router.get('/analysis/:analysisId', async (req, res) => {
   try {
     const { analysisId } = req.params;
 
-    logger.info('Retrieving CDI analysis', {
+    log.info('Retrieving CDI analysis', {
       analysisId,
       userId: req.headers['x-user-id']
     });
@@ -257,16 +258,38 @@ router.get('/analysis/:analysisId', async (req, res) => {
       });
     }
 
-    // TODO: Implement retrieval from database
-    // For now, return a placeholder response
-    res.status(501).json({
-      error: 'Analysis retrieval not yet implemented',
-      code: 'NOT_IMPLEMENTED',
-      message: 'This endpoint will be implemented to retrieve stored CDI analyses'
+    const cdiAnalysis = await CDIAnalysisRepository.get(analysisId);
+
+    if (!cdiAnalysis) {
+      return res.status(404).json({
+        error: 'CDI analysis not found',
+        code: 'CDI_ANALYSIS_NOT_FOUND',
+        message: `CDI analysis with ID ${analysisId} not found`
+      });
+    }
+
+    log.info('CDI analysis retrieved', {
+      analysisId,
+      encounterId: cdiAnalysis.encounterId,
+      priority: cdiAnalysis.priority,
+      confidence: cdiAnalysis.confidence
+    });
+
+    res.json({
+      success: true,
+      data: cdiAnalysis,
+      meta: {
+        analysisType: 'enhanced_cdi',
+        timestamp: new Date().toISOString(),
+        processingTime: Date.now() - (req as any).startTime
+      }
     });
 
   } catch (error) {
-    logger.error('Error retrieving CDI analysis:', error);
+    log.error('Error retrieving CDI analysis', { 
+      error: error instanceof Error ? error.message : error,
+      analysisId: req.params.analysisId 
+    });
 
     res.status(500).json({
       error: 'Failed to retrieve CDI analysis',
@@ -286,7 +309,7 @@ router.post('/test-model', async (req, res) => {
   try {
     const testQuery = req.body.query || "Analyze this clinical scenario for CDI opportunities: 78-year-old male admitted with chest pain, SOB, and elevated troponins (2.5 ng/mL). Echo shows EF 35%. Patient has diabetes mellitus and hypertension. What specific ICD-10 codes and documentation improvements should be considered for optimal DRG assignment?";
 
-    logger.info('Testing new GPT-5-mini model', { query: testQuery });
+    log.info('Testing new GPT-5-mini model', { query: testQuery });
 
     // Test RAG service with new model
     const ragResponse = await ragService.query(testQuery);
@@ -324,7 +347,7 @@ router.post('/test-model', async (req, res) => {
       }
     };
 
-    logger.info('Model test completed successfully', {
+    log.info('Model test completed successfully', {
       ragConfidence: ragResponse.confidence,
       responsesAPIStatus: responsesAPIResponse.status
     });
@@ -339,7 +362,10 @@ router.post('/test-model', async (req, res) => {
     });
 
   } catch (error) {
-    logger.error('Error testing new model:', error);
+    log.error('Error testing new model', { 
+      error: error instanceof Error ? error.message : error,
+      query: req.body.query 
+    });
     res.status(500).json({
       error: 'Model test failed',
       message: error instanceof Error ? error.message : 'Unknown error',
@@ -373,12 +399,14 @@ router.get('/health', async (req, res) => {
       version: '1.0.0'
     };
 
-    logger.info('CDI health check completed', healthStatus);
+    log.info('CDI health check completed', healthStatus);
 
     res.json(healthStatus);
 
   } catch (error) {
-    logger.error('Error in CDI health check:', error);
+    log.error('Error in CDI health check', { 
+      error: error instanceof Error ? error.message : error 
+    });
 
     res.status(503).json({
       status: 'unhealthy',
@@ -401,7 +429,7 @@ router.use((req, res, next) => {
  * Error handling middleware for CDI routes
  */
 router.use((error: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
-  logger.error('Unhandled error in CDI routes:', {
+  log.error('Unhandled error in CDI routes:', {
     error: error.message,
     stack: error.stack,
     path: req.path,

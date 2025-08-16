@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { SearchClient, AzureKeyCredential } from "@azure/search-documents";
 import { DefaultAzureCredential } from "@azure/identity";
+import { log } from "../utils/logger";
 
 export interface SearchDocument {
   id: string;
@@ -71,17 +72,13 @@ export class AzureSearchService {
     this.useManagedIdentity = !this.apiKey;
 
     if (!this.endpoint) {
-      console.warn(
-        "Azure Search endpoint not configured: service will run in fallback mode"
-      );
+      log.warn("Azure Search endpoint not configured: service will run in fallback mode", { endpoint: !!this.endpoint });
       this.isEnabled = false;
       return;
     }
 
     if (!this.apiKey && !this.useManagedIdentity) {
-      console.warn(
-        "Azure Search authentication not configured: service will run in fallback mode"
-      );
+      log.warn("Azure Search authentication not configured: service will run in fallback mode", { hasApiKey: !!this.apiKey, useManagedIdentity: this.useManagedIdentity });
       this.isEnabled = false;
       return;
     }
@@ -104,9 +101,9 @@ export class AzureSearchService {
       }
 
       this.isEnabled = true;
-      console.log("Azure Search service initialized successfully");
+      log.info("Azure Search service initialized successfully", { endpoint: this.endpoint, indexName: this.indexName, useManagedIdentity: this.useManagedIdentity });
     } catch (error) {
-      console.warn("Failed to initialize Azure Search service:", error);
+      log.warn("Failed to initialize Azure Search service", { error: error instanceof Error ? error.message : error, endpoint: this.endpoint, indexName: this.indexName });
       this.isEnabled = false;
     }
   }
@@ -128,7 +125,7 @@ export class AzureSearchService {
     const startTime = Date.now();
 
     if (!this.isServiceEnabled()) {
-      console.log("Using fallback mode for search");
+      log.info("Using fallback mode for search", { query: query.query, top: query.top });
       return this.generateFallbackSearchResult(query, context);
     }
 
@@ -208,10 +205,7 @@ export class AzureSearchService {
         },
       };
     } catch (error) {
-      console.error(
-        "Error performing search with Azure Search, falling back to fallback mode:",
-        error
-      );
+      log.error("Search operation failed", { error: error instanceof Error ? error.message : error, query: query.query, context });
       return this.generateFallbackSearchResult(query, context);
     }
   }
@@ -412,36 +406,38 @@ export class AzureSearchService {
   /**
    * Index a document
    */
-  async indexDocument(document: SearchDocument): Promise<void> {
+  async indexDocument(document: SearchDocument): Promise<{ success: boolean; documentId: string; error?: string }> {
     if (!this.isServiceEnabled()) {
-      console.log("Using fallback mode for document indexing");
-      return;
+      log.info("Using fallback mode for document indexing", { documentId: document.id });
+      return { success: true, documentId: document.id };
     }
 
     try {
       await this.searchClient!.uploadDocuments([document]);
-      console.log(`Document indexed successfully: ${document.id}`);
+      log.info("Document indexed successfully", { documentId: document.id, indexName: this.indexName });
+      return { success: true, documentId: document.id };
     } catch (error) {
-      console.error("Error indexing document:", error);
-      throw error;
+      log.error("Error indexing document", { error: error instanceof Error ? error.message : error, documentId: document.id, indexName: this.indexName });
+      return { success: false, documentId: document.id, error: error instanceof Error ? error.message : error };
     }
   }
 
   /**
    * Delete a document
    */
-  async deleteDocument(documentId: string): Promise<void> {
+  async deleteDocument(documentId: string): Promise<{ success: boolean; documentId: string; error?: string }> {
     if (!this.isServiceEnabled()) {
-      console.log("Using fallback mode for document deletion");
-      return;
+      log.info("Using fallback mode for document deletion", { documentId });
+      return { success: true, documentId };
     }
 
     try {
       await this.searchClient!.deleteDocuments([{ id: documentId }]);
-      console.log(`Document deleted successfully: ${documentId}`);
+      log.info("Document deleted successfully", { documentId, indexName: this.indexName });
+      return { success: true, documentId };
     } catch (error) {
-      console.error("Error deleting document:", error);
-      throw error;
+      log.error("Error deleting document", { error: error instanceof Error ? error.message : error, documentId, indexName: this.indexName });
+      return { success: false, documentId, error: error instanceof Error ? error.message : error };
     }
   }
 
@@ -450,7 +446,7 @@ export class AzureSearchService {
    */
   async getDocument(documentId: string): Promise<SearchDocument | null> {
     if (!this.isServiceEnabled()) {
-      console.log("Using fallback mode for document retrieval");
+      log.info("Using fallback mode for document retrieval", { documentId });
       return null;
     }
 
@@ -458,7 +454,7 @@ export class AzureSearchService {
       const result = await this.searchClient!.getDocument(documentId);
       return result as SearchDocument;
     } catch (error) {
-      console.error("Error retrieving document:", error);
+      log.error("Error retrieving document", { error: error instanceof Error ? error.message : error, documentId, indexName: this.indexName });
       return null;
     }
   }

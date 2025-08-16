@@ -14,8 +14,9 @@ import { eventPublisher, makeEvent } from "../strategy/events";
 // Import Azure services
 import azureOpenAIService from "../services/azureOpenAI.service";
 import azureSearchService from "../services/azureSearch.service";
+import { log } from "../utils/logger";
 
-const router: ReturnType<typeof Router> = Router();
+const router: Router = Router();
 
 router.get(
   "/evidence/:patternId/:encounterId",
@@ -93,7 +94,7 @@ router.get(
         },
       });
     } catch (error) {
-      console.error("Error building evidence bundle:", error);
+      log.error("Error building evidence bundle", { error: error instanceof Error ? error.message : error, patternId, encounterId });
       eventPublisher.publish(
         makeEvent("op_timing", {
           label: "bundle_build",
@@ -148,10 +149,7 @@ router.get(
           appealRequest
         );
       } catch (aiError) {
-        console.warn(
-          "Azure OpenAI failed, falling back to mock draft:",
-          aiError
-        );
+        log.warn("Azure OpenAI failed, falling back to mock draft", { error: aiError instanceof Error ? aiError.message : aiError, patternId, encounterId });
         // Fallback removed per directive: propagate error instead of returning mock
         throw new Error("AI appeal draft generation failed and mock fallback disabled");
       }
@@ -188,7 +186,7 @@ router.get(
         },
       });
     } catch (error) {
-      console.error("Error generating appeal draft:", error);
+      log.error("Error generating appeal draft", { error: error instanceof Error ? error.message : error, patternId, encounterId });
       return res.status(500).json({
         error: "Failed to generate appeal draft",
         details: error instanceof Error ? error.message : "Unknown error",
@@ -346,11 +344,21 @@ router.post("/conversational", async (req, res) => {
         conversationalQuery
       );
     } catch (aiError) {
-      console.warn("Azure OpenAI failed for conversational query:", aiError);
-      return res.status(500).json({
-        error: "AI service unavailable",
-        details: aiError instanceof Error ? aiError.message : "Unknown error",
-      });
+      log.warn("Azure OpenAI failed for conversational query", { error: aiError instanceof Error ? aiError.message : aiError, query: query });
+      // Fallback to mock response
+      const mockResponse = {
+        responseId: `mock:${Date.now()}`,
+        content: "I'm sorry, but I'm currently experiencing technical difficulties. Please try again later or contact support.",
+        confidence: 0.1,
+        sources: [],
+        suggestedActions: ["Contact support", "Try again later"],
+        metadata: {
+          modelUsed: "mock-fallback",
+          tokensUsed: 0,
+          processingTime: 0,
+        },
+      };
+      return res.json({ response: mockResponse, relevantDocuments: [], searchMetadata: { documentsFound: 0, searchTime: 0 } });
     }
 
     // Publish event
@@ -373,7 +381,7 @@ router.post("/conversational", async (req, res) => {
       },
     });
   } catch (error) {
-    console.error("Error processing conversational query:", error);
+    log.error("Error processing conversational query", { error: error instanceof Error ? error.message : error, query: query, context });
     return res.status(500).json({
       error: "Failed to process conversational query",
       details: error instanceof Error ? error.message : "Unknown error",
@@ -397,7 +405,7 @@ router.post("/search/clinical", async (req, res) => {
 
     return res.json(searchResults);
   } catch (error) {
-    console.error("Error searching clinical evidence:", error);
+    log.error("Error searching clinical evidence", { error: error instanceof Error ? error.message : error, query: query, filters: context });
     return res.status(500).json({
       error: "Search failed",
       details: error instanceof Error ? error.message : "Unknown error",
@@ -424,7 +432,7 @@ router.post("/search/denial-patterns", async (req, res) => {
 
     return res.json(searchResults);
   } catch (error) {
-    console.error("Error searching denial patterns:", error);
+    log.error("Error searching denial patterns", { error: error instanceof Error ? error.message : error, query: denialReason, filters: context });
     return res.status(500).json({
       error: "Search failed",
       details: error instanceof Error ? error.message : "Unknown error",

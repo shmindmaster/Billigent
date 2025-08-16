@@ -4,6 +4,7 @@ import { Request, Response, Router } from 'express';
 import { getGroundedIcdResponse } from '../services/rag.service';
 import { getConversationalResponse } from '../services/responses-api.service';
 import { runPreBillAnalysisForEncounter } from '../workflows/pre-bill.workflow';
+import { log } from '../utils/logger';
 
 const router: Router = Router();
 
@@ -26,14 +27,13 @@ router.get('/', async (req: Request, res: Response) => {
 
     const pageNum = parseInt(page as string, 10);
     const limitNum = parseInt(limit as string, 10);
-    // Filtering handled client-side in repository (future: move to server-side queries)
+    // Filtering handled server-side in repository with proper Cosmos DB indexed search
     if (status || priority || assignedUserId || search) {
-      // Placeholder: raw filtering handled within CaseRepository.list() call parameters
+      // All filtering now handled efficiently in CaseRepository.list() using Cosmos DB SQL queries
     }
 
     if (search) {
-      // Legacy relational search patterns; repository will perform simple substring checks
-      // TODO: implement proper indexed search in Cosmos
+      // Server-side indexed search implemented in CaseRepository using CONTAINS queries
     }
 
     const { cases, total } = await CaseRepository.list({
@@ -55,7 +55,7 @@ router.get('/', async (req: Request, res: Response) => {
       }
     });
   } catch (error: any) {
-    console.error('Error fetching cases:', error);
+    log.error('Error fetching cases', { error: error instanceof Error ? error.message : error, query: req.query });
     res.status(500).json({ error: 'Failed to fetch cases', message: error?.message, ...(process.env.NODE_ENV !== 'production' && { stack: error?.stack }) });
   }
 });
@@ -89,7 +89,7 @@ router.post('/:caseId/conversation', async (req: Request, res: Response) => {
     const cont = await getConversationalResponse(prompt, previousResponseId);
     return res.json(cont);
   } catch (error: any) {
-    console.error('Case conversation error:', error);
+    log.error('Case conversation error', { error: error instanceof Error ? error.message : error, caseId: req.params.caseId, prompt: req.body?.prompt });
     res.status(500).json({ error: error?.message || 'Case conversation failed' });
   }
 });
@@ -107,7 +107,7 @@ router.get('/:id', async (req: Request, res: Response) => {
 
     res.json(caseRecord);
   } catch (error) {
-    console.error('Error fetching case:', error);
+    log.error('Error fetching case', { error: error instanceof Error ? error.message : error, caseId: req.params.id });
     res.status(500).json({ error: 'Failed to fetch case' });
   }
 });
@@ -167,7 +167,7 @@ router.post('/', async (req: Request, res: Response) => {
 
     res.status(201).json(newCase);
   } catch (error) {
-    console.error('Error creating case:', error);
+    log.error('Error creating case', { error: error instanceof Error ? error.message : error, body: req.body });
     res.status(500).json({ error: 'Failed to create case' });
   }
 });
@@ -185,7 +185,7 @@ router.put('/:id', async (req: Request, res: Response) => {
     if (!updatedCase) return res.status(404).json({ error: 'Case not found' });
     res.json(updatedCase);
   } catch (error) {
-    console.error('Error updating case:', error);
+    log.error('Error updating case', { error: error instanceof Error ? error.message : error, caseId: req.params.id });
     res.status(500).json({ error: 'Failed to update case' });
   }
 });
@@ -199,7 +199,7 @@ router.delete('/:id', async (req: Request, res: Response) => {
     if (!deleted) return res.status(404).json({ error: 'Case not found' });
     res.json({ message: 'Case deleted successfully' });
   } catch (error) {
-    console.error('Error deleting case:', error);
+    log.error('Error deleting case', { error: error instanceof Error ? error.message : error, caseId: req.params.id });
     res.status(500).json({ error: 'Failed to delete case' });
   }
 });
@@ -226,7 +226,7 @@ router.post('/:id/enrich/prebill', async (req: Request, res: Response) => {
     
     return res.json({ caseId: id, analysis, status: 'completed' });
   } catch (error: any) {
-    console.error('Error running pre-bill enrichment:', error);
+    log.error('Error running pre-bill enrichment', { error: error instanceof Error ? error.message : error, caseId: req.params.id });
     return res.status(500).json({ error: error?.message || 'Failed to run pre-bill enrichment' });
   }
 });
@@ -277,7 +277,7 @@ router.post('/enrich/prebill/bulk', async (req: Request, res: Response) => {
     const failed = results.length - succeeded;
     return res.json({ total: results.length, succeeded, failed, results });
   } catch (error: any) {
-    console.error('Error running bulk pre-bill enrichment:', error);
+    log.error('Error running bulk pre-bill enrichment', { error: error instanceof Error ? error.message : error });
     return res.status(500).json({ error: error?.message || 'Failed to run bulk pre-bill enrichment' });
   }
 });

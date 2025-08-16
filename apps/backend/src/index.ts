@@ -40,6 +40,14 @@ const PORT = process.env.PORT || 3001;
 // Import citation routes
 import citationMetricsRoutes from "./routes/citationMetrics.js";
 import denialsRoutes from "./routes/denials.js";
+// CDI routes
+import cdiRoutes from "./routes/cdi.js";
+// Dev RAG (speed over security) - DO NOT ENABLE IN PROD
+import devRagRoutes from "./routes/devRag.js";
+// Physician Queries
+import physicianQueriesRoutes from "./routes/physicianQueries.js";
+// FHIR routes
+import fhirRoutes from "./routes/fhir.js";
 
 // Health check with timeout
 app.get("/health", async (_req, res) => {
@@ -138,14 +146,12 @@ app.get("/", (_req, res) => {
 // Register routes with error handling
 app.use("/api/citation-metrics", citationMetricsRoutes);
 app.use("/api/denials", denialsRoutes);
+app.use("/api/cdi", cdiRoutes);
 // Dev RAG (speed over security) - DO NOT ENABLE IN PROD
-import devRagRoutes from "./routes/devRag.js";
 app.use("/api/dev-rag", devRagRoutes);
 // Physician Queries
-import physicianQueriesRoutes from "./routes/physicianQueries.js";
 app.use("/api/physician-queries", physicianQueriesRoutes);
 // FHIR routes
-import fhirRoutes from "./routes/fhir.js";
 app.use("/api/fhir", fhirRoutes);
 
 // Simple error handler for rapid prototyping

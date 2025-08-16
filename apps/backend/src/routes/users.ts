@@ -1,8 +1,9 @@
 // Using Cosmos-backed UserRepository
-import { Request, Response, Router, type Router as ExpressRouter } from 'express';
-
+import { Request, Response, Router } from 'express';
 import UserRepository from '../repositories/user.repository';
-const router: ExpressRouter = Router();
+import { log } from '../utils/logger';
+
+const router: Router = Router();
 
 // GET /api/users - Get all users
 router.get('/', async (req: Request, res: Response) => {
@@ -10,7 +11,7 @@ router.get('/', async (req: Request, res: Response) => {
     const { users } = await UserRepository.list({});
     res.json(users);
   } catch (error) {
-    console.error('Error fetching users:', error);
+    log.error('Error fetching users', { error: error instanceof Error ? error.message : error });
     res.status(500).json({ error: 'Failed to fetch users' });
   }
 });
@@ -27,7 +28,7 @@ router.post('/', async (req: Request, res: Response) => {
     const user = await UserRepository.create({ name, email, role });
     res.status(201).json(user);
   } catch (error) {
-    console.error('Error creating user:', error);
+    log.error('Error creating user', { error: error instanceof Error ? error.message : error, userData: { name: req.body.name, email: req.body.email, role: req.body.role } });
     res.status(500).json({ error: 'Failed to create user' });
   }
 });
@@ -45,7 +46,7 @@ router.get('/:id', async (req: Request, res: Response) => {
 
     res.json(user);
   } catch (error) {
-    console.error('Error fetching user:', error);
+    log.error('Error fetching user', { error: error instanceof Error ? error.message : error, userId: req.params.id });
     res.status(500).json({ error: 'Failed to fetch user' });
   }
 });
@@ -60,7 +61,7 @@ router.put('/:id', async (req: Request, res: Response) => {
     if (!user) return res.status(404).json({ error: 'User not found' });
     res.json(user);
   } catch (error) {
-    console.error('Error updating user:', error);
+    log.error('Error updating user', { error: error instanceof Error ? error.message : error, userId: req.params.id, updateData: { name: req.body.name, email: req.body.email, role: req.body.role } });
     res.status(500).json({ error: 'Failed to update user' });
   }
 });
@@ -74,7 +75,7 @@ router.delete('/:id', async (req: Request, res: Response) => {
     if (!ok) return res.status(404).json({ error: 'User not found' });
     res.status(204).send();
   } catch (error) {
-    console.error('Error deleting user:', error);
+    log.error('Error deleting user', { error: error instanceof Error ? error.message : error, userId: req.params.id });
     res.status(500).json({ error: 'Failed to delete user' });
   }
 });

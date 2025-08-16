@@ -1,5 +1,6 @@
 import OpenAI from "openai";
 import { DefaultAzureCredential } from "@azure/identity";
+import { log } from "../utils/logger";
 
 export interface AppealDraftRequest {
   encounterId: string;
@@ -63,7 +64,7 @@ export class AzureOpenAIService {
       process.env.AZURE_OPENAI_EMBEDDING_DEPLOYMENT || "text-embedding-3-small";
 
     if (!endpoint || !apiKey) {
-      console.warn("Azure OpenAI configuration missing: service will run in fallback mode");
+      log.warn("Azure OpenAI configuration missing: service will run in fallback mode", { endpoint: !!endpoint, apiKey: !!apiKey });
       this.isEnabled = false;
       this.modelName = "fallback";
       this.embeddingModel = "fallback";
@@ -81,9 +82,9 @@ export class AzureOpenAIService {
       this.modelName = deploymentName;
       this.embeddingModel = embeddingDeployment;
       this.isEnabled = true;
-      console.log("Azure OpenAI service initialized successfully");
+      log.info("Azure OpenAI service initialized successfully", { modelName: deploymentName, embeddingModel: embeddingDeployment });
     } catch (error) {
-      console.warn("Failed to initialize Azure OpenAI service:", error);
+      log.warn("Failed to initialize Azure OpenAI service", { error: error instanceof Error ? error.message : error });
       this.isEnabled = false;
       this.modelName = "fallback";
       this.embeddingModel = "fallback";
@@ -106,7 +107,7 @@ export class AzureOpenAIService {
     const startTime = Date.now();
 
     if (!this.isServiceEnabled()) {
-      console.log("Using fallback mode for appeal draft generation");
+      log.info("Using fallback mode for appeal draft generation", { requestId: request.encounterId });
       return this.generateFallbackAppealDraft(request);
     }
 
@@ -161,7 +162,7 @@ export class AzureOpenAIService {
         },
       };
     } catch (error) {
-      console.error("Error generating appeal draft with OpenAI, falling back to fallback mode:", error);
+      log.error("Error generating appeal draft with OpenAI, falling back to fallback mode", { error: error instanceof Error ? error.message : error, requestId: request.encounterId });
       return this.generateFallbackAppealDraft(request);
     }
   }
@@ -223,7 +224,7 @@ export class AzureOpenAIService {
     const startTime = Date.now();
 
     if (!this.isServiceEnabled()) {
-      console.log("Using fallback mode for conversational response");
+      log.info("Using fallback mode for conversational response", { query: query.query });
       return this.generateFallbackConversationalResponse(query);
     }
 
@@ -270,7 +271,7 @@ export class AzureOpenAIService {
         },
       };
     } catch (error) {
-      console.error("Error generating conversational response with OpenAI, falling back to fallback mode:", error);
+      log.error("Error generating conversational response with OpenAI, falling back to fallback mode", { error: error instanceof Error ? error.message : error, query: query.query });
       return this.generateFallbackConversationalResponse(query);
     }
   }
@@ -314,7 +315,7 @@ export class AzureOpenAIService {
    */
   async generateEmbeddings(text: string): Promise<number[]> {
     if (!this.isServiceEnabled()) {
-      console.log("Using fallback mode for embeddings generation");
+      log.info("Using fallback mode for embeddings generation", { textLength: text.length });
       return this.generateFallbackEmbeddings(text);
     }
 
@@ -327,7 +328,7 @@ export class AzureOpenAIService {
 
       return response.data[0]?.embedding || [];
     } catch (error) {
-      console.error("Error generating embeddings with OpenAI, falling back to fallback mode:", error);
+      log.error("Error generating embeddings with OpenAI, falling back to fallback mode", { error: error instanceof Error ? error.message : error, textLength: text.length });
       return this.generateFallbackEmbeddings(text);
     }
   }
@@ -336,7 +337,7 @@ export class AzureOpenAIService {
    * Generate fallback embeddings without AI
    */
   private generateFallbackEmbeddings(text: string): number[] {
-    console.log("Generating fallback embeddings for:", text);
+    log.info("Generating fallback embeddings for", { textLength: text.length, model: "fallback" });
     // In a real application, you would use a different embedding model or generate a dummy embedding
     // For now, returning a dummy array to avoid breaking the flow
     return Array(1536).fill(0); // Assuming a common embedding dimension like 1536

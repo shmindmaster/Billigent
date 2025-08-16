@@ -1,5 +1,6 @@
 import { config } from 'dotenv';
 import OpenAI from 'openai';
+import { log } from '../utils/logger';
 
 config();
 
@@ -42,7 +43,7 @@ export class ResponsesAPIService {
 
     // Validate required configuration (soft fail in dev)
     if (!this.config.endpoint || !this.config.apiKey) {
-      console.warn('[ResponsesAPIService] Disabled: missing Azure OpenAI env vars');
+      log.warn('ResponsesAPIService disabled: missing Azure OpenAI env vars', { hasEndpoint: !!this.config.endpoint, hasApiKey: !!this.config.apiKey });
       // @ts-expect-error lazy init when available
       this.client = undefined;
       return;
@@ -103,7 +104,7 @@ export class ResponsesAPIService {
         timestamp: new Date().toISOString()
       };
     } catch (error) {
-      console.error('ResponsesAPIService error:', error);
+      log.error('ResponsesAPIService error', { error: error instanceof Error ? error.message : error, query });
       return {
         id: crypto.randomUUID(),
         status: 'error',
@@ -131,7 +132,7 @@ export async function getConversationalResponse(query: string, context?: Convers
     const response = await responsesAPIService.submitQuery(query, context);
     return response.data?.answer || response.error || 'No response available';
   } catch (error) {
-    console.error('Error getting conversational response:', error);
+    log.error('Error getting conversational response', { error: error instanceof Error ? error.message : error, query });
     return 'Error generating response';
   }
 }
@@ -149,10 +150,10 @@ export async function startBackgroundAnalysisFromBase64(
   denialId: string,
   analysisType: 'denial_analysis' | 'appeal_generation' = 'denial_analysis'
 ): Promise<string> {
+  // Generate task ID for tracking
+  const taskId = crypto.randomUUID();
+  
   try {
-    // Generate task ID for tracking
-    const taskId = crypto.randomUUID();
-    
     // Start background processing (simulated for now)
     setTimeout(async () => {
       try {
@@ -182,7 +183,7 @@ export async function startBackgroundAnalysisFromBase64(
           completedAt: new Date().toISOString()
         });
       } catch (error) {
-        console.error('Background analysis error:', error);
+        log.error('Background analysis error', { error: error instanceof Error ? error.message : error, queryId: taskId, analysisType });
         analysisResults.set(taskId, {
           status: 'failed',
           error: error instanceof Error ? error.message : 'Analysis failed',
@@ -193,7 +194,7 @@ export async function startBackgroundAnalysisFromBase64(
 
     return taskId;
   } catch (error) {
-    console.error('Error starting background analysis:', error);
+    log.error('Error starting background analysis', { error: error instanceof Error ? error.message : error, queryId: taskId, analysisType });
     throw error;
   }
 }
